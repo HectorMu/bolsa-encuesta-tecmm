@@ -60,38 +60,38 @@ controller.Login = async (req, res) => {
   }
 };
 
-controller.Signup = async (req, res) => {
-  const { username, firstname, lastname, email, password } = req.body;
-  try {
-    const results = await connection.query(
-      `select * from users where email = ? `,
-      [email]
-    );
-    if (results.length > 0)
-      return res.json({
-        status: false,
-        statusText:
-          "An account is using this email already, try another email.",
-      });
+// controller.Signup = async (req, res) => {
+//   const { username, firstname, lastname, email, password } = req.body;
+//   try {
+//     const results = await connection.query(
+//       `select * from users where email = ? `,
+//       [email]
+//     );
+//     if (results.length > 0)
+//       return res.json({
+//         status: false,
+//         statusText:
+//           "An account is using this email already, try another email.",
+//       });
 
-    const newUser = {
-      username,
-      firstname,
-      lastname,
-      email,
-      password,
-    };
+//     const newUser = {
+//       username,
+//       firstname,
+//       lastname,
+//       email,
+//       password,
+//     };
 
-    newUser.password = await helpers.encryptPassword(newUser.password);
-    await connection.query("insert into users set ?", [newUser]);
-    res.status(200).json({ status: true, statusText: "userRegistered" });
-  } catch (error) {
-    console.log(error);
-    res
-      .status(200)
-      .json({ status: false, statusText: "Something wen't wrong." });
-  }
-};
+//     newUser.password = await helpers.encryptPassword(newUser.password);
+//     await connection.query("insert into users set ?", [newUser]);
+//     res.status(200).json({ status: true, statusText: "userRegistered" });
+//   } catch (error) {
+//     console.log(error);
+//     res
+//       .status(200)
+//       .json({ status: false, statusText: "Something wen't wrong." });
+//   }
+// };
 
 controller.sendRecoverEmail = async (req, res) => {
   const { email } = req.body;

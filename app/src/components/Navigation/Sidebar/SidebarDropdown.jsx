@@ -11,8 +11,9 @@ const SidebarDropdown = ({
 
   return (
     <li className="nav-item">
-      <button
-        className="btn nav-link collapsed"
+      <a
+        className="nav-link collapsed"
+        style={{ cursor: "pointer" }}
         data-toggle="collapse"
         data-target={`#collapse${SectionName.replace(" ", "-")}${title.replace(
           " ",
@@ -21,9 +22,9 @@ const SidebarDropdown = ({
         aria-expanded="true"
         aria-controls="collapsePages"
       >
-        <i className={icon}></i>
+        <i className={icon + " text-muted"}></i>
         <span>{title}</span>
-      </button>
+      </a>
       <div
         id={`collapse${SectionName.replace(" ", "-")}${title.replace(
           " ",

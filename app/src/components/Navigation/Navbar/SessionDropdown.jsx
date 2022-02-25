@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const SessionDropdown = () => {
   return (
     <>
@@ -13,40 +14,24 @@ const SessionDropdown = () => {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <span className="mr-2 d-none d-lg-inline text-gray-600 small">
+          <span className="mr-2 d-none d-lg-inline text-white small">
             Douglas McGee
           </span>
-          <img
-            className="img-profile rounded-circle"
-            src="img/undraw_profile.svg"
-          />
+          <i className="fas fa-user text-white"></i>
         </a>
         <div
           className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
           aria-labelledby="userDropdown"
         >
-          <a className="dropdown-item" href="#xd">
+          <Link className="dropdown-item" to="/profile">
             <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
             Profile
-          </a>
-          <a className="dropdown-item" href="#xd">
-            <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-            Settings
-          </a>
-          <a className="dropdown-item" href="#xd">
-            <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-            Activity Log
-          </a>
+          </Link>
           <div className="dropdown-divider"></div>
-          <a
-            className="dropdown-item"
-            href="#xd"
-            data-toggle="modal"
-            data-target="#logoutModal"
-          >
+          <button className="dropdown-item">
             <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
             Logout
-          </a>
+          </button>
         </div>
       </li>
     </>

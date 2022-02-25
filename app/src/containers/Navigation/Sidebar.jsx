@@ -12,13 +12,13 @@ const Sidebar = ({
 }) => {
   return (
     <ul
-      className={`navbar-nav bg-gradient-primary sidebar sidebar-dark accordion ${
+      className={`navbar-nav bg-sidebar sidebar sidebar-light accordion ${
         sidebarToggled ? `toggled` : ``
       }`}
       id="accordionSidebar"
     >
       <NavLink
-        className="sidebar-brand d-flex align-items-center justify-content-center"
+        className="sidebar-brand d-flex bg-green align-items-center justify-content-center text-white"
         to="/"
       >
         <div className="sidebar-brand-icon rotate-n-15">
@@ -75,7 +75,10 @@ const Sidebar = ({
         </SidebarDropdown>
       </Section>
 
-      <div className="text-center d-none d-md-inline">
+      <div
+        style={{ color: "black", fontSize: "16px" }}
+        className="text-center d-none d-md-inline"
+      >
         <button
           onClick={handleSidebarToggle}
           className="rounded-circle border-0"

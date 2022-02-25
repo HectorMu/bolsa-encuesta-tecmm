@@ -1,3 +1,14 @@
+:root {
+  --green: #2ea19a;
+  --gren-dark: #298a83;
+  --info: #3ec288;
+  --info-dark: #329b6d;
+  --purple: #9317c2;
+  --purple-dark: #660c86;
+  --danger: #dc3545;
+  --danger-dark: #961f2b;
+}
+
 /* Animated label input */
 .formgroup__animated {
   position: relative;
@@ -33,9 +44,11 @@
 .formgroup__animated input:hover {
   border-color: none;
 }
+
 .formgroup__animated input:focus {
   border-color: #0d6efd;
 }
+
 .formgroup__animated label {
   position: absolute;
   left: 1rem;
@@ -50,6 +63,13 @@
 .input__animated:not(:placeholder-shown) {
   background-color: white;
 }
+.input__animated.invalid {
+  border-color: #fd0d85;
+}
+.input__animated.invalid:focus {
+  border-color: #fd0d85;
+}
+
 .input__animated:focus ~ .animated__label,
 .input__animated:not(:placeholder-shown).input__animated:not(:focus)
   ~ .animated__label {
@@ -69,13 +89,169 @@ input:-webkit-autofill:active {
 }
 /* Animated label input */
 
+.fixed-right-button-container {
+  pointer-events: none;
+  z-index: 999;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  position: fixed;
+  top: 0%;
+  height: 100vh;
+  width: 100px;
+  right: 0%;
+  padding-bottom: 8vh;
+}
+.fixed-right-button-container a {
+  pointer-events: all;
+}
+.fixed-right-button-container button {
+  pointer-events: all;
+}
+.fixed-left-button-container {
+  pointer-events: none;
+  z-index: 999;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  position: fixed;
+  top: 0%;
+  height: 100vh;
+  width: 100px;
+  left: 0%;
+  padding-bottom: 8vh;
+}
+.fixed-left-button-container a {
+  pointer-events: all;
+}
+.fixed-left-button-container button {
+  pointer-events: all;
+}
+
+.bg-green {
+  background-color: var(--green);
+}
+
+.bg-sidebar {
+  background-color: #e6e7e9;
+}
+
+.nav-item .nav-link {
+  color: rgb(2, 2, 2) !important;
+  font-weight: 400 !important;
+}
+
+.nav-item .nav-link:hover {
+  color: gray !important;
+}
+
+.sidebar-light #sidebarToggle {
+  background-color: var(--green);
+}
+.sidebar-light #sidebarToggle:hover {
+  background-color: var(--green);
+}
+
+.sidebar-light #sidebarToggle::after {
+  color: white;
+}
+
+.text-primary {
+  color: var(--purple) !important;
+}
+.dropdown-item:focus {
+  background-color: var(--puple);
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: var(--purple);
+  border-color: var(--purple);
+}
+.btn-primary:hover {
+  background-color: var(--purple-dark);
+  border-color: var(--purple-dark);
+}
+
+.btn-primary:active {
+  background-color: var(--purple-dark) !important;
+  border-color: var(--purple-dark) !important;
+}
+
+.btn-green {
+  background-color: var(--green);
+  border: var(--green);
+  color: white;
+}
+
+.btn-green:hover {
+  background-color: var(--green-dark);
+  border: var(--green-dark);
+}
+
+.btn-info {
+  color: #fff;
+  background-color: var(--info);
+  border-color: var(--info);
+}
+
+.btn-info:hover {
+  background-color: var(--info-dark);
+  border-color: var(--info-dark);
+}
+
+.btn-info:active {
+  background-color: var(--info-dark);
+  border-color: var(--info-dark);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  border-color: var(--danger);
+}
+.btn-danger:hover {
+  background-color: var(--danger-dark);
+  border-color: var(--danger-dark);
+}
+.btn-danger:active {
+  background-color: var(--danger-dark);
+  border-color: var(--danger-dark);
+}
+
+.topbar #sidebarToggleTop {
+  color: white;
+  background-color: var(--purple) !important;
+  border-radius: 3px !important;
+  outline: 0px;
+  border: none;
+}
+.topbar #sidebarToggleTop:hover {
+  background-color: #34cac0 !important;
+}
+.topbar #sidebarToggleTop:active {
+  border: none !important;
+}
+
+.text-black {
+  color: black;
+}
+
 .nav-link.active {
-  color: #fff !important;
-  font-weight: bolder;
+  color: var(--green) !important;
+  font-weight: bolder !important;
   pointer-events: none;
 }
 
 .nav-link.active > i {
-  color: #fff !important;
-  font-weight: bolder;
+  color: var(--green) !important;
+}
+
+.collapse-item {
+  color: black !important;
+  font-weight: 400 !important;
+}
+
+.collapse-item.active {
+  color: var(--green) !important;
+  font-weight: 800 !important;
 }
