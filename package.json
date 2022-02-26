@@ -2,7 +2,7 @@
   "name": "bolsa-encuesta-tecmm",
   "version": "1.0.0",
   "description": "",
-  "workspaces":[
+  "workspaces": [
     "app",
     "api"
   ],
@@ -16,5 +16,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express-validator": "^6.14.0"
+  }
 }

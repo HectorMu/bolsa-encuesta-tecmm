@@ -1,0 +1,30 @@
+### Get all user list
+GET http://localhost:4000/api/users/getall
+
+### Get one user
+GET http://localhost:4000/api/users/getone/2
+
+### Save an user
+POST http://localhost:4000/api/users/save
+Content-Type: application/json
+
+{
+    "correo":"dasd@gmail.com",
+    "clave":"12345",
+    "fk_rol": 2
+}
+
+### Update an user
+PUT http://localhost:4000/api/users/update/3
+Content-Type: application/json
+
+{
+  
+    "clave":"123456sdas78fsfd"
+
+}
+
+### Delete an user
+DELETE http://localhost:4000/api/users/delete/3
+Content-Type: application/json
+
