@@ -12,8 +12,20 @@ insert into roles values
 (null, 'Egresado'),
 (null, 'Empresa');
 
+
+create table usuarios(
+    id int primary key auto_increment,
+    correo varchar(100),
+    clave varchar(300),
+    fk_rol int,
+    FOREIGN KEY (fk_rol) REFERENCES roles (id),
+    creadoEn varchar(50),
+    actualizadoEn varchar(50)
+);
+
 create table perfil_empresa(
     id int primary key,
+    fk_usuario  INT,
     nombreComercial varchar(100),
     calle varchar(50),
     nEmpresa int,
@@ -24,11 +36,13 @@ create table perfil_empresa(
     telefono varchar(100),
     tipo_empresa varchar(50),
     tamaño varchar(100),
-    actividad_economica varchar(200)
+    actividad_economica varchar(200),
+    FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 create table perfil_egresado(
     nControl int primary key,
+    fk_usuario  INT,
     nombreCompleto varchar(100),
     fechaNacimiento varchar(100),
     curp varchar(100),
@@ -45,20 +59,11 @@ create table perfil_egresado(
     carrera varchar(50),
     fechaEgreso varchar(50),
     idiomaExtranjero JSON,
-    paquetesComputacionales TEXT
+    paquetesComputacionales TEXT,
+    FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
-create table usuarios(
-    id int primary key auto_increment,
-    correo varchar(100),
-    clave varchar(300),
-    fk_rol int,
-    fk_perfilempresa int,
-    fk_perfilegresado int,
-    foreign key(fk_rol)references roles(id),
-    foreign key(fk_perfilempresa)references perfil_empresa(id),
-    foreign key(fk_perfilegresado)references perfil_egresado(nControl)
-);
+
 
 create table seccion_dos(
     id int primary key auto_increment,
@@ -69,7 +74,7 @@ create table seccion_dos(
     pregunta_cuatro varchar(50),
     pregunta_cinco varchar(50),
     pregunta_seis varchar(50),
-    foreign key(fk_egresado)references usuarios(fk_perfilegresado)
+    foreign key(fk_egresado)references usuarios(id)
 );
 
 create table seccion_tres(
@@ -91,7 +96,7 @@ create table seccion_tres(
     pregunta_doce JSON,
     pregunta_trece varchar(100),
     pregunta_catorce varchar(100),
-    foreign key(fk_egresado)references usuarios(fk_perfilegresado)
+    foreign key(fk_egresado)references usuarios(id)
 );
 
 create table seccion_cuatro(
@@ -101,7 +106,7 @@ create table seccion_cuatro(
     pregunta_dos varchar(50),
     pregunta_tres varchar(50),
     pregunta_cuatro JSON,
-    foreign key(fk_egresado)references usuarios(fk_perfilegresado)
+    foreign key(fk_egresado)references usuarios(id)
 );
 
 create table seccion_cinco(
@@ -109,7 +114,7 @@ create table seccion_cinco(
     fk_egresado int,
     pregunta_uno JSON,
     pregunta_dos JSON,
-    foreign key(fk_egresado)references usuarios(fk_perfilegresado)
+    foreign key(fk_egresado)references usuarios(id)
 );
 
 create table seccion_seis(
@@ -118,7 +123,7 @@ create table seccion_seis(
     pregunta_uno JSON,
     pregunta_dos JSON,
     pregunta_tres varchar(50),
-    foreign key(fk_egresado)references usuarios(fk_perfilegresado)
+    foreign key(fk_egresado)references usuarios(id)
 );
 
 create table seccion_siete(
@@ -126,7 +131,7 @@ create table seccion_siete(
     fk_egresado int,
     comentarios_sugerencias TEXT,
     fecha_realizacion varchar(100),
-    foreign key(fk_egresado)references usuarios(fk_perfilegresado)
+    foreign key(fk_egresado)references usuarios(id)
 );
 
 create table seccion_b(
@@ -137,7 +142,7 @@ create table seccion_b(
     pregunta_siete JSON,
     pregunta_ocho JSON,
     pregunta_nueve TEXT,
-    foreign key(fk_empresa)references usuarios(fk_perfilempresa)
+    foreign key(fk_empresa)references usuarios(id)
 );
 
 create table seccion_c(
@@ -147,7 +152,7 @@ create table seccion_c(
     pregunta_once JSON,
     pregunta_doce TEXT,
     pregunta_catorce TEXT,
-    foreign key(fk_empresa)references usuarios(fk_perfilempresa)
+    foreign key(fk_empresa)references usuarios(id)
 );
 
 create table publicacion_bolsa(
@@ -163,7 +168,7 @@ create table publicacion_bolsa(
     solicitudes_revisadas int,
     solicitudes_sinrevisar int,
     status varchar(50),
-    foreign key(fk_empresa)references usuarios(fk_perfilempresa)
+    foreign key(fk_empresa)references usuarios(id)
 );
 
 create table solicitud_bolsa(
@@ -173,5 +178,5 @@ create table solicitud_bolsa(
     status varchar(50),
     curriculum varchar(200),
     foreign key(fk_vacante)references publicacion_bolsa(folio),
-    foreign key(fk_egresado)references usuarios(fk_perfilegresado)
+    foreign key(fk_egresado)references usuarios(id)
 );

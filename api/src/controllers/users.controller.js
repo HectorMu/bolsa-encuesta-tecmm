@@ -1,10 +1,13 @@
-const Template = require("../models/Template");
+const User = require("../models/User");
+const helpers = require("../helpers/helpers");
+const { validationResult } = require("express-validator");
+
 const controller = {};
 
 controller.GetAll = async (req, res) => {
   try {
-    const data = await Template.List();
-    res.json(data);
+    const users = await User.List();
+    res.json(users);
   } catch ({ code, sqlMessage }) {
     console.log("Error code: " + code, "\nSqlMessage: " + sqlMessage);
     res.json({
@@ -16,8 +19,8 @@ controller.GetAll = async (req, res) => {
 };
 controller.GetOne = async (req, res) => {
   try {
-    const data = await Template.FindOne(req.params.id);
-    res.json(data);
+    const user = await User.FindOne(req.params.id);
+    res.json(user);
   } catch ({ code, sqlMessage }) {
     console.log("Error code: " + code, "\nSqlMessage: " + sqlMessage);
     res.json({
@@ -29,12 +32,20 @@ controller.GetOne = async (req, res) => {
 };
 
 controller.Save = async (req, res) => {
+  const user = req.body;
   try {
-    const results = await Template.Create(req.body);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    //Hasheamos la clave para no guardarla en texto plano
+    user.clave = await helpers.encryptPassword(user.clave);
+
+    const results = await User.Create(user);
     console.log(results);
     res.json({
       status: true,
-      statusText: "Elemento guardado correctamente.",
+      statusText: "Usuario guardado correctamente.",
       dbresponse: results,
     });
   } catch ({ code, sqlMessage }) {
@@ -48,18 +59,22 @@ controller.Save = async (req, res) => {
 };
 
 controller.Update = async (req, res) => {
+  const user = req.body;
   try {
-    const results = await Template.Update(req.body, req.params.id);
-    console.log(results);
+    if (user.clave) {
+      user.clave = await helpers.encryptPassword(user.clave);
+    }
+    const results = await User.Update(req.body, req.params.id);
     if (results.affectedRows === 0) {
       return res.status(400).json({
         status: false,
-        statusText: "No existe ese elemento.",
+        statusText: "No existe ese usuario.",
       });
     }
-    res.status(200).json({
+    console.log(results);
+    res.json({
       status: true,
-      statusText: "Elemento editado correctamente.",
+      statusText: "Usuario editado correctamente.",
       dbresponse: results,
     });
   } catch ({ code, sqlMessage }) {
@@ -74,17 +89,17 @@ controller.Update = async (req, res) => {
 
 controller.Delete = async (req, res) => {
   try {
-    const results = await Template.Delete(req.params.id);
+    const results = await User.Delete(req.params.id);
     console.log(results);
     if (results.affectedRows === 0) {
       return res.status(400).json({
         status: false,
-        statusText: "No existe ese elemento.",
+        statusText: "No existe ese usuario.",
       });
     }
-    res.json({
+    res.status(200).json({
       status: true,
-      statusText: "Elemento eliminado correctamente.",
+      statusText: "Usuario eliminado correctamente.",
       dbresponse: results,
     });
   } catch ({ code, sqlMessage }) {
