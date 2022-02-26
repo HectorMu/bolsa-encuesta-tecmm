@@ -9,22 +9,20 @@ POST http://localhost:4000/api/users/save
 Content-Type: application/json
 
 {
-    "correo":"dasd@gmail.com",
+    "correo":"admin009@gmail.com",
     "clave":"12345",
-    "fk_rol": 2
+    "fk_rol": 1
 }
 
 ### Update an user
-PUT http://localhost:4000/api/users/update/3
+PUT http://localhost:4000/api/users/update/2
 Content-Type: application/json
 
 {
-  
-    "clave":"123456sdas78fsfd"
-
+    "correo":"sdas@gmail.com"
 }
 
 ### Delete an user
-DELETE http://localhost:4000/api/users/delete/3
+DELETE http://localhost:4000/api/users/delete/5
 Content-Type: application/json
 

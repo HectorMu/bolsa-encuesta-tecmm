@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const helpers = require("../helpers/helpers");
+const { validationResult } = require("express-validator");
 
 const controller = {};
 
@@ -33,6 +34,10 @@ controller.GetOne = async (req, res) => {
 controller.Save = async (req, res) => {
   const user = req.body;
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     //Hasheamos la clave para no guardarla en texto plano
     user.clave = await helpers.encryptPassword(user.clave);
 
@@ -60,6 +65,12 @@ controller.Update = async (req, res) => {
       user.clave = await helpers.encryptPassword(user.clave);
     }
     const results = await User.Update(req.body, req.params.id);
+    if (results.affectedRows === 0) {
+      return res.status(400).json({
+        status: false,
+        statusText: "No existe ese usuario.",
+      });
+    }
     console.log(results);
     res.json({
       status: true,
@@ -80,7 +91,13 @@ controller.Delete = async (req, res) => {
   try {
     const results = await User.Delete(req.params.id);
     console.log(results);
-    res.json({
+    if (results.affectedRows === 0) {
+      return res.status(400).json({
+        status: false,
+        statusText: "No existe ese usuario.",
+      });
+    }
+    res.status(200).json({
       status: true,
       statusText: "Usuario eliminado correctamente.",
       dbresponse: results,

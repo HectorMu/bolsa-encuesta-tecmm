@@ -51,7 +51,13 @@ controller.Update = async (req, res) => {
   try {
     const results = await Template.Update(req.body, req.params.id);
     console.log(results);
-    res.json({
+    if (results.affectedRows === 0) {
+      return res.status(400).json({
+        status: false,
+        statusText: "No existe ese elemento.",
+      });
+    }
+    res.status(200).json({
       status: true,
       statusText: "Elemento editado correctamente.",
       dbresponse: results,
@@ -70,6 +76,12 @@ controller.Delete = async (req, res) => {
   try {
     const results = await Template.Delete(req.params.id);
     console.log(results);
+    if (results.affectedRows === 0) {
+      return res.status(400).json({
+        status: false,
+        statusText: "No existe ese elemento.",
+      });
+    }
     res.json({
       status: true,
       statusText: "Elemento eliminado correctamente.",

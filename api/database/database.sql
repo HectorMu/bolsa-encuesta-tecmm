@@ -18,7 +18,7 @@ create table usuarios(
     correo varchar(100),
     clave varchar(300),
     fk_rol int,
-    FOREIGN KEY (fk_rol) REFERENCES roles (id)
+    FOREIGN KEY (fk_rol) REFERENCES roles (id),
     creadoEn varchar(50),
     actualizadoEn varchar(50)
 );
