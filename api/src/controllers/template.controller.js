@@ -51,6 +51,8 @@ controller.Update = async (req, res) => {
   try {
     const results = await Template.Update(req.body, req.params.id);
     console.log(results);
+
+    //Si no exite ninguna fila afectada, significa que ese registro no existe.
     if (results.affectedRows === 0) {
       return res.status(400).json({
         status: false,
@@ -76,6 +78,7 @@ controller.Delete = async (req, res) => {
   try {
     const results = await Template.Delete(req.params.id);
     console.log(results);
+    //Si no exite ninguna fila afectada, significa que ese registro no existe.
     if (results.affectedRows === 0) {
       return res.status(400).json({
         status: false,

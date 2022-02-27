@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const connection = require("../database");
 
 const helpers = {};
 
@@ -16,9 +17,9 @@ helpers.matchPassword = async (password, savedPassword) => {
   }
 };
 
-helpers.checkDuplicity = async (table, field, value) => {
+helpers.isDuplicated = async (table, field, value) => {
   try {
-    const results = await pool.query(
+    const results = await connection.query(
       `select * from ${table} where ${field} = ?`,
       [value]
     );
@@ -27,9 +28,9 @@ helpers.checkDuplicity = async (table, field, value) => {
     console.log(error);
   }
 };
-helpers.checkDuplicityOnUpdate = async (table, field, currentId, newValue) => {
+helpers.isDuplicatedOnUpdate = async (table, field, currentId, newValue) => {
   try {
-    const results = await pool.query(
+    const results = await connection.query(
       `select * from ${table} where ${field} = ? && id != ${currentId}`,
       [newValue]
     );
@@ -37,6 +38,27 @@ helpers.checkDuplicityOnUpdate = async (table, field, currentId, newValue) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+helpers.isEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
+helpers.hasEmptyPropierty = (object) => {
+  for (var key in object) {
+    if (object[key] === "" || object[key] === null || object[key] === undefined)
+      return {
+        result: true,
+        expected: `Se esperaba un valor para '${key}'`,
+      };
+  }
+  return {
+    result: false,
+  };
 };
 
 module.exports = helpers;
