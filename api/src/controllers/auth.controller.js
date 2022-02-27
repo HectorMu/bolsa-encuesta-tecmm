@@ -5,36 +5,34 @@ const nodeMailer = require("../lib/nodemailer");
 const controller = {};
 
 controller.Login = async (req, res) => {
-  const { email, password } = req.body;
+  const { correo, clave } = req.body;
   try {
     const results = await connection.query(
-      `select * from users where email = ? `,
-      [email]
+      `select * from usuarios where correo = ? `,
+      [correo]
     );
     if (!results.length > 0)
       return res.status(400).json({
         status: false,
-        statusText: "Wrong credentials, check it out.",
+        statusText: "Revisa tus credenciales.",
       });
 
     const user = results[0];
     const passwordComparationResult = await helpers.matchPassword(
-      password,
-      user.password
+      clave,
+      user.clave
     );
 
     if (!passwordComparationResult)
       return res.status(400).json({
         status: false,
-        statusText: "Wrong credentials, check it out.",
+        statusText: "Revisa tus credenciales.",
       });
 
     const serializedUser = {
       id: user.id,
-      username: user.username,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
+      correo: user.correo,
+      fk_rol: user.fk_rol,
     };
 
     const AccessToken = jwt.sign(
@@ -49,7 +47,7 @@ controller.Login = async (req, res) => {
 
     res.status(200).json({
       status: true,
-      statusText: "User logged",
+      statusText: "Usuario identificado.",
       SessionData,
     });
   } catch (error) {
@@ -59,39 +57,6 @@ controller.Login = async (req, res) => {
       .json({ status: false, statusText: "Something wen't wrong." });
   }
 };
-
-// controller.Signup = async (req, res) => {
-//   const { username, firstname, lastname, email, password } = req.body;
-//   try {
-//     const results = await connection.query(
-//       `select * from users where email = ? `,
-//       [email]
-//     );
-//     if (results.length > 0)
-//       return res.json({
-//         status: false,
-//         statusText:
-//           "An account is using this email already, try another email.",
-//       });
-
-//     const newUser = {
-//       username,
-//       firstname,
-//       lastname,
-//       email,
-//       password,
-//     };
-
-//     newUser.password = await helpers.encryptPassword(newUser.password);
-//     await connection.query("insert into users set ?", [newUser]);
-//     res.status(200).json({ status: true, statusText: "userRegistered" });
-//   } catch (error) {
-//     console.log(error);
-//     res
-//       .status(200)
-//       .json({ status: false, statusText: "Something wen't wrong." });
-//   }
-// };
 
 controller.sendRecoverEmail = async (req, res) => {
   const { email } = req.body;

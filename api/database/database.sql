@@ -59,6 +59,7 @@ create table perfil_egresado(
     carrera varchar(50),
     fechaEgreso varchar(50),
     idiomaExtranjero JSON,
+    titulado varchar(10),
     paquetesComputacionales TEXT,
     FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );

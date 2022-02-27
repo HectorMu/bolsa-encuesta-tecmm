@@ -46,7 +46,7 @@
 }
 
 .formgroup__animated input:focus {
-  border-color: #0d6efd;
+  border-color: var(--purple);
 }
 
 .formgroup__animated label {
@@ -61,7 +61,7 @@
 }
 
 .input__animated:not(:placeholder-shown) {
-  background-color: white;
+  background-color: transparent;
 }
 .input__animated.invalid {
   border-color: #fd0d85;
@@ -76,7 +76,7 @@
   top: -0.5rem;
   font-size: 0.9rem;
   color: black;
-  background-color: white;
+  background-color: #fff;
   left: 0.8rem;
 }
 
@@ -156,9 +156,22 @@ input:-webkit-autofill:active {
   color: white;
 }
 
+.text-purple {
+  color: var(--purple) !important;
+}
+
+.text-purple:hover {
+  color: var(--purple-dark) !important;
+}
+
 .text-primary {
   color: var(--purple) !important;
 }
+
+.text-primary a:hover {
+  color: var(--purple-dark) !important;
+}
+
 .dropdown-item:focus {
   background-color: var(--puple);
 }
