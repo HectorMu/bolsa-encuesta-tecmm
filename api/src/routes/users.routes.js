@@ -5,10 +5,10 @@ const validations = require("../middlewares/validations/users.validations");
 
 const controller = require("../controllers/users.controller");
 
-router.get("/users/getall", controller.GetAll);
-router.get("/users/getone/:id", controller.GetOne);
-router.post("/users/save", validations, controller.Save);
-router.delete("/users/delete/:id", validations, controller.Delete);
-router.put("/users/update/:id", controller.Update);
+router.get("/users/getall", verifyToken, controller.GetAll);
+router.get("/users/getone/:id", verifyToken, controller.GetOne);
+router.post("/users/save", verifyToken, validations, controller.Save);
+router.delete("/users/delete/:id", verifyToken, validations, controller.Delete);
+router.put("/users/update/:id", verifyToken, controller.Update);
 
 module.exports = router;

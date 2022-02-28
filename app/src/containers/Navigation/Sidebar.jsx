@@ -6,10 +6,17 @@ import SidebarDropdown from "../../components/Navigation/Sidebar/SidebarDropdown
 import Section from "../../components/Navigation/Sidebar/Section";
 import SidebarLink from "../../components/Navigation/Sidebar/SidebarLink";
 //Importing hooks
+import useSession from "../../hooks/useSession";
 
 const Sidebar = ({
   sidebarControl: { sidebarToggled, handleSidebarToggle },
 }) => {
+  const { user } = useSession();
+
+  //si no hay un usuario autenticado no dibujamos la sidebar
+  if (user === null) {
+    return <></>;
+  }
   return (
     <ul
       className={`navbar-nav bg-sidebar sidebar sidebar-light accordion ${
@@ -35,42 +42,39 @@ const Sidebar = ({
         </NavLink>
       </li>
       <hr className="sidebar-divider" />
-      <SidebarLink sidebarToggled={sidebarToggled} />
 
-      <Section SectionName="Section 1">
-        <SidebarDropdown title="Option 1" icon="fas fa-times">
-          <NavLink className="collapse-item" to="/url">
-            Element A
-          </NavLink>
-          <NavLink className="collapse-item" to="/url">
-            Element B
-          </NavLink>
-        </SidebarDropdown>
-        <SidebarDropdown title="Option 2" icon="fas fa-cog">
-          <NavLink className="collapse-item" to="/url">
-            Element A
-          </NavLink>
-          <NavLink className="collapse-item" to="/url">
-            Element B
-          </NavLink>
-        </SidebarDropdown>
+      <Section SectionName="Egresados">
+        <SidebarLink
+          icon="fas fa-poll-h"
+          title="Encuesta"
+          to="/graduated/survey"
+        />
+        <SidebarLink
+          icon="fas fa-briefcase"
+          title="Bolsa de trabajo"
+          to="/graduated/jobbank"
+        />
+      </Section>
+      <Section SectionName="Empresa">
+        <SidebarLink
+          icon="fas fa-poll-h"
+          title="Encuesta"
+          to="/company/survey"
+        />
+        <SidebarLink
+          icon="fas fa-briefcase"
+          title="Bolsa de trabajo"
+          to="/company/jobbank"
+        />
       </Section>
 
-      <Section SectionName="Section 2">
-        <SidebarDropdown title="Option 1" icon="fas fa-times">
-          <NavLink className="collapse-item" to="/url">
-            Element A
+      <Section SectionName="Administrador">
+        <SidebarDropdown title="Usuarios" icon="fas fa-users">
+          <NavLink className="collapse-item" to="/users/graduated">
+            Egresados
           </NavLink>
-          <NavLink className="collapse-item" to="/url">
-            Element B
-          </NavLink>
-        </SidebarDropdown>
-        <SidebarDropdown title="Option 2" icon="fas fa-cog">
-          <NavLink className="collapse-item" to="/url">
-            Element A
-          </NavLink>
-          <NavLink className="collapse-item" to="/url">
-            Element B
+          <NavLink className="collapse-item" to="/users/companies">
+            Empresas
           </NavLink>
         </SidebarDropdown>
       </Section>

@@ -1,5 +1,7 @@
 //Dev
-export const baseUrl = "http://localhost:4000/api",
+const baseUrl = "http://192.168.1.77:4000/api";
 
-//production 
+//production
 // export const baseUrl = "http://domain.com/api",
+
+export default baseUrl;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
-import { Session } from "../../context/SessionContextProvider";
+import { Session } from "../../context/SessionProvider";
 
 const IsLoggedIn = ({ view: View }) => {
   const { user } = useContext(Session);

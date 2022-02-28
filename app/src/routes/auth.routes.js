@@ -1,14 +1,10 @@
 import Login from "../pages/Auth/Login";
-import SignUp from "../pages/Auth/SignUp";
+import IsAlreadyLogged from "../components/Authentication/IsAlreadyLogged";
 
 const Routes = [
   {
     path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <SignUp />,
+    element: <IsAlreadyLogged view={Login} />,
   },
 ];
 

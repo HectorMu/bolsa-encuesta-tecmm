@@ -5,8 +5,6 @@ const controller = require("../controllers/auth.controller");
 
 router.post("/login", controller.Login);
 
-//router.post("/signup", controller.Signup);
-
 router.post("/recover-password/", controller.sendRecoverEmail);
 
 router.get(

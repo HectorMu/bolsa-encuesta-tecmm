@@ -21,26 +21,31 @@ import Layout from "./containers/Layout/Layout";
 //Importing all routes
 import AppRoutes from "./routes";
 
+//importing session context
+import SessionProvider from "./context/SessionProvider";
+
 function App() {
   //Initializing AOS for animations
   useEffect(() => {
     Aos.init();
   }, []);
   return (
-    <Layout>
-      <Routes>
-        {/* Protected Routes to use after */}
-        {/* <Route path="/" element={<IsAlreadyLogged view={Index} />} /> */}
-        {/* <Route path="/home" element={<IsLoggedIn view={Home} />} /> */}
+    <SessionProvider>
+      <Layout>
+        <Routes>
+          {/* Protected Routes to use after */}
+          {/* <Route path="/" element={<IsAlreadyLogged view={Index} />} /> */}
+          {/* <Route path="/home" element={<IsLoggedIn view={Home} />} /> */}
 
-        {/* All app routes */}
-        {AppRoutes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
-        {/* /All app routes */}
-      </Routes>
-      <Toaster />
-    </Layout>
+          {/* All app routes */}
+          {AppRoutes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+          {/* /All app routes */}
+        </Routes>
+        <Toaster />
+      </Layout>
+    </SessionProvider>
   );
 }
 

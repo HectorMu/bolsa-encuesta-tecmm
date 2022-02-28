@@ -1,11 +1,11 @@
 import React from "react";
-import MessagesBadge from "../../components/Navigation/Navbar/MessagesBadge";
-import NavbarSearchInput from "../../components/Navigation/Navbar/NavbarSearchInput";
+//Importando componentes de navegacion
 import NotificationsBadge from "../../components/Navigation/Navbar/NotificationsBadge";
-import SearchDropdown from "../../components/Navigation/Navbar/SearchDropdown";
 import SessionDropdown from "../../components/Navigation/Navbar/SessionDropdown";
+import useSession from "../../hooks/useSession";
 
 const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
+  const { user, setUser } = useSession();
   return (
     <nav className="navbar navbar-expand navbar-light bg-green topbar mb-4 static-top shadow">
       <button
@@ -15,13 +15,14 @@ const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
       >
         <i className="fa fa-bars"></i>
       </button>
-      {/* <NavbarSearchInput /> */}
 
       <ul className="navbar-nav ml-auto">
-        {/* <SearchDropdown />
-        <MessagesBadge /> */}
-        <NotificationsBadge />
-        <SessionDropdown />
+        {user !== null ? (
+          <>
+            <NotificationsBadge />
+            <SessionDropdown user={user} setUser={setUser} />
+          </>
+        ) : null}
       </ul>
     </nav>
   );

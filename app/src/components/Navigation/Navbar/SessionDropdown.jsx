@@ -1,6 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
-const SessionDropdown = () => {
+import { Link, useNavigate } from "react-router-dom";
+//Importando servicios
+import Auth from "../../../services/Auth";
+
+const SessionDropdown = ({ user, setUser }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setUser(null);
+    Auth.Logout();
+    navigate("/login");
+  };
   return (
     <>
       <div className="topbar-divider d-none d-sm-block"></div>
@@ -15,7 +25,7 @@ const SessionDropdown = () => {
           aria-expanded="false"
         >
           <span className="mr-2 d-none d-lg-inline text-white small">
-            Douglas McGee
+            {user.correo}
           </span>
           <i className="fas fa-user text-white"></i>
         </a>
@@ -25,12 +35,12 @@ const SessionDropdown = () => {
         >
           <Link className="dropdown-item" to="/profile">
             <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-            Profile
+            Perfil
           </Link>
           <div className="dropdown-divider"></div>
-          <button className="dropdown-item">
+          <button onClick={handleLogout} className="dropdown-item">
             <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-            Logout
+            Cerrar sesión
           </button>
         </div>
       </li>
