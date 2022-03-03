@@ -5,12 +5,12 @@ controller.GetAll = async (req, res) => {
   try {
     const data = await Template.List();
     res.json(data);
-  } catch ({ code, sqlMessage }) {
-    console.log("Error code: " + code, "\nSqlMessage: " + sqlMessage);
+  } catch (error) {
+    console.log("Error" + error);
     res.json({
       status: false,
       statusText: "Algo fue mal, contácta al area de sistemas.",
-      error: { code, sqlMessage },
+      error,
     });
   }
 };
@@ -18,12 +18,12 @@ controller.GetOne = async (req, res) => {
   try {
     const data = await Template.FindOne(req.params.id);
     res.json(data);
-  } catch ({ code, sqlMessage }) {
-    console.log("Error code: " + code, "\nSqlMessage: " + sqlMessage);
+  } catch (error) {
+    console.log("Error" + error);
     res.json({
       status: false,
       statusText: "Algo fue mal, contácta al area de sistemas.",
-      error: { code, sqlMessage },
+      error,
     });
   }
 };
@@ -37,12 +37,12 @@ controller.Save = async (req, res) => {
       statusText: "Elemento guardado correctamente.",
       dbresponse: results,
     });
-  } catch ({ code, sqlMessage }) {
-    console.log("Error code: " + code, "\nSqlMessage: " + sqlMessage);
+  } catch (error) {
+    console.log("Error" + error);
     res.json({
       status: false,
       statusText: "Algo fue mal, contácta al area de sistemas.",
-      error: { code, sqlMessage },
+      error,
     });
   }
 };
@@ -64,12 +64,12 @@ controller.Update = async (req, res) => {
       statusText: "Elemento editado correctamente.",
       dbresponse: results,
     });
-  } catch ({ code, sqlMessage }) {
-    console.log("Error code: " + code, "\nSqlMessage: " + sqlMessage);
+  } catch (error) {
+    console.log("Error" + error);
     res.json({
       status: false,
       statusText: "Algo fue mal, contácta al area de sistemas.",
-      error: { code, sqlMessage },
+      error,
     });
   }
 };
@@ -90,12 +90,12 @@ controller.Delete = async (req, res) => {
       statusText: "Elemento eliminado correctamente.",
       dbresponse: results,
     });
-  } catch ({ code, sqlMessage }) {
-    console.log("Error code: " + code, "\nSqlMessage: " + sqlMessage);
+  } catch (error) {
+    console.log("Error" + error);
     res.json({
       status: false,
       statusText: "Algo fue mal, contácta al area de sistemas.",
-      error: { code, sqlMessage },
+      error,
     });
   }
 };

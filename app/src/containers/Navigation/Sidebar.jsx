@@ -31,53 +31,75 @@ const Sidebar = ({
         <div className="sidebar-brand-icon rotate-n-15">
           <i className="fas fa-laugh-wink"></i>
         </div>
-        <div className="sidebar-brand-text mx-3">Brand</div>
+        <div className="sidebar-brand-text mx-3">TECMM</div>
       </NavLink>
 
       <hr className="sidebar-divider my-0"></hr>
       <li className="nav-item">
         <NavLink className="nav-link" to="/">
-          <i className="fas fa-fw fa-tachometer-alt"></i>
+          <i className="fas fa-fw fa-tachometer-alt text-muted"></i>
           <span>Dashboard</span>
         </NavLink>
       </li>
       <hr className="sidebar-divider" />
 
-      <Section SectionName="Egresados">
-        <SidebarLink
-          icon="fas fa-poll-h"
-          title="Encuesta"
-          to="/graduated/survey"
-        />
-        <SidebarLink
-          icon="fas fa-briefcase"
-          title="Bolsa de trabajo"
-          to="/graduated/jobbank"
-        />
-      </Section>
-      <Section SectionName="Empresa">
-        <SidebarLink
-          icon="fas fa-poll-h"
-          title="Encuesta"
-          to="/company/survey"
-        />
-        <SidebarLink
-          icon="fas fa-briefcase"
-          title="Bolsa de trabajo"
-          to="/company/jobbank"
-        />
-      </Section>
+      {/* Opciones para administrador */}
+      {user.fk_rol === 1 ? (
+        <>
+          <Section SectionName="Administrador">
+            <SidebarDropdown title="Usuarios" icon="fas fa-users">
+              <NavLink className="collapse-item" to="/admins">
+                Administradores
+              </NavLink>
+              <NavLink className="collapse-item" to="/graduated">
+                Egresados
+              </NavLink>
+              <NavLink className="collapse-item" to="/companies">
+                Empresas
+              </NavLink>
+            </SidebarDropdown>
+          </Section>
+        </>
+      ) : null}
+      {/* /Opciones para administrador */}
 
-      <Section SectionName="Administrador">
-        <SidebarDropdown title="Usuarios" icon="fas fa-users">
-          <NavLink className="collapse-item" to="/users/graduated">
-            Egresados
-          </NavLink>
-          <NavLink className="collapse-item" to="/users/companies">
-            Empresas
-          </NavLink>
-        </SidebarDropdown>
-      </Section>
+      {/* Opciones para egresado */}
+      {user.fk_rol === 2 ? (
+        <>
+          <Section SectionName="Egresados">
+            <SidebarLink
+              icon="fas fa-poll-h"
+              title="Encuesta"
+              to="/graduated/survey"
+            />
+            <SidebarLink
+              icon="fas fa-briefcase"
+              title="Bolsa de trabajo"
+              to="/graduated/jobbank"
+            />
+          </Section>
+        </>
+      ) : null}
+      {/* /Opciones para egresado */}
+
+      {/* Opciones para empresa */}
+      {user.fk_rol === 3 ? (
+        <>
+          <Section SectionName="Empresa">
+            <SidebarLink
+              icon="fas fa-poll-h"
+              title="Encuesta"
+              to="/company/survey"
+            />
+            <SidebarLink
+              icon="fas fa-briefcase"
+              title="Bolsa de trabajo"
+              to="/company/jobbank"
+            />
+          </Section>
+        </>
+      ) : null}
+      {/* /Opciones para empresa */}
 
       <div
         style={{ color: "black", fontSize: "16px" }}

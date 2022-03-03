@@ -5,6 +5,7 @@ const validations = require("../middlewares/validations/users.validations");
 
 const controller = require("../controllers/users.controller");
 
+//Endpoints basicos
 router.get("/users/getall", verifyToken, controller.GetAll);
 router.get("/users/getone/:id", verifyToken, controller.GetOne);
 router.post("/users/save", verifyToken, validations, controller.Save);

@@ -24,8 +24,7 @@ create table usuarios(
 );
 
 create table perfil_empresa(
-    id int primary key,
-    fk_usuario  INT,
+    fk_usuario  INT primary key,
     nombreComercial varchar(100),
     calle varchar(50),
     nEmpresa int,
@@ -41,8 +40,8 @@ create table perfil_empresa(
 );
 
 create table perfil_egresado(
-    nControl int primary key,
-    fk_usuario  INT,
+    fk_usuario  INT primary key,
+     nControl int,
     nombreCompleto varchar(100),
     fechaNacimiento varchar(100),
     curp varchar(100),

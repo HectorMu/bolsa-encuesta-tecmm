@@ -185,6 +185,10 @@ input:-webkit-autofill:active {
   background-color: var(--purple-dark);
   border-color: var(--purple-dark);
 }
+.btn-primary:focus {
+  background-color: var(--purple) !important;
+  border-color: var(--purple) !important;
+}
 
 .btn-primary:active {
   background-color: var(--purple-dark) !important;

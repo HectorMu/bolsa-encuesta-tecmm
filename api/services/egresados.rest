@@ -1,0 +1,71 @@
+### Get all graduated list
+GET http://localhost:4000/api/users/graduated/getall
+
+### Get one graduated
+GET http://localhost:4000/api/users/graduated/getone/29
+
+### Save a graduated
+POST http://localhost:4000/api/users/graduated/save
+Content-Type: application/json
+
+{
+    "correo":"egresado2@gmail.com",
+    "clave":"12345678",
+   "nControl":345,
+   "nombreCompleto":"Juan luis Martinez",
+   "fechaNacimiento":"10/10/10",
+   "curp":"df",
+   "sexo":"H",
+   "estadoCivil": "Casado",
+   "calle": "XDdsd",
+   "nCasa":20,
+   "colonia":"Rosales",
+   "cp": 32253,
+   "municipio":"Lagos de m",
+   "estado":"Gto",
+   "telefono": 34324442,
+   "telCasa": 3434344,
+   "carrera":"ISC",
+   "fechaEgreso":"3adadsda",
+   "titulado": "No",
+   "idiomaExtranjero": {
+       "Otro": 60, "Ingles": 100
+   },
+   "paquetesComputacionales":"Word y excel"
+
+}
+
+### Update a gradted
+PUT http://localhost:4000/api/users/graduated/update/31
+Content-Type: application/json
+
+{
+    "correo":"egresado@gmail.com",
+    "clave":"asdadas",
+   "nControl":3457,
+   "nombreCompleto":"Mariano Martinez",
+   "fechaNacimiento":"10/10/10",
+   "curp":"sda",
+   "sexo":"H",
+   "estadoCivil": "Casado",
+   "calle": "XDdsd",
+   "nCasa":20,
+   "colonia":"Rosales",
+   "cp": 32253,
+   "municipio":"Lagos de m",
+   "estado":"Gto",
+   "telefono": 34324442,
+   "telCasa": 3434344,
+   "carrera":"ISC",
+   "fechaEgreso":"3adadsda",
+   "titulado": "No",
+   "idiomaExtranjero": {
+       "Otro": 10, "Ingles": 80
+   },
+   "paquetesComputacionales":"Word y excel"
+}
+
+### Delete a graduated
+DELETE http://localhost:4000/api/users/graduated/delete/28
+Content-Type: application/json
+

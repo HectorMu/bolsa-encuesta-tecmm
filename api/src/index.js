@@ -18,8 +18,8 @@ app.use(express.json());
 app.use("/api", require("./routes/template.routes"));
 app.use("/api", require("./routes/auth.routes"));
 app.use("/api", require("./routes/users.routes"));
-app.use("/api", require("./routes/company.profile.routes"));
-app.use("/api", require("./routes/graduated.profile.routes"));
+app.use("/api", require("./routes/company.routes"));
+app.use("/api", require("./routes/graduated.routes"));
 
 //To deploy a react router app build with an express server, this must be here forever
 // app.use(express.static(path.join(__dirname, "build")));

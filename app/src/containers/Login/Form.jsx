@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-//Importing custom input component
+//Importing input personalizado
 import FloatingLabelInput from "../../components/Global/FloatingLabelInput";
 //Importando servicios
 import Auth from "../../services/Auth";
@@ -34,6 +34,8 @@ const Form = () => {
         id: tLoading,
       });
     }
+
+    console.log(results);
 
     //si el usuario existe, seteamos los datos de la session en el local storage
     window.localStorage.setItem(

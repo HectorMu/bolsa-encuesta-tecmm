@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
         <div id="content">{children}</div>
-        <Footer />
+        <Footer webSite="TecMM" />
       </div>
     </div>
   );

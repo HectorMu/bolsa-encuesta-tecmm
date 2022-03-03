@@ -1,4 +1,5 @@
 const connection = require("../database");
+const helpers = require("../helpers/helpers");
 
 const TABLE_NAME = "usuarios";
 const TABLE_PK = "id";

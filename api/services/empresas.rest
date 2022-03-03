@@ -1,0 +1,49 @@
+### Get all company list
+GET http://localhost:4000/api/users/company/getall
+
+### Get one company
+GET http://localhost:4000/api/users/company/getone/2
+
+### Save a company
+POST http://localhost:4000/api/users/company/save
+Content-Type: application/json
+
+{
+    "correo":"egresado223@gmail.com",
+    "clave":"12345678",
+   "nControl":1609322020,
+   "nombreCompleto":"Mariano Martinez",
+   "fechaNacimiento":"10/10/10",
+   "curp":"fsdf4fsf",
+   "sexo":"H",
+   "estadoCivil": "Casado",
+   "calle": "XDdsd",
+   "nCasa":20,
+   "colonia":"Rosales",
+   "cp": 32253,
+   "municipio":"Lagos de m",
+   "estado":"Gto",
+   "telefono": 34324442,
+   "telCasa": 3434344,
+   "carrera":"ISC",
+   "fechaEgreso":"3adadsda",
+   "titulado": "No",
+   "idiomaExtranjero": {
+       "Otro": 10, "Ingles": 50
+   },
+   "paquetesComputacionales":"Word y excel"
+
+}
+
+### Update a company
+PUT http://localhost:4000/api/users/company/update/22
+Content-Type: application/json
+
+{
+    "correo":"asdasd@gmail.com"
+}
+
+### Delete a company
+DELETE http://localhost:4000/api/users/company/delete/5
+Content-Type: application/json
+

@@ -1,29 +1,43 @@
 const connection = require("../database");
 
 const TABLE_NAME = "perfil_egresado";
-const IDENTIFIER_NAME = "nControl";
+const IDENTIFIER_NAME = "fk_usuario";
 
 const Template = {
   async List() {
-    const data = await connection.query(`select * from ${TABLE_NAME}`);
-    return data;
+    const data = await connection.query(
+      `SELECT * FROM usuarios u, perfil_egresado pe WHERE u.id = pe.fk_usuario;`
+    );
+    const graduated = data.map((g) => {
+      //Removemos la clave y el rol de todos los elementos del arreglo
+      delete g.clave, delete g.fk_rol;
+      return g;
+    });
+    return graduated;
   },
   async FindOne(id) {
     const data = await connection.query(
-      `select * from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ?`,
+      `SELECT * FROM usuarios u, perfil_egresado pe WHERE u.id = pe.fk_usuario && u.id = ?`,
       [id]
     );
+    if (!data.length > 0) {
+      return {};
+    }
     return data[0];
   },
   async Create(data) {
+    //convertimos el json a string para guardarlo en la base de datos
+    data.idiomaExtranjero = JSON.stringify(data.idiomaExtranjero);
     const results = await connection.query(`insert into ${TABLE_NAME} set ?`, [
       data,
     ]);
     return results;
   },
   async Update(data, id) {
+    //convertimos el json a string para guardarlo en la base de datos
+    data.idiomaExtranjero = JSON.stringify(data.idiomaExtranjero);
     const results = await connection.query(
-      `update ${TABLE_NAME} set ? where ${IDENTIFIER_NAME} = ?`,
+      `update ${TABLE_NAME} set ? where fk_usuario = ?`,
       [data, id]
     );
     return results;
