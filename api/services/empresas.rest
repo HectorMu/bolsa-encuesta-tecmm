@@ -2,48 +2,47 @@
 GET http://localhost:4000/api/users/company/getall
 
 ### Get one company
-GET http://localhost:4000/api/users/company/getone/2
+GET http://localhost:4000/api/users/company/getone/34
 
 ### Save a company
 POST http://localhost:4000/api/users/company/save
 Content-Type: application/json
 
 {
-    "correo":"egresado223@gmail.com",
+    "correo":"empresa1@gmail.com",
     "clave":"12345678",
-   "nControl":1609322020,
-   "nombreCompleto":"Mariano Martinez",
-   "fechaNacimiento":"10/10/10",
-   "curp":"fsdf4fsf",
-   "sexo":"H",
-   "estadoCivil": "Casado",
-   "calle": "XDdsd",
-   "nCasa":20,
-   "colonia":"Rosales",
-   "cp": 32253,
-   "municipio":"Lagos de m",
-   "estado":"Gto",
-   "telefono": 34324442,
-   "telCasa": 3434344,
-   "carrera":"ISC",
-   "fechaEgreso":"3adadsda",
-   "titulado": "No",
-   "idiomaExtranjero": {
-       "Otro": 10, "Ingles": 50
-   },
-   "paquetesComputacionales":"Word y excel"
-
+   "nombreComercial":"Draxnmaier",
+   "calle":"Lazaro Rodriguz",
+   "nEmpresa":25,
+   "colonia":"Arbide",
+   "municipio":"Lagos de moreno",
+   "estado": "Jalisco",
+   "Telefono": 32323,
+   "tipo_empresa":"Ganadera",
+   "tamaño":"Grande",
+   "actividad_economica": "Pesca"
 }
 
 ### Update a company
-PUT http://localhost:4000/api/users/company/update/22
+PUT http://localhost:4000/api/users/company/update/33
 Content-Type: application/json
 
 {
-    "correo":"asdasd@gmail.com"
+    "correo":"empresa2@gmail.com",
+    "clave":"12345678",
+   "nombreComercial":"Drax and Maier",
+   "calle":"Lazaro Rodriguz",
+   "nEmpresa":25,
+   "colonia":"Arbide",
+   "municipio":"Lagos de moreno",
+   "estado": "Jalisco",
+   "Telefono": 32323,
+   "tipo_empresa":"Ganadera",
+   "tamaño":"Grande",
+   "actividad_economica": "Pesca"
 }
 
 ### Delete a company
-DELETE http://localhost:4000/api/users/company/delete/5
+DELETE http://localhost:4000/api/users/company/delete/33
 Content-Type: application/json
 

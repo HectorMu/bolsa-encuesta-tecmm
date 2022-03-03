@@ -1,18 +1,28 @@
 const connection = require("../database");
 
 const TABLE_NAME = "perfil_empresa";
-const IDENTIFIER_NAME = "id";
+const IDENTIFIER_NAME = "fk_usuario";
 
 const CompanyProfile = {
   async List() {
-    const data = await connection.query(`select * from ${TABLE_NAME}`);
-    return data;
+    const data = await connection.query(
+      `SELECT * FROM usuarios u, perfil_empresa pe WHERE u.id = pe.fk_usuario`
+    );
+    const companies = data.map((c) => {
+      //Removemos la clave y el rol de todos los elementos del arreglo
+      delete c.clave, delete c.fk_rol;
+      return c;
+    });
+    return companies;
   },
   async FindOne(id) {
     const data = await connection.query(
-      `select * from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ?`,
+      `SELECT * FROM usuarios u, perfil_empresa pe WHERE u.id = pe.fk_usuario && ${IDENTIFIER_NAME} =  ?`,
       [id]
     );
+    if (!data.length > 0) {
+      return {};
+    }
     return data[0];
   },
   async Create(data) {
