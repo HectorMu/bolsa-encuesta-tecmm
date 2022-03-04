@@ -46,7 +46,7 @@ const Sidebar = ({
       {/* Opciones para administrador */}
       {user.fk_rol === 1 ? (
         <>
-          <Section SectionName="Administrador">
+          <Section SectionName="Admin">
             <SidebarDropdown title="Usuarios" icon="fas fa-users">
               <NavLink className="collapse-item" to="/admins">
                 Administradores

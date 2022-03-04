@@ -238,6 +238,7 @@ const DataTable = ({
             <thead>
               {initialData !== undefined && initialData.length > 0 ? (
                 <tr key={initialData[0].id}>
+                  {actions === true ? <th>{actionsText}</th> : null}
                   {Object.keys(initialData[0]).map((e) =>
                     renameHeaders !== null &&
                     Object.keys(renameHeaders).includes(e) ? (
@@ -312,6 +313,19 @@ const DataTable = ({
               {initialData !== undefined && initialData.length > 0 ? (
                 initialData.map((d) => (
                   <tr key={d.id}>
+                    {actions === true ? (
+                      <td className="d-flex d-sm-flex flex-sm-column flex-column flex-lg-row flex-md-row flex-xl-row">
+                        {buttons.map((b) => (
+                          <button
+                            key={b.key}
+                            className={b.style}
+                            onClick={() => b.click(d)}
+                          >
+                            <i className={b.fwicon}></i> {b.text}
+                          </button>
+                        ))}
+                      </td>
+                    ) : null}
                     {Object.entries(d).map(([k, e]) => (
                       <td
                         className={`${

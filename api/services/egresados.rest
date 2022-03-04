@@ -11,27 +11,27 @@ Content-Type: application/json
 {
     "correo":"egresado2@gmail.com",
     "clave":"12345678",
-   "nControl":345,
-   "nombreCompleto":"Juan luis Martinez",
+   "no_control":345,
+   "nombre_completo":"Juan luis Martinez",
    "fechaNacimiento":"10/10/10",
    "curp":"df",
    "sexo":"H",
-   "estadoCivil": "Casado",
+   "estado_civil": "Casado",
    "calle": "XDdsd",
-   "nCasa":20,
+   "numero_casa":20,
    "colonia":"Rosales",
    "cp": 32253,
    "municipio":"Lagos de m",
    "estado":"Gto",
    "telefono": 34324442,
-   "telCasa": 3434344,
+   "tel_casa": 3434344,
    "carrera":"ISC",
-   "fechaEgreso":"3adadsda",
+   "fecha_egreso":"3adadsda",
    "titulado": "No",
-   "idiomaExtranjero": {
+   "idioma_extranjero": {
        "Otro": 60, "Ingles": 100
    },
-   "paquetesComputacionales":"Word y excel"
+   "paquetes_computacionales":"Word y excel"
 
 }
 
