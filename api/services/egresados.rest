@@ -12,7 +12,7 @@ Content-Type: application/json
     "correo":"egresado2@gmail.com",
     "clave":"12345678",
    "no_control":345,
-   "nombre_completo":"Juan luis Martinez",
+   "nombre_completo":"Juan luis Martinez", 
    "fechaNacimiento":"10/10/10",
    "curp":"df",
    "sexo":"H",

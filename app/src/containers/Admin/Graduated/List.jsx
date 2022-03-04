@@ -79,7 +79,6 @@ const List = () => {
             idioma_extranjero: "Idiomas %",
             paquetes_computacionales: "Habilidades",
           }}
-          hideColumns={["creadoEn", "actualizadoEn", "fk_usuario"]}
           actions={true}
           actionsText={"Opciones"}
           buttons={tableConfig.buttons}

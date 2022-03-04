@@ -10,7 +10,12 @@ const CompanyProfile = {
     );
     const companies = data.map((c) => {
       //Removemos la clave y el rol de todos los elementos del arreglo
-      delete c.clave, delete c.fk_rol, delete c.fk_usuario;
+      delete c.clave,
+        delete c.fk_rol,
+        delete c.fk_usuario,
+        delete c.creadoEn,
+        delete c.actualizadoEn;
+
       return c;
     });
     return companies;

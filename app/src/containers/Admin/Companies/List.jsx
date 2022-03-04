@@ -32,7 +32,6 @@ const List = () => {
             tipo_empresa: "Tipo",
             actividad_economica: "Act. Enonomica",
           }}
-          hideColumns={["creadoEn", "actualizadoEn"]}
         />
       )}
     </div>

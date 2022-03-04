@@ -9,8 +9,12 @@ const Template = {
       `SELECT * FROM usuarios u, perfil_egresado pe WHERE u.id = pe.fk_usuario;`
     );
     const graduated = data.map((g) => {
-      //Removemos la clave y el rol de todos los elementos del arreglo
-      delete g.clave, delete g.fk_rol;
+      //Removemos estas propiedades de todos los elementos del arreglo
+      delete g.clave,
+        delete g.fk_rol,
+        delete g.fk_usuario,
+        delete g.creadoEn,
+        delete g.actualizadoEn;
       return g;
     });
     return graduated;
