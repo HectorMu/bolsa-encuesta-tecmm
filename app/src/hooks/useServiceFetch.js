@@ -7,7 +7,6 @@ const useServiceFetch = (service, setOnState) => {
   const fetchService = useCallback(async () => {
     setIsLoading(true);
     const data = await service();
-
     if (setOnState) {
       setOnState(data);
       setIsLoading(false);

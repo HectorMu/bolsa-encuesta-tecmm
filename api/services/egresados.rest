@@ -41,7 +41,7 @@ Content-Type: application/json
 
 {
     "correo":"egresado@gmail.com",
-    "clave":"asdadas",
+    "clave":"12345678",
    "nControl":3457,
    "nombreCompleto":"Mariano Martinez",
    "fechaNacimiento":"10/10/10",

@@ -1,22 +1,21 @@
-import React from "react";
 import { useState, useEffect } from "react";
 //import ReactHTMLTableToExcel from "react-html-table-to-excel";
-/**
- * @param {String} title The table title
- * @param {Array}   data JSON array with all the table data
- * @param {Array}  buttons JSON array with all the buttons actions, text and styles
- * @param {Boolean} actions Boolean, determines if table actions are shown or not
- * @param {Object} filtersConfig Object that determines the filters to show. Receives the key and text to display Example: { name: "Name"}
- * @param {String} actionsText Text to display in actions final table column head
- * @param {String} searchText Text to display on search input placeholder
- * @param {String} firstColumnKey Is the table key name for each row, example: folium, number, id, etc, it depends on your json array, default value = "id"
- * @param {Object} renameHeaders Object with the key of the headers and the value to replace. Example: { id: "Folium"}
- * @param {String} emptyDataText Text to display where there isnt data in the table
- * @param {Array} hideColumns Array with the name of the json columns you want to hide in table. Example: ["name","id","foreign_key"]
- *@param {Function} refreshCallback Function to callback to refresh the table, you can provide your fetching function: default: null
- */
+// /**
+//  * @param {String} title The table title
+//  * @param {Array}   data JSON array with all the table data
+//  * @param {Array}  buttons JSON array with all the buttons actions, text and styles
+//  * @param {Boolean} actions Boolean, determines if table actions are shown or not
+//  * @param {Object} filtersConfig Object that determines the filters to show. Receives the key and text to display Example: { name: "Name"}
+//  * @param {String} actionsText Text to display in actions final table column head
+//  * @param {String} searchText Text to display on search input placeholder
+//  * @param {String} firstColumnKey Is the table key name for each row, example: folium, number, id, etc, it depends on your json array, default value = "id"
+//  * @param {Object} renameHeaders Object with the key of the headers and the value to replace. Example: { id: "Folium"}
+//  * @param {String} emptyDataText Text to display where there isnt data in the table
+//  * @param {Array} hideColumns Array with the name of the json columns you want to hide in table. Example: ["name","id","foreign_key"]
+//  *@param {Function} refreshCallback Function to callback to refresh the table, you can provide your fetching function: default: null
+//  */
 const DataTable = ({
-  title = "DataTable",
+  title = "Default title",
   firstColumnKey = "id",
   data = [],
   buttons = [
@@ -117,6 +116,7 @@ const DataTable = ({
   useEffect(() => {
     setInitialData(data);
   }, [data]);
+
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3 d-flex justify-content-between d-sm-flex flex-column flex-lg-row flex-md-row flex-xl-row">
@@ -139,10 +139,9 @@ const DataTable = ({
               id="test-table-xls-button"
               className="btn btn-sm mr-2 text-primary"
               table={`dataTable${title.replace(" ", "-")}`}
-              tabl="fsdfsdffs"
               filename={title}
               sheet="tablexls"
-              buttonText={`🡇`}
+              buttonText={<i className="far fa-file-excel"></i>}
             /> */}
 
             <button
@@ -322,7 +321,29 @@ const DataTable = ({
                         }`}
                         key={k}
                       >
-                        {e}
+                        {typeof e === "object" &&
+                        Object.entries(e).length > 0 ? (
+                          <>
+                            <table className="table m-0 p-0 text-center ">
+                              <thead>
+                                <tr>
+                                  {Object.keys(e).map((k) => (
+                                    <th key={k}>{k}</th>
+                                  ))}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  {Object.values(e).map((v) => (
+                                    <td key={v}>{v}</td>
+                                  ))}
+                                </tr>
+                              </tbody>
+                            </table>
+                          </>
+                        ) : (
+                          e
+                        )}
                       </td>
                     ))}
                     {actions === true ? (
