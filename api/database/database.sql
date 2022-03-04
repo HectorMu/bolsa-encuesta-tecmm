@@ -24,10 +24,10 @@ create table usuarios(
 );
 
 create table perfil_empresa(
-    fk_usuario  INT primary key,
-    nombreComercial varchar(100),
+    fk_usuario int primary key,
+    nombre_comercial varchar(100),
     calle varchar(50),
-    nEmpresa int,
+    numero_empresa int,
     colonia varchar(50),
     cp varchar(50),
     municipio varchar(50),
@@ -36,50 +36,54 @@ create table perfil_empresa(
     tipo_empresa varchar(50),
     tamaño varchar(100),
     actividad_economica varchar(200),
+    creadoEn varchar(50),
+    actualizadoEn varchar(50),
     FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 create table perfil_egresado(
-    fk_usuario  INT primary key,
-     nControl int,
-    nombreCompleto varchar(100),
+    fk_usuario int primary key,
+	 no_control int,
+    nombre_completo varchar(100),
     fechaNacimiento varchar(100),
     curp varchar(100),
     sexo varchar(10),
-    estadoCivil varchar(20),
+    estado_civil varchar(20),
     calle varchar(50),
-    nCasa int,
+    numero_casa int,
     colonia varchar(50),
     cp varchar(50),
     municipio varchar(50),
     estado varchar(50),
     telefono varchar(50),
-    telCasa varchar(50),
+    tel_casa varchar(50),
     carrera varchar(50),
-    fechaEgreso varchar(50),
-    idiomaExtranjero JSON,
+    fecha_egreso varchar(50),
+    idioma_extranjero JSON,
     titulado varchar(10),
-    paquetesComputacionales TEXT,
+    paquetes_computacionales TEXT,
+    creadoEn varchar(50),
+    actualizadoEn varchar(50),
     FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 
 
 create table seccion_dos(
-    id int primary key auto_increment,
-    fk_egresado int,
+    fk_usuario int primary key,
     pregunta_uno varchar(50),
     pregunta_dos varchar(50),
     pregunta_tres varchar(50),
     pregunta_cuatro varchar(50),
     pregunta_cinco varchar(50),
     pregunta_seis varchar(50),
-    foreign key(fk_egresado)references usuarios(id)
+    creadoEn varchar(50),
+    actualizadoEn varchar(50),
+    foreign key(fk_usuario)references usuarios(id)
 );
 
 create table seccion_tres(
-    id int primary key auto_increment,
-    fk_egresado int,
+    fk_usuario int primary key,
     pregunta_uno varchar(50),
     p_uno_estudia varchar(150),
     p_uno_institucion varchar(150),
@@ -96,63 +100,70 @@ create table seccion_tres(
     pregunta_doce JSON,
     pregunta_trece varchar(100),
     pregunta_catorce varchar(100),
-    foreign key(fk_egresado)references usuarios(id)
+    creadoEn varchar(50),
+    actualizadoEn varchar(50),
+    foreign key(fk_usuario)references usuarios(id)
 );
 
 create table seccion_cuatro(
-    id int primary key auto_increment,
-    fk_egresado int,
+    fk_usuario int primary key,
     pregunta_uno varchar(50),
     pregunta_dos varchar(50),
     pregunta_tres varchar(50),
     pregunta_cuatro JSON,
-    foreign key(fk_egresado)references usuarios(id)
+    creadoEn varchar(50),
+    actualizadoEn varchar(50),
+    foreign key(fk_usuario)references usuarios(id)
 );
 
 create table seccion_cinco(
-    id int primary key auto_increment,
-    fk_egresado int,
+    fk_usuario int primary key,
     pregunta_uno JSON,
     pregunta_dos JSON,
-    foreign key(fk_egresado)references usuarios(id)
+    creadoEn varchar(50),
+    actualizadoEn varchar(50),
+    foreign key(fk_usuario)references usuarios(id)
 );
 
 create table seccion_seis(
-    id int primary key auto_increment,
-    fk_egresado int,
+    fk_usuario int primary key,
     pregunta_uno JSON,
     pregunta_dos JSON,
     pregunta_tres varchar(50),
-    foreign key(fk_egresado)references usuarios(id)
+    creadoEn varchar(50),
+    actualizadoEn varchar(50),
+    foreign key(fk_usuario)references usuarios(id)
 );
 
 create table seccion_siete(
-    id int primary key auto_increment,
-    fk_egresado int,
+    fk_usuario int primary key,
     comentarios_sugerencias TEXT,
     fecha_realizacion varchar(100),
-    foreign key(fk_egresado)references usuarios(id)
+    actualizadoEn varchar(50),
+    foreign key(fk_usuario)references usuarios(id)
 );
 
 create table seccion_b(
-    id int primary key auto_increment,
-    fk_empresa int,
+    fk_usuario int primary key,
     pregunta_cinco varchar(50),
     pregunta_seis JSON,
     pregunta_siete JSON,
     pregunta_ocho JSON,
     pregunta_nueve TEXT,
-    foreign key(fk_empresa)references usuarios(id)
+    creadoEn varchar(50),
+    actualizadoEn varchar(50),
+    foreign key(fk_usuario)references usuarios(id)
 );
 
 create table seccion_c(
-    id int primary key auto_increment,
-    fk_empresa int,
+    fk_usuario int primary key,
     pregunta_diez JSON,
     pregunta_once JSON,
     pregunta_doce TEXT,
     pregunta_catorce TEXT,
-    foreign key(fk_empresa)references usuarios(id)
+    creadoEn varchar(50),
+    actualizadoEn varchar(50),
+    foreign key(fk_usuario)references usuarios(id)
 );
 
 create table publicacion_bolsa(
@@ -180,3 +191,165 @@ create table solicitud_bolsa(
     foreign key(fk_vacante)references publicacion_bolsa(folio),
     foreign key(fk_egresado)references usuarios(id)
 );
+
+//DISPARADORES------------------------------------------------------------------------------
+
+DELIMITER //
+CREATE TRIGGER `perfil_egresado_FechaActualizacion` BEFORE UPDATE ON `perfil_egresado` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `perfil_egresado_FechaInserccion` BEFORE INSERT ON `perfil_egresado` FOR EACH ROW BEGIN
+	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `perfil_empresa_FechaActualizacion` BEFORE UPDATE ON `perfil_empresa` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `perfil_empresa_FechaInserccion` BEFORE INSERT ON `perfil_empresa` FOR EACH ROW BEGIN
+	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `publicacion_bolsa_FechaInserccion` BEFORE INSERT ON `publicacion_bolsa` FOR EACH ROW BEGIN
+	SET NEW.fecha_creacion = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_b_FechaActualizacion` BEFORE UPDATE ON `seccion_b` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_b_FechaInserccion` BEFORE INSERT ON `seccion_b` FOR EACH ROW BEGIN
+	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_cinco_FechaActualizacion` BEFORE UPDATE ON `seccion_cinco` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_cinco_FechaInserccion` BEFORE INSERT ON `seccion_cinco` FOR EACH ROW BEGIN
+	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_cuatro_FechaActualizacion` BEFORE UPDATE ON `seccion_cuatro` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_cuatro_FechaInserccion` BEFORE INSERT ON `seccion_cuatro` FOR EACH ROW BEGIN
+	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_c_FechaActualizacion` BEFORE UPDATE ON `seccion_c` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_c_FechaInserccion` BEFORE INSERT ON `seccion_c` FOR EACH ROW BEGIN
+	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_dos_FechaActualizacion` BEFORE UPDATE ON `seccion_dos` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_dos_FechaInserccion` BEFORE INSERT ON `seccion_dos` FOR EACH ROW BEGIN
+	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_seis_FechaActualizacion` BEFORE UPDATE ON `seccion_seis` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_seis_FechaInserccion` BEFORE INSERT ON `seccion_seis` FOR EACH ROW BEGIN
+	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_siete_FechaActualizacion` BEFORE UPDATE ON `seccion_siete` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_siete_FechaInserccion` BEFORE INSERT ON `seccion_siete` FOR EACH ROW BEGIN
+	SET NEW.fecha_realizacion = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_tres_FechaActualizacion` BEFORE UPDATE ON `seccion_tres` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `seccion_tres_FechaInserccion` BEFORE INSERT ON `seccion_tres` FOR EACH ROW BEGIN
+	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `usuarios_BorrarDatosExistentesEgresado` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
+	DELETE FROM perfil_egresado WHERE fk_usuario = OLD.id;
+	DELETE FROM seccion_dos WHERE fk_usuario = OLD.id;
+	DELETE FROM seccion_tres WHERE fk_usuario = OLD.id;
+	DELETE FROM seccion_cuatro WHERE fk_usuario = OLD.id;
+	DELETE FROM seccion_cinco WHERE fk_usuario = OLD.id;
+	DELETE FROM seccion_seis WHERE fk_usuario = OLD.id;
+	DELETE FROM seccion_siete WHERE fk_usuario = OLD.id;
+	DELETE FROM solicitud_bolsa WHERE fk_egresado = OLD.id;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `usuarios_BorrarDatosExistentesEmpresa` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
+	DELETE FROM perfil_empresa WHERE fk_usuario = OLD.id;
+	DELETE FROM seccion_b WHERE fk_usuario = OLD.id;
+	DELETE FROM seccion_c WHERE fk_usuario = OLD.id;
+	DELETE FROM publicacion_bolsa WHERE fk_empresa = OLD.id;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `usuarios_FechaDeActualizacion` BEFORE UPDATE ON `usuarios` FOR EACH ROW BEGIN
+	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `usuarios_FechaDeInsercion` BEFORE INSERT ON `usuarios` FOR EACH ROW BEGIN
+	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+END//
+DELIMITER ;
