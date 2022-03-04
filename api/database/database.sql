@@ -203,6 +203,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `perfil_egresado_FechaInserccion` BEFORE INSERT ON `perfil_egresado` FOR EACH ROW BEGIN
 	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
 
@@ -215,6 +216,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `perfil_empresa_FechaInserccion` BEFORE INSERT ON `perfil_empresa` FOR EACH ROW BEGIN
 	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
 
@@ -233,6 +235,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `seccion_b_FechaInserccion` BEFORE INSERT ON `seccion_b` FOR EACH ROW BEGIN
 	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
 
@@ -245,6 +248,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `seccion_cinco_FechaInserccion` BEFORE INSERT ON `seccion_cinco` FOR EACH ROW BEGIN
 	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
 
@@ -257,6 +261,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `seccion_cuatro_FechaInserccion` BEFORE INSERT ON `seccion_cuatro` FOR EACH ROW BEGIN
 	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
 
@@ -269,6 +274,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `seccion_c_FechaInserccion` BEFORE INSERT ON `seccion_c` FOR EACH ROW BEGIN
 	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
 
@@ -281,6 +287,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `seccion_dos_FechaInserccion` BEFORE INSERT ON `seccion_dos` FOR EACH ROW BEGIN
 	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
 
@@ -293,6 +300,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `seccion_seis_FechaInserccion` BEFORE INSERT ON `seccion_seis` FOR EACH ROW BEGIN
 	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
 
@@ -305,6 +313,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `seccion_siete_FechaInserccion` BEFORE INSERT ON `seccion_siete` FOR EACH ROW BEGIN
 	SET NEW.fecha_realizacion = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
 
@@ -317,6 +326,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `seccion_tres_FechaInserccion` BEFORE INSERT ON `seccion_tres` FOR EACH ROW BEGIN
 	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
 
@@ -351,5 +361,6 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `usuarios_FechaDeInsercion` BEFORE INSERT ON `usuarios` FOR EACH ROW BEGIN
 	SET NEW.creadoEn = CURRENT_TIMESTAMP();
+    SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
