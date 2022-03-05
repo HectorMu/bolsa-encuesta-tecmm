@@ -3,6 +3,13 @@ const connection = require("../database");
 
 const helpers = {};
 
+//Simulacion de enum para roles, esto para no tener los conocidos "magic numbers"
+helpers.USER_ROLES = {
+  Admin: 1,
+  Graduated: 2,
+  Company: 3,
+};
+
 helpers.encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);

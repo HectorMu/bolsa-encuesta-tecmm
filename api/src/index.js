@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
 const app = express();
+const User = require("./models/User");
 
 //Initialazing database connection
 const initDatabase = require("./database");
@@ -13,6 +14,8 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+User.InitialState();
 
 //Using the routes
 app.use("/api", require("./routes/template.routes"));
