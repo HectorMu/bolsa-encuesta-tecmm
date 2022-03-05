@@ -190,16 +190,6 @@ controller.Update = async (req, res) => {
 controller.Delete = async (req, res) => {
   const { id } = req.params;
   try {
-    //Primero eliminamos el perfil
-    const deleteProfile = await Graduated.Delete(id);
-    console.log(deleteProfile);
-    if (deleteProfile.affectedRows === 0) {
-      return res.status(400).json({
-        status: false,
-        statusText: "No existe ese usuario.",
-      });
-    }
-    //Despues eliminamos la cuenta del usuario
     const deleteUser = await User.Delete(id);
     console.log(deleteUser);
     if (deleteUser.affectedRows === 0) {

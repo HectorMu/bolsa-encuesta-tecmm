@@ -16,6 +16,7 @@ const FloatingLabelInput = ({
         placeholder=" "
         onChange={setValue}
         defaultValue={value}
+        autoComplete="off"
         required
       />
       <label htmlFor={inputId} className="animated__label">

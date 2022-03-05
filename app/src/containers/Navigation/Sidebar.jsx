@@ -48,8 +48,8 @@ const Sidebar = ({
         <>
           <Section SectionName="Admin">
             <SidebarDropdown title="Usuarios" icon="fas fa-users">
-              <NavLink className="collapse-item" to="/admins">
-                Administradores
+              <NavLink className="collapse-item" to="/accounts">
+                Cuentas
               </NavLink>
               <NavLink className="collapse-item" to="/graduated">
                 Egresados

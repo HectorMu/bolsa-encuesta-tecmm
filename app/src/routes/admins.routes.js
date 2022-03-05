@@ -1,13 +1,13 @@
-import Admins from "../pages/Admin/Admins/Admins";
-import Add from "../pages/Admin/Admins/Add";
+import Accounts from "../pages/Admin/Accounts/Accounts";
+import Add from "../pages/Admin/Accounts/Add";
 import IsLoggedIn from "../components/Authentication/IsLoggedIn";
 const Routes = [
   {
-    path: "/admins",
-    element: <IsLoggedIn view={Admins} />,
+    path: "/accounts",
+    element: <IsLoggedIn view={Accounts} />,
   },
   {
-    path: "/admins/add",
+    path: "/accounts/add",
     element: <IsLoggedIn view={Add} />,
   },
 ];

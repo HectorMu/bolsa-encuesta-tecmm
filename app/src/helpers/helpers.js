@@ -86,11 +86,9 @@ const isJson = (string) => {
 helpers.convertFieldsToJson = (array, keysArr = null) => {
   for (let i = 0; i < array.length; i++) {
     for (let j = 0; j < keysArr.length; j++) {
-      if (keysArr[i] in array[i]) {
-        if (isJson(array[i][keysArr[i]])) {
-          array[i][keysArr[i]] = JSON.parse(array[i][keysArr[i]]);
-        } else {
-          array[i] = array[i];
+      if (keysArr[j] in array[i]) {
+        if (isJson(array[i][keysArr[j]])) {
+          array[i][keysArr[j]] = JSON.parse(array[i][keysArr[j]]);
         }
       }
     }
@@ -101,6 +99,14 @@ helpers.convertFieldsToJson = (array, keysArr = null) => {
 helpers.getAndSetAccessToken = () => {
   const user = JSON.parse(window.localStorage.getItem("BETECMMSession"));
   return `Bearer ${user.AccessToken}`;
+};
+
+helpers.alertConfig = {
+  showCancelButton: true,
+  confirmButtonColor: "#0d6efd",
+  cancelButtonColor: "#bb2d3b",
+  confirmButtonText: "Si",
+  cancelButtonText: "No",
 };
 
 export default helpers;

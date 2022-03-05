@@ -10,6 +10,10 @@ const Routes = [
     path: "/graduated/add",
     element: <IsLoggedIn view={Add} />,
   },
+  {
+    path: "/graduated/edit/:id",
+    element: <IsLoggedIn view={Add} />,
+  },
 ];
 
 export default Routes;

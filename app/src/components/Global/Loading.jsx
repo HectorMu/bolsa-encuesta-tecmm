@@ -6,9 +6,7 @@ const Loading = ({ text = "Loading...", color = "primary", small }) => {
         className={`spinner-border text-${color} ${
           small ? `spinner-border-sm` : ``
         }`}
-      >
-        <span className="visually-hidden">{text}</span>
-      </div>
+      ></div>
     </div>
   );
 };

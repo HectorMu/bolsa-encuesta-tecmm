@@ -321,7 +321,10 @@ const DataTable = ({
                             className={b.style}
                             onClick={() => b.click(d)}
                           >
-                            <i className={b.fwicon}></i> {b.text}
+                            <i className={b.fwicon}></i>{" "}
+                            <span className="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                              {b.text}
+                            </span>
                           </button>
                         ))}
                       </td>
@@ -368,7 +371,10 @@ const DataTable = ({
                             className={b.style}
                             onClick={() => b.click(d)}
                           >
-                            <i className={b.fwicon}></i> {b.text}
+                            <i className={b.fwicon}></i>{" "}
+                            <span className="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                              {b.text}
+                            </span>
                           </button>
                         ))}
                       </td>

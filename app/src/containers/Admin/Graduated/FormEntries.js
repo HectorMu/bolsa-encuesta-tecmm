@@ -1,4 +1,4 @@
-const Entries = {
+export const Entries = {
   correo: "",
   clave: "",
   no_control: 0,
@@ -18,11 +18,12 @@ const Entries = {
   carrera: "",
   fecha_egreso: "",
   titulado: "",
+  paquetes_computacionales: "",
+};
+
+export const NestedEntries = {
   idioma_extranjero: {
     Otro: 0,
     Ingles: 0,
   },
-  paquetes_computacionales: "",
 };
-
-export default Entries;

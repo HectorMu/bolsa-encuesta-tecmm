@@ -1,41 +1,55 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 //Componentes personalizados para agilizar la construccion al reutilizarlos
 import FloatingLabelInput from "../../../components/Global/FloatingLabelInput";
 import Accordion from "../../../components/Global/Accordion";
 import Collapsable from "../../../components/Global/Collapsable";
 import FormCard from "../../../components/Global/FormCard";
 //Entradas del formulario, es un objeto con los datos a capturar el en formulario
-import Entries from "./FormEntries";
+import { Entries, NestedEntries } from "./FormEntries";
+//importando json de las carreras
+import careers from "./careers.json";
+//importando servicios
+import graduatedService from "../../../services/graduatedService";
 
 const Form = () => {
   const [graduated, setGraduated] = useState(Entries);
+  const [idiomaExtranjero, setIdiomaExtranjero] = useState(
+    NestedEntries.idioma_extranjero
+  );
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleEntriesChange = (key, value) =>
     setGraduated({ ...graduated, [key]: value });
 
   const handleIdiomaExtranjeroChange = (key, value) => {
-    setGraduated({
-      ...graduated,
-      idioma_extranjero: { ...graduated.idioma_extranjero, [key]: value },
-    });
-    // setGraduated(
-    //   (graduated) => ((graduated.idioma_extranjero.Ingles = value), graduated)
-    // );
+    setIdiomaExtranjero({ ...idiomaExtranjero, [key]: value });
   };
 
-  // const handleOtroChange = (value) => {
-  //   setGraduated(
-  //     (graduated) => ((graduated.idioma_extranjero.Otro = value), graduated)
-  //   );
-  // };
+  useEffect(() => {}, [location]);
 
-  console.log(graduated);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newGraduated = {
+      ...graduated,
+      idioma_extranjero: idiomaExtranjero,
+    };
+
+    const results = await graduatedService.Save(newGraduated);
+    if (!results.status) {
+      return toast.error(results.statusText);
+    }
+    toast.success("Egresado guardado correctamente.");
+    navigate(-1);
+  };
+
+  console.log(location);
   return (
     <FormCard title={"Datos del egresado"}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Accordion>
           <Collapsable
             id="DatosGenerales"
@@ -262,15 +276,21 @@ const Form = () => {
             {/* Informacion academica */}
             <div className="row">
               <div className="col-lg-4">
-                <FloatingLabelInput
-                  inputId="txtCarrera"
-                  placeholder="Carrera"
-                  type="text"
-                  setValue={(e) =>
+                <select
+                  className="form-control form-select mb-3"
+                  style={{ height: "47px" }}
+                  onChange={(e) =>
                     handleEntriesChange("carrera", e.target.value)
                   }
                   value={graduated.carrera}
-                />
+                >
+                  <option value={""}>Carrera (Seleccione una opcion)</option>
+                  {careers.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="col-lg-4">
                 <FloatingLabelInput
@@ -278,9 +298,9 @@ const Form = () => {
                   placeholder="Fecha de egreso"
                   type="date"
                   setValue={(e) =>
-                    handleEntriesChange("telefono", e.target.value)
+                    handleEntriesChange("fecha_egreso", e.target.value)
                   }
-                  value={graduated.telefono}
+                  value={graduated.fecha_egreso}
                 />
               </div>
               <div className="col-lg-4">
@@ -291,7 +311,8 @@ const Form = () => {
                   setValue={(e) =>
                     handleIdiomaExtranjeroChange("Ingles", e.target.value)
                   }
-                  value={graduated.idioma_extranjero.Ingles}
+                  value={idiomaExtranjero.Ingles}
+                  ranges={{ min: 0, max: 100 }}
                 />
               </div>
               <div className="col-lg-4">
@@ -302,7 +323,7 @@ const Form = () => {
                   setValue={(e) =>
                     handleIdiomaExtranjeroChange("Otro", e.target.value)
                   }
-                  value={graduated.idioma_extranjero.Otro}
+                  value={idiomaExtranjero.Otro}
                 />
               </div>
               <div className="col-lg-4">
@@ -310,9 +331,28 @@ const Form = () => {
                   inputId="txtPaquetes"
                   placeholder="Paquetes computacionales"
                   type="text"
+                  setValue={(e) =>
+                    handleEntriesChange(
+                      "paquetes_computacionales",
+                      e.target.value
+                    )
+                  }
+                  value={graduated.paquetes_computacionales}
+                />
+              </div>
+              <div className="col-lg-4">
+                <FloatingLabelInput
+                  inputId="txTitulado"
+                  placeholder="Titulado"
+                  type="text"
+                  setValue={(e) =>
+                    handleEntriesChange("titulado", e.target.value)
+                  }
+                  value={graduated.titulado}
                 />
               </div>
             </div>
+
             {/* /Informacion academica */}
           </Collapsable>
         </Accordion>
