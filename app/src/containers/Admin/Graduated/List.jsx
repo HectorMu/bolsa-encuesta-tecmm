@@ -63,14 +63,6 @@ const List = () => {
       },
     ],
   };
-
-  useEffect(() => {
-    const parsedData = helpers.convertFieldsToJson(graduates, [
-      "idioma_extranjero",
-    ]);
-    setGraduates(parsedData);
-  }, [graduates]);
-
   return (
     <div className="mt-2">
       {isLoading ? (

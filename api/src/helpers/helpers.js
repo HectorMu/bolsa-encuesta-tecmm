@@ -74,4 +74,30 @@ helpers.hasEmptyPropierty = (object) => {
   };
 };
 
+const isJson = (string) => {
+  try {
+    JSON.parse(string);
+  } catch (error) {
+    return false;
+  }
+  return true;
+};
+
+//Este metodo convierte todos los campos que puedan ser parseados a json a json
+//sin embargo, recibe un array de los campos que va a parsear, por ejemplo: ["idioma_extranjero","calificaciones", etc.]
+//esto haciendolo siempre que sepamos que un campo es json, y automaticamente crea una tabla dentro con los
+//sub campos
+helpers.convertFieldsToJson = (array, keysArr = null) => {
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 0; j < keysArr.length; j++) {
+      if (keysArr[j] in array[i]) {
+        if (isJson(array[i][keysArr[j]])) {
+          array[i][keysArr[j]] = JSON.parse(array[i][keysArr[j]]);
+        }
+      }
+    }
+  }
+  return array;
+};
+
 module.exports = helpers;

@@ -6,8 +6,11 @@ const controller = {};
 
 controller.GetAll = async (req, res) => {
   try {
-    const graduated = await Graduated.List();
-    res.json(graduated);
+    const graduates = await Graduated.List();
+    const parsedFieldsToJSon = helpers.convertFieldsToJson(graduates, [
+      "idioma_extranjero",
+    ]);
+    res.json(parsedFieldsToJSon);
   } catch (error) {
     console.log("Error" + error);
     res.json({

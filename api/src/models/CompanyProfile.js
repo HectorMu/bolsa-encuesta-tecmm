@@ -28,6 +28,11 @@ const CompanyProfile = {
     if (!data.length > 0) {
       return {};
     }
+    delete data[0].clave,
+      delete data[0].fk_rol,
+      delete data[0].fk_usuario,
+      delete data[0].creadoEn,
+      delete data[0].actualizadoEn;
     return data[0];
   },
   async Create(data) {
