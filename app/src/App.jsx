@@ -1,13 +1,13 @@
 // Importing app styles
 import "./css/sb-admin-2.css";
 import "./css/main.css";
-import "../../node_modules/aos/dist/aos";
 
 // Importing react and hooks
 import React, { useEffect } from "react";
 
 //Importing aos for animations
 import Aos from "aos";
+import "../../node_modules/aos/dist/aos.css";
 
 //Importing toaster for toasts
 import { Toaster } from "react-hot-toast";

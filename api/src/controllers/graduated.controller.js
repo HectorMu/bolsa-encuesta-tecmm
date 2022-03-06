@@ -58,8 +58,8 @@ controller.Save = async (req, res) => {
     }
     const nControlExists = await helpers.isDuplicated(
       "perfil_egresado",
-      "nControl",
-      req.body.nControl
+      "no_control",
+      req.body.no_control
     );
     if (nControlExists) {
       return res.json({
@@ -136,9 +136,9 @@ controller.Update = async (req, res) => {
     }
     const nControlExists = await helpers.isDuplicatedOnUpdate(
       "perfil_egresado",
-      "nControl",
+      "no_control",
       id,
-      req.body.nControl
+      req.body.no_control
     );
 
     if (nControlExists) {
@@ -178,7 +178,7 @@ controller.Update = async (req, res) => {
       statusText: "Egresado editado correctamente.",
     });
   } catch (error) {
-    console.log("Error" + error);
+    console.log("Error " + error);
     res.json({
       status: false,
       statusText: "Algo fue mal, contácta al area de sistemas.",

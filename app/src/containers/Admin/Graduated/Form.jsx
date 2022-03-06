@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import useRouterHooks from "../../../hooks/useRouterHooks";
-import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 //Componentes personalizados para agilizar la construccion al reutilizarlos
 import FloatingLabelInput from "../../../components/Global/FloatingLabelInput";
@@ -16,21 +16,31 @@ import graduatedService from "../../../services/graduatedService";
 
 const Form = () => {
   const [graduated, setGraduated] = useState(Entries);
+  //aqui usamos un estado aparte para manejar el cambio de del idioma extranjero,
+  //Ya que es una propiedad anidada dentro dl usuario
   const [idiomaExtranjero, setIdiomaExtranjero] = useState(
     NestedEntries.idioma_extranjero
   );
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  //Estado para controlar si el usuario esta editando, usamos un efecto para cambiar este estado
   const [onEditing, toggleEditing] = useState(false);
+  //Estado para controlar si el usuario desea cambiar la contraseña,
+  //usamos un checkbox para cambiar este estado
   const [onChangePassword, toggleChangePassword] = useState(false);
+  //usamos este hook para traer todos los hooks comunes a utilizar de react-router-dom
   const { navigate, location, params } = useRouterHooks();
 
+  //para controlar el cambio de los input, copiamos el objeto y cambiamos las propiedades
+  //recibe una key, que es la propiedad y el valor de esa key
   const handleEntriesChange = (key, value) =>
     setGraduated({ ...graduated, [key]: value });
 
+  //para controllar bjeto el idioma extranjero, ya que es una propiedad aparte
   const handleIdiomaExtranjeroChange = (key, value) => {
     setIdiomaExtranjero({ ...idiomaExtranjero, [key]: value });
   };
 
+  //Para obtener un graduado basandonos en el id y filtrando los usuarios desde ahi
   const getGraduatedFromFetch = useCallback(async () => {
     const graduatedFetched = await graduatedService.GetOne(params.id);
     if (!graduatedFetched.id) {
@@ -38,38 +48,77 @@ const Form = () => {
       toast.error("Este registro no existe.");
       return;
     }
+    //sacamos el objeto del idioma extranjero para guardarlo en su estado
+    //y el resto de propiedades equivalen a las propiedades restantes del usuario
     const { idioma_extranjero, ...rest } = graduatedFetched;
 
+    //seteamos lo anterior dicho en el estado
     setGraduated(rest);
     setIdiomaExtranjero(idioma_extranjero);
   }, [params.id, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    //construimos un nuevo objeto para guardar el nuevo graduado
     const newGraduated = {
+      //Esta construido de una copia de lo que tenga el graduado
+      //lo copiamos asi para que este todo al mismo nivel de propiedad
       ...graduated,
+      // y le agregamos la propiedad de idioma_extranjero con todo lo que tenga idiomaExtranjero
+      //que es nuestro estado
       idioma_extranjero: idiomaExtranjero,
     };
 
-    const results = await graduatedService.Save(newGraduated);
-    if (!results.status) {
-      return toast.error(results.statusText);
+    //Si estamos editando
+    if (onEditing) {
+      //Si no estamos cambiando la contraseña eliminamos esa propiedad para no enviarla al
+      //backend, ya que el backend edita lo que recibe
+      if (!onChangePassword) {
+        delete newGraduated.clave;
+      }
+
+      //como estamos editando, mandamos a llamar el servicio de editar
+      const results = await graduatedService.Update(newGraduated, params.id);
+      //si hay un error lo mostramos
+      if (!results.status) {
+        return toast.error(results.statusText);
+      }
+      toast.success("Egresado editado correctamente.");
+      navigate("/graduated");
     }
-    toast.success("Egresado guardado correctamente.");
-    navigate("/graduated");
+    //Si no estamos editando
+    else {
+      //como no estamos editando, mandamos a llamar el servicio de guardar
+      const results = await graduatedService.Save(newGraduated);
+      //si hay un error lo mostramos
+      if (!results.status) {
+        return toast.error(results.statusText);
+      }
+      toast.success("Egresado guardado correctamente.");
+      navigate("/graduated");
+    }
   };
 
+  //este efecto se ejecuta cada vez que la ubicacion cambia, ya que
+  //necesitamos verificar si el usuario esta en la vista de editar, para cambiar el estado
+  //a editar
   useEffect(() => {
     if (location.pathname.includes("edit")) {
+      //Si estamos editando, ejecutamos el metodo siguiente para obtener un
+      //egresado desde la aPI
       getGraduatedFromFetch();
+      //cambiamos el estado de editar a verdadero
       toggleEditing(true);
       return;
     }
+    //En caso que este en la vista de guardado, ponemos el cambiar contraseña en true
+    //para que se muestren las entradas para la clave al registrar los usuarios
     toggleChangePassword(true);
+    //y ponemos el editar en falso ya que estamos guardando
     toggleEditing(false);
   }, [location.pathname, getGraduatedFromFetch]);
 
-  console.log(onChangePassword);
   return (
     <FormCard title={onEditing ? "Editar egresado" : "Datos del egresado"}>
       <form onSubmit={handleSubmit}>
@@ -80,8 +129,28 @@ const Form = () => {
             buttonClass="btn btn-link btn-block text-left text-primary font-weight-bolder collapsed"
           >
             {/* Datos generales */}
+            {onEditing ? (
+              <>
+                <div className="form-check mb-4 d-flex justify-content-end ">
+                  <input
+                    style={{ cursor: "pointer" }}
+                    className="form-check-input "
+                    onChange={() => toggleChangePassword(!onChangePassword)}
+                    type="checkbox"
+                    id="changeClave"
+                  />
+                  <label
+                    style={{ cursor: "pointer" }}
+                    className="form-check-label mr-3"
+                    htmlFor="changeClave"
+                  >
+                    ¿Cambiar clave?
+                  </label>
+                </div>
+              </>
+            ) : null}
             <div className="row">
-              <div className="col-lg-4">
+              <div className={`${onChangePassword ? "col-lg-3 " : "col-lg-6"}`}>
                 <FloatingLabelInput
                   inputId="txtCorreo"
                   placeholder="Correo"
@@ -93,21 +162,9 @@ const Form = () => {
                 />
               </div>
 
-              {onEditing ? (
-                <>
-                  <input
-                    id="Clave"
-                    onChange={() => toggleChangePassword(!onChangePassword)}
-                    type="checkbox"
-                  />
-                  <label htmlFor="Clave" className="form-check">
-                    Cambiar clave?
-                  </label>
-                </>
-              ) : null}
               {onChangePassword ? (
                 <>
-                  <div className="col-lg-4">
+                  <div className="col-lg-4" data-aos="fade-down">
                     <FloatingLabelInput
                       inputId="txtClave"
                       placeholder="Clave"
@@ -118,19 +175,21 @@ const Form = () => {
                       value={graduated.clave}
                     />
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-4" data-aos="fade-down">
                     <FloatingLabelInput
                       inputId="txtClaveCon"
                       placeholder="Confirmar"
                       type="password"
-                      setValue={(e) => setPasswordConfirm(e.target.value)}
-                      value={passwordConfirm}
+                      setValue={(e) =>
+                        handleEntriesChange("confirmarClave", e.target.value)
+                      }
+                      value={graduated.confirmarClave}
                     />
                   </div>
                 </>
               ) : null}
 
-              <div className="col-lg-3">
+              <div className={`${onChangePassword ? "col-lg-3 " : "col-lg-6"}`}>
                 <FloatingLabelInput
                   inputId="txtncontrol"
                   placeholder="Numero de control"
@@ -384,6 +443,20 @@ const Form = () => {
                 />
               </div>
               <div className="col-lg-4">
+                <select
+                  className="form-control form-select"
+                  style={{ height: "47px" }}
+                  onChange={(e) =>
+                    handleEntriesChange("titulado", e.target.value)
+                  }
+                  value={graduated.titulado}
+                >
+                  <option value={""}>¿Titulado? (Seleccione una opcion)</option>
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+              {/* <div className="col-lg-4">
                 <FloatingLabelInput
                   inputId="txTitulado"
                   placeholder="Titulado"
@@ -393,7 +466,7 @@ const Form = () => {
                   }
                   value={graduated.titulado}
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* /Informacion academica */}

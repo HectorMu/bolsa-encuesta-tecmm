@@ -1,6 +1,7 @@
 export const Entries = {
   correo: "",
   clave: "",
+  confirmarClave: "",
   no_control: "",
   nombre_completo: "",
   fechaNacimiento: "",

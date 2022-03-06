@@ -43,7 +43,6 @@ graduated.Update = async (graduated, id) => {
   try {
     const response = await fetch(
       `${API}/users/graduated/update/${id}`,
-      graduated,
       helpers.authPutConfig(graduated)
     );
     return await response.json();
