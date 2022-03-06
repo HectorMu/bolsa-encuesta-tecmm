@@ -27,6 +27,12 @@ const Template = {
     if (!data.length > 0) {
       return {};
     }
+    delete data[0].clave,
+      delete data[0].fk_rol,
+      delete data[0].fk_usuario,
+      delete data[0].creadoEn,
+      delete data[0].actualizadoEn;
+    data[0].idioma_extranjero = JSON.parse(data[0].idioma_extranjero);
     return data[0];
   },
   async Create(data) {

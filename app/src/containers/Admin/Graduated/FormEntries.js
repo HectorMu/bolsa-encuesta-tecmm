@@ -1,20 +1,20 @@
 export const Entries = {
   correo: "",
   clave: "",
-  no_control: 0,
+  no_control: "",
   nombre_completo: "",
   fechaNacimiento: "",
   curp: "",
   sexo: "",
   estado_civil: "",
   calle: "",
-  numero_casa: 0,
+  numero_casa: "",
   colonia: "",
-  cp: 0,
+  cp: "",
   municipio: "",
   estado: "",
-  telefono: 0,
-  tel_casa: 0,
+  telefono: "",
+  tel_casa: "",
   carrera: "",
   fecha_egreso: "",
   titulado: "",
@@ -23,7 +23,7 @@ export const Entries = {
 
 export const NestedEntries = {
   idioma_extranjero: {
-    Otro: 0,
-    Ingles: 0,
+    Otro: "",
+    Ingles: "",
   },
 };

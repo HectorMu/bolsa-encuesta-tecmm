@@ -1,5 +1,6 @@
 //Posible version 2 de la tabla para tener un mejor manejo de las secciones respuestas y las preguntas
 
+
 create database control_egresados;
 
 use control_egresados;
@@ -94,7 +95,7 @@ fk_usuario INT,
 respuesta TEXT,
 FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id),
 FOREIGN KEY (fk_seccion) REFERENCES seccion(id),
-FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 
@@ -169,12 +170,6 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `usuarios_BorrarDatosExistentesEgresado` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
 	DELETE FROM perfil_egresado WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_dos WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_tres WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_cuatro WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_cinco WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_seis WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_siete WHERE fk_usuario = OLD.id;
 	DELETE FROM solicitud_bolsa WHERE fk_egresado = OLD.id;
 END//
 DELIMITER ;
@@ -182,8 +177,6 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `usuarios_BorrarDatosExistentesEmpresa` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
 	DELETE FROM perfil_empresa WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_b WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_c WHERE fk_usuario = OLD.id;
 	DELETE FROM publicacion_bolsa WHERE fk_empresa = OLD.id;
 END//
 DELIMITER ;

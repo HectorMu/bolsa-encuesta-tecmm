@@ -15,6 +15,18 @@ graduated.List = async () => {
   }
 };
 
+graduated.GetOne = async (id) => {
+  try {
+    const response = await fetch(
+      `${API}/users/graduated/getone/${id}`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 graduated.Save = async (graduated) => {
   try {
     const response = await fetch(

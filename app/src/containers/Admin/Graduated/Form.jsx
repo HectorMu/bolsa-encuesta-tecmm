@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import useRouterHooks from "../../../hooks/useRouterHooks";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 //Componentes personalizados para agilizar la construccion al reutilizarlos
 import FloatingLabelInput from "../../../components/Global/FloatingLabelInput";
@@ -19,8 +20,9 @@ const Form = () => {
     NestedEntries.idioma_extranjero
   );
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [onEditing, toggleEditing] = useState(false);
+  const [onChangePassword, toggleChangePassword] = useState(false);
+  const { navigate, location, params } = useRouterHooks();
 
   const handleEntriesChange = (key, value) =>
     setGraduated({ ...graduated, [key]: value });
@@ -29,7 +31,18 @@ const Form = () => {
     setIdiomaExtranjero({ ...idiomaExtranjero, [key]: value });
   };
 
-  useEffect(() => {}, [location]);
+  const getGraduatedFromFetch = useCallback(async () => {
+    const graduatedFetched = await graduatedService.GetOne(params.id);
+    if (!graduatedFetched.id) {
+      navigate("/graduated");
+      toast.error("Este registro no existe.");
+      return;
+    }
+    const { idioma_extranjero, ...rest } = graduatedFetched;
+
+    setGraduated(rest);
+    setIdiomaExtranjero(idioma_extranjero);
+  }, [params.id, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,12 +56,22 @@ const Form = () => {
       return toast.error(results.statusText);
     }
     toast.success("Egresado guardado correctamente.");
-    navigate(-1);
+    navigate("/graduated");
   };
 
-  console.log(location);
+  useEffect(() => {
+    if (location.pathname.includes("edit")) {
+      getGraduatedFromFetch();
+      toggleEditing(true);
+      return;
+    }
+    toggleChangePassword(true);
+    toggleEditing(false);
+  }, [location.pathname, getGraduatedFromFetch]);
+
+  console.log(onChangePassword);
   return (
-    <FormCard title={"Datos del egresado"}>
+    <FormCard title={onEditing ? "Editar egresado" : "Datos del egresado"}>
       <form onSubmit={handleSubmit}>
         <Accordion>
           <Collapsable
@@ -69,24 +92,44 @@ const Form = () => {
                   value={graduated.correo}
                 />
               </div>
-              <div className="col-lg-4">
-                <FloatingLabelInput
-                  inputId="txtClave"
-                  placeholder="Clave"
-                  type="password"
-                  setValue={(e) => handleEntriesChange("clave", e.target.value)}
-                  value={graduated.clave}
-                />
-              </div>
-              <div className="col-lg-4">
-                <FloatingLabelInput
-                  inputId="txtClaveCon"
-                  placeholder="Confirmar"
-                  type="password"
-                  setValue={(e) => setPasswordConfirm(e.target.value)}
-                  value={passwordConfirm}
-                />
-              </div>
+
+              {onEditing ? (
+                <>
+                  <input
+                    id="Clave"
+                    onChange={() => toggleChangePassword(!onChangePassword)}
+                    type="checkbox"
+                  />
+                  <label htmlFor="Clave" className="form-check">
+                    Cambiar clave?
+                  </label>
+                </>
+              ) : null}
+              {onChangePassword ? (
+                <>
+                  <div className="col-lg-4">
+                    <FloatingLabelInput
+                      inputId="txtClave"
+                      placeholder="Clave"
+                      type="password"
+                      setValue={(e) =>
+                        handleEntriesChange("clave", e.target.value)
+                      }
+                      value={graduated.clave}
+                    />
+                  </div>
+                  <div className="col-lg-4">
+                    <FloatingLabelInput
+                      inputId="txtClaveCon"
+                      placeholder="Confirmar"
+                      type="password"
+                      setValue={(e) => setPasswordConfirm(e.target.value)}
+                      value={passwordConfirm}
+                    />
+                  </div>
+                </>
+              ) : null}
+
               <div className="col-lg-3">
                 <FloatingLabelInput
                   inputId="txtncontrol"
@@ -203,7 +246,7 @@ const Form = () => {
                 <FloatingLabelInput
                   inputId="txtNumero"
                   placeholder="Numero de casa"
-                  type="text"
+                  type="number"
                   setValue={(e) =>
                     handleEntriesChange("numero_casa", e.target.value)
                   }
@@ -359,7 +402,7 @@ const Form = () => {
 
         <div className="d-flex mt-3 justify-content-center">
           <button type="submit" className="btn btn-primary mx-3">
-            Guardar
+            {onEditing ? "Guardar cambios" : "Guardar"}
           </button>
           <Link to={-1} className="btn btn-danger ">
             Cancelar
