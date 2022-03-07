@@ -1,19 +1,39 @@
 const express = require("express");
 const router = express.Router();
+//middlewares
 const verifyToken = require("../middlewares/verifyToken");
 const validations = require("../middlewares/validations/users.validations");
+const isAdmin = require("../middlewares/isAdmin");
 
+//contoller import
 const controller = require("../controllers/company.controller");
 
-router.post("/users/company/save", verifyToken, validations, controller.Save);
-router.get("/users/company/getall", verifyToken, controller.GetAll);
-router.get("/users/company/getone/:id", verifyToken, controller.GetOne);
+router.post(
+  "/users/company/save",
+  verifyToken,
+  isAdmin,
+  validations,
+  controller.Save
+);
+router.get("/users/company/getall", verifyToken, isAdmin, controller.GetAll);
+router.get(
+  "/users/company/getone/:id",
+  verifyToken,
+  isAdmin,
+  controller.GetOne
+);
 router.put(
   "/users/company/update/:id",
   verifyToken,
+  isAdmin,
   validations,
   controller.Update
 );
-router.delete("/users/company/delete/:id", verifyToken, controller.Delete);
+router.delete(
+  "/users/company/delete/:id",
+  verifyToken,
+  isAdmin,
+  controller.Delete
+);
 
 module.exports = router;

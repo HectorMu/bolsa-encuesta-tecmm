@@ -1,19 +1,19 @@
 import Graduated from "../pages/Admin/Graduated/Graduated";
 import Add from "../pages/Admin/Graduated/Add";
 import Edit from "../pages/Admin/Graduated/Edit";
-import IsLoggedIn from "../components/Authentication/IsLoggedIn";
+import IsAdmin from "../components/Authentication/IsAdmin";
 const Routes = [
   {
     path: "/graduated",
-    element: <IsLoggedIn view={Graduated} />,
+    element: <IsAdmin view={Graduated} />,
   },
   {
     path: "/graduated/add",
-    element: <IsLoggedIn view={Add} />,
+    element: <IsAdmin view={Add} />,
   },
   {
     path: "/graduated/edit/:id",
-    element: <IsLoggedIn view={Edit} />,
+    element: <IsAdmin view={Edit} />,
   },
 ];
 

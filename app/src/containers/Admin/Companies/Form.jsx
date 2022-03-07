@@ -61,7 +61,7 @@ const Form = () => {
       toggleEditing(true);
       return;
     }
-
+    toggleChangePassword(true);
     toggleEditing(false);
   }, [location.pathname, getCompanyFromFetch]);
   return (
