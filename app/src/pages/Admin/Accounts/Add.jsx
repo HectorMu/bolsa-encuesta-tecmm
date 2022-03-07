@@ -2,7 +2,11 @@ import React from "react";
 import Form from "../../../containers/Admin/Accounts/Form";
 
 const Add = () => {
-  return <div>Add</div>;
+  return (
+    <div>
+      <Form />
+    </div>
+  );
 };
 
 export default Add;
