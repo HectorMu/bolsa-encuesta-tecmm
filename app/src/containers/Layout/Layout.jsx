@@ -14,11 +14,13 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div id="wrapper">
+    <div id="wrapper" className="">
       <Sidebar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
-        <div id="content">{children}</div>
+        <div id="content" className="bg-dark">
+          {children}
+        </div>
         <Footer webSite="TecMM" />
       </div>
     </div>

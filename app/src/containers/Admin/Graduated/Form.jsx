@@ -164,7 +164,10 @@ const Form = () => {
 
               {onChangePassword ? (
                 <>
-                  <div className="col-lg-4" data-aos="fade-down">
+                  <div
+                    className="col-lg-4"
+                    data-aos={`${onEditing ? `fade-down` : ""}`}
+                  >
                     <FloatingLabelInput
                       inputId="txtClave"
                       placeholder="Clave"
@@ -175,7 +178,10 @@ const Form = () => {
                       value={graduated.clave}
                     />
                   </div>
-                  <div className="col-lg-4" data-aos="fade-down">
+                  <div
+                    className="col-lg-4"
+                    data-aos={`${onEditing ? `fade-down` : ""}`}
+                  >
                     <FloatingLabelInput
                       inputId="txtClaveCon"
                       placeholder="Confirmar"
@@ -195,7 +201,7 @@ const Form = () => {
                   placeholder="Numero de control"
                   type="number"
                   setValue={(e) =>
-                    handleEntriesChange("no_control", e.target.value)
+                    handleEntriesChange("no_control", parseInt(e.target.value))
                   }
                   value={graduated.no_control}
                 />
@@ -307,7 +313,7 @@ const Form = () => {
                   placeholder="Numero de casa"
                   type="number"
                   setValue={(e) =>
-                    handleEntriesChange("numero_casa", e.target.value)
+                    handleEntriesChange("numero_casa", parseInt(e.target.value))
                   }
                   value={graduated.numero_casa}
                 />
@@ -350,7 +356,7 @@ const Form = () => {
                   placeholder="Telefono"
                   type="number"
                   setValue={(e) =>
-                    handleEntriesChange("telefono", e.target.value)
+                    handleEntriesChange("telefono", parseInt(e.target.value))
                   }
                   value={graduated.telefono}
                 />
@@ -361,7 +367,7 @@ const Form = () => {
                   placeholder="Telefono casa"
                   type="number"
                   setValue={(e) =>
-                    handleEntriesChange("tel_casa", e.target.value)
+                    handleEntriesChange("tel_casa", parseInt(e.target.value))
                   }
                   value={graduated.tel_casa}
                 />
@@ -377,7 +383,7 @@ const Form = () => {
           >
             {/* Informacion academica */}
             <div className="row">
-              <div className="col-lg-4">
+              <div className="col-lg-6">
                 <select
                   className="form-control form-select mb-3"
                   style={{ height: "47px" }}
@@ -394,7 +400,7 @@ const Form = () => {
                   ))}
                 </select>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-6">
                 <FloatingLabelInput
                   inputId="txtEgreso"
                   placeholder="Fecha de egreso"
@@ -405,10 +411,15 @@ const Form = () => {
                   value={graduated.fecha_egreso}
                 />
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-12 mb-2">
+                <h6 className="text-purple font-weight-bolder">
+                  Dominio de idioma(s) extranjero(s) (Porcentaje %)
+                </h6>
+              </div>
+              <div className="col-lg-6">
                 <FloatingLabelInput
                   inputId="txtIdioma"
-                  placeholder="Idioma extranjero (ingles)"
+                  placeholder="Ingles"
                   type="number"
                   setValue={(e) =>
                     handleIdiomaExtranjeroChange("Ingles", e.target.value)
@@ -417,10 +428,10 @@ const Form = () => {
                   ranges={{ min: 0, max: 100 }}
                 />
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-6">
                 <FloatingLabelInput
                   inputId="txtIdiomaOtro"
-                  placeholder="Otro"
+                  placeholder="Otro idioma"
                   type="number"
                   setValue={(e) =>
                     handleIdiomaExtranjeroChange("Otro", e.target.value)
@@ -428,7 +439,7 @@ const Form = () => {
                   value={idiomaExtranjero.Otro}
                 />
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-6">
                 <FloatingLabelInput
                   inputId="txtPaquetes"
                   placeholder="Paquetes computacionales"
@@ -442,7 +453,7 @@ const Form = () => {
                   value={graduated.paquetes_computacionales}
                 />
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-6">
                 <select
                   className="form-control form-select"
                   style={{ height: "47px" }}

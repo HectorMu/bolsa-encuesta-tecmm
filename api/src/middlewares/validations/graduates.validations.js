@@ -34,14 +34,40 @@ const validations = (req, res, next) => {
   }
 
   if (
-    req.body.telefono.length < 10 ||
-    req.body.tel_casa.length < 10 ||
-    req.body.telefono.length > 10 ||
-    req.body.tel_casa.length > 10
+    req.body.telefono.toString().length < 10 ||
+    req.body.tel_casa.toString().length < 10 ||
+    req.body.telefono.toString().length > 10 ||
+    req.body.tel_casa.toString().length > 10
   ) {
     return res.status(400).json({
       status: false,
-      statusText: "Los numero de telefono deben tener maximo 10 digitos.",
+      statusText: "Los numeros de telefono deben tener maximo 10 digitos.",
+    });
+  }
+
+  if (typeof req.body.cp !== "number") {
+    return res.status(400).json({
+      status: false,
+      statusText: "El codigo postal no es valido.",
+    });
+  }
+
+  if (typeof req.body.numero_casa !== "number") {
+    return res.status(400).json({
+      status: false,
+      statusText: "El numero de casa no es valido.",
+    });
+  }
+  if (typeof req.body.tel_casa !== "number") {
+    return res.status(400).json({
+      status: false,
+      statusText: "El telefono de casa debe ser un numero valido.",
+    });
+  }
+  if (typeof req.body.telefono !== "number") {
+    return res.status(400).json({
+      status: false,
+      statusText: "El telefono de debe ser un numero valido.",
     });
   }
 
