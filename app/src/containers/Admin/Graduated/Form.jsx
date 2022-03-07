@@ -187,9 +187,9 @@ const Form = () => {
                       placeholder="Confirmar"
                       type="password"
                       setValue={(e) =>
-                        handleEntriesChange("confirmarClave", e.target.value)
+                        handleEntriesChange("confirmar", e.target.value)
                       }
-                      value={graduated.confirmarClave}
+                      value={graduated.confirmar}
                     />
                   </div>
                 </>
@@ -467,17 +467,6 @@ const Form = () => {
                   <option value="No">No</option>
                 </select>
               </div>
-              {/* <div className="col-lg-4">
-                <FloatingLabelInput
-                  inputId="txTitulado"
-                  placeholder="Titulado"
-                  type="text"
-                  setValue={(e) =>
-                    handleEntriesChange("titulado", e.target.value)
-                  }
-                  value={graduated.titulado}
-                />
-              </div> */}
             </div>
 
             {/* /Informacion academica */}

@@ -1,4 +1,10 @@
 import { useState } from "react";
+import useRouterHooks from "../../../hooks/useRouterHooks";
+import helpers from "../../../helpers/helpers";
+
+//importando librerias para alertas
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 //importando componentes personalizados
 import DataTable from "../../../components/Global/DataTable";
@@ -8,12 +14,55 @@ import Loading from "../../../components/Global/Loading";
 import useServiceFetch from "../../../hooks/useServiceFetch";
 
 //importando servicios
-import company from "../../../services/company";
+import companyService from "../../../services/companyService";
 
 const List = () => {
   const [companies, setCompanies] = useState([]);
+  const { isLoading, refreshData } = useServiceFetch(
+    companyService.List,
+    setCompanies
+  );
+  const { navigate } = useRouterHooks();
 
-  const { isLoading } = useServiceFetch(company.List, setCompanies);
+  const handleDeletion = async (company) => {
+    Swal.fire({
+      text: `¿Desea eliminar a la compañia '${company.nombre_comercial}' del sistema?`,
+      icon: "info",
+      ...helpers.alertConfig,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const deleteResults = await companyService.Delete(company.id);
+        if (!deleteResults.status) {
+          return toast.error(deleteResults.statusText);
+        }
+        toast.success("Compañia eliminada correctamente");
+        await refreshData();
+      }
+    });
+  };
+
+  const redirectToEditPage = (company) => {
+    navigate(`/companies/edit/${company.id}`);
+  };
+
+  const tableConfig = {
+    buttons: [
+      {
+        key: "btnEdit",
+        text: "Editar",
+        style: "btn btn-info m-1 btn-sm ",
+        fwicon: "fas fa-pen fa-sm",
+        click: (o) => redirectToEditPage(o),
+      },
+      {
+        key: "btnDelete",
+        text: "Eliminar",
+        style: "btn btn-danger m-1 btn-sm",
+        fwicon: "fas fa-times ",
+        click: (o) => handleDeletion(o),
+      },
+    ],
+  };
 
   return (
     <div>
@@ -24,14 +73,28 @@ const List = () => {
           title="Registros"
           data={companies}
           emptyDataText="Sin registros"
-          renameHeaders={{
+          searchText="Buscando por"
+          actions={true}
+          actionsText={"Opciones"}
+          filtersConfig={{
+            id: "Folio",
+            correo: "Correo",
             nombre_comercial: "Nombre",
-            n_empresa: "#",
+            tipo_empresa: "Tipo",
+            actividad_economica: "Act. Económica",
+            estado: "Estado",
+            municipio: "Municipio",
+          }}
+          renameHeaders={{
+            id: "Folio",
+            nombre_comercial: "Nombre",
+            numero_empresa: "#",
             cp: "C.P",
             telefono: "Teléfono",
             tipo_empresa: "Tipo",
-            actividad_economica: "Act. Enonomica",
+            actividad_economica: "Act. Económica",
           }}
+          buttons={tableConfig.buttons}
         />
       )}
     </div>

@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+
+import useRouterHooks from "../../../hooks/useRouterHooks";
 
 //importando componentes personalizados
 import DataTable from "../../../components/Global/DataTable";
@@ -22,7 +23,7 @@ const List = () => {
     graduatedService.List,
     setGraduates
   );
-  const navigate = useNavigate();
+  const { navigate } = useRouterHooks();
 
   const handleDeletion = async (egresado) => {
     Swal.fire({
@@ -42,7 +43,7 @@ const List = () => {
   };
 
   const redirectToEditPage = (graduated) => {
-    navigate(`/graduated/edit/${graduated.id}`, { state: graduated });
+    navigate(`/graduated/edit/${graduated.id}`);
   };
 
   const tableConfig = {

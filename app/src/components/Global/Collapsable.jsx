@@ -3,7 +3,7 @@ import React from "react";
 const Collapsable = ({
   id = "One",
   text = "Collapsible Group Item #1",
-  buttonClass = "btn btn-link btn-block text-left",
+  buttonClass = "btn btn-link btn-block text-left text-primary font-weight-bolder collapsed",
   children,
 }) => {
   return (

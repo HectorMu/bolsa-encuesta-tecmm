@@ -58,11 +58,22 @@ controller.Save = async (req, res) => {
       });
     }
 
-    //En esta constante guardaremos los resultados de la insercion del usuario, nos regresa el id insertado
-    //por lo que nos sirve para agregar el perfil
+    const nameExists = await helpers.isDuplicated(
+      "perfil_empresa",
+      "nombre_comercial",
+      req.body.nombre_comercial
+    );
+    if (nameExists) {
+      return res.json({
+        status: false,
+        statusText: "Este nombre comercial ya esta registrado en otra cuenta.",
+      });
+    }
 
     //hasheamos la clave para no guardarla en texto plano
     basicData.clave = await helpers.encryptPassword(basicData.clave);
+    //En esta constante guardaremos los resultados de la insercion del usuario, nos regresa el id insertado
+    //por lo que nos sirve para agregar el perfil
     const userCreation = await User.Create(basicData);
 
     //Creamos un nuevo objeto donde guardaremos los datos del perfil,
@@ -112,6 +123,19 @@ controller.Update = async (req, res) => {
       return res.json({
         status: false,
         statusText: "Este correo electronico ya esta registrado.",
+      });
+    }
+
+    const nameExists = await helpers.isDuplicatedOnUpdate(
+      "perfil_empresa",
+      "nombre_comercial",
+      id,
+      req.body.nombre_comercial
+    );
+    if (nameExists) {
+      return res.json({
+        status: false,
+        statusText: "Este nombre comercial ya esta registrado en otra cuenta.",
       });
     }
 

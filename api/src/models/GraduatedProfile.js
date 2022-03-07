@@ -44,12 +44,12 @@ const Template = {
     return results;
   },
   async Update(data, id) {
-    console.log(data);
     //convertimos el json a string para guardarlo en la base de datos
+    data.idioma_extranjero = JSON.stringify(data.idioma_extranjero);
     //borramos el id antes de editar, ya que solo nos interesa editar los demas datos
     //ademas que el id es la fk de la cuenta del usuario
     delete data.id;
-    data.idioma_extranjero = JSON.stringify(data.idioma_extranjero);
+
     const results = await connection.query(
       `update ${TABLE_NAME} set ? where ${IDENTIFIER_NAME} = ?`,
       [data, id]

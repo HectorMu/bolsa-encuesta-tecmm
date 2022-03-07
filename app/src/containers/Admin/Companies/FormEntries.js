@@ -1,4 +1,7 @@
 const FormEntries = {
+  correo: "",
+  clave: "",
+  confirmar: "",
   nombre_comercial: "",
   calle: "",
   numero_empresa: "",

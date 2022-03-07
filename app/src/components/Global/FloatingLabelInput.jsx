@@ -7,7 +7,7 @@ const FloatingLabelInput = ({
   setValue = null,
   setClass = "",
   focusAction = null,
-  blurAction = null,
+  list = null,
 }) => {
   return (
     <div className="formgroup__animated mb-3">
@@ -17,6 +17,7 @@ const FloatingLabelInput = ({
         className={`input__animated ${setClass}`}
         placeholder=" "
         onChange={setValue}
+        list={list}
         defaultValue={value}
         autoComplete="off"
         onFocus={focusAction}

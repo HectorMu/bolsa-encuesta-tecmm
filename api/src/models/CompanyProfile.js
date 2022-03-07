@@ -42,6 +42,9 @@ const CompanyProfile = {
     return results;
   },
   async Update(data, id) {
+    //borramos el id antes de editar, ya que solo nos interesa editar los demas datos
+    //ademas que el id es la fk de la cuenta del usuario
+    delete data.id;
     const results = await connection.query(
       `update ${TABLE_NAME} set ? where ${IDENTIFIER_NAME} = ?`,
       [data, id]
