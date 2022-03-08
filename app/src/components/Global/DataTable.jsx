@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-//import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 // /**
 //  * @param {String} title The table title
 //  * @param {Array}   data JSON array with all the table data
@@ -135,14 +135,14 @@ const DataTable = ({
           ) : null}
 
           <div className="btn-group dropleft">
-            {/* <ReactHTMLTableToExcel
+            <ReactHTMLTableToExcel
               id="test-table-xls-button"
               className="btn btn-sm mr-2 text-primary"
               table={`dataTable${title.replace(" ", "-")}`}
               filename={title}
               sheet="tablexls"
               buttonText={<i className="far fa-file-excel"></i>}
-            /> */}
+            />
 
             <button
               type="button"
