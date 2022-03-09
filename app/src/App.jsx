@@ -1,6 +1,8 @@
 // Importing app styles
 import "./css/sb-admin-2.css";
 import "./css/main.css";
+//Sweet alert 2 alerts styles
+import "../../node_modules/sweetalert2/dist/sweetalert2.css";
 
 // Importing react and hooks
 import React, { useEffect } from "react";
@@ -33,18 +35,12 @@ function App() {
     <SessionProvider>
       <Layout>
         <Routes>
-          {/* Protected Routes to use after */}
-          {/* <Route path="/" element={<IsAlreadyLogged view={Index} />} /> */}
-          {/* <Route path="/home" element={<IsLoggedIn view={Home} />} /> */}
-
-          {/* All app routes */}
-          {AppRoutes.map((route) => (
+          {AppRoutes?.map((route) => (
             <Route key={route.path} path={route.path} element={route.element} />
           ))}
-          {/* /All app routes */}
         </Routes>
-        <Toaster />
       </Layout>
+      <Toaster />
     </SessionProvider>
   );
 }

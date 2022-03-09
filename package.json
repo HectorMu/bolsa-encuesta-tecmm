@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "build:app": "npm run build --workspace=app",
-    "start:app": "npm start --workspace=app",
+    "start:app": "npm run dev --workspace=app",
     "start:api": "npm run dev --workspace=api",
     "dev": "start npm run start:api && start npm run start:app",
     "start": "npm run build:app && npm run start:api"
@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "aos": "^2.3.4",
-    "react-html-table-to-excel": "^2.0.0"
+    "react-html-table-to-excel": "^2.0.0",
+    "sweetalert2": "^11.4.4"
   }
 }
