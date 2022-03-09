@@ -119,6 +119,7 @@ const Form = () => {
     toggleEditing(false);
   }, [location.pathname, getGraduatedFromFetch]);
 
+  console.log(graduated) 
   return (
     <FormCard title={onEditing ? "Editar egresado" : "Datos del egresado"}>
       <form onSubmit={handleSubmit}>
@@ -333,8 +334,8 @@ const Form = () => {
                 <FloatingLabelInput
                   inputId="txtCP"
                   placeholder="Codigo Postal"
-                  type="text"
-                  setValue={(e) => handleEntriesChange("cp", e.target.value)}
+                  type="number"
+                  setValue={(e) => handleEntriesChange("cp", parseInt(e.target.value))}
                   value={graduated.cp}
                 />
               </div>
