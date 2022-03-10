@@ -1,0 +1,46 @@
+
+
+### Get all own company jobs with token list
+GET http://localhost:4000/api/company/jobs/getall
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiY29ycmVvIjoic3RhbmxleTJAZ21haWwuY29tIiwiZmtfcm9sIjozLCJpYXQiOjE2NDY4ODAwNTV9.hVIGytm2h4ku2QSotJlnsF0b4RBXDjVHheagiwcfwxw
+
+### Get one job from company
+GET http://localhost:4000/api/company/jobs/getone/238
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiY29ycmVvIjoic3RhbmxleTJAZ21haWwuY29tIiwiZmtfcm9sIjozLCJpYXQiOjE2NDY4ODAwNTV9.hVIGytm2h4ku2QSotJlnsF0b4RBXDjVHheagiwcfwxw
+
+### Save a job
+POST http://localhost:4000/api/company/jobs/save
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiY29ycmVvIjoic3RhbmxleTJAZ21haWwuY29tIiwiZmtfcm9sIjozLCJpYXQiOjE2NDY4ODAwNTV9.hVIGytm2h4ku2QSotJlnsF0b4RBXDjVHheagiwcfwxw
+Content-Type: application/json
+
+{
+    "folio":239,
+    "vacante":"Ingeniero en gestion empresarial experimentado",
+    "descripcion":"Requerimos: un ingeniero en gestion que tenga ganas por aprender y alb aslb albla",
+    "ubicacion":"Lomas de Lagos de Moreno, Stanley",
+    "status":"Abierta"
+    
+}
+
+### Update an own company job
+PUT http://localhost:4000/api/company/jobs/update/239
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiY29ycmVvIjoic3RhbmxleTJAZ21haWwuY29tIiwiZmtfcm9sIjozLCJpYXQiOjE2NDY4ODAwNTV9.hVIGytm2h4ku2QSotJlnsF0b4RBXDjVHheagiwcfwxw
+Content-Type: application/json
+
+{
+    "folio":239,
+    "vacante":"Ingeniero en gestion empresarial experimentado",
+    "descripcion":"Requerimos: un ingeniero en gestion empresarial que tenga ganas por aprender y alb aslb albla",
+    "ubicacion":"Lomas de Lagos de Moreno, Stanley",
+    "status":"Abierta"
+    
+}
+
+
+    
+
+### Delete a own company job
+DELETE http://localhost:4000/api/company/jobs/delete/239
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiY29ycmVvIjoic3RhbmxleTJAZ21haWwuY29tIiwiZmtfcm9sIjozLCJpYXQiOjE2NDY4ODAwNTV9.hVIGytm2h4ku2QSotJlnsF0b4RBXDjVHheagiwcfwxw
+Content-Type: application/json
+

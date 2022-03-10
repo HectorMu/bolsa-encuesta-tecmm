@@ -1,0 +1,39 @@
+
+
+### Get all graduated postulations
+GET http://localhost:4000/api/graduated/postulations
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+### Get one job between all graduated postulations
+GET http://localhost:4000/api/graduated/postulations/getone/34
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+
+### Postule a graduated to a job
+POST http://localhost:4000/api/graduated/postulations/save
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+
+{
+    "fk_vacante": 238,
+    "curriculum":"direccion/pedorra/curriculo2.pdf"
+}
+
+### Update a graduated job postulation
+PUT http://localhost:4000/api/graduated/postulations/update/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "curriculum":"direccion/pedorra/curriculo4.pdf"
+}
+
+
+
+### Delete a graduated job postulation
+DELETE http://localhost:4000/api/graduated/postulations/delete/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+

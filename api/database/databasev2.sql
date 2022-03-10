@@ -1,5 +1,3 @@
-//Posible version 2 de la tabla para tener un mejor manejo de las secciones respuestas y las preguntas
-
 
 create database control_egresados;
 
@@ -32,10 +30,10 @@ create table perfil_empresa(
     calle varchar(50),
     numero_empresa int,
     colonia varchar(50),
-    cp BIGINT,
+    cp varchar(50),
     municipio varchar(50),
     estado varchar(50),
-    telefono BIGINT,
+    telefono varchar(100),
     tipo_empresa varchar(50),
     tamaño varchar(100),
     actividad_economica varchar(200),
@@ -53,13 +51,13 @@ create table perfil_egresado(
     sexo varchar(10),
     estado_civil varchar(20),
     calle varchar(50),
-    numero_casa BIGINT,
+    numero_casa int,
     colonia varchar(50),
-    cp BIGINT,
+    cp varchar(50),
     municipio varchar(50),
     estado varchar(50),
-    telefono BIGINT,
-    tel_casa BIGINT,
+    telefono varchar(50),
+    tel_casa varchar(50),
     carrera varchar(50),
     fecha_egreso varchar(50),
     idioma_extranjero JSON,
@@ -98,13 +96,6 @@ FOREIGN KEY (fk_seccion) REFERENCES seccion(id),
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
-
-
-
-
-
-
-
 create table publicacion_bolsa(
     folio int primary key,
     fk_empresa int,
@@ -113,12 +104,16 @@ create table publicacion_bolsa(
     ubicacion varchar(50),
     fecha_creacion varchar(100),
     fecha_expira varchar(100),
-    consultas int,
-    solicitudes_total int,
-    solicitudes_revisadas int,
-    solicitudes_sinrevisar int,
     status varchar(50),
     foreign key(fk_empresa)references usuarios(id)
+);
+
+CREATE TABLE vistas_publicaciones(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    fk_publicacion INT,
+    fk_usuario INT,
+	FOREIGN KEY (fk_publicacion) REFERENCES publicacion_bolsa(folio),
+	FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 create table solicitud_bolsa(

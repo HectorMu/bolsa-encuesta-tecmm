@@ -7,4 +7,7 @@ export default defineConfig({
   build: {
     outDir: "../api/src/build",
   },
+  server: {
+    host: true,
+  },
 });
