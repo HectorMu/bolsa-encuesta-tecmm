@@ -45,6 +45,10 @@ const List = () => {
     navigate(`/companies/edit/${company.id}`);
   };
 
+  const redirectToDetailsPage = (company) => {
+    navigate(`/companies/details/${company.id}`);
+  };
+
   const tableConfig = {
     buttons: [
       {
@@ -76,6 +80,13 @@ const List = () => {
           searchText="Buscando por"
           actions={true}
           actionsText={"Opciones"}
+          hideColumns={[
+            "cp",
+            "numero_empresa",
+            "calle",
+            "colonia",
+            "municipio",
+          ]}
           filtersConfig={{
             id: "Folio",
             correo: "Correo",
@@ -97,8 +108,8 @@ const List = () => {
           buttons={tableConfig.buttons}
           actionElement={{
             element: "id",
-            className: "btn btn-link text-purple",
-            action: (o) => window.alert(`hola soy ${o.id}`),
+            className: "btn btn-link text-purple font-weight-bolder",
+            action: (o) => redirectToDetailsPage(o),
           }}
         />
       )}

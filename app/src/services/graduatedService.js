@@ -1,9 +1,7 @@
 import API from "../config/API";
 import helpers from "../helpers/helpers";
 
-const graduated = {};
-
-graduated.List = async () => {
+const List = async () => {
   try {
     const response = await fetch(
       `${API}/users/graduated/getall`,
@@ -15,7 +13,7 @@ graduated.List = async () => {
   }
 };
 
-graduated.GetOne = async (id) => {
+const GetOne = async (id) => {
   try {
     const response = await fetch(
       `${API}/users/graduated/getone/${id}`,
@@ -27,7 +25,7 @@ graduated.GetOne = async (id) => {
   }
 };
 
-graduated.Save = async (graduated) => {
+const Save = async (graduated) => {
   try {
     const response = await fetch(
       `${API}/users/graduated/save`,
@@ -38,8 +36,7 @@ graduated.Save = async (graduated) => {
     console.log(error);
   }
 };
-
-graduated.Update = async (graduated, id) => {
+const Update = async (graduated, id) => {
   try {
     const response = await fetch(
       `${API}/users/graduated/update/${id}`,
@@ -51,7 +48,7 @@ graduated.Update = async (graduated, id) => {
   }
 };
 
-graduated.Delete = async (id) => {
+const Delete = async (id) => {
   try {
     const response = await fetch(
       `${API}/users/graduated/delete/${id}`,
@@ -63,4 +60,4 @@ graduated.Delete = async (id) => {
   }
 };
 
-export default graduated;
+export default { List, GetOne, Save, Update, Delete };

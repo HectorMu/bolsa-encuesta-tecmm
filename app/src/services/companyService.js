@@ -1,9 +1,7 @@
 import API from "../config/API";
 import helpers from "../helpers/helpers";
 
-const companyService = {};
-
-companyService.List = async () => {
+const List = async () => {
   try {
     const response = await fetch(
       `${API}/users/company/getall`,
@@ -15,7 +13,7 @@ companyService.List = async () => {
   }
 };
 
-companyService.GetOne = async (id) => {
+const GetOne = async (id) => {
   try {
     const response = await fetch(
       `${API}/users/company/getone/${id}`,
@@ -27,7 +25,7 @@ companyService.GetOne = async (id) => {
   }
 };
 
-companyService.Save = async (company) => {
+const Save = async (company) => {
   try {
     const response = await fetch(
       `${API}/users/company/save`,
@@ -39,7 +37,7 @@ companyService.Save = async (company) => {
   }
 };
 
-companyService.Update = async (company, id) => {
+const Update = async (company, id) => {
   try {
     const response = await fetch(
       `${API}/users/company/update/${id}`,
@@ -51,7 +49,7 @@ companyService.Update = async (company, id) => {
   }
 };
 
-companyService.Delete = async (id) => {
+const Delete = async (id) => {
   try {
     const response = await fetch(
       `${API}/users/company/delete/${id}`,
@@ -63,4 +61,4 @@ companyService.Delete = async (id) => {
   }
 };
 
-export default companyService;
+export default { List, GetOne, Save, Update, Delete };
