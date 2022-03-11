@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import useSession from "../../hooks/useSession";
+import Section from "../../components/Navigation/Sidebar/Section";
+import SidebarDropdown from "../../components/Navigation/Sidebar/SidebarDropdown";
 
 const CustomSidebar = ({
   sidebarControl: { sidebarToggled, handleSidebarToggle },
@@ -20,19 +22,16 @@ const CustomSidebar = ({
           <i className="fas fa-times"></i>
         </button>
       </div>
-      <h3>xd</h3>
+      <h3>Admin</h3>
       <nav className="menu">
-        <NavLink
-          to="/me/catalog"
-          className="menu-item text-dark font-weight-bold"
-        >
-          Home
+        <NavLink to="/users" className="menu-item">
+          Cuentas
         </NavLink>
-        <NavLink to="/meet" className="menu-item">
-          Meet people
+        <NavLink to="/companies" className="menu-item ">
+          Empresas
         </NavLink>
-        <NavLink to="/friends" className="menu-item">
-          Friends
+        <NavLink to="/graduated" className="menu-item">
+          Egresados
         </NavLink>
       </nav>
     </aside>
