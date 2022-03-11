@@ -234,7 +234,7 @@ input:-webkit-autofill:active {
   background-color: var(--danger-dark);
   border-color: var(--danger-dark);
 }
-/* 
+
 .topbar #sidebarToggleTop {
   color: white;
   background-color: var(--purple) !important;
@@ -247,7 +247,7 @@ input:-webkit-autofill:active {
 }
 .topbar #sidebarToggleTop:active {
   border: none !important;
-} */
+}
 
 .text-black {
   color: black;
@@ -296,7 +296,8 @@ input:-webkit-autofill:active {
   flex: 1 1 0;
   max-width: 180px;
   padding: 2rem 1rem;
-  background-color: var(--coffe-dark);
+  background-color: #e6e7e9;
+
   z-index: 3;
 }
 
@@ -304,7 +305,7 @@ input:-webkit-autofill:active {
   color: white;
   font-size: 0.75rem;
   text-transform: uppercase;
-  margin-top: 10px;
+  margin-top: 70px;
 }
 
 .c-sidebar .menu {

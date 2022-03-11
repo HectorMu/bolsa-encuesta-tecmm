@@ -11,7 +11,7 @@ const CustomSidebar = ({
     return <></>;
   }
   return (
-    <aside className={`c-sidebar bg-dark ${sidebarToggled ? `active` : ``} `}>
+    <aside className={`c-sidebar  ${sidebarToggled ? `active ` : ``} `}>
       <div className="d-flex justify-content-end">
         <button
           onClick={() => handleSidebarToggle(!sidebarToggled)}
@@ -20,8 +20,12 @@ const CustomSidebar = ({
           <i className="fas fa-times"></i>
         </button>
       </div>
+      <h3>xd</h3>
       <nav className="menu">
-        <NavLink to="/me/catalog" className="menu-item">
+        <NavLink
+          to="/me/catalog"
+          className="menu-item text-dark font-weight-bold"
+        >
           Home
         </NavLink>
         <NavLink to="/meet" className="menu-item">
