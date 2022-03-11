@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../Navigation/Navbar";
 import Sidebar from "../Navigation/Sidebar";
+import CustomSidebar from "../Navigation/CustomSidebar";
 import Footer from "./Footer";
 
 const Layout = ({ children }) => {
@@ -8,20 +9,24 @@ const Layout = ({ children }) => {
 
   const handleSidebarToggle = () => {
     setSidebarToggled(!sidebarToggled);
-    if (sidebarToggled) {
-      document.body.classList.toggle("sidebar-toggled");
-    }
+    // if (sidebarToggled) {
+    //   document.body.classList.toggle("sidebar-toggled");
+    // }
   };
 
   return (
-    <div id="wrapper" className="">
-      <Sidebar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
-      <div id="content-wrapper" className="d-flex flex-column">
-        <Navbar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
-        <div id="content">{children}</div>
-        <Footer webSite="TecMM" />
+    <>
+      <Navbar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
+      <div className="wrapper">
+        <CustomSidebar
+          sidebarControl={{ sidebarToggled, handleSidebarToggle }}
+        />
+
+        <div className="content">
+          {children} <Footer webSite="TecMM" />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Layout;

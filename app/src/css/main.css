@@ -145,7 +145,7 @@ input:-webkit-autofill:active {
   color: gray !important;
 }
 
-.sidebar-light #sidebarToggle {
+/* .sidebar-light #sidebarToggle {
   background-color: var(--green);
 }
 .sidebar-light #sidebarToggle:hover {
@@ -154,7 +154,7 @@ input:-webkit-autofill:active {
 
 .sidebar-light #sidebarToggle::after {
   color: white;
-}
+} */
 
 .text-purple {
   color: var(--purple) !important;
@@ -234,7 +234,7 @@ input:-webkit-autofill:active {
   background-color: var(--danger-dark);
   border-color: var(--danger-dark);
 }
-
+/* 
 .topbar #sidebarToggleTop {
   color: white;
   background-color: var(--purple) !important;
@@ -247,7 +247,7 @@ input:-webkit-autofill:active {
 }
 .topbar #sidebarToggleTop:active {
   border: none !important;
-}
+} */
 
 .text-black {
   color: black;
@@ -284,3 +284,110 @@ input:-webkit-autofill:active {
   }
 }
 /* /Showcase */
+
+/* Custom sidebar */
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: row;
+}
+
+.c-sidebar {
+  flex: 1 1 0;
+  max-width: 180px;
+  padding: 2rem 1rem;
+  background-color: var(--coffe-dark);
+  z-index: 3;
+}
+
+.c-sidebar h3 {
+  color: white;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.c-sidebar .menu {
+  margin: -0.5rem -1rem;
+  margin-top: 30px;
+}
+
+.c-sidebar .menu .menu-item {
+  display: block;
+  padding: 1em;
+  color: white;
+  text-decoration: none;
+  transition: 0.2s linear;
+}
+
+.c-sidebar .menu .menu-item:hover {
+  color: var(--coffe);
+  border-left: 5px solid var(--purple);
+}
+
+.c-sidebar .menu .menu-item.active {
+  border-left: 10px solid var(--purple);
+  pointer-events: none;
+}
+
+@media (min-width: 1200px) {
+  .c-sidebar {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .c-sidebar {
+    max-width: 100px;
+  }
+}
+@media (max-width: 962px) {
+  .c-sidebar {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .c-sidebar {
+    position: fixed;
+
+    bottom: 0;
+    left: -400px;
+    height: calc(100vh - 48px);
+    width: 100%;
+    max-width: 200px;
+    transition: 0.2s linear;
+    z-index: 100;
+  }
+  .c-sidebar.active {
+    left: 0;
+  }
+  .c-sidebar .menu {
+    position: static;
+  }
+}
+
+@media (max-width: 576px) {
+  .c-sidebar {
+    position: fixed;
+    top: 0;
+    left: -400px;
+    height: 100vh;
+    width: 100%;
+    max-width: 200px;
+    transition: 0.2s linear;
+    z-index: 100;
+  }
+  .c-sidebar.active {
+    left: 0;
+  }
+  .c-sidebar .menu {
+    position: static;
+  }
+}
+
+.content {
+  flex: 1 1 0;
+}
+
+/* /Custom sidebar */
