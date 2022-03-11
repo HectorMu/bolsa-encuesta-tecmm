@@ -272,3 +272,15 @@ input:-webkit-autofill:active {
   color: var(--green) !important;
   font-weight: 800 !important;
 }
+
+/* Showcase */
+.responsive-text-header {
+  font-size: 30px;
+}
+
+@media (max-width: 576px) {
+  .responsive-text-header {
+    font-size: 20px;
+  }
+}
+/* /Showcase */

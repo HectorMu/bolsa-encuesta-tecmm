@@ -46,6 +46,10 @@ const List = () => {
     navigate(`/graduated/edit/${graduated.id}`);
   };
 
+  const redirectToDetailsPage = (graduated) => {
+    navigate(`/graduated/details/${graduated.id}`);
+  };
+
   const tableConfig = {
     buttons: [
       {
@@ -82,6 +86,22 @@ const List = () => {
             estado_civil: "Estado Civil",
             titulado: "Titulado",
           }}
+          hideColumns={[
+            "paquetes_computacionales",
+            "idioma_extranjero",
+            "telefono",
+            "tel_casa",
+            "estado",
+            "municipio",
+            "calle",
+            "numero_casa",
+            "colonia",
+            "cp",
+            "fechaNacimiento",
+            "estado_civil",
+            "curp",
+            "sexo",
+          ]}
           renameHeaders={{
             id: "Folio",
             nombre_completo: "Nombre",
@@ -98,6 +118,11 @@ const List = () => {
           }}
           actions={true}
           actionsText={"Opciones"}
+          actionElement={{
+            element: "id",
+            className: "btn btn-link text-purple font-weight-bolder",
+            action: (o) => redirectToDetailsPage(o),
+          }}
           buttons={tableConfig.buttons}
         />
       )}

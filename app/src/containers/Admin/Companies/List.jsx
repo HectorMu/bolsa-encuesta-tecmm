@@ -86,6 +86,7 @@ const List = () => {
             "calle",
             "colonia",
             "municipio",
+            "estado",
           ]}
           filtersConfig={{
             id: "Folio",

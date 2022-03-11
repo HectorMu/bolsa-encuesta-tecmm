@@ -1,13 +1,24 @@
 import React, { useEffect, useState, useCallback } from "react";
-import Swal from "sweetalert2";
-import helpers from "../../../helpers/helpers";
+//React router dom components
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+//custom hooks
 import useRouterHooks from "../../../hooks/useRouterHooks";
+//Para las alertas
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
+//componentes para el reutilizar el show case en multiples vistas de detalle
+import ShowcaseHeader from "../../../components/Global/ShowcaseHeader";
+import ShowcaseCard from "../../../components/Global/ShowcaseCard";
+import ShowcaseContainer from "../../../components/Global/ShowcaseContainer";
+import Loading from "../../../components/Global/Loading";
+//Servicios
 import companyService from "../../../services/companyService";
+//helpers
+import helpers from "../../../helpers/helpers";
 
 const Showcase = () => {
   const [company, setCompany] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const { params, navigate } = useRouterHooks();
 
   const handleCopyToClipboard = (text) => {
@@ -33,12 +44,16 @@ const Showcase = () => {
   };
 
   const getCompanyDetails = useCallback(async () => {
+    setIsLoading(true);
     const fetchedCompany = await companyService.GetOne(params.id);
     if (!fetchedCompany.id) {
       toast.error("No existe ese registro");
       navigate("/companies");
+      setIsLoading(false);
+      return;
     }
     setCompany(fetchedCompany);
+    setIsLoading(false);
   }, [params.id]);
 
   useEffect(() => {
@@ -46,102 +61,112 @@ const Showcase = () => {
   }, [getCompanyDetails]);
 
   return (
-    <div className="container-fluid">
-      <div className="d-flex justify-content-center">
-        <div className="col-lg-12 col-xl-10">
-          <div className="card py-3 px-2 shadow-lg rounded-0">
-            <div className="d-flex justify-content-between">
-              <Link to={-1} className="btn " style={{ zIndex: "20" }}>
-                <i className="fas fa-arrow-left text-primary fa-2x"></i>
-              </Link>
-
-              <h2 className="position-absolute w-100  text-center text-purple font-weight-bolder ">
-                {company.nombre_comercial}
-              </h2>
-
-              <div className="dropdown">
-                <button
-                  className="btn "
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                  aria-expanded="false"
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ShowcaseContainer>
+          <ShowcaseHeader title={company.nombre_comercial}>
+            <div className="dropdown">
+              <button
+                className="btn "
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i className="fas fa-cog text-purple fa-2x"> </i>
+              </button>
+              <div
+                className="dropdown-menu animated--fade-in shadow-lg"
+                aria-labelledby="dropdownMenuButton"
+                style={{ fontSize: "17px" }}
+              >
+                <Link
+                  to={`/companies/edit/${company.id}`}
+                  className="dropdown-item "
+                  href="#"
                 >
-                  <i className="fas fa-cog text-purple fa-2x"> </i>
+                  Editar <i className="fas fa-edit text-info"></i>
+                </Link>
+                <button onClick={handleDeletion} className="dropdown-item">
+                  Eliminar <i className="fas fa-trash text-danger"></i>
                 </button>
-                <div
-                  className="dropdown-menu animated--fade-in shadow-lg"
-                  aria-labelledby="dropdownMenuButton"
-                  style={{ fontSize: "17px" }}
-                >
-                  <Link
-                    to={`/companies/edit/${company.id}`}
-                    className="dropdown-item "
-                    href="#"
+              </div>
+            </div>
+          </ShowcaseHeader>
+          <ShowcaseCard>
+            <div className="row">
+              <div className="col-12 col-lg-6 col-xl-6 mb-5 mb-lg-0 mb-xl-0">
+                <h3 className="text-left font-weight-bold text-primary">
+                  Datos generales
+                </h3>
+                <div className="d-flex flex-column align-items-start">
+                  <h5
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleCopyToClipboard(company.correo)}
                   >
-                    Editar <i className="fas fa-edit text-info"></i>
-                  </Link>
-                  <button onClick={handleDeletion} className="dropdown-item">
-                    Eliminar <i className="fas fa-trash text-danger"></i>
-                  </button>
+                    <span className="font-weight-bolder">
+                      Correo electrónico:
+                    </span>{" "}
+                    {company.correo}
+                  </h5>
+
+                  <h5>
+                    <span className="font-weight-bolder">Tamaño:</span>{" "}
+                    {company.tamaño}
+                  </h5>
+                  <h5>
+                    <span className="font-weight-bolder">Tipo:</span>{" "}
+                    {company.tipo_empresa}
+                  </h5>
+                  <h5>
+                    <span className="font-weight-bolder">
+                      Actividad economica:
+                    </span>{" "}
+                    {company.actividad_economica}
+                  </h5>
+                  <h5
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleCopyToClipboard(company.telefono)}
+                  >
+                    <span className="font-weight-bolder"> Telefono:</span>{" "}
+                    {company.telefono}{" "}
+                  </h5>
+                </div>
+              </div>
+              <div className="col-12 col-lg-6 col-xl-6">
+                <h3 className="text-left font-weight-bold text-primary">
+                  Dirección <i className="fas fa-map-marker-alt"></i>
+                </h3>
+                <div className="d-flex flex-column align-items-start">
+                  <h5>
+                    <span className="font-weight-bolder">Estado:</span>{" "}
+                    {company.estado}
+                  </h5>
+                  <h5>
+                    <span className="font-weight-bolder">Municipio:</span>{" "}
+                    {company.municipio}
+                  </h5>
+                  <h5>
+                    <span className="font-weight-bolder">Colonia:</span>{" "}
+                    {company.colonia}
+                  </h5>
+                  <h5>
+                    <span className="font-weight-bolder">Calle:</span>{" "}
+                    {company.calle} #{company.numero_empresa}
+                  </h5>
+                  <h5>
+                    <span className="font-weight-bolder">C.P:</span>{" "}
+                    {company.cp}
+                  </h5>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="card mt-4 shadow-lg rounded-0 py-3 px-2">
-            <div className="card-body text-primary">
-              <div className="row">
-                <div className="col-12 col-lg-6 col-xl-6 mb-5 mb-lg-0 mb-xl-0">
-                  <h4 className="text-left font-weight-bold">
-                    Datos generales <i className="fas fa-id-card"></i>
-                  </h4>
-                  <div className="d-flex flex-column align-items-start">
-                    <span>
-                      Correo electrónico: {company.correo}
-                      <button
-                        onClick={() => handleCopyToClipboard(company.correo)}
-                        className="btn"
-                      >
-                        <i className="fas fa-copy text-muted"></i>
-                      </button>
-                    </span>
-                    <span>Tamaño: {company.tamaño}</span>
-                    <span>Tipo: {company.tipo_empresa}</span>
-                    <span>
-                      Actividad economica: {company.actividad_economica}
-                    </span>
-                    <span>
-                      <i className="fas fa-phone"></i> Telefono:{" "}
-                      {company.telefono}
-                      <button
-                        onClick={() => handleCopyToClipboard(company.telefono)}
-                        className="btn"
-                      >
-                        <i className="fas fa-copy text-muted"></i>
-                      </button>
-                    </span>
-                  </div>
-                </div>
-                <div className="col-12 col-lg-6 col-xl-6">
-                  <h4 className="text-left font-weight-bold ">
-                    Dirección <i className="fas fa-map-marker-alt"></i>
-                  </h4>
-                  <div className="d-flex flex-column align-items-start">
-                    <span>Estado: {company.estado}</span>
-                    <span>Municipio: {company.municipio}</span>
-                    <span>Colonia: {company.colonia}</span>
-                    <span>
-                      Calle: {company.calle} #{company.numero_empresa}
-                    </span>
-                    <span>C.P: {company.cp}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          </ShowcaseCard>
+        </ShowcaseContainer>
+      )}
+    </>
   );
 };
 
