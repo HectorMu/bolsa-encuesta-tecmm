@@ -1,9 +1,8 @@
 import Index from "../pages/Index";
 import NotFound from "../pages/status/NotFound";
 import AuthRoutes from "./auth.routes";
-import AdminsRoutes from "./admins.routes";
-import CompaniesRoutes from "./companies.routes";
-import GraduatedRoutes from "./graduated.routes";
+import AdminRoutes from "./admin.routes";
+
 import IsLoggedIn from "../components/Authentication/IsLoggedIn";
 
 const Routes = [
@@ -12,13 +11,10 @@ const Routes = [
     path: "/",
     element: <IsLoggedIn view={Index} />,
   },
-  //Here goes all the routes
+  //Aqui van todas las rutas
   ...AuthRoutes,
-  ...AdminsRoutes,
-  ...CompaniesRoutes,
-  ...GraduatedRoutes,
-
-  //Not found route, must be at the last of the routes of the app
+  ...AdminRoutes,
+  //Si no se encuentra la ruta, el 404 va al final de todas las rutas
   {
     path: "*",
     element: <NotFound />,
