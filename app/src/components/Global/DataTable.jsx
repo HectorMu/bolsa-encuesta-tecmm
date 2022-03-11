@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
+
 // /**
 //  * @param {String} title The table title
 //  * @param {Array}   data JSON array with all the table data
@@ -14,6 +15,13 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 //  * @param {Array} hideColumns Array with the name of the json columns you want to hide in table. Example: ["name","id","foreign_key"]
 //  *@param {Function} refreshCallback Function to callback to refresh the table, you can provide your fetching function: default: null
 //  */
+
+// const actionElement = {
+//   element: "id",
+//   className: "btn btn-link",
+//   action: (o) => window.alert(`Default action ${o}`),
+// };
+
 const DataTable = ({
   title = "Default title",
   firstColumnKey = "id",
@@ -37,6 +45,7 @@ const DataTable = ({
   emptyDataText = "No data",
   hideColumns = [],
   refreshCallback = null,
+  actionElement = null,
 }) => {
   const [initialData, setInitialData] = useState([]);
   const [initialFilter, setInitialFilter] = useState(firstColumnKey);
@@ -238,7 +247,6 @@ const DataTable = ({
             <thead>
               {initialData !== undefined && initialData.length > 0 ? (
                 <tr key={initialData[0].id}>
-                  {actions === true ? <th>{actionsText}</th> : null}
                   {Object.keys(initialData[0]).map((e) =>
                     renameHeaders !== null &&
                     Object.keys(renameHeaders).includes(e) ? (
@@ -313,22 +321,6 @@ const DataTable = ({
               {initialData !== undefined && initialData.length > 0 ? (
                 initialData.map((d) => (
                   <tr key={d.id}>
-                    {actions === true ? (
-                      <td className="d-flex d-sm-flex flex-sm-column flex-column flex-lg-row flex-md-row flex-xl-row">
-                        {buttons.map((b) => (
-                          <button
-                            key={b.key}
-                            className={b.style}
-                            onClick={() => b.click(d)}
-                          >
-                            <i className={b.fwicon}></i>{" "}
-                            <span className="d-none d-sm-none d-md-block d-lg-block d-xl-block">
-                              {b.text}
-                            </span>
-                          </button>
-                        ))}
-                      </td>
-                    ) : null}
                     {Object.entries(d).map(([k, e]) => (
                       <td
                         className={`${
@@ -358,6 +350,14 @@ const DataTable = ({
                               </tbody>
                             </table>
                           </>
+                        ) : actionElement !== null &&
+                          actionElement.element === k ? (
+                          <button
+                            onClick={() => actionElement.action(d)}
+                            className={actionElement.className}
+                          >
+                            {e}
+                          </button>
                         ) : (
                           e
                         )}

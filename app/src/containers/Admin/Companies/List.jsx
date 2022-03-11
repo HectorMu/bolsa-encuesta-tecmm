@@ -95,6 +95,11 @@ const List = () => {
             actividad_economica: "Act. Económica",
           }}
           buttons={tableConfig.buttons}
+          actionElement={{
+            element: "id",
+            className: "btn btn-link text-purple",
+            action: (o) => window.alert(`hola soy ${o.id}`),
+          }}
         />
       )}
     </div>
