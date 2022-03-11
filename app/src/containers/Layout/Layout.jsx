@@ -9,20 +9,7 @@ const Layout = ({ children }) => {
 
   const handleSidebarToggle = () => {
     setSidebarToggled(!sidebarToggled);
-    // if (sidebarToggled) {
-    //   document.body.classList.toggle("sidebar-toggled");
-    // }
   };
-  // return (
-  //   <div id="wrapper" className="">
-  //     <Sidebar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
-  //     <div id="content-wrapper" className="d-flex flex-column">
-  //       <Navbar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
-  //       <div id="content">{children}</div>
-  //       <Footer webSite="TecMM" />
-  //     </div>
-  //   </div>
-  // );
 
   return (
     <div id="wrapper" className="wrapper">

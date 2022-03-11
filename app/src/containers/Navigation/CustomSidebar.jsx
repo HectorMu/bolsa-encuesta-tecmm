@@ -22,33 +22,88 @@ const CustomSidebar = ({
           <i className="fas fa-times"></i>
         </button>
       </div>
-      <div className="heading ">
-        <i className="fas fa-users"></i> <p>Usuarios</p>
-      </div>
-
-      <nav className="menu">
-        <NavLink
-          to="/users"
-          className="menu-item"
-          onClick={() => handleSidebarToggle(!sidebarToggled)}
-        >
-          Cuentas
-        </NavLink>
-        <NavLink
-          to="/companies"
-          className="menu-item"
-          onClick={() => handleSidebarToggle(!sidebarToggled)}
-        >
-          Empresas
-        </NavLink>
-        <NavLink
-          to="/graduated"
-          className="menu-item"
-          onClick={() => handleSidebarToggle(!sidebarToggled)}
-        >
-          Egresados
-        </NavLink>
-      </nav>
+      {/* Opciones para administrador */}
+      {user.fk_rol === 1 ? (
+        <>
+          <div className="heading ">
+            <i className="fas fa-users"></i> <p>Usuarios</p>
+          </div>
+          <nav className="menu">
+            <NavLink
+              to="/accounts"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              Cuentas
+            </NavLink>
+            <NavLink
+              to="/companies"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              Empresas
+            </NavLink>
+            <NavLink
+              to="/graduated"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              Egresados
+            </NavLink>
+          </nav>
+        </>
+      ) : null}
+      {/* /Opciones para administrador */}
+      {/* Opciones para empresa */}
+      {user.fk_rol === 2 ? (
+        <>
+          <div className="heading">
+            <p>Menu</p>
+          </div>
+          <nav className="menu">
+            <NavLink
+              to="/company/survey"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-poll-h"></i> Encuesta
+            </NavLink>
+            <NavLink
+              to="/company/jobbank"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-briefcase"></i> Trabajos
+            </NavLink>
+          </nav>
+        </>
+      ) : null}
+      {/* /Opciones para empresa */}
+      {/* Opciones para egresado */}
+      {user.fk_rol === 3 ? (
+        <>
+          <div className="heading">
+            <p>Menu</p>
+          </div>
+          <nav className="menu">
+            <NavLink
+              to="/graduated/survey"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-poll-h"></i> Encuesta
+            </NavLink>
+            <NavLink
+              to="/graduated/jobbank"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-briefcase"></i> Trabajos
+            </NavLink>
+          </nav>
+        </>
+      ) : null}
+      {/* /Opciones para egresado */}
     </aside>
   );
 };

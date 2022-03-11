@@ -9,7 +9,7 @@ const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
   const { user, setUser } = useSession();
   return (
     <nav className="navbar navbar-expand navbar-light bg-green topbar mb-4 static-top shadow fixed-top">
-      <Link class="navbar-brand text-white font-weight-bolder" to="/">
+      <Link className="navbar-brand text-white font-weight-bolder" to="/">
         TECMM
       </Link>
       <button
