@@ -300,35 +300,49 @@ input:-webkit-autofill:active {
 
   z-index: 3;
 }
-
-.c-sidebar h3 {
-  color: rgb(0, 0, 0);
-  font-size: 0.75rem;
-  text-transform: uppercase;
+.c-sidebar .heading {
+  display: flex;
+  gap: 5px;
   margin-top: 70px;
+}
+.c-sidebar .heading i {
+  color: rgb(0, 0, 0);
+  font-size: 0.6rem;
+  font-weight: bold;
+  display: inline-block;
+}
+.c-sidebar .heading p {
+  color: rgb(0, 0, 0);
+  font-size: 0.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.c-sidebar .heading i {
+  color: rgb(0, 0, 0);
+  font-size: 0.6rem;
+  font-weight: bold;
 }
 
 .c-sidebar .menu {
   margin: -0.5rem -1rem;
-  margin-top: 15px;
 }
 
 .c-sidebar .menu .menu-item {
   display: block;
-  padding: 1em;
+  padding: 0.7em;
   color: rgb(0, 0, 0);
   text-decoration: none;
   transition: 0.2s linear;
-  font-size: 17px;
+  font-size: 1rem;
 }
 
 .c-sidebar .menu .menu-item:hover {
   color: var(--coffe);
-  border-left: 5px solid var(--purple);
+  border-right: 5px solid var(--purple);
 }
 
 .c-sidebar .menu .menu-item.active {
-  border-left: 5px solid var(--purple);
+  border-right: 5px solid var(--purple);
   color: var(--green);
   font-weight: bolder;
   pointer-events: none;
@@ -354,7 +368,6 @@ input:-webkit-autofill:active {
 @media (max-width: 768px) {
   .c-sidebar {
     position: fixed;
-
     bottom: 0;
     left: -400px;
     height: calc(100vh - 48px);

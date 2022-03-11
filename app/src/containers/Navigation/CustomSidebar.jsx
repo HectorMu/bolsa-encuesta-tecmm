@@ -22,15 +22,30 @@ const CustomSidebar = ({
           <i className="fas fa-times"></i>
         </button>
       </div>
-      <h3>Admin</h3>
+      <div className="heading ">
+        <i className="fas fa-users"></i> <p>Usuarios</p>
+      </div>
+
       <nav className="menu">
-        <NavLink to="/users" className="menu-item">
+        <NavLink
+          to="/users"
+          className="menu-item"
+          onClick={() => handleSidebarToggle(!sidebarToggled)}
+        >
           Cuentas
         </NavLink>
-        <NavLink to="/companies" className="menu-item ">
+        <NavLink
+          to="/companies"
+          className="menu-item"
+          onClick={() => handleSidebarToggle(!sidebarToggled)}
+        >
           Empresas
         </NavLink>
-        <NavLink to="/graduated" className="menu-item">
+        <NavLink
+          to="/graduated"
+          className="menu-item"
+          onClick={() => handleSidebarToggle(!sidebarToggled)}
+        >
           Egresados
         </NavLink>
       </nav>

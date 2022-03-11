@@ -29,7 +29,9 @@ const Layout = ({ children }) => {
       <CustomSidebar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
       <div id="content-wrapper" className="content d-flex flex-column">
         <Navbar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
-        <div className="content">{children}</div>
+        <div className="content" style={{ paddingTop: "100px" }}>
+          {children}
+        </div>
         <Footer webSite="TecMM" />
       </div>
     </div>
