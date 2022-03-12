@@ -10,7 +10,7 @@ import ShowcaseCard from "../../../components/Global/ShowcaseCard";
 import Loading from "../../../components/Global/Loading";
 
 //Servicios
-import graduatedService from "../../../services/graduatedService";
+import graduatesService from "../../../services/Admin/graduates.service";
 
 const Showcase = () => {
   const [graduated, setGraduated] = useState({});
@@ -19,7 +19,7 @@ const Showcase = () => {
 
   const getGradutedHandler = useCallback(async () => {
     setIsLoading(true);
-    const graduatedFetched = await graduatedService.GetOne(params.id);
+    const graduatedFetched = await graduatesService.GetOne(params.id);
     if (!graduatedFetched.id) {
       toast.error("Este registro no existe");
       navigate("/graduated");

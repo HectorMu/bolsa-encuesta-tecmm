@@ -1,8 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import useSession from "../../hooks/useSession";
-import Section from "../../components/Navigation/Sidebar/Section";
-import SidebarDropdown from "../../components/Navigation/Sidebar/SidebarDropdown";
 
 const CustomSidebar = ({
   sidebarControl: { sidebarToggled, handleSidebarToggle },
@@ -54,33 +52,8 @@ const CustomSidebar = ({
         </>
       ) : null}
       {/* /Opciones para administrador */}
-      {/* Opciones para empresa */}
-      {user.fk_rol === 2 ? (
-        <>
-          <div className="heading">
-            <p>Menu</p>
-          </div>
-          <nav className="menu">
-            <NavLink
-              to="/company/survey"
-              className="menu-item"
-              onClick={() => handleSidebarToggle(!sidebarToggled)}
-            >
-              <i className="fas fa-poll-h"></i> Encuesta
-            </NavLink>
-            <NavLink
-              to="/company/jobbank"
-              className="menu-item"
-              onClick={() => handleSidebarToggle(!sidebarToggled)}
-            >
-              <i className="fas fa-briefcase"></i> Trabajos
-            </NavLink>
-          </nav>
-        </>
-      ) : null}
-      {/* /Opciones para empresa */}
       {/* Opciones para egresado */}
-      {user.fk_rol === 3 ? (
+      {user.fk_rol === 2 ? (
         <>
           <div className="heading">
             <p>Menu</p>
@@ -104,6 +77,31 @@ const CustomSidebar = ({
         </>
       ) : null}
       {/* /Opciones para egresado */}
+      {/* Opciones para empresa */}
+      {user.fk_rol === 3 ? (
+        <>
+          <div className="heading">
+            <p>Menu</p>
+          </div>
+          <nav className="menu">
+            <NavLink
+              to="/company/survey"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-poll-h"></i> Encuesta
+            </NavLink>
+            <NavLink
+              to="/company/jobbank"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-briefcase"></i> Trabajos
+            </NavLink>
+          </nav>
+        </>
+      ) : null}
+      {/* /Opciones para empresa */}
     </aside>
   );
 };

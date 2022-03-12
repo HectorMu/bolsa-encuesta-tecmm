@@ -12,7 +12,7 @@ import ShowcaseCard from "../../../components/Global/ShowcaseCard";
 import ShowcaseContainer from "../../../components/Global/ShowcaseContainer";
 import Loading from "../../../components/Global/Loading";
 //Servicios
-import companyService from "../../../services/companyService";
+import companiesService from "../../../services/Admin/companies.service";
 //helpers
 import helpers from "../../../helpers/helpers";
 
@@ -33,7 +33,7 @@ const Showcase = () => {
       ...helpers.alertConfig,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const deleteResults = await companyService.Delete(company.id);
+        const deleteResults = await companiesService.Delete(company.id);
         if (!deleteResults.status) {
           return toast.error(deleteResults.statusText);
         }
@@ -45,7 +45,7 @@ const Showcase = () => {
 
   const getCompanyDetails = useCallback(async () => {
     setIsLoading(true);
-    const fetchedCompany = await companyService.GetOne(params.id);
+    const fetchedCompany = await companiesService.GetOne(params.id);
     if (!fetchedCompany.id) {
       toast.error("No existe ese registro");
       navigate("/companies");

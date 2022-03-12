@@ -12,7 +12,7 @@ import { Entries, NestedEntries } from "./FormEntries";
 //importando json de las carreras
 import careers from "./careers.json";
 //importando servicios
-import graduatedService from "../../../services/graduatedService";
+import graduatesService from "../../../services/Admin/graduates.service";
 
 const Form = () => {
   const [graduated, setGraduated] = useState(Entries);
@@ -42,7 +42,7 @@ const Form = () => {
 
   //Para obtener un graduado basandonos en el id y filtrando los usuarios desde ahi
   const getGraduatedFromFetch = useCallback(async () => {
-    const graduatedFetched = await graduatedService.GetOne(params.id);
+    const graduatedFetched = await graduatesService.GetOne(params.id);
     if (!graduatedFetched.id) {
       navigate("/graduated");
       toast.error("Este registro no existe.");
@@ -79,7 +79,7 @@ const Form = () => {
       }
 
       //como estamos editando, mandamos a llamar el servicio de editar
-      const results = await graduatedService.Update(newGraduated, params.id);
+      const results = await graduatesService.Update(newGraduated, params.id);
       //si hay un error lo mostramos
       if (!results.status) {
         return toast.error(results.statusText);
@@ -90,7 +90,7 @@ const Form = () => {
     //Si no estamos editando
     else {
       //como no estamos editando, mandamos a llamar el servicio de guardar
-      const results = await graduatedService.Save(newGraduated);
+      const results = await graduatesService.Save(newGraduated);
       //si hay un error lo mostramos
       if (!results.status) {
         return toast.error(results.statusText);

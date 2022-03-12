@@ -1,10 +1,10 @@
-import API from "../config/API";
-import helpers from "../helpers/helpers";
+import API from "../API";
+import helpers from "../../helpers/helpers";
 
 const List = async () => {
   try {
     const response = await fetch(
-      `${API}/users/graduated/getall`,
+      `${API}/company/jobs/getall`,
       helpers.authGetConfig()
     );
     return await response.json();
@@ -16,7 +16,7 @@ const List = async () => {
 const GetOne = async (id) => {
   try {
     const response = await fetch(
-      `${API}/users/graduated/getone/${id}`,
+      `${API}/company/jobs/getone/${id}`,
       helpers.authGetConfig()
     );
     return await response.json();
@@ -25,22 +25,23 @@ const GetOne = async (id) => {
   }
 };
 
-const Save = async (graduated) => {
+const Save = async (company) => {
   try {
     const response = await fetch(
-      `${API}/users/graduated/save`,
-      helpers.authPostConfig(graduated)
+      `${API}/company/jobs/save`,
+      helpers.authPostConfig(company)
     );
     return await response.json();
   } catch (error) {
     console.log(error);
   }
 };
-const Update = async (graduated, id) => {
+
+const Update = async (company, id) => {
   try {
     const response = await fetch(
-      `${API}/users/graduated/update/${id}`,
-      helpers.authPutConfig(graduated)
+      `${API}/company/jobs/update/${id}`,
+      helpers.authPutConfig(company)
     );
     return await response.json();
   } catch (error) {
@@ -51,7 +52,7 @@ const Update = async (graduated, id) => {
 const Delete = async (id) => {
   try {
     const response = await fetch(
-      `${API}/users/graduated/delete/${id}`,
+      `${API}/company/jobs/delete/${id}`,
       helpers.authDeleteConfig()
     );
     return await response.json();

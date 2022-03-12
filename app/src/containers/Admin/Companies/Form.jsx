@@ -11,7 +11,7 @@ import FormEntries from "./FormEntries";
 import economicActivities from "./economicActivities.json";
 
 //Importando servicios
-import companyService from "../../../services/companyService";
+import companiesService from "../../../services/Admin/companies.service";
 import toast from "react-hot-toast";
 
 const Form = () => {
@@ -25,7 +25,7 @@ const Form = () => {
     setCompany({ ...company, [key]: value });
 
   const getCompanyFromFetch = useCallback(async () => {
-    const companyFetched = await companyService.GetOne(params.id);
+    const companyFetched = await companiesService.GetOne(params.id);
 
     if (!companyFetched.id) {
       navigate("/companies");
@@ -39,14 +39,14 @@ const Form = () => {
     e.preventDefault();
 
     if (onEditing) {
-      const results = await companyService.Update(company, params.id);
+      const results = await companiesService.Update(company, params.id);
       if (!results.status) {
         return toast.error(results.statusText);
       }
       toast.success("Empresa editada correctamente");
       navigate("/companies");
     } else {
-      const results = await companyService.Save(company);
+      const results = await companiesService.Save(company);
       if (!results.status) {
         return toast.error(results.statusText);
       }

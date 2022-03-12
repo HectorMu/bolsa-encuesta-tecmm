@@ -14,7 +14,7 @@ import Loading from "../../../components/Global/Loading";
 import useServiceFetch from "../../../hooks/useServiceFetch";
 
 //importando servicios
-import companyService from "../../../services/companyService";
+import companyService from "../../../services/Admin/companies.service";
 
 const List = () => {
   const [companies, setCompanies] = useState([]);

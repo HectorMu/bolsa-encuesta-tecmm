@@ -12,7 +12,7 @@ import Loading from "../../../components/Global/Loading";
 import useServiceFetch from "../../../hooks/useServiceFetch";
 
 //importando servicios
-import graduatedService from "../../../services/graduatedService";
+import graduatesService from "../../../services/Admin/graduates.service";
 
 //importando helpers
 import helpers from "../../../helpers/helpers";
@@ -20,7 +20,7 @@ import helpers from "../../../helpers/helpers";
 const List = () => {
   const [graduates, setGraduates] = useState([]);
   const { isLoading, refreshData } = useServiceFetch(
-    graduatedService.List,
+    graduatesService.List,
     setGraduates
   );
   const { navigate } = useRouterHooks();
@@ -32,7 +32,7 @@ const List = () => {
       ...helpers.alertConfig,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const deleteResults = await graduatedService.Delete(egresado.id);
+        const deleteResults = await graduatesService.Delete(egresado.id);
         if (!deleteResults.status) {
           return toast.error(deleteResults.statusText);
         }
