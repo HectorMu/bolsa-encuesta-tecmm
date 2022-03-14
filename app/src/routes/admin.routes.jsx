@@ -4,6 +4,7 @@ import IsAdmin from "../components/Authentication/IsAdmin";
 import Accounts from "../pages/Admin/Accounts/Accounts";
 import AddAccount from "../pages/Admin/Accounts/Add";
 import EditAccount from "../pages/Admin/Accounts/Edit";
+import DetailsAccount from "../pages/Admin/Accounts/Details";
 //Rutas para el control de empresas
 import Companies from "../pages/Admin/Companies/Companies";
 import AddCompany from "../pages/Admin/Companies/Add";
@@ -27,6 +28,10 @@ const Routes = [
   {
     path: "/accounts/edit/:id",
     element: <IsAdmin view={EditAccount} />,
+  },
+  {
+    path: "/accounts/details/:id",
+    element: <IsAdmin view={DetailsAccount} />,
   },
   {
     path: "/companies",

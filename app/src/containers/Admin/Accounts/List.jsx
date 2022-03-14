@@ -26,7 +26,6 @@ const List = () => {
   const { navigate } = useRouterHooks();
 
   const handleDeletion = async (usuario) => {
-    console.log("entre");
     Swal.fire({
       text: `¿Desea eliminar al usuario con el correo '${usuario.correo}'?`,
       icon: "info",
@@ -45,6 +44,10 @@ const List = () => {
 
   const redirectToEditPage = (user) => {
     navigate(`/accounts/edit/${user.id}`);
+  };
+
+  const redirectToDetailsPage = (user) => {
+    navigate(`/accounts/details/${user.id}`);
   };
 
   const tableConfig = {
@@ -87,6 +90,11 @@ const List = () => {
           }}
           actions={true}
           actionsText={"Opciones"}
+          actionElement={{
+            element: "id",
+            className: "btn btn-link text-purple font-weight-bolder",
+            action: (o) => redirectToDetailsPage(o),
+          }}
           buttons={tableConfig.buttons}
         />
       )}
