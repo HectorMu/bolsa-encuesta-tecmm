@@ -43,6 +43,10 @@ const List = () => {
     });
   };
 
+  const redirectToEditPage = (user) => {
+    navigate(`/accounts/edit/${user.id}`);
+  };
+
   const tableConfig = {
     buttons: [
       {
@@ -50,7 +54,7 @@ const List = () => {
         text: "Editar",
         style: "btn btn-info m-1 btn-sm",
         fwicon: "fas fa-pen fa-sm",
-        // click: (o) => handleDeletion(o)
+        click: (o) => redirectToEditPage(o),
       },
       {
         key: "btnDelete",
@@ -77,7 +81,7 @@ const List = () => {
             rol: "Rol",
           }}
           renameHeaders={{
-            id: "Id",
+            id: "Folio",
             correo: "Correo",
             fk_rol: "Rol",
           }}

@@ -11,6 +11,6 @@ router.get("/users/getall", verifyToken, controller.GetAll);
 router.get("/users/getone/:id", verifyToken, controller.GetOne);
 router.post("/users/save", verifyToken, validations, controller.Save);
 router.delete("/users/delete/:id", verifyToken, isAdmin, controller.Delete);
-router.put("/users/update/:id", verifyToken, controller.Update);
+router.put("/users/update/:id", verifyToken, validations, controller.Update);
 
 module.exports = router;

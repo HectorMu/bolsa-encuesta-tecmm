@@ -69,15 +69,22 @@ controller.Save = async (req, res) => {
 };
 
 controller.Update = async (req, res) => {
-  const user = req.body;
+  const { correo, clave, fk_rol } = req.body;
   const { id } = req.params;
+
+  const basicData = {
+    correo,
+    clave,
+    fk_rol,
+  };
+
   try {
     //Verificiamos que no exista el mismo correo electronico antes de editar
     const duplicated = await helpers.isDuplicatedOnUpdate(
       "usuarios",
       "correo",
       id,
-      user.correo
+      basicData.correo
     );
 
     //Si existe, significa que esta dupplicado
@@ -87,10 +94,12 @@ controller.Update = async (req, res) => {
         statusText: "Este correo electronico ya esta registrado.",
       });
     }
-    if (user.clave) {
-      user.clave = await helpers.encryptPassword(user.clave);
+    if (basicData.clave !== null && basicData.clave !== undefined) {
+      basicData.clave = await helpers.encryptPassword(basicData.clave);
+    } else {
+      delete basicData.clave;
     }
-    const results = await User.Update(user, id);
+    const results = await User.Update(basicData, id);
     if (results.affectedRows === 0) {
       return res.status(400).json({
         status: false,
