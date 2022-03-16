@@ -127,7 +127,7 @@ const DataTable = ({
   }, [data]);
 
   return (
-    <div className="card shadow mb-4">
+    <div className="card shadow-lg mb-4 border-none ">
       <div className="card-header py-3 d-flex justify-content-between d-sm-flex flex-column flex-lg-row flex-md-row flex-xl-row">
         <h6 className="m-0 font-weight-bold text-primary text-center">
           {title}

@@ -80,6 +80,7 @@ const List = () => {
           emptyDataText={"Sin registros"}
           searchText={"Buscando por"}
           filtersConfig={{
+            id: "Folio",
             correo: "Correo",
             rol: "Rol",
           }}

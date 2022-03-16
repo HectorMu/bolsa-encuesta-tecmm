@@ -235,7 +235,7 @@ input:-webkit-autofill:active {
   border-color: var(--danger-dark);
 }
 
-.topbar #sidebarToggleTop {
+/* .topbar #sidebarToggleTop {
   color: white;
   background-color: var(--purple) !important;
   border-radius: 3px !important;
@@ -247,7 +247,7 @@ input:-webkit-autofill:active {
 }
 .topbar #sidebarToggleTop:active {
   border: none !important;
-}
+} */
 
 .text-black {
   color: black;
