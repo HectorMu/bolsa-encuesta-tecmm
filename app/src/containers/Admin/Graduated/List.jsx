@@ -55,7 +55,7 @@ const List = () => {
       {
         key: "btnEdit",
         text: "Editar",
-        style: "btn btn-info m-1 btn-sm ",
+        style: "btn btn-info m-1 btn-sm",
         fwicon: "fas fa-pen fa-sm",
         click: (o) => redirectToEditPage(o),
       },

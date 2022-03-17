@@ -13,8 +13,7 @@ const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
         TECMM
       </Link>
       <button
-        id="sidebarToggleTop"
-        className="btn btn-link d-md-none rounded-circle mr-3"
+        className="btn btn-primary d-md-none btn-sm mr-3"
         onClick={handleSidebarToggle}
       >
         <i className="fa fa-bars"></i>

@@ -27,12 +27,14 @@ const User = {
     }
   },
   async List() {
-    const users = await connection.query(`select * from ${TABLE_NAME}`);
+    const users = await connection.query(
+      `select u.id, u.correo, r.rol from ${TABLE_NAME} u, roles r where u.fk_rol = r.id`
+    );
     return users;
   },
   async FindOne(id) {
     const user = await connection.query(
-      `select * from ${TABLE_NAME} where ${TABLE_PK} = ?`,
+      `select id, correo, fk_rol from ${TABLE_NAME} where ${TABLE_PK} = ?`,
       [id]
     );
     return user[0];
