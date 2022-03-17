@@ -77,13 +77,133 @@ id INT PRIMARY KEY AUTO_INCREMENT,
 descripcion VARCHAR (250)
 );
 
+INSERT INTO seccion VALUES 
+(NULL, 'Pertinencia y disponilibidad de medios y recursos para el aprendizaje'),
+(NULL, 'Ubicacion laboral para los egresados'),
+(NULL, 'Desempeño profesional de los egresados (Coherencia entre la formación y el tipo de empleo)'),
+(NULL, 'Expectativas de desarrollo, superación profesional y de actualización'),
+(NULL, 'Participación social de los egresados'),
+(NULL, 'Comentarios y sugerencias');
+
 CREATE TABLE preguntas(
 id INT PRIMARY KEY AUTO_INCREMENT,
 fk_seccion INT,
 descripcion VARCHAR (250),
 FOREIGN KEY (fk_seccion) REFERENCES seccion (id)
 );
+INSERT INTO preguntas VALUES (NULL, 1,'Calidad de los docentes'),
+(NULL, 1,'Plan de estudios'),
+(NULL, 1,'Oportunidad de participar en proyectos de investigación y desarrollo'),
+(NULL, 1,'Énfasis que se le prestaba a la investigación dentro del proceso de enseñanza'),
+(NULL, 1,'Satisfacción con las condiciones de estudio (Infraestructura)'),
+(NULL, 1,'Experiencia obtenida a través de la residencia profesional'),								  
+(NULL, 2,'Actividad a la que se dedica actualmente'),
+(NULL, 3,'Eficiencia para realizar las actividades laborales, en relación con su formación académica'),
+(NULL, 3,'Cómo califica su formación académica con respecto a su desempeño laboral'),
+(NULL, 3,'Utilidad de las residencias profesionales o prácticas profesionales para su desarrollo laboral y profesional'),
+(NULL, 3,'Aspectos que valora la empresa u otro organismo para la contratacion de egresados'),							  
+(NULL, 4,'Le gustaria tomar cursos de actualización'),
+(NULL, 4,'Le gustaria tomar algún posgrado'),								  
+(NULL, 5,'Pertence a organizaciones sociales'),
+(NULL, 5,'Pertence a organismos de profesionistas'),
+(NULL, 5,'Pertence a la asociación de egresados'),
+(NULL, 6,'Opinión o recomendación para mejorar la formación profesional de un egresado de su carrera');
 
+
+
+CREATE TABLE seccion2_estudia(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+tipo_estudio VARCHAR(50),
+especialidad_institucion VARCHAR (50),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccion2_trabaja(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+tiempo_primer_empleo VARCHAR (100),
+medio_obtener_empleo VARCHAR (100),
+requisitos_contratacion VARCHAR (100),
+idioma_utilizado VARCHAR(100),
+idioma_hablar INT,
+idioma_escribir INT,
+idioma_leer INT,
+idioma_escuchar INT,
+antiguedad_empleo VARCHAR(100),
+año_ingreso VARCHAR (50),
+salario DOUBLE,
+nivel_jerarquico VARCHAR(100),
+condicion_trabajo VARCHAR(100),
+relacion_trabajo_formacion INT,
+organismo_empresa VARCHAR (100),
+actividad_principal_empresa VARCHAR (100),
+razon_social VARCHAR(100),
+calle VARCHAR (100),
+numero VARCHAR (100),
+colonia VARCHAR (100),
+cp VARCHAR (100),
+ciudad VARCHAR (100),
+municipio VARCHAR (100),
+estado VARCHAR (100),
+telefono_empresa INT,
+telefono_ext_empresa INT,
+fax_empresa INT,
+email_empresa VARCHAR (100),
+tipo_sector_empresa VARCHAR (100),
+sector_empresa VARCHAR (200),
+tamaño_empresa VARCHAR (200)
+);
+
+CREATE TABLE seccion3_p4_detalle(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+area_estudio INT,
+titulacion INT,
+experiencia_laboral INT,
+competencia_laboral INT,
+posicionamiento_institucion_egreso INT,
+conocimiento_idiomas_extranjeros INT,
+recomiendaciones INT,
+personalidad INT,
+capacidad_liderazgo INT,
+otros INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccion4_p1_detalle(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+cursos VARCHAR (500),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccion4_p2_detalle(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+posgrado VARCHAR (500),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccion5_p1_detalle(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+organizaciones_sociales VARCHAR (500),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccion5_p2_detalle(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+organismos_profesionistas VARCHAR (500),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);		
 
 CREATE TABLE respuestas(
 id INT PRIMARY KEY AUTO_INCREMENT,
@@ -95,6 +215,8 @@ FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id),
 FOREIGN KEY (fk_seccion) REFERENCES seccion(id),
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
+
+
 
 create table publicacion_bolsa(
     folio int primary key,
