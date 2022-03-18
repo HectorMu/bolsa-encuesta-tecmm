@@ -100,9 +100,9 @@ INSERT INTO preguntas VALUES (NULL, 1,'Calidad de los docentes'),
 (NULL, 3,'Aspectos que valora la empresa u otro organismo para la contratacion de egresados'),
 (NULL, 4,'Le gustaria tomar cursos de actualización'),
 (NULL, 4,'Le gustaria tomar algún posgrado'),
-(NULL, 5,'Pertence a organizaciones sociales'),
-(NULL, 5,'Pertence a organismos de profesionistas'),
-(NULL, 5,'Pertence a la asociación de egresados'),
+(NULL, 5,'Pertenece a organizaciones sociales'),
+(NULL, 5,'Pertenece a organismos de profesionistas'),
+(NULL, 5,'Pertenece a la asociación de egresados'),
 (NULL, 6,'Opinión o recomendación para mejorar la formación profesional de un egresado de su carrera');
 
 CREATE TABLE seccion2_estudia(
