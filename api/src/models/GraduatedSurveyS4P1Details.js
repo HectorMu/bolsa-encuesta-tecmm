@@ -1,6 +1,6 @@
 const connection = require("../database");
 
-const TABLE_NAME = "seccion2_estudia";
+const TABLE_NAME = "seccion4_p1_detalle";
 const IDENTIFIER_NAME = "fk_usuario";
 
 const Template = {
@@ -21,10 +21,9 @@ const Template = {
     ]);
     return results;
   },
-
   async CreateOrUpdateIfExists(data) {
-    const hasStudyDetails = await this.FindOne(data.fk_usuario);
-    if (hasStudyDetails) {
+    const hasDetails = await this.FindOne(data.fk_usuario);
+    if (hasDetails) {
       const results = await this.Update(data, data.fk_usuario);
       return results;
     }

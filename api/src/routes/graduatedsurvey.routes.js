@@ -2,31 +2,65 @@ const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middlewares/verifyToken");
 
-const sectionsController = require("../controllers/graduated.surveysections.controller");
-const questionsController = require("../controllers/graduated.surveyquestions.controller");
-const answersController = require("../controllers/graduated.surveyanswers.controller");
+const graduatedSurveyController = require("../controllers/graduated.survey.controller");
 
 router.get(
   "/graduated/survey/sections",
   verifyToken,
-  sectionsController.GetAll
+  graduatedSurveyController.getAllSections
 );
 router.get(
   "/graduated/survey/sections/getone/:id",
   verifyToken,
-  sectionsController.GetOne
+  graduatedSurveyController.getOneSection
 );
 
 router.get(
-  "/graduated/survey/questions/sections/:fk_section?",
+  "/graduated/survey/questions/section/:id?",
   verifyToken,
-  questionsController.GetAll
+  graduatedSurveyController.getAllQuestionsOrBySection
+);
+
+router.get(
+  "/graduated/survey/section/:id/answers",
+  verifyToken,
+  graduatedSurveyController.getAllUserAnswersBySection
 );
 
 router.post(
-  "/graduated/survey/answer/:fk_section",
+  "/graduated/survey/section1",
   verifyToken,
-  answersController.Save
+  graduatedSurveyController.SaveSection1Answers
+);
+
+router.post(
+  "/graduated/survey/section2",
+  verifyToken,
+  graduatedSurveyController.saveSection2Answers
+);
+
+router.post(
+  "/graduated/survey/section3",
+  verifyToken,
+  graduatedSurveyController.saveSection3Answers
+);
+
+router.post(
+  "/graduated/survey/section4",
+  verifyToken,
+  graduatedSurveyController.saveSection4Answers
+);
+
+router.post(
+  "/graduated/survey/section5",
+  verifyToken,
+  graduatedSurveyController.saveSection5Answers
+);
+
+router.post(
+  "/graduated/survey/section6",
+  verifyToken,
+  graduatedSurveyController.saveSection6Answers
 );
 
 module.exports = router;

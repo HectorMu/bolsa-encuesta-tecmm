@@ -22,6 +22,20 @@ const Template = {
     return results;
   },
 
+  async CreateOrUpdateIfExists(data) {
+    const answerExists = await this.FindOne(data.fk_pregunta, data.fk_usuario);
+
+    if (answerExists) {
+      const results = await this.Update(
+        data,
+        data.fk_pregunta,
+        data.fk_usuario
+      );
+      return results;
+    }
+    const results = await this.Create(data);
+    return results;
+  },
   async Update(data, fk_pregunta, fk_user) {
     const results = await connection.query(
       `update ${TABLE_NAME} set ? where fk_pregunta = ? && fk_usuario = ?`,

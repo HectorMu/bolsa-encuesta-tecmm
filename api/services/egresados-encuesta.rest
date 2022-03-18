@@ -3,33 +3,54 @@ GET http://localhost:4000/api/graduated/survey/sections
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
 
 ### get only one section
-GET http://localhost:4000/api/graduated/survey/sections/getone/6
+GET http://localhost:4000/api/graduated/survey/sections/getone/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
 
-### get all questions, you cant get only questions from a section passing an id of a section at the end
-GET http://localhost:4000/api/graduated/survey/questions/sections/1
+
+### Get all questions from a section, if id is not provided we get all questios of each section
+GET http://localhost:4000/api/graduated/survey/questions/section/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
 
-### If user is studing
-POST http://localhost:4000/api/graduated/survey/answer/2
+### to get all  users answer from a section 
+GET http://localhost:4000/api/graduated/survey/section/1/answers
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+
+### to save all user answers from section 1 
+POST http://localhost:4000/api/graduated/survey/section1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
 
 {
-    "fk_pregunta": 13,
-    "respuesta":"Estudia",
-    "tipo_estudio":"Maestria",
-    "especialidad_institucion":"Tejuinos"
+ "respuesta1":"Mala",
+ "respuesta2":"Buenos",
+ "respuesta3":"Mala",
+ "respuesta4":"Muy Buena",
+ "respuesta5":"Muy buena",
+ "respuesta6":"Buena"
 }
 
-### if user is working
-POST http://localhost:4000/api/graduated/survey/answer/2
+
+### to save all user answers from section 2, if user is studing
+POST http://localhost:4000/api/graduated/survey/section2
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
 
 {
-    "fk_pregunta": 13,
-    "respuesta":"Trabaja",
+    "respuesta1":"Estudia",
+    "tipo_estudio":"Maestria",
+    "especialidad_institucion":"Tejuinos"  
+}
+
+
+### to save all user answers from section 2, if user works
+POST http://localhost:4000/api/graduated/survey/section2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "respuesta1":"Trabaja",
     "tiempo_primer_empleo": "6 meses",
     "medio_obtener_empleo": "Bolsa de trabajo tec",
     "requisitos_contratacion": "Titulo y programacion web react",
@@ -63,14 +84,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvI
     "tamaño_empresa":"Mediana (101-500)"
 }
 
-###if user is studing and working
-POST http://localhost:4000/api/graduated/survey/answer/2
+### to save all user answers from section 2, if user works and study
+POST http://localhost:4000/api/graduated/survey/section2
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
 
 {
-    "fk_pregunta": 13,
-    "respuesta":"Estudia y trabaja",
+    "respuesta1":"Estudia y trabaja",
     "tipo_estudio":"Maestria",
     "especialidad_institucion":"Tejuinos",
     "tiempo_primer_empleo": "6 meses",
@@ -106,15 +126,71 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvI
     "tamaño_empresa":"Mediana (101-500)"
 }
 
-### If user is not working and studing
-POST http://localhost:4000/api/graduated/survey/answer/2
+### to save all user answers from section 2, if dont work and dont study
+POST http://localhost:4000/api/graduated/survey/section2
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
 
 {
-    "fk_pregunta": 13,
-    "respuesta":"No estudia ni trabaja"
-
+    "respuesta1":"No estudia ni trabaja"
 }
+
+### to save all user answer from section 3
+POST http://localhost:4000/api/graduated/survey/section3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "respuesta1":"Deficiente",
+    "respuesta2":"Bueno",
+    "respuesta3":"Bueno",
+    "area_estudio": 2,
+    "titulacion": 5,
+    "experiencia_laboral": 5,
+    "competencia_laboral": 5,
+    "posicionamiento_institucion_egreso": 2,
+    "conocimiento_idiomas_extranjeros": 3,
+    "recomiendaciones": 1,
+    "personalidad": 2,
+    "capacidad_liderazgo": 4,
+    "otros": 3
+}
+
+### to save all user answer from section 4
+POST http://localhost:4000/api/graduated/survey/section4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "respuesta1":"Si",
+    "cursos":"Programacion web",
+    "respuesta2":"Si",
+    "posgrado":"Redes"
+}
+
+### to save all user answer from section 5
+POST http://localhost:4000/api/graduated/survey/section5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "respuesta1":"Si",
+    "organizaciones_sociales":"La Onu",
+    "respuesta2":"Si",
+    "organismos_profesionistas":"No se que es",
+    "respuesta3":"Si"
+}
+
+### to save all user answer from section 6
+POST http://localhost:4000/api/graduated/survey/section6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "respuesta1":"Mejorar las mac para aprender mejor desarrolo mobil ios"
+}
+
+
+
 
 

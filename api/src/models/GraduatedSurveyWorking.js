@@ -21,6 +21,15 @@ const Template = {
     ]);
     return results;
   },
+  async CreateOrUpdateIfExists(data) {
+    const hasStudyDetails = await this.FindOne(data.fk_usuario);
+    if (hasStudyDetails) {
+      const results = await this.Update(data, data.fk_usuario);
+      return results;
+    }
+    const results = await this.Create(data);
+    return results;
+  },
   async Update(data, id) {
     const results = await connection.query(
       `update ${TABLE_NAME} set ? where ${IDENTIFIER_NAME} = ?`,
