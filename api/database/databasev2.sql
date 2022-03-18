@@ -68,22 +68,20 @@ create table perfil_egresado(
     FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
-
-
-
-
 CREATE TABLE seccion(
 id INT PRIMARY KEY AUTO_INCREMENT,
 descripcion VARCHAR (250)
 );
 
-INSERT INTO seccion VALUES 
+INSERT INTO seccion VALUES
 (NULL, 'Pertinencia y disponilibidad de medios y recursos para el aprendizaje'),
 (NULL, 'Ubicacion laboral para los egresados'),
 (NULL, 'Desempeño profesional de los egresados (Coherencia entre la formación y el tipo de empleo)'),
 (NULL, 'Expectativas de desarrollo, superación profesional y de actualización'),
 (NULL, 'Participación social de los egresados'),
-(NULL, 'Comentarios y sugerencias');
+(NULL, 'Comentarios y sugerencias'),
+(NUll, 'Ubicación laboral de los egresados'),
+(NULL, 'Competencias laborales');
 
 CREATE TABLE preguntas(
 id INT PRIMARY KEY AUTO_INCREMENT,
@@ -96,18 +94,27 @@ INSERT INTO preguntas VALUES (NULL, 1,'Calidad de los docentes'),
 (NULL, 1,'Oportunidad de participar en proyectos de investigación y desarrollo'),
 (NULL, 1,'Énfasis que se le prestaba a la investigación dentro del proceso de enseñanza'),
 (NULL, 1,'Satisfacción con las condiciones de estudio (Infraestructura)'),
-(NULL, 1,'Experiencia obtenida a través de la residencia profesional'),								  
+(NULL, 1,'Experiencia obtenida a través de la residencia profesional'),
 (NULL, 2,'Actividad a la que se dedica actualmente'),
 (NULL, 3,'Eficiencia para realizar las actividades laborales, en relación con su formación académica'),
 (NULL, 3,'Cómo califica su formación académica con respecto a su desempeño laboral'),
 (NULL, 3,'Utilidad de las residencias profesionales o prácticas profesionales para su desarrollo laboral y profesional'),
-(NULL, 3,'Aspectos que valora la empresa u otro organismo para la contratacion de egresados'),							  
+(NULL, 3,'Aspectos que valora la empresa u otro organismo para la contratacion de egresados'),
 (NULL, 4,'Le gustaria tomar cursos de actualización'),
-(NULL, 4,'Le gustaria tomar algún posgrado'),								  
+(NULL, 4,'Le gustaria tomar algún posgrado'),
 (NULL, 5,'Pertence a organizaciones sociales'),
 (NULL, 5,'Pertence a organismos de profesionistas'),
 (NULL, 5,'Pertence a la asociación de egresados'),
-(NULL, 6,'Opinión o recomendación para mejorar la formación profesional de un egresado de su carrera');
+(NULL, 6,'Opinión o recomendación para mejorar la formación profesional de un egresado de su carrera'),
+(NULL, 7,'Número de profesionistas con nivel de licenciatura que laboran en la empresa u organismo'),
+(NULL, 7,'Número de egresados del Instituto Tecnológico y nivel jerárquico que ocupan en su organización'),
+(NULL, 7,'Congruencia entre perfil profesional y función que desarrollan los egresados del Instituto Tecnológico en su empresa u organización. Del total de egresados anote el porcentaje que corresponda'),
+(NULL, 7,'Requisitos que establece su empresa u organización para la contratación de personal con nivel de licenciatura'),
+(NULL, 7,'Carreras que demanda preferentemente su empresa u organismo'),
+(NULL, 8,'En su opinión, ¿Qué compoetencias considera que deben desarrollar los egresados del Instituto Tecnológico, para desempeñarse eficientemente en sus actividades laborales?'),
+(NULL, 8,'Con base al desempeño laboral así como a las actividades laborales que realiza el egresado. ¿Cómo considera su desempeño laboral respecto a su formación académica? Del total de egresados anote el porcentaje que corresponda.'),
+(NULL, 8,'De acuerdo con las necesidades de su empresa u organismo, ¿Qué sugiere para mejorar la formación de los egresados del Instituto Tecnológico?'),
+(NULL, 8,'Comentarios y sugerencias');
 
 
 
@@ -203,7 +210,84 @@ fk_pregunta INT,
 organismos_profesionistas VARCHAR (500),
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
-);		
+);
+
+CREATE TABLE seccionB_p6_detalle(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+carrera VARCHAR(50),
+mando_superior INT,
+mando_intermedio INT,
+supervisor INT,
+tecnico_auxiliar INT,
+otros INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccionB_p7_detalle(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+completamente INT,
+medianamente INT,
+ligeramente INT,
+ninguna_relacion INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccionB_p8_detalle(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+area_estudio INT,
+titulacion INT,
+experiencia_laboral INT,
+competencia_laboral INT,
+posicionamiento_institucion_egreso INT,
+conocimiento_idiomas_extranjeros INT,
+recomiendaciones INT,
+personalidad INT,
+capacidad_liderazgo INT,
+otros INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccionC_p10_detalle(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+habilidad_resolver_conflictos INT,
+ortografia_redaccion INT,
+mejora_procesos INT,
+trabajo_equipo INT,
+habilidad_administrar_tiempo INT,
+seguridad_personal INT,
+facilidad_palabra INT,
+gestion_proyectos INT,
+puntualidad_asistencia INT,
+cumplimiento_normas INT,
+integracion_trabajo INT,
+creatividad_innovacion INT,
+capacidad_negociacion INT,
+capacidad_analisis INT,
+liderazgo INT,
+adaptacion_cambio INT,
+otros INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccionC_p12_detalle(
+fk_usuario INT PRIMARY key,
+fk_pregunta INT,
+excelente INT,
+muy_bueno INT,
+bueno INT,
+regular INT,
+malo INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
 
 CREATE TABLE respuestas(
 id INT PRIMARY KEY AUTO_INCREMENT,
