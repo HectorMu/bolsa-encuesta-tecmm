@@ -79,9 +79,7 @@ INSERT INTO seccion VALUES
 (NULL, 'Desempeño profesional de los egresados (Coherencia entre la formación y el tipo de empleo)'),
 (NULL, 'Expectativas de desarrollo, superación profesional y de actualización'),
 (NULL, 'Participación social de los egresados'),
-(NULL, 'Comentarios y sugerencias'),
-(NUll, 'Ubicación laboral de los egresados'),
-(NULL, 'Competencias laborales');
+(NULL, 'Comentarios y sugerencias');
 
 CREATE TABLE preguntas(
 id INT PRIMARY KEY AUTO_INCREMENT,
@@ -105,18 +103,7 @@ INSERT INTO preguntas VALUES (NULL, 1,'Calidad de los docentes'),
 (NULL, 5,'Pertence a organizaciones sociales'),
 (NULL, 5,'Pertence a organismos de profesionistas'),
 (NULL, 5,'Pertence a la asociación de egresados'),
-(NULL, 6,'Opinión o recomendación para mejorar la formación profesional de un egresado de su carrera'),
-(NULL, 7,'Número de profesionistas con nivel de licenciatura que laboran en la empresa u organismo'),
-(NULL, 7,'Número de egresados del Instituto Tecnológico y nivel jerárquico que ocupan en su organización'),
-(NULL, 7,'Congruencia entre perfil profesional y función que desarrollan los egresados del Instituto Tecnológico en su empresa u organización. Del total de egresados anote el porcentaje que corresponda'),
-(NULL, 7,'Requisitos que establece su empresa u organización para la contratación de personal con nivel de licenciatura'),
-(NULL, 7,'Carreras que demanda preferentemente su empresa u organismo'),
-(NULL, 8,'En su opinión, ¿Qué compoetencias considera que deben desarrollar los egresados del Instituto Tecnológico, para desempeñarse eficientemente en sus actividades laborales?'),
-(NULL, 8,'Con base al desempeño laboral así como a las actividades laborales que realiza el egresado. ¿Cómo considera su desempeño laboral respecto a su formación académica? Del total de egresados anote el porcentaje que corresponda.'),
-(NULL, 8,'De acuerdo con las necesidades de su empresa u organismo, ¿Qué sugiere para mejorar la formación de los egresados del Instituto Tecnológico?'),
-(NULL, 8,'Comentarios y sugerencias');
-
-
+(NULL, 6,'Opinión o recomendación para mejorar la formación profesional de un egresado de su carrera');
 
 CREATE TABLE seccion2_estudia(
 fk_usuario INT PRIMARY key,
@@ -212,9 +199,46 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
 );
 
+CREATE TABLE respuestas(
+id INT PRIMARY KEY AUTO_INCREMENT,
+fk_pregunta INT,
+fk_seccion INT,
+fk_usuario INT,
+respuesta TEXT,
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id),
+FOREIGN KEY (fk_seccion) REFERENCES seccion(id),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
+);
+
+CREATE TABLE seccion_empresa(
+id INT PRIMARY KEY AUTO_INCREMENT,
+descripcion VARCHAR (250)
+);
+
+INSERT INTO seccion_empresa VALUES
+(NUll, 'Ubicación laboral de los egresados'),
+(NULL, 'Competencias laborales');
+
+CREATE TABLE preguntas_empresa(
+id INT PRIMARY KEY AUTO_INCREMENT,
+fk_seccion_empresa INT,
+descripcion VARCHAR (250),
+FOREIGN KEY (fk_seccion_empresa) REFERENCES seccion_empresa(id)
+);
+INSERT INTO preguntas_empresa VALUES (NULL, 1,'Calidad de los docentes'),
+(NULL, 1,'Número de profesionistas con nivel de licenciatura que laboran en la empresa u organismo'),
+(NULL, 1,'Número de egresados del Instituto Tecnológico y nivel jerárquico que ocupan en su organización'),
+(NULL, 1,'Congruencia entre perfil profesional y función que desarrollan los egresados del Instituto Tecnológico en su empresa u organización. Del total de egresados anote el porcentaje que corresponda'),
+(NULL, 1,'Requisitos que establece su empresa u organización para la contratación de personal con nivel de licenciatura'),
+(NULL, 1,'Carreras que demanda preferentemente su empresa u organismo'),
+(NULL, 2,'En su opinión, ¿Qué compoetencias considera que deben desarrollar los egresados del Instituto Tecnológico, para desempeñarse eficientemente en sus actividades laborales?'),
+(NULL, 2,'Con base al desempeño laboral así como a las actividades laborales que realiza el egresado. ¿Cómo considera su desempeño laboral respecto a su formación académica? Del total de egresados anote el porcentaje que corresponda.'),
+(NULL, 2,'De acuerdo con las necesidades de su empresa u organismo, ¿Qué sugiere para mejorar la formación de los egresados del Instituto Tecnológico?'),
+(NULL, 2,'Comentarios y sugerencias');
+
 CREATE TABLE seccionB_p6_detalle(
 fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_pregunta_empresa INT,
 carrera VARCHAR(50),
 mando_superior INT,
 mando_intermedio INT,
@@ -222,23 +246,23 @@ supervisor INT,
 tecnico_auxiliar INT,
 otros INT,
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
-FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
 CREATE TABLE seccionB_p7_detalle(
 fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_pregunta_empresa INT,
 completamente INT,
 medianamente INT,
 ligeramente INT,
 ninguna_relacion INT,
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
-FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
 CREATE TABLE seccionB_p8_detalle(
 fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_pregunta_empresa INT,
 area_estudio INT,
 titulacion INT,
 experiencia_laboral INT,
@@ -250,12 +274,12 @@ personalidad INT,
 capacidad_liderazgo INT,
 otros INT,
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
-FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
 CREATE TABLE seccionC_p10_detalle(
 fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_pregunta_empresa INT,
 habilidad_resolver_conflictos INT,
 ortografia_redaccion INT,
 mejora_procesos INT,
@@ -274,33 +298,31 @@ liderazgo INT,
 adaptacion_cambio INT,
 otros INT,
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
-FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
 CREATE TABLE seccionC_p12_detalle(
 fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_pregunta_empresa INT,
 excelente INT,
 muy_bueno INT,
 bueno INT,
 regular INT,
 malo INT,
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
-FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
-CREATE TABLE respuestas(
+CREATE TABLE respuestas_empresa(
 id INT PRIMARY KEY AUTO_INCREMENT,
-fk_pregunta INT,
-fk_seccion INT,
+fk_pregunta_empresa INT,
+fk_seccion_empresa INT,
 fk_usuario INT,
 respuesta TEXT,
-FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id),
-FOREIGN KEY (fk_seccion) REFERENCES seccion(id),
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id),
+FOREIGN KEY (fk_seccion_empresa) REFERENCES seccion_empresa(id),
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
-
-
 
 create table publicacion_bolsa(
     folio int primary key,
