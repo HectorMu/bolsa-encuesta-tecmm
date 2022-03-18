@@ -1,0 +1,120 @@
+### get all sections
+GET http://localhost:4000/api/graduated/survey/sections
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+### get only one section
+GET http://localhost:4000/api/graduated/survey/sections/getone/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+### get all questions, you cant get only questions from a section passing an id of a section at the end
+GET http://localhost:4000/api/graduated/survey/questions/sections/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+### If user is studing
+POST http://localhost:4000/api/graduated/survey/answer/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "fk_pregunta": 13,
+    "respuesta":"Estudia",
+    "tipo_estudio":"Maestria",
+    "especialidad_institucion":"Tejuinos"
+}
+
+### if user is working
+POST http://localhost:4000/api/graduated/survey/answer/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "fk_pregunta": 13,
+    "respuesta":"Trabaja",
+    "tiempo_primer_empleo": "6 meses",
+    "medio_obtener_empleo": "Bolsa de trabajo tec",
+    "requisitos_contratacion": "Titulo y programacion web react",
+    "idioma_utilizado": "Ingles",
+    "idioma_hablar": 100,
+    "idioma_escribir": 100,
+    "idioma_leer": 100,
+    "idioma_escuchar": 100,
+    "antiguedad_empleo":"12 meses",
+    "año_ingreso":"2020",
+    "salario":"Menos de cinco",
+    "nivel_jerarquico":"Tecnico",
+    "condicion_trabajo":"Contrato",
+    "relacion_trabajo_formacion": 20,
+    "organismo_empresa":"Publico",
+    "actividad_principal_empresa":"Vender cables",
+    "razon_social":"Stanlet",
+    "calle":"Lazaro cardenas",
+    "numero": 34,
+    "colonia":"Lomas de lagos",
+    "cp": 47510,
+    "ciudad":"Lagos de moreno",
+    "municipio":"Lagos de moreno",
+    "estado":"Jalisco",
+    "telefono_empresa": 1234567890,
+    "telefono_ext_empresa": 1234567890,
+    "fax_empresa": 1987654321,
+    "email_empresa":"empresa@gmail.com",
+    "tipo_sector_empresa":"Primario",
+    "sector_empresa":"Minero",
+    "tamaño_empresa":"Mediana (101-500)"
+}
+
+###if user is studing and working
+POST http://localhost:4000/api/graduated/survey/answer/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "fk_pregunta": 13,
+    "respuesta":"Estudia y trabaja",
+    "tipo_estudio":"Maestria",
+    "especialidad_institucion":"Tejuinos",
+    "tiempo_primer_empleo": "6 meses",
+    "medio_obtener_empleo": "Bolsa de trabajo tec",
+    "requisitos_contratacion": "Titulo y programacion web react",
+    "idioma_utilizado": "Ingles",
+    "idioma_hablar": 100,
+    "idioma_escribir": 100,
+    "idioma_leer": 100,
+    "idioma_escuchar": 100,
+    "antiguedad_empleo":"12 meses",
+    "año_ingreso":"2020",
+    "salario":"Menos de cinco",
+    "nivel_jerarquico":"Tecnico",
+    "condicion_trabajo":"Contrato",
+    "relacion_trabajo_formacion": 20,
+    "organismo_empresa":"Publico",
+    "actividad_principal_empresa":"Vender cables",
+    "razon_social":"Stanlet",
+    "calle":"Lazaro cardenas",
+    "numero": 34,
+    "colonia":"Lomas de lagos",
+    "cp": 47510,
+    "ciudad":"Lagos de moreno",
+    "municipio":"Lagos de moreno",
+    "estado":"Jalisco",
+    "telefono_empresa": 1234567890,
+    "telefono_ext_empresa": 1234567890,
+    "fax_empresa": 1987654321,
+    "email_empresa":"empresa@gmail.com",
+    "tipo_sector_empresa":"Primario",
+    "sector_empresa":"Minero",
+    "tamaño_empresa":"Mediana (101-500)"
+}
+
+### If user is not working and studing
+POST http://localhost:4000/api/graduated/survey/answer/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "fk_pregunta": 13,
+    "respuesta":"No estudia ni trabaja"
+
+}
+
+
