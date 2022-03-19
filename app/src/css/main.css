@@ -408,3 +408,36 @@ input:-webkit-autofill:active {
 }
 
 /* /Custom sidebar */
+
+.form-check-label {
+  cursor: pointer !important;
+}
+
+input[type="radio"]:after {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+  transition: all ease-in-out 0.2s;
+}
+input[type="radio"]:checked:after {
+  width: 17px;
+  height: 17px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: var(--purple);
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
