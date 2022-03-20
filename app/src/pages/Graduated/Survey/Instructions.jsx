@@ -14,7 +14,7 @@ const Survey = () => {
         Por favor lea cuidadosamente y conteste este cuestionario de la
         siguiente manera, segun sea el caso:
       </p>
-      <ol start={1} className="font-weight-bold">
+      <ol start={1} className="font-weight-bold text-justify instructions-list">
         <li>
           En el caso de preguntas cerradas, seleccione la opcion que considere
           apropiada.

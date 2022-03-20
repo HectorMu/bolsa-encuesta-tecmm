@@ -325,6 +325,8 @@ input:-webkit-autofill:active {
 
 .c-sidebar .menu {
   margin: -0.5rem -1rem;
+  position: sticky;
+  top: 90px;
 }
 
 .c-sidebar .menu .menu-item {
@@ -440,4 +442,8 @@ input[type="radio"]:checked:after {
   display: inline-block;
   visibility: visible;
   border: 2px solid white;
+}
+
+.instructions-list > li {
+  margin-bottom: 15px;
 }

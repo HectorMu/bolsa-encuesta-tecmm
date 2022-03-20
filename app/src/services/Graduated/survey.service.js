@@ -36,4 +36,21 @@ const getSectionQuestions = async (section_id) => {
   }
 };
 
-export default { getSectionQuestions, getSurveySections, getSurveySection };
+const saveSection1 = async (answers) => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/section1`,
+      helpers.authPostConfig(answers)
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default {
+  getSectionQuestions,
+  getSurveySections,
+  getSurveySection,
+  saveSection1,
+};
