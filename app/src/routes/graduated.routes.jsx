@@ -1,5 +1,5 @@
 import Instructions from "../pages/Graduated/Survey/Instructions";
-import Section1 from "../pages/Graduated/Survey/Section1";
+import Survey from "../pages/Graduated/Survey/Survey";
 import IsGraduated from "../components/Authentication/IsGraduated";
 
 const Routes = [
@@ -9,7 +9,7 @@ const Routes = [
   },
   {
     path: "/graduated/survey/section/:section_id",
-    element: <IsGraduated view={Section1} />,
+    element: <IsGraduated view={Survey} />,
   },
 ];
 
