@@ -65,6 +65,7 @@ const index = () => {
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
 
+  console.log(answers);
   return (
     <>
       <h4 className="mb-4 border-bottom border-dark pb-3 text-center font-weight-bolder">
@@ -79,10 +80,13 @@ const index = () => {
         {answers.respuesta1 === "Estudia" ? (
           <Study answers={answers} handleChange={handleChange} />
         ) : null}
-        {answers.respuesta1 === "Trabaja" ? <Works /> : null}
+        {answers.respuesta1 === "Trabaja" ? (
+          <Works answers={answers} handleChange={handleChange} />
+        ) : null}
         {answers.respuesta1 === "Estudia y trabaja" ? (
           <>
-            <Study answers={answers} handleChange={handleChange} /> <Works />
+            <Study answers={answers} handleChange={handleChange} />
+            <Works answers={answers} handleChange={handleChange} />
           </>
         ) : null}
       </div>

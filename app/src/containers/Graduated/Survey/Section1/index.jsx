@@ -46,7 +46,6 @@ const index = () => {
         <Loading />
       ) : (
         <>
-          {" "}
           <h4 className="mb-4 border-bottom border-dark pb-3 text-center font-weight-bolder">
             {section?.descripcion}
           </h4>
