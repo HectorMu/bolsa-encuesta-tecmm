@@ -1,21 +1,17 @@
 import React from "react";
 import OptionsContainer from "../../../../components/Survey/OptionsContainer";
 
-const OPTIONS = [
-  "Bolsa de trabajo del plantel",
-  "Contactos personales",
-  "Residencia Profesional",
-  "Medios masivos de comunicacion",
-];
-const WorksQuestion2 = ({ handleChange, answers }) => {
-  const ID = "WQ1S2";
+const OPTIONS = ["Base", "Eventual", "Contrato"];
+const WorksQuestion9 = ({ handleChange, answers }) => {
+  const ID = "WQ9S2";
   return (
     <div className="pb-3">
-      <h5>Medio para obtener el empleo:</h5>
+      <h5>Condicion de trabajo:</h5>
       <OptionsContainer
+        cols="col-md-12 col-lg-4 col-xl-4"
         SECTIONID={ID}
         OPTIONS={OPTIONS}
-        ANSWER={"medio_obtener_empleo"}
+        ANSWER={"condicion_trabajo"}
         answers={answers}
         handleChange={handleChange}
         other={true}
@@ -25,4 +21,4 @@ const WorksQuestion2 = ({ handleChange, answers }) => {
   );
 };
 
-export default WorksQuestion2;
+export default WorksQuestion9;
