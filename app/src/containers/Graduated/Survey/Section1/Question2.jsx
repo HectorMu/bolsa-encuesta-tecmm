@@ -1,11 +1,6 @@
 import OptionsContainer from "../../../../components/Survey/OptionsContainer";
 
-const OPTIONS = {
-  MUY_BUENA: "Muy buenos",
-  BUENA: "Buenos",
-  REGULAR: "Regulares",
-  MALA: "Malos",
-};
+const OPTIONS = ["Muy buenos", "Buenos", "Regulares", "Malos"];
 
 const Question2 = ({ handleChange, answers, questions }) => {
   const ID = "Q2S1";

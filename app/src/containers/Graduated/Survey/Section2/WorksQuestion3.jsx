@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput";
+//import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput";
 
 const WorksQuestion3 = ({ handleChange, answers }) => {
-  const ID = "WQ3S2";
+  //const ID = "WQ3S2";
   const [requirements, setRequirements] = useState([]);
-  const [other, setOther] = useState("");
+
   const listFormatter = new Intl.ListFormat("es");
 
   const setRequirementsHandler = (requirement) => {
@@ -99,7 +99,7 @@ const WorksQuestion3 = ({ handleChange, answers }) => {
             </div>
           </div>
           <div className="col">
-            <div className="form-group form-check">
+            <div className="form-group form-check text-truncate">
               <input
                 type="checkbox"
                 className="form-check-input"
@@ -112,13 +112,14 @@ const WorksQuestion3 = ({ handleChange, answers }) => {
                 }
                 onChange={(e) => setRequirementsHandler(e.target.value)}
               />
-              <label className="form-check-label" htmlFor="exampleCheck5">
+              <label className="form-check-label " htmlFor="exampleCheck5">
                 Actitudes y habilidades socio-comunicativas (principios y
                 valores)
               </label>
             </div>
           </div>
-          <div className="col-12 col-lg-4 col-md-3 col-xl-6 mt-1 mt-xl-2 mt-lg-2 mt-md-2">
+          {/* //? TODO: The OTHER option */}
+          {/* <div className="col-12 col-lg-4 col-md-3 col-xl-6 mt-1 mt-xl-2 mt-lg-2 mt-md-2">
             <div className="d-flex  justify-content-start align-items-center ">
               <div className="form-group form-check w-100">
                 <input
@@ -143,7 +144,7 @@ const WorksQuestion3 = ({ handleChange, answers }) => {
                 )}
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="col">
             <div className="form-group form-check">
               <input

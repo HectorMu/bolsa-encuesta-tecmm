@@ -9,23 +9,24 @@ const OptionsContainer = ({
   answers,
   other = false,
   otherText = "Other",
+  cols = "col-12 col-lg-3 col-md-3 col-xl-3",
 }) => {
   return (
     <div className="row">
-      {Object.entries(OPTIONS).map(([key, value]) => (
-        <div key={key + value} className="col-12 col-lg-3 col-md-3 col-xl-3">
+      {OPTIONS.map((option) => (
+        <div key={option + ID} className={cols}>
           <div className="form-check">
             <input
               className="form-check-input"
               type="radio"
-              checked={answers[ANSWER] === value}
+              checked={answers[ANSWER] === option}
               name={ID}
-              onChange={() => handleChange(ANSWER, value)}
+              onChange={() => handleChange(ANSWER, option)}
               value={answers[ANSWER]}
-              id={`${ID}${key}`}
+              id={`${ID}${option}`}
             />
-            <label className="form-check-label" htmlFor={`${ID}${key}`}>
-              {value}
+            <label className="form-check-label" htmlFor={`${ID}${option}`}>
+              {option}
             </label>
           </div>
         </div>
