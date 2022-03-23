@@ -1,0 +1,92 @@
+### get all sections
+GET http://localhost:4000/api/company/survey/sections
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+### get all section b question 6 details
+GET http://localhost:4000/api/company/survey/seccionb/getp6details/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+### get only one section
+GET http://localhost:4000/api/company/survey/sections/getone/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+
+### Get all questions from a section, if id is not provided we get all questions of each section
+GET http://localhost:4000/api/company/survey/questions/section/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+### to get all  users answer from a section
+GET http://localhost:4000/api/company/survey/section/1/answers
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29ycmVvIjoiYWRtaW5AZ21haWwuY29tIiwiZmtfcm9sIjoxLCJpYXQiOjE2NDc5ODk4NjN9.PTQWFRq3GyE83ZS4PxBDxQ8Dn9SzLMhX-h9_AyBJ7j0
+
+
+### to save all user answers from section b
+POST http://localhost:4000/api/company/survey/sectionb
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29ycmVvIjoiYWRtaW5AZ21haWwuY29tIiwiZmtfcm9sIjoxLCJpYXQiOjE2NDc5ODk4NjN9.PTQWFRq3GyE83ZS4PxBDxQ8Dn9SzLMhX-h9_AyBJ7j0
+
+{
+ "respuesta5":"De 9 a 10",
+ "completamente":70,
+ "medianamente":20,
+ "ligeramente":10,
+ "ninguna_relacion":0,
+ "area_estudio":"Requerido",
+ "titulacion":"Requerido",
+ "experiencia_laboral":"No requerido",
+ "competencia_laboral":"Requerido",
+ "posicionamiento_institucion_egreso":"No requerido",
+ "conocimiento_idiomas_extranjeros":"Requerido",
+ "recomendaciones":"Requerido",
+ "personalidad":"Requerido",
+ "capacidad_liderazgo":"Requerido",
+ "otros_p8":"No requerido",
+ "respuesta9":"Ing. En Sistemas Computacionales, Ing. Civil"
+}
+
+### to save all user answers from question 6
+POST http://localhost:4000/api/company/survey/sectionb/p6details
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29ycmVvIjoiYWRtaW5AZ21haWwuY29tIiwiZmtfcm9sIjoxLCJpYXQiOjE2NDc5ODk4NjN9.PTQWFRq3GyE83ZS4PxBDxQ8Dn9SzLMhX-h9_AyBJ7j0
+
+{
+ "carrera":"Ing. Industrial",
+ "mando_superior":4,
+ "mando_intermedio":7,
+ "supervisor":3,
+ "tecnico_auxiliar":2,
+ "otros_p6":1
+}
+
+### to save all user answers from section c
+POST http://localhost:4000/api/company/survey/sectionc
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29ycmVvIjoiYWRtaW5AZ21haWwuY29tIiwiZmtfcm9sIjoxLCJpYXQiOjE2NDc5ODkwNDh9.CnHH0ntDDWwntlC9UlWP4A0T2WhOkig5JIjOPlsuVGM
+
+{
+ "habilidad_resolver_conflictos":4,
+ "ortografia_redaccion":5,
+ "mejora_procesos":5,
+ "trabajo_equipo":5,
+ "habilidad_administrar_tiempo":4,
+ "seguridad_personal":3,
+ "facilidad_palabra":4,
+ "gestion_proyectos":5,
+ "puntualidad_asistencia":5,
+ "cumplimiento_normas":5,
+ "integracion_trabajo":5,
+ "creatividad_innovacion":5,
+ "capacidad_negociacion":5,
+ "capacidad_analisis":5,
+ "liderazgo":5,
+ "adaptacion_cambio":5,
+ "otros":5,
+ "excelente":60,
+ "muy_bueno":20,
+ "bueno":20,
+ "regular":0,
+ "malo":0,
+ "respuesta12":"Enseñar mas tecnologias nuevas",
+ "respuesta13":"Mejorar las Macs del Tec, los egresados se quejan mucho"
+}

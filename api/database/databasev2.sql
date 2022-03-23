@@ -225,7 +225,7 @@ fk_seccion_empresa INT,
 descripcion VARCHAR (250),
 FOREIGN KEY (fk_seccion_empresa) REFERENCES seccion_empresa(id)
 );
-INSERT INTO preguntas_empresa VALUES (NULL, 1,'Calidad de los docentes'),
+INSERT INTO preguntas_empresa VALUES
 (NULL, 1,'Número de profesionistas con nivel de licenciatura que laboran en la empresa u organismo'),
 (NULL, 1,'Número de egresados del Instituto Tecnológico y nivel jerárquico que ocupan en su organización'),
 (NULL, 1,'Congruencia entre perfil profesional y función que desarrollan los egresados del Instituto Tecnológico en su empresa u organización. Del total de egresados anote el porcentaje que corresponda'),
@@ -237,14 +237,15 @@ INSERT INTO preguntas_empresa VALUES (NULL, 1,'Calidad de los docentes'),
 (NULL, 2,'Comentarios y sugerencias');
 
 CREATE TABLE seccionB_p6_detalle(
-fk_usuario INT PRIMARY key,
+id INT PRIMARY KEY AUTO_INCREMENT,
+fk_usuario INT,
 fk_pregunta_empresa INT,
 carrera VARCHAR(50),
 mando_superior INT,
 mando_intermedio INT,
 supervisor INT,
 tecnico_auxiliar INT,
-otros INT,
+otros_p6 INT,
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
@@ -263,16 +264,16 @@ FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 CREATE TABLE seccionB_p8_detalle(
 fk_usuario INT PRIMARY key,
 fk_pregunta_empresa INT,
-area_estudio INT,
-titulacion INT,
-experiencia_laboral INT,
-competencia_laboral INT,
-posicionamiento_institucion_egreso INT,
-conocimiento_idiomas_extranjeros INT,
-recomiendaciones INT,
-personalidad INT,
-capacidad_liderazgo INT,
-otros INT,
+area_estudio VARCHAR(20),
+titulacion VARCHAR(20),
+experiencia_laboral VARCHAR(20),
+competencia_laboral VARCHAR(20),
+posicionamiento_institucion_egreso VARCHAR(20),
+conocimiento_idiomas_extranjeros VARCHAR(20),
+recomendaciones VARCHAR(20),
+personalidad VARCHAR(20),
+capacidad_liderazgo VARCHAR(20),
+otros_p8 VARCHAR(20),
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
@@ -301,7 +302,7 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
-CREATE TABLE seccionC_p12_detalle(
+CREATE TABLE seccionC_p11_detalle(
 fk_usuario INT PRIMARY key,
 fk_pregunta_empresa INT,
 excelente INT,
