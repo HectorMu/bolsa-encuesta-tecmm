@@ -9,6 +9,7 @@ import WorksQuestion7 from "./WorksQuestion7";
 import WorksQuestion8 from "./WorksQuestion8";
 import WorksQuestion9 from "./WorksQuestion9";
 import WorksQuestion10 from "./WorksQuestion10";
+import WorksCompanyData from "./WorksCompanyData";
 
 const Works = ({ answers, handleChange }) => {
   return (
@@ -23,6 +24,7 @@ const Works = ({ answers, handleChange }) => {
       <WorksQuestion8 answers={answers} handleChange={handleChange} />
       <WorksQuestion9 answers={answers} handleChange={handleChange} />
       <WorksQuestion10 answers={answers} handleChange={handleChange} />
+      <WorksCompanyData answers={answers} handleChange={handleChange} />
     </>
   );
 };

@@ -150,7 +150,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvI
     "competencia_laboral": 5,
     "posicionamiento_institucion_egreso": 2,
     "conocimiento_idiomas_extranjeros": 3,
-    "recomiendaciones": 1,
+    "recomendaciones": 1,
     "personalidad": 2,
     "capacidad_liderazgo": 4,
     "otros": 3

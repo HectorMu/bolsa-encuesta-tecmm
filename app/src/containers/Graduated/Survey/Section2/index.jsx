@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+//importing custom components
+import Loading from "../../../../components/Global/Loading";
 
 //Importing services
 import surveyService from "../../../../services/Graduated/survey.service";
@@ -45,12 +47,13 @@ const sectionAnswers = {
   telefono_ext_empresa: "",
   fax_empresa: "",
   email_empresa: "",
-  tipo_sector_empresa: "",
+  pagina_web: "",
+  jefe_inmediato: "",
   sector_empresa: "",
   tamaño_empresa: "",
 };
 const index = () => {
-  const { section, questions } = useGraduatedSurvey();
+  const { section, questions, isLoading } = useGraduatedSurvey();
   const [answers, setAnswers] = useState(sectionAnswers);
 
   const navigate = useNavigate();
@@ -65,36 +68,44 @@ const index = () => {
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
 
-  console.log(answers);
   return (
     <>
-      <h4 className="mb-4 border-bottom border-dark pb-3 text-center font-weight-bolder">
-        {section?.descripcion}
-      </h4>
-      <Question1
-        handleChange={handleChange}
-        answers={answers}
-        questions={questions}
-      />
-      <div className="mt-2">
-        {answers.respuesta1 === "Estudia" ? (
-          <Study answers={answers} handleChange={handleChange} />
-        ) : null}
-        {answers.respuesta1 === "Trabaja" ? (
-          <Works answers={answers} handleChange={handleChange} />
-        ) : null}
-        {answers.respuesta1 === "Estudia y trabaja" ? (
-          <>
-            <Study answers={answers} handleChange={handleChange} />
-            <Works answers={answers} handleChange={handleChange} />
-          </>
-        ) : null}
-      </div>
-      <div className="d-flex justify-content-center mt-5">
-        <button onClick={saveAndSkipToNextSection} className="btn btn-primary">
-          Siguiente <i className="fas fa-arrow-right"></i>
-        </button>
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <h4 className="mb-4 border-bottom border-dark pb-3 text-center font-weight-bolder">
+            {section?.descripcion}
+          </h4>
+          <Question1
+            handleChange={handleChange}
+            answers={answers}
+            questions={questions}
+          />
+          <div className="mt-2">
+            {answers.respuesta1 === "Estudia" ? (
+              <Study answers={answers} handleChange={handleChange} />
+            ) : null}
+            {answers.respuesta1 === "Trabaja" ? (
+              <Works answers={answers} handleChange={handleChange} />
+            ) : null}
+            {answers.respuesta1 === "Estudia y trabaja" ? (
+              <>
+                <Study answers={answers} handleChange={handleChange} />
+                <Works answers={answers} handleChange={handleChange} />
+              </>
+            ) : null}
+          </div>
+          <div className="d-flex justify-content-center mt-5">
+            <button
+              onClick={saveAndSkipToNextSection}
+              className="btn btn-primary"
+            >
+              Siguiente <i className="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </>
+      )}
     </>
   );
 };

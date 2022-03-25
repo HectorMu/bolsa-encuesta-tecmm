@@ -1,6 +1,8 @@
 import useRouterHooks from "../../../hooks/useRouterHooks";
 import Section1 from "../../../containers/Graduated/Survey/Section1";
 import Section2 from "../../../containers/Graduated/Survey/Section2";
+import Section3 from "../../../containers/Graduated/Survey/Section3";
+import Section4 from "../../../containers/Graduated/Survey/Section4";
 
 const Section = () => {
   const { params } = useRouterHooks();
@@ -12,6 +14,8 @@ const Section = () => {
           <div className="card-body">
             {parseInt(params.section_id) === 1 ? <Section1 /> : null}
             {parseInt(params.section_id) === 2 ? <Section2 /> : null}
+            {parseInt(params.section_id) === 3 ? <Section3 /> : null}
+            {parseInt(params.section_id) === 4 ? <Section4 /> : null}
           </div>
         </div>
       </div>

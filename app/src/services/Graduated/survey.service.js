@@ -59,6 +59,17 @@ const saveSection2 = async (answers) => {
     console.log(error);
   }
 };
+const saveSection3 = async (answers) => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/section3`,
+      helpers.authPostConfig(answers)
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default {
   getSectionQuestions,
@@ -66,4 +77,5 @@ export default {
   getSurveySection,
   saveSection1,
   saveSection2,
+  saveSection3,
 };
