@@ -38,6 +38,7 @@ const WorksQuestion3 = ({ handleChange, answers }) => {
   };
 
   const checkForRequirementsInList = () => {
+    if (!answers.requisitos_contratacion) return;
     const requirementsList = answers.requisitos_contratacion;
     for (let i = 0; i < OPTIONS.length; i++) {
       const currentElement = OPTIONS[i];
