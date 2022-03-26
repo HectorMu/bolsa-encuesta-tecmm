@@ -9,6 +9,13 @@ const useGraduatedSurvey = () => {
   const [questions, setQuestions] = useState([]);
   const params = useParams();
 
+  const getUserAnswersHandler = useCallback(async () => {
+    const fetchedAnswers = await surveyService.getAnswersBySection(
+      params.section_id
+    );
+    setUserSectionAnswers(fetchedAnswers);
+  }, [params.section_id]);
+
   const getQuestionsHandler = useCallback(async () => {
     setIsLoading(true);
     const fetchedQuestions = await surveyService.getSectionQuestions(
@@ -28,7 +35,8 @@ const useGraduatedSurvey = () => {
   useEffect(() => {
     getSectionHandler();
     getQuestionsHandler();
-  }, [getQuestionsHandler]);
+    getUserAnswersHandler();
+  }, [getQuestionsHandler, getUserAnswersHandler, getSectionHandler]);
 
   return {
     section,

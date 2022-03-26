@@ -12,6 +12,7 @@ const Question1 = ({ handleChange, answers, questions }) => {
             <input
               className="form-check-input"
               type="radio"
+              checked={answers.respuesta1 === "Trabaja"}
               name={ID}
               onChange={() => handleChange("respuesta1", "Trabaja")}
               value={answers.respuesta1}
@@ -27,6 +28,7 @@ const Question1 = ({ handleChange, answers, questions }) => {
             <input
               className="form-check-input"
               type="radio"
+              checked={answers.respuesta1 === "Estudia"}
               onChange={() => handleChange("respuesta1", "Estudia")}
               value={answers.respuesta1}
               name={ID}
@@ -42,6 +44,7 @@ const Question1 = ({ handleChange, answers, questions }) => {
             <input
               className="form-check-input"
               type="radio"
+              checked={answers.respuesta1 === "Estudia y trabaja"}
               onChange={() => handleChange("respuesta1", "Estudia y trabaja")}
               value={answers.respuesta1}
               name={ID}
@@ -57,6 +60,7 @@ const Question1 = ({ handleChange, answers, questions }) => {
             <input
               className="form-check-input"
               type="radio"
+              checked={answers.respuesta1 === "No estudia ni trabaja"}
               onChange={() =>
                 handleChange("respuesta1", "No estudia ni trabaja")
               }

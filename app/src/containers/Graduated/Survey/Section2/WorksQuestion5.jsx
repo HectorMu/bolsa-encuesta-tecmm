@@ -11,8 +11,8 @@ const WorksQuestion5 = ({ handleChange, answers }) => {
   return (
     <div className="pb-3">
       <h5>
-        En que proporcion utiliza cada habilidad del idioma extranjero en su
-        desempeno laboral (%):
+        En que proporción utiliza cada habilidad del idioma extranjero en su
+        desempeño laboral (%):
       </h5>
 
       <div className="row">

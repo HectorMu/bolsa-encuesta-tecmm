@@ -93,7 +93,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
           />
         </div>
       </div>
-      <h6>Contacto</h6>
+      <h6>Contácto</h6>
       <div className="row">
         <div className="col-12 col-xl-4">
           <FloatingLabelInput
@@ -155,7 +155,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
         </div>
       </div>
       <div className="pb-3">
-        <h6>Sector economico de la empresa u organizacion</h6>
+        <h6>Sector económico de la empresa u organización</h6>
         <OptionsContainer
           SECTIONID={"WCMS2OPT2"}
           OPTIONS={[
@@ -178,7 +178,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
         />
       </div>
       <div className="pb-3">
-        <h6>Tamaño de la empresa u organizacion</h6>
+        <h6>Tamaño de la empresa u organización</h6>
         <OptionsContainer
           SECTIONID={"WCMS2OPT3"}
           OPTIONS={[

@@ -13,39 +13,32 @@ import surveyService from "../../../../services/Graduated/survey.service";
 import Question1 from "./Question1";
 import Question2 from "./Question2";
 import Question3 from "./Question3";
-import Question4 from "./Question4";
 
 const sectionAnswers = {
   respuesta1: "",
+  organizaciones_sociales: "",
   respuesta2: "",
+  organismos_profesionistas: "",
   respuesta3: "",
-  area_estudio: "",
-  titulacion: "",
-  experiencia_laboral: "",
-  competencia_laboral: "",
-  posicionamiento_institucion_egreso: "",
-  conocimiento_idiomas_extranjeros: "",
-  recomendaciones: "",
-  personalidad: "",
-  capacidad_liderazgo: "",
-  otros: "",
 };
+
 const index = () => {
   const [answers, setAnswers] = useState(sectionAnswers);
   const { section, questions, isLoading, userSectionAnswers } =
     useGraduatedSurvey();
   const navigate = useNavigate();
 
+  const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
+
   const saveAndSkipToNextSection = async () => {
-    const results = await surveyService.saveSection3(answers);
+    const results = await surveyService.saveSection5(answers);
     if (!results.status) {
       return toast.error(results.statusText);
     }
-    navigate("/graduated/survey/section/4");
+    navigate("/graduated/survey/section/6");
   };
 
-  const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
-
+  console.log(userSectionAnswers);
   useEffect(() => {
     if (userSectionAnswers) {
       setAnswers(userSectionAnswers);
@@ -75,14 +68,10 @@ const index = () => {
             answers={answers}
             questions={questions}
           />
-          <Question4
-            handleChange={handleChange}
-            answers={answers}
-            questions={questions}
-          />
+
           <div className="d-flex justify-content-center mt-5">
             <Link
-              to={"/graduated/survey/section/2"}
+              to={"/graduated/survey/section/4"}
               className="btn btn-primary mr-2"
             >
               <i className="fas fa-arrow-left"></i> Anterior

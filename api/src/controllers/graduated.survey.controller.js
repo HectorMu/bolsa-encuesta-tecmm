@@ -49,6 +49,7 @@ controller.getAllQuestionsOrBySection = async (req, res) => {
       const data = await GraduatedSurveyQuestions.List();
       return res.json(data);
     }
+
     const data = await GraduatedSurveyQuestions.ListQuestionsPerSection(
       req.params.id
     );
@@ -71,7 +72,85 @@ controller.getAllUserAnswersBySection = async (req, res) => {
         answer.fk_seccion === parseInt(req.params.id) &&
         answer.fk_usuario === parseInt(req.user.id)
     );
-    res.json(sectionUserAnswers);
+
+    if (parseInt(req.params.id) === 1) {
+      const answers = {
+        respuesta1: sectionUserAnswers[0].respuesta,
+        respuesta2: sectionUserAnswers[1].respuesta,
+        respuesta3: sectionUserAnswers[2].respuesta,
+        respuesta4: sectionUserAnswers[3].respuesta,
+        respuesta5: sectionUserAnswers[4].respuesta,
+        respuesta6: sectionUserAnswers[5].respuesta,
+      };
+      delete answers.fk_usuario;
+      delete answers.fk_pregunta;
+      return res.json(answers);
+    }
+    if (parseInt(req.params.id) === 2) {
+      const workDetails = await GraduatedSurveyWorking.FindOne(req.user.id);
+      const studyDetails = await GraduatedSurveyStudy.FindOne(req.user.id);
+
+      const answerWithDetails = {
+        respuesta1: sectionUserAnswers[0].respuesta,
+        ...workDetails,
+        ...studyDetails,
+      };
+      delete answerWithDetails.fk_usuario;
+      delete answerWithDetails.fk_pregunta;
+      return res.json(answerWithDetails);
+    }
+
+    if (parseInt(req.params.id) === 3) {
+      const section3Details = await SurveyS3P4Details.FindOne(req.user.id);
+
+      const answerWithDetails = {
+        respuesta1: sectionUserAnswers[0].respuesta,
+        respuesta2: sectionUserAnswers[1].respuesta,
+        respuesta3: sectionUserAnswers[2].respuesta,
+        ...section3Details,
+      };
+      delete answerWithDetails.fk_usuario;
+      delete answerWithDetails.fk_pregunta;
+      return res.json(answerWithDetails);
+    }
+
+    if (parseInt(req.params.id) === 4) {
+      const P1Details = await SurveyS4P1Details.FindOne(req.user.id);
+      const P2Details = await SurveyS4P2Details.FindOne(req.user.id);
+
+      const answerWithDetails = {
+        respuesta1: sectionUserAnswers[0].respuesta,
+        respuesta2: sectionUserAnswers[1].respuesta,
+        ...P1Details,
+        ...P2Details,
+      };
+      delete answerWithDetails.fk_usuario;
+      delete answerWithDetails.fk_pregunta;
+      return res.json(answerWithDetails);
+    }
+    if (parseInt(req.params.id) === 5) {
+      const P1Details = await SurveyS5P1Details.FindOne(req.user.id);
+      const P2Details = await SurveyS5P2Details.FindOne(req.user.id);
+
+      const answerWithDetails = {
+        respuesta1: sectionUserAnswers[0].respuesta,
+        respuesta2: sectionUserAnswers[1].respuesta,
+        respuesta3: sectionUserAnswers[2].respuesta,
+        ...P1Details,
+        ...P2Details,
+      };
+      delete answerWithDetails.fk_usuario;
+      delete answerWithDetails.fk_pregunta;
+      return res.json(answerWithDetails);
+    }
+    if (parseInt(req.params.id) === 6) {
+      const answer = {
+        respuesta1: sectionUserAnswers[0].respuesta,
+      };
+      delete answer.fk_usuario;
+      delete answer.fk_pregunta;
+      return res.json(answer);
+    }
   } catch (error) {
     console.log("Error" + error);
     res.json({

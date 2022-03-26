@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -27,7 +27,8 @@ const SectionAnswers = {
 
 const index = () => {
   const [answers, setAnswers] = useState(SectionAnswers);
-  const { section, questions, isLoading } = useGraduatedSurvey();
+  const { section, questions, isLoading, userSectionAnswers } =
+    useGraduatedSurvey();
   const navigate = useNavigate();
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
@@ -39,6 +40,12 @@ const index = () => {
     }
     navigate("/graduated/survey/section/2");
   };
+
+  useEffect(() => {
+    if (userSectionAnswers) {
+      setAnswers(userSectionAnswers);
+    }
+  }, [userSectionAnswers]);
 
   return (
     <>

@@ -36,6 +36,18 @@ const getSectionQuestions = async (section_id) => {
   }
 };
 
+const getAnswersBySection = async (section_id) => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/section/${section_id}/answers`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const saveSection1 = async (answers) => {
   try {
     const response = await fetch(
@@ -70,7 +82,40 @@ const saveSection3 = async (answers) => {
     console.log(error);
   }
 };
+const saveSection4 = async (answers) => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/section4`,
+      helpers.authPostConfig(answers)
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+const saveSection5 = async (answers) => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/section5`,
+      helpers.authPostConfig(answers)
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+const saveSection6 = async (answers) => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/section6`,
+      helpers.authPostConfig(answers)
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 export default {
   getSectionQuestions,
   getSurveySections,
@@ -78,4 +123,8 @@ export default {
   saveSection1,
   saveSection2,
   saveSection3,
+  saveSection4,
+  saveSection5,
+  saveSection6,
+  getAnswersBySection,
 };

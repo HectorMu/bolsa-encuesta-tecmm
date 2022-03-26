@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 //importing custom components
 import Loading from "../../../../components/Global/Loading";
@@ -53,7 +53,8 @@ const sectionAnswers = {
   tamaño_empresa: "",
 };
 const index = () => {
-  const { section, questions, isLoading } = useGraduatedSurvey();
+  const { section, questions, isLoading, userSectionAnswers } =
+    useGraduatedSurvey();
   const [answers, setAnswers] = useState(sectionAnswers);
 
   const navigate = useNavigate();
@@ -68,6 +69,16 @@ const index = () => {
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
 
+  const setFetchedAnswers = useCallback(() => {
+    if (!userSectionAnswers) return;
+    setAnswers(userSectionAnswers);
+  }, [userSectionAnswers]);
+
+  useEffect(() => {
+    setFetchedAnswers();
+  }, [setFetchedAnswers]);
+
+  //console.log(userSectionAnswers);
   return (
     <>
       {isLoading ? (
@@ -97,6 +108,12 @@ const index = () => {
             ) : null}
           </div>
           <div className="d-flex justify-content-center mt-5">
+            <Link
+              to={"/graduated/survey/section/1"}
+              className="btn btn-primary mr-2"
+            >
+              <i className="fas fa-arrow-left"></i> Anterior
+            </Link>
             <button
               onClick={saveAndSkipToNextSection}
               className="btn btn-primary"

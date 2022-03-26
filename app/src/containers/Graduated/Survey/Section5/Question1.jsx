@@ -2,6 +2,7 @@ import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput
 
 const OPTIONS = ["Si", "No"];
 const Question1 = ({ handleChange, answers, questions }) => {
+  console.log(answers);
   return (
     <div className="pb-4">
       <h5>¿{questions[0]?.descripcion}?</h5>
@@ -13,13 +14,13 @@ const Question1 = ({ handleChange, answers, questions }) => {
                 className="form-check-input"
                 type="radio"
                 checked={answers["respuesta1"] === option}
-                name={`cbxCursos`}
+                name={`cbxOrgSociales`}
                 onChange={() => handleChange("respuesta1", option)}
-                id={`cbxCursos${option}`}
+                id={`cbxOrgSociales${option}`}
               />
               <label
                 className="form-check-label"
-                htmlFor={`cbxCursos${option}`}
+                htmlFor={`cbxOrgSociales${option}`}
               >
                 {option}
               </label>
@@ -29,10 +30,12 @@ const Question1 = ({ handleChange, answers, questions }) => {
         {answers.respuesta1 === "Si" ? (
           <div className="col-12 mt-3">
             <FloatingLabelInput
-              inputId="txtCualesCursos"
-              placeholder="¿Qué cursos?"
-              setValue={(e) => handleChange("cursos", e.target.value)}
-              value={answers.cursos}
+              inputId="txtCualesOrganizaciones"
+              placeholder="¿Cuales?"
+              setValue={(e) =>
+                handleChange("organizaciones_sociales", e.target.value)
+              }
+              value={answers.organizaciones_sociales}
             />
           </div>
         ) : null}

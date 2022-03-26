@@ -18,7 +18,6 @@ const subQuestions = {
   otros: "Otros",
 };
 const Question4 = ({ handleChange, answers, questions }) => {
-  console.log(answers);
   return (
     <div className="pb-4">
       <h5>{questions[3]?.descripcion}:</h5>

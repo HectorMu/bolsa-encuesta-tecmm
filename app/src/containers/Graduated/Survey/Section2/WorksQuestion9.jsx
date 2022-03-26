@@ -6,7 +6,7 @@ const WorksQuestion9 = ({ handleChange, answers }) => {
   const ID = "WQ9S2";
   return (
     <div className="pb-3">
-      <h5>Condicion de trabajo:</h5>
+      <h5>Condición de trabajo:</h5>
       <OptionsContainer
         cols="col-md-12 col-lg-4 col-xl-4"
         SECTIONID={ID}

@@ -40,6 +40,7 @@ const OptionsContainer = ({
                 type="radio"
                 checked={
                   answers[ANSWER] !== "" &&
+                  answers[ANSWER] !== null &&
                   !Object.values(OPTIONS).includes(answers[ANSWER])
                 }
                 onChange={() => handleChange(ANSWER, "Otra")}
@@ -61,6 +62,7 @@ const OptionsContainer = ({
                   inputId={`txtOtra${ID}`}
                   type="text"
                   setValue={(e) => handleChange(ANSWER, e.target.value)}
+                  value={answers[ANSWER]}
                 />
               )}
             </div>

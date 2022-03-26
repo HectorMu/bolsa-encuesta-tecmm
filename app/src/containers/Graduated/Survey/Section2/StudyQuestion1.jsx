@@ -27,6 +27,7 @@ const StudyQuestion1 = ({ answers, handleChange }) => {
             setValue={(e) =>
               handleChange("especialidad_institucion", e.target.value)
             }
+            value={answers.especialidad_institucion}
           />
         </div>
       </div>

@@ -1,10 +1,11 @@
 import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput";
 
 const OPTIONS = ["Si", "No"];
-const Question1 = ({ handleChange, answers, questions }) => {
+const Question2 = ({ handleChange, answers, questions }) => {
+  console.log(answers);
   return (
     <div className="pb-4">
-      <h5>¿{questions[0]?.descripcion}?</h5>
+      <h5>¿{questions[1]?.descripcion}?</h5>
       <div className="row align-items-center">
         {OPTIONS.map((option) => (
           <div key={option} className="col-1">
@@ -12,27 +13,29 @@ const Question1 = ({ handleChange, answers, questions }) => {
               <input
                 className="form-check-input"
                 type="radio"
-                checked={answers["respuesta1"] === option}
-                name={`cbxCursos`}
-                onChange={() => handleChange("respuesta1", option)}
-                id={`cbxCursos${option}`}
+                checked={answers["respuesta2"] === option}
+                name={`cbxOrgProfesionistas`}
+                onChange={() => handleChange("respuesta2", option)}
+                id={`cbxOrgProfesionistas${option}`}
               />
               <label
                 className="form-check-label"
-                htmlFor={`cbxCursos${option}`}
+                htmlFor={`cbxOrgProfesionistas${option}`}
               >
                 {option}
               </label>
             </div>
           </div>
         ))}
-        {answers.respuesta1 === "Si" ? (
+        {answers.respuesta2 === "Si" ? (
           <div className="col-12 mt-3">
             <FloatingLabelInput
-              inputId="txtCualesCursos"
-              placeholder="¿Qué cursos?"
-              setValue={(e) => handleChange("cursos", e.target.value)}
-              value={answers.cursos}
+              inputId="txtCualesOrganismos"
+              placeholder="¿Cuales?"
+              setValue={(e) =>
+                handleChange("organismos_profesionistas", e.target.value)
+              }
+              value={answers.organismos_profesionistas}
             />
           </div>
         ) : null}
@@ -41,4 +44,4 @@ const Question1 = ({ handleChange, answers, questions }) => {
   );
 };
 
-export default Question1;
+export default Question2;
