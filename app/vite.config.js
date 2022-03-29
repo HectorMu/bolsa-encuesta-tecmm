@@ -6,7 +6,9 @@ const path = require("path");
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), VitePWA({})],
-
+  resolve: {
+    alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+  },
   build: {
     outDir: "../api/src/build",
   },

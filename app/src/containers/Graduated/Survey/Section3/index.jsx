@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import Loading from "../../../../components/Global/Loading";
+import Loading from "@/components/Global/Loading";
 
 //Graduated survey hook to get the current section data based on url param section_id
-import useGraduatedSurvey from "../../../../hooks/useGraduatedSurvey";
+import useGraduatedSurvey from "@/hooks/useGraduatedSurvey";
 
 //Importing services
-import surveyService from "../../../../services/Graduated/survey.service";
+import surveyService from "@/services/Graduated/survey.service";
 
 //importing questions
 import Question1 from "./Question1";

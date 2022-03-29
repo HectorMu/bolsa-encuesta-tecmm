@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 //Importing input personalizado
-import FloatingLabelInput from "../../components/Global/FloatingLabelInput";
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 //Importando servicios
-import Auth from "../../services/Auth";
+import Auth from "@/services/Auth";
 //Importando hook de sesion
-import useSession from "../../hooks/useSession";
+import useSession from "@/hooks/useSession";
 
 //Estado inicial para las entradas de texto
 const initialState = {

@@ -2,19 +2,19 @@ import React, { useEffect, useState, useCallback } from "react";
 //React router dom components
 import { Link } from "react-router-dom";
 //custom hooks
-import useRouterHooks from "../../../hooks/useRouterHooks";
+import useRouterHooks from "@/hooks/useRouterHooks";
 //Para las alertas
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 //componentes para el reutilizar el show case en multiples vistas de detalle
-import ShowcaseHeader from "../../../components/Global/ShowcaseHeader";
-import ShowcaseCard from "../../../components/Global/ShowcaseCard";
-import ShowcaseContainer from "../../../components/Global/ShowcaseContainer";
-import Loading from "../../../components/Global/Loading";
+import ShowcaseHeader from "@/components/Global/ShowcaseHeader";
+import ShowcaseCard from "@/components/Global/ShowcaseCard";
+import ShowcaseContainer from "@/components/Global/ShowcaseContainer";
+import Loading from "@/components/Global/Loading";
 //Servicios
-import companiesService from "../../../services/Admin/companies.service";
+import companiesService from "@/services/Admin/companies.service";
 //helpers
-import helpers from "../../../helpers/helpers";
+import helpers from "@/helpers/helpers";
 
 const Showcase = () => {
   const [company, setCompany] = useState({});

@@ -1,6 +1,6 @@
 import React from "react";
-import OptionsContainer from "../../../../components/Survey/OptionsContainer";
-import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput";
+import OptionsContainer from "@/components/Survey/OptionsContainer";
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 
 const WorksCompanyData = ({ handleChange, answers }) => {
   return (

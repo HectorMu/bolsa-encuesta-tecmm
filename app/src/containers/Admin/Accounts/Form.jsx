@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import useRouterHooks from "../../../hooks/useRouterHooks";
+import useRouterHooks from "@/hooks/useRouterHooks";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import FloatingLabelInput from "../../../components/Global/FloatingLabelInput";
-import Accordion from "../../../components/Global/Accordion";
-import Collapsable from "../../../components/Global/Collapsable";
-import FormCard from "../../../components/Global/FormCard";
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
+import Accordion from "@/components/Global/Accordion";
+import Collapsable from "@/components/Global/Collapsable";
+import FormCard from "@/components/Global/FormCard";
 
 import { Entries } from "./FormEntries";
 
-import usersService from "../../../services/Admin/users.service";
+import usersService from "@/services/Admin/users.service";
 
 const Form = () => {
   const [user, setUser] = useState(Entries);

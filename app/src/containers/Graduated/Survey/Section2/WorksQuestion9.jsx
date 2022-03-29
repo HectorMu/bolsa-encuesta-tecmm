@@ -1,5 +1,5 @@
 import React from "react";
-import OptionsContainer from "../../../../components/Survey/OptionsContainer";
+import OptionsContainer from "@/components/Survey/OptionsContainer";
 
 const OPTIONS = ["Base", "Eventual", "Contrato"];
 const WorksQuestion9 = ({ handleChange, answers }) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import OptionsContainer from "../../../../components/Survey/OptionsContainer";
+import OptionsContainer from "@/components/Survey/OptionsContainer";
 
 const OPTIONS = [
   "Antes de egresar",

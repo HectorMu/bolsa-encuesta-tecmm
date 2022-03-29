@@ -1,4 +1,4 @@
-import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput";
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 
 const OPTIONS = ["Si", "No"];
 const Question2 = ({ handleChange, answers, questions }) => {

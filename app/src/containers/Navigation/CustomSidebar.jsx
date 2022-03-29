@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import useSession from "../../hooks/useSession";
+import useSession from "@/hooks/useSession";
 
 const CustomSidebar = ({
   sidebarControl: { sidebarToggled, handleSidebarToggle },

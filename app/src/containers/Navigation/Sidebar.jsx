@@ -2,11 +2,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 //importing local sidebar components
-import SidebarDropdown from "../../components/Navigation/Sidebar/SidebarDropdown";
-import Section from "../../components/Navigation/Sidebar/Section";
-import SidebarLink from "../../components/Navigation/Sidebar/SidebarLink";
+import SidebarDropdown from "@/components/Navigation/Sidebar/SidebarDropdown";
+import Section from "@/components/Navigation/Sidebar/Section";
+import SidebarLink from "@/components/Navigation/Sidebar/SidebarLink";
 //Importing hooks
-import useSession from "../../hooks/useSession";
+import useSession from "@/hooks/useSession";
 
 const Sidebar = ({
   sidebarControl: { sidebarToggled, handleSidebarToggle },

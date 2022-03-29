@@ -1,6 +1,6 @@
 import React from "react";
-import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput";
-import OptionsContainer from "../../../../components/Survey/OptionsContainer";
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
+import OptionsContainer from "@/components/Survey/OptionsContainer";
 
 const OPTIONS = ["Especialidad", "Maestria", "Doctorado", "Idiomas"];
 const StudyQuestion1 = ({ answers, handleChange }) => {

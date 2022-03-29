@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 //importando hooks
-import useRouterHooks from "../../../hooks/useRouterHooks";
+import useRouterHooks from "@/hooks/useRouterHooks";
 
-import FormCard from "../../../components/Global/FormCard";
-import FloatingLabelInput from "../../../components/Global/FloatingLabelInput";
-import Accordion from "../../../components/Global/Accordion";
-import Collapsable from "../../../components/Global/Collapsable";
+import FormCard from "@/components/Global/FormCard";
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
+import Accordion from "@/components/Global/Accordion";
+import Collapsable from "@/components/Global/Collapsable";
 import FormEntries from "./FormEntries";
 import economicActivities from "./economicActivities.json";
 
 //Importando servicios
-import companiesService from "../../../services/Admin/companies.service";
+import companiesService from "@/services/Admin/companies.service";
 import toast from "react-hot-toast";
 
 const Form = () => {

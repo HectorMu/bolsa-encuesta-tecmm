@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 //importing custom components
-import Loading from "../../../../components/Global/Loading";
+import Loading from "@/components/Global/Loading";
 //Graduated survey hook to get the current section data based on url param section_id
-import useGraduatedSurvey from "../../../../hooks/useGraduatedSurvey";
+import useGraduatedSurvey from "@/hooks/useGraduatedSurvey";
 //importing services
-import surveyService from "../../../../services/Graduated/survey.service";
+import surveyService from "@/services/Graduated/survey.service";
 //Importing section questions
 import Question1 from "./Question1";
 import Question2 from "./Question2";

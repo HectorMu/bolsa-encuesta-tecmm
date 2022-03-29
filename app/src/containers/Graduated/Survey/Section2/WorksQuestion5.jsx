@@ -1,5 +1,5 @@
 import React from "react";
-import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput";
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 
 const ENTRIES = {
   idioma_hablar: "Hablar",

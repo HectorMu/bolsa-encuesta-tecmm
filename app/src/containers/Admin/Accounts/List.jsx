@@ -2,20 +2,20 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
-import useRouterHooks from "../../../hooks/useRouterHooks";
+import useRouterHooks from "@/hooks/useRouterHooks";
 
 //importando componentes personalizados
-import DataTable from "../../../components/Global/DataTable";
-import Loading from "../../../components/Global/Loading";
+import DataTable from "@/components/Global/DataTable";
+import Loading from "@/components/Global/Loading";
 
 //importando hooks
-import useServiceFetch from "../../../hooks/useServiceFetch";
+import useServiceFetch from "@/hooks/useServiceFetch";
 
 //Importando servicios
-import usersService from "../../../services/Admin/users.service";
+import usersService from "@/services/Admin/users.service";
 
 //Importando helpers
-import helpers from "../../../helpers/helpers";
+import helpers from "@/helpers/helpers";
 
 const List = () => {
   const [users, setUsers] = useState([]);

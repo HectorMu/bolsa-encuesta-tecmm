@@ -1,10 +1,10 @@
-import useRouterHooks from "../../../hooks/useRouterHooks";
-import Section1 from "../../../containers/Graduated/Survey/Section1";
-import Section2 from "../../../containers/Graduated/Survey/Section2";
-import Section3 from "../../../containers/Graduated/Survey/Section3";
-import Section4 from "../../../containers/Graduated/Survey/Section4";
-import Section5 from "../../../containers/Graduated/Survey/Section5";
-import Section6 from "../../../containers/Graduated/Survey/Section6";
+import useRouterHooks from "@/hooks/useRouterHooks";
+import Section1 from "@/containers/Graduated/Survey/Section1";
+import Section2 from "@/containers/Graduated/Survey/Section2";
+import Section3 from "@/containers/Graduated/Survey/Section3";
+import Section4 from "@/containers/Graduated/Survey/Section4";
+import Section5 from "@/containers/Graduated/Survey/Section5";
+import Section6 from "@/containers/Graduated/Survey/Section6";
 
 const Section = () => {
   const { params } = useRouterHooks();

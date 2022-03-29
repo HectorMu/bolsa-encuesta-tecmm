@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
-import useRouterHooks from "../../../hooks/useRouterHooks";
+import useRouterHooks from "@/hooks/useRouterHooks";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 //Componentes personalizados para agilizar la construccion al reutilizarlos
-import FloatingLabelInput from "../../../components/Global/FloatingLabelInput";
-import Accordion from "../../../components/Global/Accordion";
-import Collapsable from "../../../components/Global/Collapsable";
-import FormCard from "../../../components/Global/FormCard";
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
+import Accordion from "@/components/Global/Accordion";
+import Collapsable from "@/components/Global/Collapsable";
+import FormCard from "@/components/Global/FormCard";
 //Entradas del formulario, es un objeto con los datos a capturar el en formulario
 import { Entries, NestedEntries } from "./FormEntries";
 //importando json de las carreras
 import careers from "./careers.json";
 //importando servicios
-import graduatesService from "../../../services/Admin/graduates.service";
+import graduatesService from "@/services/Admin/graduates.service";
 
 const Form = () => {
   const [graduated, setGraduated] = useState(Entries);

@@ -2,15 +2,15 @@ import React, { useEffect, useState, useCallback } from "react";
 //Alerts
 import toast from "react-hot-toast";
 //custom hooks
-import useRouterHooks from "../../../hooks/useRouterHooks";
+import useRouterHooks from "@/hooks/useRouterHooks";
 //componentes para el reutilizar el show case en multiples vistas de detalle
-import ShowcaseContainer from "../../../components/Global/ShowcaseContainer";
-import ShowcaseHeader from "../../../components/Global/ShowcaseHeader";
-import ShowcaseCard from "../../../components/Global/ShowcaseCard";
-import Loading from "../../../components/Global/Loading";
+import ShowcaseContainer from "@/components/Global/ShowcaseContainer";
+import ShowcaseHeader from "@/components/Global/ShowcaseHeader";
+import ShowcaseCard from "@/components/Global/ShowcaseCard";
+import Loading from "@/components/Global/Loading";
 
 //Servicios
-import graduatesService from "../../../services/Admin/graduates.service";
+import graduatesService from "@/services/Admin/graduates.service";
 
 const Showcase = () => {
   const [graduated, setGraduated] = useState({});

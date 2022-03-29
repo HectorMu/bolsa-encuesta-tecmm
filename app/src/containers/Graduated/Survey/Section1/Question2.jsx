@@ -1,4 +1,4 @@
-import OptionsContainer from "../../../../components/Survey/OptionsContainer";
+import OptionsContainer from "@/components/Survey/OptionsContainer";
 
 const OPTIONS = ["Muy buenos", "Buenos", "Regulares", "Malos"];
 

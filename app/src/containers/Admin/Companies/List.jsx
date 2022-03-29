@@ -1,20 +1,20 @@
 import { useState } from "react";
-import useRouterHooks from "../../../hooks/useRouterHooks";
-import helpers from "../../../helpers/helpers";
+import useRouterHooks from "@/hooks/useRouterHooks";
+import helpers from "@/helpers/helpers";
 
 //importando librerias para alertas
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
 //importando componentes personalizados
-import DataTable from "../../../components/Global/DataTable";
-import Loading from "../../../components/Global/Loading";
+import DataTable from "@/components/Global/DataTable";
+import Loading from "@/components/Global/Loading";
 
 //importando hooks
-import useServiceFetch from "../../../hooks/useServiceFetch";
+import useServiceFetch from "@/hooks/useServiceFetch";
 
 //importando servicios
-import companyService from "../../../services/Admin/companies.service";
+import companyService from "@/services/Admin/companies.service";
 
 const List = () => {
   const [companies, setCompanies] = useState([]);

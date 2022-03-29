@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import surveyService from "../services/Graduated/survey.service";
+import surveyService from "@/services/Graduated/survey.service";
 
 const useGraduatedSurvey = () => {
   const [section, setSection] = useState("");

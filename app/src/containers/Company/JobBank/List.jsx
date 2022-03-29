@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 //Custom components
-import DataTable from "../../../components/Global/DataTable";
-import Loading from "../../../components/Global/Loading";
+import DataTable from "@/components/Global/DataTable";
+import Loading from "@/components/Global/Loading";
 //Custom hooks
-import useServiceFetch from "../../../hooks/useServiceFetch";
+import useServiceFetch from "@/hooks/useServiceFetch";
 //Services
-import vacanciesService from "../../../services/Company/vacancies.service";
+import vacanciesService from "@/services/Company/vacancies.service";
 
 const List = () => {
   const [vacancies, setVacancies] = useState([]);

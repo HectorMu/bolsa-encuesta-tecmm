@@ -2,10 +2,10 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 //importing custom components
-import Loading from "../../../../components/Global/Loading";
+import Loading from "@/components/Global/Loading";
 
 //Importing services
-import surveyService from "../../../../services/Graduated/survey.service";
+import surveyService from "@/services/Graduated/survey.service";
 //Importing first section question
 import Question1 from "./Question1";
 //importing question sections
@@ -13,7 +13,7 @@ import Study from "./Study";
 import Works from "./Works";
 
 //Graduated survey hook to get the current section data based on url param section_id
-import useGraduatedSurvey from "../../../../hooks/useGraduatedSurvey";
+import useGraduatedSurvey from "@/hooks/useGraduatedSurvey";
 
 const sectionAnswers = {
   respuesta1: "",
