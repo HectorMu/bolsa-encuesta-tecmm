@@ -1,16 +1,52 @@
 ### Get all graduated list
 GET http://localhost:4000/api/users/graduated/getall
 
+
+### Get current graduated profile
+GET http://localhost:4000/api/graduated/profile
+
+### Update or modifiy current graduated profile
+POST http://localhost:4000/api/graduated/profile
+Authorization: 
+Content-Type: application/json
+
+{
+    "correo":"egresado2@gmail.com",
+   "clave":"12345678",
+   "no_control":345,
+   "nombre_completo":"Juan luis Martinez", 
+   "fechaNacimiento":"10/10/10",
+   "curp":"df",
+   "sexo":"H",
+   "estado_civil": "Casado",
+   "calle": "XDdsd",
+   "numero_casa":20,
+   "colonia":"Rosales",
+   "cp": 32253,
+   "municipio":"Lagos de m",
+   "estado":"Gto",
+   "telefono": 34324442,
+   "tel_casa": 3434344,
+   "carrera":"ISC",
+   "fecha_egreso":"3adadsda",
+   "titulado": "No",
+   "idioma_extranjero": {
+       "Otro": 60, "Ingles": 100
+   },
+   "paquetes_computacionales":"Word y excel"
+}
+
 ### Get one graduated
 GET http://localhost:4000/api/users/graduated/getone/29
+
 
 ### Save a graduated
 POST http://localhost:4000/api/users/graduated/save
 Content-Type: application/json
 
 {
-    "correo":"egresado2@gmail.com",
-    "clave":"12345678",
+   "correo":"egresado2@gmail.com",
+   "clave":"12345678",
    "no_control":345,
    "nombre_completo":"Juan luis Martinez", 
    "fechaNacimiento":"10/10/10",
@@ -40,8 +76,8 @@ PUT http://localhost:4000/api/users/graduated/update/31
 Content-Type: application/json
 
 {
-    "correo":"egresado@gmail.com",
-    "clave":"12345678",
+   "correo":"egresado@gmail.com",
+   "clave":"12345678",
    "nControl":3457,
    "nombreCompleto":"Mariano Martinez",
    "fechaNacimiento":"10/10/10",

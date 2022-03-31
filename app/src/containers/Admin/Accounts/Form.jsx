@@ -40,14 +40,14 @@ const Form = () => {
       if (!results.status) {
         return toast.error(results.statusText);
       }
-      toast.success("Egresado editado correctamente.");
+      toast.success("Cuenta editada correctamente.");
       navigate("/accounts");
     } else {
       const results = await usersService.Save(user);
       if (!results.status) {
         return toast.error(results.statusText);
       }
-      toast.success("Egresado guardado correctamente.");
+      toast.success("Cuenta guardada correctamente.");
       navigate("/accounts");
     }
   };

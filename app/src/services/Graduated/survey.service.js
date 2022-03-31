@@ -12,6 +12,7 @@ const getSurveySections = async () => {
     console.log(error);
   }
 };
+
 const getSurveySection = async (section_id) => {
   try {
     const response = await fetch(

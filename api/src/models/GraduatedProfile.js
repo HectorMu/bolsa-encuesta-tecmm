@@ -38,11 +38,13 @@ const Template = {
   async Create(data) {
     //convertimos el json a string para guardarlo en la base de datos
     data.idioma_extranjero = JSON.stringify(data.idioma_extranjero);
+    delete data.id;
     const results = await connection.query(`insert into ${TABLE_NAME} set ?`, [
       data,
     ]);
     return results;
   },
+
   async Update(data, id) {
     //convertimos el json a string para guardarlo en la base de datos
     data.idioma_extranjero = JSON.stringify(data.idioma_extranjero);
