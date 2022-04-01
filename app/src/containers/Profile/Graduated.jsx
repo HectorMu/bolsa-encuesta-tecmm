@@ -1,14 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import FormCard from "@/components/Global/FormCard";
-import RegisterForm from "@/components/Graduated/RegisterForm/RegisterForm";
+import RegisterForm from "@/components/Graduated/RegisterForm";
 import useSession from "@/hooks/useSession";
 
 //Entradas del formulario, es un objeto con los datos a capturar el en formulario
-import {
-  Entries,
-  NestedEntries,
-} from "@/components/Graduated/RegisterForm/RegisterForm";
+import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
 //importando json de las carreras
 
 //importando servicios

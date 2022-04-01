@@ -10,6 +10,10 @@ const graduatesValidations = require("../middlewares/validations/graduates.valid
 //controller import
 const controller = require("../controllers/graduated.controller");
 
+router.get("/jobs", controller.GetAllActiveJobs);
+
+router.get("/jobs/getone/:job_id", controller.GetOneJob);
+
 router.post(
   "/users/graduated/save",
   verifyToken,

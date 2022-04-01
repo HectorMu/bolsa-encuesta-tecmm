@@ -1,4 +1,9 @@
 
+### Get all jobs for graduated
+GET http://localhost:4000/api/jobs
+
+### Get a one job detail
+GET http://localhost:4000/api/jobs/getone/237
 
 ### Get all graduated postulations
 GET http://localhost:4000/api/graduated/postulations

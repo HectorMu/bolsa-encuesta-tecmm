@@ -1,9 +1,11 @@
 :root {
   --green: #2ea19a;
   --gren-dark: #298a83;
+  --green-light: #c2fffb;
   --info: #3ec288;
   --info-dark: #329b6d;
   --purple: #9317c2;
+  --purple-light:#cd6cf0;
   --purple-dark: #660c86;
   --danger: #dc3545;
   --danger-dark: #961f2b;
@@ -155,6 +157,13 @@ input:-webkit-autofill:active {
 .sidebar-light #sidebarToggle::after {
   color: white;
 } */
+
+.bg-purple-light{
+  background-color: var(--purple-light);
+}
+.bg-green-light{
+  background-color: var(--green-light);
+}
 
 .text-purple {
   color: var(--purple) !important;

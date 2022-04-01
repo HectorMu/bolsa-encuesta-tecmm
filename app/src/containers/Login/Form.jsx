@@ -64,7 +64,7 @@ const Form = () => {
                   Inicia sesión para continuar.
                 </h5>
               </div>
-              <form className="user" onSubmit={handleSubmit}>
+              <form className="user" onSubmit={handleSubmit} autoComplete="off">
                 <FloatingLabelInput
                   inputId="txtCorreo"
                   type="text"
