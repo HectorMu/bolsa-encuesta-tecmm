@@ -13,20 +13,26 @@ const List = ({ selection: { selectedJob, setSelectedJob } }) => {
 
   return (
     <div>
-      {hookData.map((e) => (
-        <div
-          key={e.folio}
-          style={{ cursor: "pointer" }}
-          className={`card text-black rounded-0  border-top-0 border-right-0 border-left-0 ${
-            selectedJob?.folio === e.folio ? "bg-green-light shadow " : ""
-          }`}
-        >
-          <div onClick={() => handleJobSelection(e)} className="card-body">
-            <h5>{e.vacante}</h5>
-            <p className="text-truncate ">{e.descripcion}</p>
+      {hookData.length > 0 ? (
+        hookData.map((e) => (
+          <div
+            key={e.folio}
+            style={{ cursor: "pointer" }}
+            className={`card text-black rounded-0  border-top-0 border-right-0 border-left-0 ${
+              selectedJob?.folio === e.folio ? "bg-green-light shadow " : ""
+            }`}
+          >
+            <div onClick={() => handleJobSelection(e)} className="card-body">
+              <h5>{e.vacante}</h5>
+              <p className="text-truncate ">{e.descripcion}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <h5 className="text-center">
+          Aqui apareceran los trabajos publicados recientemente
+        </h5>
+      )}
     </div>
   );
 };
