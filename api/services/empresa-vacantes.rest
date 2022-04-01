@@ -10,14 +10,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiY29ycmVvI
 
 ### Save a job
 POST http://localhost:4000/api/company/jobs/save
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiY29ycmVvIjoic3RhbmxleTJAZ21haWwuY29tIiwiZmtfcm9sIjozLCJpYXQiOjE2NDY4ODAwNTV9.hVIGytm2h4ku2QSotJlnsF0b4RBXDjVHheagiwcfwxw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiY29ycmVvIjoic3RhbmxleUBnbWFpbC5jb20iLCJma19yb2wiOjMsImlhdCI6MTY0ODc4NzE4NX0.Cx6kRPmaDBsMAOSBX5Pf_dh2C7Dup9PGrUf-hXuJ5BI
 Content-Type: application/json
 
 {
-    "folio":239,
-    "vacante":"Ingeniero en gestion empresarial experimentado",
-    "descripcion":"Requerimos: un ingeniero en gestion que tenga ganas por aprender y alb aslb albla",
-    "ubicacion":"Lomas de Lagos de Moreno, Stanley",
+    "folio":241,
+    "vacante":"Programador WEB PHP Laravel",
+    "descripcion":"Se requiere un programador que este experimentado en tecnologias php",
+    "ubicacion":"Lomas de Lagos de Moreno,",
     "status":"Abierta"
     
 }
