@@ -5,7 +5,7 @@
   --info: #3ec288;
   --info-dark: #329b6d;
   --purple: #9317c2;
-  --purple-light:#cd6cf0;
+  --purple-light: #cd6cf0;
   --purple-dark: #660c86;
   --danger: #dc3545;
   --danger-dark: #961f2b;
@@ -158,10 +158,10 @@ input:-webkit-autofill:active {
   color: white;
 } */
 
-.bg-purple-light{
+.bg-purple-light {
   background-color: var(--purple-light);
 }
-.bg-green-light{
+.bg-green-light {
   background-color: var(--green-light);
 }
 
@@ -243,7 +243,7 @@ input:-webkit-autofill:active {
   background-color: var(--danger-dark);
   border-color: var(--danger-dark);
 }
-.badge-primary{
+.badge-primary {
   background-color: var(--purple);
 }
 
@@ -373,9 +373,9 @@ input:-webkit-autofill:active {
     max-width: 100px;
   }
 }
-@media (max-width: 962px) {
+@media (max-width: 1024px) {
   .c-sidebar {
-    max-width: 100px;
+    max-width: 120px;
   }
 }
 
@@ -395,6 +395,9 @@ input:-webkit-autofill:active {
   }
   .c-sidebar .menu {
     position: static;
+  }
+  .c-sidebar .heading {
+    margin-top: 10px;
   }
 }
 

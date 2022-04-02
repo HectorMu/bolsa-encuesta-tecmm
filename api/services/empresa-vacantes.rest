@@ -14,10 +14,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiY29ycmVvI
 Content-Type: application/json
 
 {
-    "folio":241,
-    "vacante":"Programador WEB PHP Laravel",
-    "descripcion":"Se requiere un programador que este experimentado en tecnologias php",
-    "ubicacion":"Lomas de Lagos de Moreno,",
+    "folio":249,
+    "vacante":"Programador WEB Svelte",
+    "descripcion":"Se requiere un programador que este experimentado en tecnologias svelte",
+    "ubicacion":"TECMM",
     "status":"Abierta"
     
 }

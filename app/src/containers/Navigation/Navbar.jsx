@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
   const { user, setUser } = useSession();
   return (
-    <nav className="navbar navbar-expand navbar-light bg-green topbar mb-4 static-top shadow fixed-top">
+    <nav className="navbar navbar-expand navbar-light bg-green topbar static-top shadow fixed-top">
       <Link className="navbar-brand text-white font-weight-bolder" to="/">
         TECMM
       </Link>
