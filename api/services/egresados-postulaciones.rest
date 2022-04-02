@@ -1,5 +1,5 @@
 
-### Get all jobs for graduated
+### Get all jobs 
 GET http://localhost:4000/api/jobs
 
 ### Get a one job detail

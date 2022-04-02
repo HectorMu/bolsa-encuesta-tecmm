@@ -1,21 +1,16 @@
-import useServiceFetch from "@/hooks/useServiceFetch";
-import jobsService from "@/services/Graduated/jobs.service";
 import useRouterHooks from "@/hooks/useRouterHooks";
 import moment from "moment/min/moment-with-locales";
 
-const List = ({ selection: { selectedJob, setSelectedJob } }) => {
-  const { hookData } = useServiceFetch(jobsService.getJobs);
+const List = ({ selection: { selectedJob }, jobs }) => {
   const { navigate } = useRouterHooks();
-
   const handleJobSelection = (job) => {
     navigate(`/graduated/jobbank/job/${job.folio}`);
-    setSelectedJob(job);
   };
 
   return (
     <div>
-      {hookData.length > 0 ? (
-        hookData.map((e) => (
+      {jobs.length > 0 ? (
+        jobs.map((e) => (
           <div
             onClick={() => handleJobSelection(e)}
             key={e.folio}
@@ -34,7 +29,8 @@ const List = ({ selection: { selectedJob, setSelectedJob } }) => {
               <p>
                 <span className="text-primary font-weight-bold">cv</span>{" "}
                 <span className="text-primary font-weight-bold">
-                  - 2 solicitudes
+                  - {e.solicitudes}{" "}
+                  {e.solicitudes === 1 ? "Solicitud" : "Solicitudes"}
                 </span>
               </p>
 

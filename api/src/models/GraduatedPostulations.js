@@ -10,10 +10,10 @@ const Template = {
     );
     return data;
   },
-  async FindOne(id, userid) {
+  async FindOne(job_id, userid) {
     const data = await connection.query(
-      `select * from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ? && fk_egresado = ${userid}`,
-      [id]
+      `select * from ${TABLE_NAME} where fk_vacante = ? && fk_egresado = ${userid}`,
+      [job_id]
     );
     if (!data.length > 0) {
       return {};
@@ -33,12 +33,28 @@ const Template = {
     );
     return results;
   },
-  async Delete(id, userid) {
+  async Delete(job_id, userid) {
     const results = await connection.query(
-      `delete from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ? && fk_egresado = ${userid}`,
-      [id]
+      `delete from ${TABLE_NAME} where fk_vacante = ? && fk_egresado = ${userid}`,
+      [job_id]
     );
     return results;
+  },
+  async RegisterVisitToJob(fk_post, user_id) {
+    const results = await connection.query(
+      "select * from vistas_publicaciones where fk_publicacion = ? && fk_usuario = ?",
+      [fk_post, user_id]
+    );
+
+    console.log(results);
+    if (results.length > 0) return;
+
+    const newView = {
+      fk_publicacion: fk_post,
+      fk_usuario: user_id,
+    };
+
+    await connection.query("insert into vistas_publicaciones set ?", [newView]);
   },
 };
 

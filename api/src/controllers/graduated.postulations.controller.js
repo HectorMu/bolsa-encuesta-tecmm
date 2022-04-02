@@ -1,4 +1,6 @@
 const GraduatedPostulations = require("../models/GraduatedPostulations");
+const fs = require("fs");
+const path = require("path");
 const controller = {};
 
 controller.GetAll = async (req, res) => {
@@ -14,10 +16,11 @@ controller.GetAll = async (req, res) => {
     });
   }
 };
+
 controller.GetOne = async (req, res) => {
   try {
     const data = await GraduatedPostulations.FindOne(
-      req.params.id,
+      req.params.job_id,
       req.user.id
     );
     res.json(data);
@@ -32,17 +35,22 @@ controller.GetOne = async (req, res) => {
 };
 
 controller.Save = async (req, res) => {
+  const files = req.files;
+  const { job_id } = req.params;
   const newPostulation = {
     ...req.body,
     status: "Sin revisar",
     fk_egresado: req.user.id,
+    fk_vacante: job_id,
   };
+
+  newPostulation.curriculum = files.cv[0].filename;
   try {
     const results = await GraduatedPostulations.Create(newPostulation);
     console.log(results);
     res.json({
       status: true,
-      statusText: "Elemento guardado correctamente.",
+      statusText: "Curriculum enviado!",
       dbresponse: results,
     });
   } catch (error) {
@@ -88,8 +96,26 @@ controller.Update = async (req, res) => {
 
 controller.Delete = async (req, res) => {
   try {
+    const getCurriculumName = await GraduatedPostulations.FindOne(
+      req.params.job_id,
+      req.user.id
+    );
+
+    if (getCurriculumName.id) {
+      const fileName = getCurriculumName.curriculum;
+
+      fs.unlink(
+        path.basename("/src/") + `/public/graduated/cvs/${fileName}`,
+        (error) => {
+          if (error) {
+            console.log(error);
+          }
+          console.log(`File ${fileName} deleted`);
+        }
+      );
+    }
     const results = await GraduatedPostulations.Delete(
-      req.params.id,
+      req.params.job_id,
       req.user.id
     );
     console.log(results);
@@ -104,6 +130,26 @@ controller.Delete = async (req, res) => {
       status: true,
       statusText: "Elemento eliminado correctamente.",
       dbresponse: results,
+    });
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.RegisterPostJobVisit = async (req, res) => {
+  try {
+    await GraduatedPostulations.RegisterVisitToJob(
+      req.params.job_id,
+      req.user.id
+    );
+    res.json({
+      status: true,
+      statusText: "Visita registrada",
     });
   } catch (error) {
     console.log("Error" + error);

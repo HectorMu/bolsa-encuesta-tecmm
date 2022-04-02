@@ -17,6 +17,8 @@ app.use(express.json());
 
 User.InitialState();
 
+app.use(express.static(path.join(__dirname, "public")));
+
 //Using the routes
 app.use("/api", require("./routes/template.routes"));
 app.use("/api", require("./routes/auth.routes"));
