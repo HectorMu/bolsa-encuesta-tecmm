@@ -1,7 +1,7 @@
 :root {
   --green: #2ea19a;
   --gren-dark: #298a83;
-  --green-light: #c2fffb;
+  --green-light: #d4fffc;
   --info: #3ec288;
   --info-dark: #329b6d;
   --purple: #9317c2;
@@ -243,6 +243,9 @@ input:-webkit-autofill:active {
   background-color: var(--danger-dark);
   border-color: var(--danger-dark);
 }
+.badge-primary{
+  background-color: var(--purple);
+}
 
 /* .topbar #sidebarToggleTop {
   color: white;
@@ -379,9 +382,9 @@ input:-webkit-autofill:active {
 @media (max-width: 768px) {
   .c-sidebar {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: -400px;
-    height: calc(100vh - 48px);
+    height: 100vh;
     width: 100%;
     max-width: 200px;
     transition: 0.2s linear;
@@ -455,4 +458,9 @@ input[type="radio"]:checked:after {
 
 .instructions-list > li {
   margin-bottom: 15px;
+}
+
+.custom-list {
+  display: flex;
+  gap: 30px;
 }
