@@ -37,6 +37,7 @@ const DataTable = ({
       },
     },
   ],
+  CustomButtons = null,
   actions = false,
   filtersConfig = null,
   actionsText = "Actions",
@@ -365,18 +366,22 @@ const DataTable = ({
                     ))}
                     {actions === true ? (
                       <td className="d-flex d-sm-flex flex-sm-column flex-column flex-lg-row flex-md-row flex-xl-row">
-                        {buttons.map((b) => (
-                          <button
-                            key={b.key}
-                            className={b.style}
-                            onClick={() => b.click(d)}
-                          >
-                            <i className={b.fwicon}></i>{" "}
-                            <span className="d-none d-sm-none d-md-block d-lg-block d-xl-block">
-                              {b.text}
-                            </span>
-                          </button>
-                        ))}
+                        {CustomButtons !== null ? (
+                          <CustomButtons object={d} />
+                        ) : (
+                          buttons.map((b) => (
+                            <button
+                              key={b.key}
+                              className={b.style}
+                              onClick={() => b.click(d)}
+                            >
+                              <i className={b.fwicon}></i>{" "}
+                              <span className="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                                {b.text}
+                              </span>
+                            </button>
+                          ))
+                        )}
                       </td>
                     ) : null}
                   </tr>

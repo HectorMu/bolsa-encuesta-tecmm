@@ -26,7 +26,8 @@ const Template = {
   },
   async List(companyid) {
     const data = await connection.query(
-      `select * from ${TABLE_NAME} where fk_empresa = ${companyid}`
+      `SELECT pb.*,(SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio) AS solicitudes,(SELECT COUNT(*) FROM vistas_publicaciones WHERE fk_publicacion = pb.folio) AS visitas  from publicacion_bolsa pb where fk_empresa = ?`,
+      [companyid]
     );
     return data;
   },
