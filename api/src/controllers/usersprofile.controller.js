@@ -1,85 +1,157 @@
 const User = require("../models/User");
 const Company = require("../models/CompanyProfile");
 const Graduated = require("../models/GraduatedProfile");
+const helpers = require("../helpers/helpers");
 
 const controller = {};
 
-controller.SaveCompany = async (req, res) => {
-  //Destructuramos los datos basicos para la tabla usuarios, el ...rest equivale a los datos restantes
-  const { correo, clave, fk_rol, ...rest } = req.body;
-
-  //creamos un  nuevo objeto con los datos basicos del usuario
-  const basicData = {
-    correo,
-    clave,
-    fk_rol,
-  };
-
+controller.getGraduatedProfile = async (req, res) => {
   try {
-    //En esta constante guardaremos los resultados de la insercion del usuario, nos regresa el id insertado
-    //por lo que nos sirve para agregar el perfil
-    const userCreation = await User.Create(basicData);
-
-    //Creamos un nuevo objeto donde guardaremos los datos del perfil,
-    //pasamos el resto de los datos (...rest),  y pasamos el insert id que nos retorno la accion de creacion
-    const profileData = {
-      fk_usuario: userCreation.insertId,
-      ...rest,
-    };
-
-    //Si todo fue bien se insertara el perfil en conjunto con la cuenta creada
-    const results = await Company.Create(profileData);
-    res.status(200).json({
-      status: true,
-      statusText: "Empresa guardada correctamente.",
-      dbresponse: results,
-    });
+    const data = await Graduated.FindOne(req.user.id);
+    res.json(data);
   } catch (error) {
-    console.log("Error code: " + code, "\nSqlMessage: " + sqlMessage);
-    res.status(400).json({
+    console.log("Error" + error);
+    res.json({
       status: false,
       statusText: "Algo fue mal, contácta al area de sistemas.",
-      error: { code, sqlMessage },
+      error,
     });
   }
 };
 
-controller.SaveGraduated = async (req, res) => {
-  //Destructuramos los datos basicos para la tabla usuarios, el ...rest equivale a los datos restantes
-  const { correo, clave, fk_rol, ...rest } = req.body;
+controller.saveOrUpdateGraduatedProfile = async (req, res) => {
+  const { correo, clave, ...rest } = req.body;
 
-  //creamos un  nuevo objeto con los datos basicos del usuario
   const basicData = {
     correo,
     clave,
-    fk_rol,
+    fk_rol: 2,
   };
-
   try {
-    //En esta constante guardaremos los resultados de la insercion del usuario, nos regresa el id insertado
-    //por lo que nos sirve para agregar el perfil
-    const userCreation = await User.Create(basicData);
+    const profileExists = await Graduated.FindOne(req.user.id);
 
-    //Creamos un nuevo objeto donde guardaremos los datos del perfil,
-    //pasamos el resto de los datos (...rest),  y pasamos el insert id que nos retorno la accion de creacion
-    const profileData = {
-      fk_usuario: userCreation.insertId,
-      ...rest,
-    };
+    if (!profileExists.id) {
+      //Verificamos duplicidad de campos
+      const correoExists = await helpers.isDuplicated(
+        "usuarios",
+        "correo",
+        req.body.correo
+      );
+      if (correoExists) {
+        return res.json({
+          status: false,
+          statusText: "Este correo electronico ya esta registrado.",
+        });
+      }
+      const nControlExists = await helpers.isDuplicated(
+        "perfil_egresado",
+        "no_control",
+        req.body.no_control
+      );
+      if (nControlExists) {
+        return res.json({
+          status: false,
+          statusText: "Este numero de control ya esta registrado.",
+        });
+      }
 
-    //Si todo fue bien se insertara el perfil en conjunto con la cuenta creada
-    const results = await Graduated.Create(profileData);
-    res.json({
+      const curpExists = await helpers.isDuplicated(
+        "perfil_egresado",
+        "curp",
+        req.body.curp
+      );
+      if (curpExists) {
+        return res.json({
+          status: false,
+          statusText: "Esta curp ya esta registrada.",
+        });
+      }
+      //Si no hubo ningun error, insertamos el perfil y el usuario
+      //En esta constante guardaremos los resultados de la insercion del usuario, nos regresa el id insertado
+      //por lo que nos sirve para agregar el perfil
+
+      //Si recibimos una clave, significa que se quiere editar, entonces la hasheamos
+      if (basicData.clave !== null && basicData.clave !== undefined) {
+        basicData.clave = await helpers.encryptPassword(basicData.clave);
+      } else {
+        //Si no recibimos una clave, entonces eliminamos la propiedad del objeto
+        //Para no mutar la clave actual guardada en la base de datos
+        delete basicData.clave;
+      }
+      await User.Update(basicData, req.user.id);
+      const profileData = {
+        fk_usuario: req.user.id,
+        ...rest,
+      };
+      await Graduated.Create(profileData);
+      return res.json({
+        status: true,
+        statusText: "Perfil creado correctamente.",
+      });
+    }
+
+    //Validamos duplicacion de campos
+    const correoExists = await helpers.isDuplicatedOnUpdate(
+      "usuarios",
+      "correo",
+      req.user.id,
+      basicData.correo
+    );
+
+    if (correoExists) {
+      return res.json({
+        status: false,
+        statusText: "Este correo electronico ya esta registrado.",
+      });
+    }
+    const nControlExists = await helpers.isDuplicatedOnUpdate(
+      "perfil_egresado",
+      "no_control",
+      req.user.id,
+      req.body.no_control
+    );
+
+    if (nControlExists) {
+      return res.json({
+        status: false,
+        statusText: "Este numero de control ya esta registrado.",
+      });
+    }
+
+    const curpExists = await helpers.isDuplicatedOnUpdate(
+      "perfil_egresado",
+      "curp",
+      req.user.id,
+      req.body.curp
+    );
+    if (curpExists) {
+      return res.json({
+        status: false,
+        statusText: "Esta curp ya esta registrada.",
+      });
+    }
+
+    //Si recibimos una clave, significa que se quiere editar, entonces la hasheamos
+    if (basicData.clave !== null && basicData.clave !== undefined) {
+      basicData.clave = await helpers.encryptPassword(basicData.clave);
+    } else {
+      //Si no recibimos una clave, entonces eliminamos la propiedad del objeto
+      //Para no mutar la clave actual guardada en la base de datos
+      delete basicData.clave;
+    }
+
+    await User.Update(basicData, req.user.id);
+    await Graduated.Update(rest, req.user.id);
+    return res.json({
       status: true,
-      statusText: "Egresado guardado correctamente.",
-      dbresponse: results,
+      statusText: "Perfil editado correctamente.",
     });
   } catch (error) {
-    console.log("Error code: " + code, "\nSqlMessage: " + sqlMessage);
-    res.status(400).json({
+    console.log("Error" + error);
+    res.json({
       status: false,
       statusText: "Algo fue mal, contácta al area de sistemas.",
-      error: { code, sqlMessage },
+      error,
     });
   }
 };

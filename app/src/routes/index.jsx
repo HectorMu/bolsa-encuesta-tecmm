@@ -4,7 +4,7 @@ import AuthRoutes from "./auth.routes";
 import AdminRoutes from "./admin.routes";
 import CompanyRoutes from "./company.routes";
 import GraduatedRoutes from "./graduated.routes";
-
+import Profile from "@/pages/Profile";
 import IsLoggedIn from "../components/Authentication/IsLoggedIn";
 
 const Routes = [
@@ -12,6 +12,10 @@ const Routes = [
   {
     path: "/",
     element: <IsLoggedIn view={Index} />,
+  },
+  {
+    path: "/profile",
+    element: <IsLoggedIn view={Profile} />,
   },
   //Aqui van todas las rutas
   ...AuthRoutes,

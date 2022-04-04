@@ -1,8 +1,36 @@
 const User = require("../models/User");
 const Graduated = require("../models/GraduatedProfile");
+const CompanyJobs = require("../models/CompanyJobs.js");
 const helpers = require("../helpers/helpers");
 
 const controller = {};
+
+controller.GetAllActiveJobs = async (req, res) => {
+  try {
+    const jobs = await CompanyJobs.ListAllFreeOfCompanyAndActive();
+    res.json(jobs);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+controller.GetOneJob = async (req, res) => {
+  try {
+    const job = await CompanyJobs.FindOneFreeOfCompany(req.params.job_id);
+    res.json(job);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
 
 controller.GetAll = async (req, res) => {
   try {

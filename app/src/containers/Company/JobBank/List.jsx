@@ -24,6 +24,7 @@ const List = () => {
       },
     ],
   };
+  console.log(vacancies);
   return (
     <div>
       {isLoading ? (

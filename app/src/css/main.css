@@ -1,9 +1,11 @@
 :root {
   --green: #2ea19a;
   --gren-dark: #298a83;
+  --green-light: #d4fffc;
   --info: #3ec288;
   --info-dark: #329b6d;
   --purple: #9317c2;
+  --purple-light: #cd6cf0;
   --purple-dark: #660c86;
   --danger: #dc3545;
   --danger-dark: #961f2b;
@@ -156,6 +158,13 @@ input:-webkit-autofill:active {
   color: white;
 } */
 
+.bg-purple-light {
+  background-color: var(--purple-light);
+}
+.bg-green-light {
+  background-color: var(--green-light);
+}
+
 .text-purple {
   color: var(--purple) !important;
 }
@@ -233,6 +242,9 @@ input:-webkit-autofill:active {
 .btn-danger:active {
   background-color: var(--danger-dark);
   border-color: var(--danger-dark);
+}
+.badge-primary {
+  background-color: var(--purple);
 }
 
 /* .topbar #sidebarToggleTop {
@@ -361,18 +373,18 @@ input:-webkit-autofill:active {
     max-width: 100px;
   }
 }
-@media (max-width: 962px) {
+@media (max-width: 1024px) {
   .c-sidebar {
-    max-width: 100px;
+    max-width: 120px;
   }
 }
 
 @media (max-width: 768px) {
   .c-sidebar {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: -400px;
-    height: calc(100vh - 48px);
+    height: 100vh;
     width: 100%;
     max-width: 200px;
     transition: 0.2s linear;
@@ -383,6 +395,9 @@ input:-webkit-autofill:active {
   }
   .c-sidebar .menu {
     position: static;
+  }
+  .c-sidebar .heading {
+    margin-top: 10px;
   }
 }
 
@@ -446,4 +461,9 @@ input[type="radio"]:checked:after {
 
 .instructions-list > li {
   margin-bottom: 15px;
+}
+
+.custom-list {
+  display: flex;
+  gap: 30px;
 }

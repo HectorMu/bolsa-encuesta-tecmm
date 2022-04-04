@@ -4,6 +4,26 @@ const TABLE_NAME = "publicacion_bolsa";
 const IDENTIFIER_NAME = "folio";
 
 const Template = {
+  async ListAllFreeOfCompanyAndActive() {
+    const data = await connection.query(
+      `SELECT * FROM view_getJobsAndCompanyDetails WHERE STATUS = 'Abierta';`
+    );
+    return data;
+  },
+  async ListAllFreeOfCompany() {
+    const data = await connection.query(`select * from ${TABLE_NAME}`);
+    return data;
+  },
+  async FindOneFreeOfCompany(job_id) {
+    const data = await connection.query(
+      `SELECT * FROM view_getJobsAndCompanyDetails WHERE STATUS = 'Abierta' && folio = ?`,
+      [job_id]
+    );
+    if (!data.length > 0) {
+      return {};
+    }
+    return data[0];
+  },
   async List(companyid) {
     const data = await connection.query(
       `select * from ${TABLE_NAME} where fk_empresa = ${companyid}`

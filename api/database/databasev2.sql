@@ -418,3 +418,6 @@ CREATE TRIGGER `usuarios_FechaDeInsercion` BEFORE INSERT ON `usuarios` FOR EACH 
     SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
+
+CREATE VIEW view_getJobsAndCompanyDetails AS  SELECT pb.folio, pb.fk_empresa, pb.vacante, (SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio ) AS solicitudes,  pb.descripcion, pb.ubicacion, pb.fecha_creacion, pb.fecha_expira, pe.nombre_comercial, pe.`tamaño`, pe.estado, pb.status,  pe.municipio from publicacion_bolsa pb, perfil_empresa pe WHERE pb.fk_empresa = pe.fk_usuario;
+

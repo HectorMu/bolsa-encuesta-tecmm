@@ -10606,7 +10606,7 @@ a:focus {
 }
 
 .topbar {
-  height: 4.375rem;
+  height: 3.375rem;
 }
 
 .topbar #sidebarToggleTop {
@@ -10658,6 +10658,7 @@ a:focus {
 }
 
 .topbar .dropdown .dropdown-menu {
+  top: 90%;
   width: calc(100% - 1.5rem);
   right: 0.75rem;
 }

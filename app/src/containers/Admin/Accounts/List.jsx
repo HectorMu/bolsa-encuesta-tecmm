@@ -47,7 +47,16 @@ const List = () => {
   };
 
   const redirectToDetailsPage = (user) => {
-    navigate(`/accounts/details/${user.id}`);
+    console.log(user);
+    if (user.rol === "Administrador") {
+      return toast.error("Los administradores no cuentan con un perfil");
+    }
+    if (user.rol === "Egresado") {
+      return navigate(`/graduated/details/${user.id}`);
+    }
+    if (user.rol === "Empresa") {
+      return navigate(`/companies/details/${user.id}`);
+    }
   };
 
   const tableConfig = {
