@@ -5,24 +5,25 @@ const verifyToken = require("../middlewares/verifyToken");
 const companySurveyController = require("../controllers/company.survey.controller");
 
 router.get(
-  "/company/survey/seccionb/getp6details/:id",
-  companySurveyController.getAllDetailsP6ByUser
+  "/company/survey/seccionb/getp6answers",
+  verifyToken,
+  companySurveyController.getAllAnswersP6ByUser
 );
 
 router.get(
   "/company/survey/sections",
-  //   verifyToken,
+  verifyToken,
   companySurveyController.getAllSections
 );
 router.get(
   "/company/survey/sections/getone/:id",
-  //   verifyToken,
+  verifyToken,
   companySurveyController.getOneSection
 );
 
 router.get(
   "/company/survey/questions/section/:id?",
-  //   verifyToken,
+  verifyToken,
   companySurveyController.getAllQuestionsOrBySection
 );
 

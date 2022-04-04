@@ -10,7 +10,7 @@ const Template = {
   },
   async FindAnswersUser(fk_usuario) {
     const data = await connection.query(
-      `select * from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ?`,
+      `select carrera, mando_superior, mando_intermedio, supervisor, tecnico_auxiliar, otros_p6 from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ?`,
       [fk_usuario]
     );
     return data;
@@ -30,7 +30,6 @@ const Template = {
   },
   async CreateOrUpdateIfExists(data) {
     const hasDetails = await this.FindOne(data.fk_usuario, data.carrera);
-    console.log(hasDetails);
     if (
       data.carrera === "Ing. en Sistemas Computacionales" ||
       data.carrera === "Ing. en Gestión Empresarial" ||

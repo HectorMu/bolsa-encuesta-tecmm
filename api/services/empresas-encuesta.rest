@@ -3,8 +3,8 @@ GET http://localhost:4000/api/company/survey/sections
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
 
 ### get all section b question 6 details
-GET http://localhost:4000/api/company/survey/seccionb/getp6details/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+GET http://localhost:4000/api/company/survey/seccionb/getp6answers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoiZW1wcmVzYUBnbWFpbC5jb20iLCJma19yb2wiOjMsImlhdCI6MTY0ODc4MDE5NH0.zghZuwiIZRmhhzrItWcwuDMkykRO7fK6zh8XJcG4XO4
 
 ### get only one section
 GET http://localhost:4000/api/company/survey/sections/getone/1
@@ -13,12 +13,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvI
 
 ### Get all questions from a section, if id is not provided we get all questions of each section
 GET http://localhost:4000/api/company/survey/questions/section/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29ycmVvIjoiYWRtaW5AZ21haWwuY29tIiwiZmtfcm9sIjoxLCJpYXQiOjE2NDg2ODM2Nzl9.x7t0_oeYM-Bd19fAWJhlUjtU8qGhDWkuJCGkoqy88Tw
 
 ### to get all  users answer from a section
 GET http://localhost:4000/api/company/survey/section/1/answers
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29ycmVvIjoiYWRtaW5AZ21haWwuY29tIiwiZmtfcm9sIjoxLCJpYXQiOjE2NDc5ODk4NjN9.PTQWFRq3GyE83ZS4PxBDxQ8Dn9SzLMhX-h9_AyBJ7j0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoiZW1wcmVzYUBnbWFpbC5jb20iLCJma19yb2wiOjMsImlhdCI6MTY0ODc2MjU3NH0.ZY02Pqb3_Oz8L6nM5x0HWfLJ4rA3j33NSdUeVEck1XQ
 
 
 ### to save all user answers from section b

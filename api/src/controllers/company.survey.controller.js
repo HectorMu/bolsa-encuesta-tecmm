@@ -67,7 +67,34 @@ controller.getAllUserAnswersBySection = async (req, res) => {
         answer.fk_seccion_empresa === parseInt(req.params.id) &&
         answer.fk_usuario === parseInt(req.user.id)
     );
-    res.json(sectionUserAnswers);
+    if (parseInt(req.params.id) === 1) {
+      const P7Details = await SurveySbP7Details.FindOne(req.user.id);
+      const P8Details = await SurveySbP8Details.FindOne(req.user.id);
+
+      const answerWithDetails = {
+        respuesta5: sectionUserAnswers[0].respuesta,
+        ...P7Details,
+        ...P8Details,
+        respuesta9: sectionUserAnswers[1].respuesta,
+      };
+      delete answerWithDetails.fk_usuario;
+      delete answerWithDetails.fk_pregunta_empresa;
+      return res.json(answerWithDetails);
+    }
+    if (parseInt(req.params.id) === 2) {
+      const P10Details = await SurveyScP10Details.FindOne(req.user.id);
+      const P11Details = await SurveyScP11Details.FindOne(req.user.id);
+
+      const answerWithDetails = {
+        ...P10Details,
+        ...P11Details,
+        respuesta12: sectionUserAnswers[0].respuesta,
+        respuesta13: sectionUserAnswers[1].respuesta,
+      };
+      delete answerWithDetails.fk_usuario;
+      delete answerWithDetails.fk_pregunta_empresa;
+      return res.json(answerWithDetails);
+    }
   } catch (error) {
     console.log("Error" + error);
     res.json({
@@ -77,9 +104,9 @@ controller.getAllUserAnswersBySection = async (req, res) => {
   }
 };
 
-controller.getAllDetailsP6ByUser = async (req, res) => {
+controller.getAllAnswersP6ByUser = async (req, res) => {
   try {
-    const data = await SurveySbP6Details.FindAnswersUser(req.params.id);
+    const data = await SurveySbP6Details.FindAnswersUser(req.user.id);
     res.json(data);
   } catch (error) {
     console.log("Error" + error);
@@ -159,16 +186,6 @@ controller.SaveSectionBAnswers = async (req, res) => {
       fk_seccion_empresa: SECTION,
       fk_usuario: req.user.id,
       respuesta: respuesta5,
-    });
-    await SurveySbP6Details.CreateOrUpdateIfExists({
-      fk_usuario: req.user.id,
-      fk_pregunta_empresa: QUESTIONS.NUMERO_EGRESADOS_JERARQUIA,
-      carrera,
-      mando_superior,
-      mando_intermedio,
-      supervisor,
-      tecnico_auxiliar,
-      otros_p6,
     });
     await SurveySbP7Details.CreateOrUpdateIfExists({
       fk_usuario: req.user.id,

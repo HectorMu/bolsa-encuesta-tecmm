@@ -232,7 +232,7 @@ INSERT INTO preguntas_empresa VALUES
 (NULL, 1,'Congruencia entre perfil profesional y función que desarrollan los egresados del Instituto Tecnológico en su empresa u organización. Del total de egresados anote el porcentaje que corresponda'),
 (NULL, 1,'Requisitos que establece su empresa u organización para la contratación de personal con nivel de licenciatura'),
 (NULL, 1,'Carreras que demanda preferentemente su empresa u organismo'),
-(NULL, 2,'En su opinión, ¿Qué compoetencias considera que deben desarrollar los egresados del Instituto Tecnológico, para desempeñarse eficientemente en sus actividades laborales?'),
+(NULL, 2,'En su opinión, ¿Qué competencias considera que deben desarrollar los egresados del Instituto Tecnológico, para desempeñarse eficientemente en sus actividades laborales?'),
 (NULL, 2,'Con base al desempeño laboral así como a las actividades laborales que realiza el egresado. ¿Cómo considera su desempeño laboral respecto a su formación académica? Del total de egresados anote el porcentaje que corresponda.'),
 (NULL, 2,'De acuerdo con las necesidades de su empresa u organismo, ¿Qué sugiere para mejorar la formación de los egresados del Instituto Tecnológico?'),
 (NULL, 2,'Comentarios y sugerencias');
