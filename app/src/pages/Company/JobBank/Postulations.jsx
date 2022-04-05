@@ -5,4 +5,3 @@ const Postulations = () => {
 };
 
 export default Postulations;
-s;
