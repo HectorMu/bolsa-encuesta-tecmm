@@ -43,7 +43,6 @@ const Question6 = ({ questions }) => {
 
   const saveAnswerP6 = async () => {
     const results = await surveyService.saveP6DetailsSectionb(newAnswerP6);
-    setnewAnswerP6(SectionP6Answers);
     getP6DetailsHandler();
   };
 
@@ -89,7 +88,7 @@ const Question6 = ({ questions }) => {
       </div>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end pb-5">
         <button onClick={saveAnswerP6} className="btn btn-primary">
-          <i class="fas fa-plus"></i> Agregar dato
+          <i className="fas fa-plus"></i> Agregar dato
         </button>
       </div>
       {detailsP6.length > 0 ? (
