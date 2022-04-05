@@ -118,6 +118,31 @@ controller.getAllAnswersP6ByUser = async (req, res) => {
   }
 };
 
+controller.deleteDetailsP6ByUser = async (req, res) => {
+  try {
+    const data = await SurveySbP6Details.Delete(req.params.id);
+    console.log(data);
+    if (data.affectedRows === 0) {
+      return res.status(400).json({
+        status: false,
+        statusText: "No existe esa respuesta.",
+      });
+    }
+    res.status(200).json({
+      status: true,
+      statusText: "Respuesta eliminada correctamente.",
+      dbresponse: data,
+    });
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
 controller.SaveSectionBP6Answers = async (req, res) => {
   const {
     carrera,

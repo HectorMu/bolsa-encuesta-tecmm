@@ -33,6 +33,12 @@ router.get(
   companySurveyController.getAllUserAnswersBySection
 );
 
+router.delete(
+  "/company/survey/sectionb/p6details/delete/:id",
+  // verifyToken,
+  companySurveyController.deleteDetailsP6ByUser
+);
+
 router.post(
   "/company/survey/sectionb",
   verifyToken,

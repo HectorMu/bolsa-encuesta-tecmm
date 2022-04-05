@@ -1,5 +1,16 @@
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
-import careers from "./careers.json";
+import { useState, useEffect } from "react";
+
+import surveyService from "@/services/Company/survey.service";
+
+const careers = [
+  "Ing. en Gestión Empresarial",
+  "Ing. Industrial",
+  "Ing. en Sistemas Computacionales",
+  "Ing. Electromecánica",
+  "Ing. Civil",
+  "Ing. en Sistemas Automotrices",
+];
 
 const ENTRIES = {
   mando_superior: "Mando superior",
@@ -9,7 +20,42 @@ const ENTRIES = {
   otros_p6: "Otros",
 };
 
-const Question6 = ({ handleP6DetailsChange, questions }) => {
+const SectionP6Answers = {
+  carrera: "",
+  mando_superior: "",
+  mando_intermedio: "",
+  supervisor: "",
+  tecnico_auxiliar: "",
+  otros_p6: "",
+};
+
+const Question6 = ({ questions }) => {
+  const [newAnswerP6, setnewAnswerP6] = useState(SectionP6Answers);
+  const [detailsP6, setDetailsP6] = useState([]);
+
+  const getP6DetailsHandler = async () => {
+    const fetchedDetails = await surveyService.getP6Answers();
+    setDetailsP6(fetchedDetails);
+  };
+
+  const handleP6DetailsChange = (key, value) =>
+    setnewAnswerP6({ ...newAnswerP6, [key]: value });
+
+  const saveAnswerP6 = async () => {
+    const results = await surveyService.saveP6DetailsSectionb(newAnswerP6);
+    setnewAnswerP6(SectionP6Answers);
+    getP6DetailsHandler();
+  };
+
+  const deleteAnswerP6 = async (detail) => {
+    const results = await surveyService.deleteP6Answer(detail.id);
+    getP6DetailsHandler();
+  };
+
+  useEffect(() => {
+    getP6DetailsHandler();
+  }, []);
+
   return (
     <div>
       <h5>{questions[1]?.descripcion}:</h5>
@@ -36,10 +82,51 @@ const Question6 = ({ handleP6DetailsChange, questions }) => {
               inputId={`input${key}`}
               type="number"
               setValue={(e) => handleP6DetailsChange(key, e.target.value)}
+              value={newAnswerP6[key]}
             />
           </div>
         ))}
       </div>
+      <div className="d-grid gap-2 d-md-flex justify-content-md-end pb-5">
+        <button onClick={saveAnswerP6} className="btn btn-primary">
+          <i class="fas fa-plus"></i> Agregar dato
+        </button>
+      </div>
+      {detailsP6.length > 0 ? (
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Carrera</th>
+                {Object.entries(ENTRIES).map(([key, value]) => (
+                  <th scope="col">{value}</th>
+                ))}
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {detailsP6.map((detail) => (
+                <tr>
+                  <td>{detail.carrera}</td>
+                  <td>{detail.mando_superior}</td>
+                  <td>{detail.mando_intermedio}</td>
+                  <td>{detail.supervisor}</td>
+                  <td>{detail.tecnico_auxiliar}</td>
+                  <td>{detail.otros_p6}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteAnswerP6(detail)}
+                    >
+                      <i className="fas fa-times"></i> Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
     </div>
   );
 };

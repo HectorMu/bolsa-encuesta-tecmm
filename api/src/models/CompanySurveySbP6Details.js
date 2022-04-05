@@ -10,7 +10,7 @@ const Template = {
   },
   async FindAnswersUser(fk_usuario) {
     const data = await connection.query(
-      `select carrera, mando_superior, mando_intermedio, supervisor, tecnico_auxiliar, otros_p6 from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ?`,
+      `select id, carrera, mando_superior, mando_intermedio, supervisor, tecnico_auxiliar, otros_p6 from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ?`,
       [fk_usuario]
     );
     return data;
@@ -55,7 +55,7 @@ const Template = {
   },
   async Delete(id) {
     const results = await connection.query(
-      `delete from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ?`,
+      `delete from ${TABLE_NAME} where id = ?`,
       [id]
     );
     return results;

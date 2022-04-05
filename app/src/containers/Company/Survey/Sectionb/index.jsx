@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
 
 import useCompanySurvey from "@/hooks/useCompanySurvey";
@@ -34,26 +33,13 @@ const SectionAnswers = {
   respuesta9: "",
 };
 
-const SectionP6Answers = {
-  carrera: "",
-  mando_superior: "",
-  mando_intermedio: "",
-  supervisor: "",
-  tecnico_auxiliar: "",
-  otros_p6: "",
-};
-
 const index = () => {
   const [answers, setAnswers] = useState(SectionAnswers);
-  const [p6answers, setP6Answers] = useState(SectionP6Answers);
-  const { section, questions, isLoading, userSectionAnswers, userP6Answers } =
+  const { section, questions, isLoading, userSectionAnswers } =
     useCompanySurvey();
   const navigate = useNavigate();
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
-
-  const handleP6DetailsChange = (key, value) =>
-    setP6Answers({ ...p6answers, [key]: value });
 
   const saveAndSkipToNextSection = async () => {
     const results = await surveyService.saveSectionb(answers);
@@ -63,21 +49,11 @@ const index = () => {
     navigate("/company/survey/section/2");
   };
 
-  const saveP6Details = async () => {
-    const results = await surveyService.saveP6DetailsSectionb(p6answers);
-    if (!results.status) {
-      return toast.error(results.statusText);
-    }
-  };
-
   useEffect(() => {
     if (userSectionAnswers) {
       setAnswers(userSectionAnswers);
     }
-    if (userP6Answers) {
-      setP6Answers(userP6Answers);
-    }
-  }, [userSectionAnswers, userP6Answers]);
+  }, [userSectionAnswers]);
 
   return (
     <>
@@ -93,39 +69,7 @@ const index = () => {
             handleChange={handleChange}
             questions={questions}
           />
-          <Question6
-            handleP6DetailsChange={handleP6DetailsChange}
-            questions={questions}
-          />
-          <div className="d-grid gap-2 d-md-flex justify-content-md-end pb-5">
-            <button onClick={saveP6Details} className="btn btn-primary">
-              <i class="fas fa-plus"></i> Agregar dato
-            </button>
-          </div>
-          <DataTable
-            data={userP6Answers}
-            title="Número de egresados del Instituto Tecnológico y nivel jerárquico que ocupan en la organización"
-            emptyDataText="Sin registros"
-            searchText="Buscando por"
-            actions={false}
-            filtersConfig={{
-              carrera: "Carrera",
-              mando_superior: "Mando superior",
-              mando_intermedio: "Mando intermedio",
-              supervisor: "Supervisor o equivalente",
-              tecnico_auxiliar: "Técnico o auxiliar",
-              otros_p6: "Otros",
-            }}
-            renameHeaders={{
-              carrera: "Carrera",
-              mando_superior: "Mando superior",
-              mando_intermedio: "Mando intermedio",
-              supervisor: "Supervisor o equivalente",
-              tecnico_auxiliar: "Técnico o auxiliar",
-              otros_p6: "Otros",
-            }}
-          />
-          <hr />
+          <Question6 questions={questions} />
           <Question7
             answers={answers}
             handleChange={handleChange}

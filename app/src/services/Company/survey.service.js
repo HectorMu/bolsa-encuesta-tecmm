@@ -61,6 +61,18 @@ const getP6Answers = async () => {
   }
 };
 
+const deleteP6Answer = async (id) => {
+  try {
+    const response = await fetch(
+      `${API}/company/survey/sectionb/p6details/delete/${id}`,
+      helpers.authDeleteConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const saveSectionb = async (answers) => {
   try {
     const response = await fetch(
@@ -103,6 +115,7 @@ export default {
   getSectionQuestions,
   getAnswersBySection,
   getP6Answers,
+  deleteP6Answer,
   saveSectionb,
   saveP6DetailsSectionb,
   saveSectionc,

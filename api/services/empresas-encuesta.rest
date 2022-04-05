@@ -20,6 +20,9 @@ GET http://localhost:4000/api/company/survey/section/1/answers
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoiZW1wcmVzYUBnbWFpbC5jb20iLCJma19yb2wiOjMsImlhdCI6MTY0ODc2MjU3NH0.ZY02Pqb3_Oz8L6nM5x0HWfLJ4rA3j33NSdUeVEck1XQ
 
+### Delete an p6 details
+DELETE http://localhost:4000/api/company/survey/sectionb/p6details/delete/9
+Content-Type: application/json
 
 ### to save all user answers from section b
 POST http://localhost:4000/api/company/survey/sectionb

@@ -9,7 +9,7 @@ const ENTRIES = {
 
 const Question7 = ({ answers, handleChange, questions }) => {
   return (
-    <div className="pb-4 pt-5">
+    <div className="pb-4">
       <h5>{questions[2]?.descripcion}:</h5>
       <div className="row">
         {Object.entries(ENTRIES).map(([key, value]) => (
