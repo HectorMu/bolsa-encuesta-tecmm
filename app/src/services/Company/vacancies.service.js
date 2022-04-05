@@ -25,11 +25,11 @@ const GetOne = async (id) => {
   }
 };
 
-const Save = async (company) => {
+const Save = async (vacant) => {
   try {
     const response = await fetch(
       `${API}/company/jobs/save`,
-      helpers.authPostConfig(company)
+      helpers.authPostConfig(vacant)
     );
     return await response.json();
   } catch (error) {
@@ -37,11 +37,11 @@ const Save = async (company) => {
   }
 };
 
-const Update = async (company, id) => {
+const Update = async (vacant, id) => {
   try {
     const response = await fetch(
       `${API}/company/jobs/update/${id}`,
-      helpers.authPutConfig(company)
+      helpers.authPutConfig(vacant)
     );
     return await response.json();
   } catch (error) {

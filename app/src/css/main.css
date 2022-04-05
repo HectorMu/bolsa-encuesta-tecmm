@@ -182,7 +182,7 @@ input:-webkit-autofill:active {
 }
 
 .dropdown-item:focus {
-  background-color: var(--puple);
+  background-color: var(--purple);
 }
 
 .btn-primary {

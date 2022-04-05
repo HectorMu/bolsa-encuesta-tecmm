@@ -3,6 +3,7 @@ import JobBank from "@/pages/Company/JobBank/JobBank";
 import AddJob from "@/pages/company/JobBank/Add";
 import EditJob from "@/pages/company/JobBank/Edit";
 import Survey from "@/pages/Company/Survey/Survey";
+import Postulations from "@/pages/Company/JobBank/Postulations";
 import Instructions from "@/pages/Company/Survey/Instructions";
 
 const Routes = [
@@ -17,6 +18,10 @@ const Routes = [
   {
     path: "/company/jobbank/edit/:id",
     element: <IsCompany view={EditJob} />,
+  },
+  {
+    path: "/company/jobbank/postulations/:id",
+    element: <IsCompany view={Postulations} />,
   },
   {
     path: "/company/survey",

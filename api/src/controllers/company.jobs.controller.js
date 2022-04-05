@@ -85,7 +85,8 @@ controller.Update = async (req, res) => {
 controller.Delete = async (req, res) => {
   try {
     const results = await CompanyJobs.Delete(req.params.id, req.user.id);
-    console.log(results);
+
+    await console.log(results);
     //Si no exite ninguna fila afectada, significa que ese registro no existe.
     if (results.affectedRows === 0) {
       return res.status(400).json({

@@ -54,11 +54,19 @@ const Template = {
     );
     return results;
   },
-  async Delete(id, companyid) {
+  async Delete(job_id, companyid) {
+    await connection.query(
+      "delete from vistas_publicaciones where fk_publicacion = ?",
+      [job_id]
+    );
+    await connection.query("delete from solicitud_bolsa where fk_vacante = ?", [
+      job_id,
+    ]);
     const results = await connection.query(
       `delete from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ? && fk_empresa = ${companyid}`,
-      [id]
+      [job_id]
     );
+
     return results;
   },
 };

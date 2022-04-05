@@ -1,69 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 //Custom components
 import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
 //Custom hooks
 import useServiceFetch from "@/hooks/useServiceFetch";
+import useRouterHooks from "@/hooks/useRouterHooks";
 //Services
 import vacanciesService from "@/services/Company/vacancies.service";
 
-const TableButtons = ({ object }) => {
-  return <button>xd {object.folio}</button>;
-};
+import ListButtons from "./ListButtons";
 
 const List = () => {
   const [vacancies, setVacancies] = useState([]);
-  const { isLoading } = useServiceFetch(vacanciesService.List, setVacancies);
+  const { isLoading, refreshData } = useServiceFetch(
+    vacanciesService.List,
+    setVacancies
+  );
+  const { navigate } = useRouterHooks();
 
-  const tableConfig = {
-    buttons: [
-      {
-        key: "btnCerrar",
-        text: "Cerrar",
-        style: "btn btn-primary mx-1 btn-sm",
-        fwicon: "fas fa-check",
-        click: (o) => {
-          window.alert(`Default action ${o}`);
-        },
-      },
-      {
-        key: "btnEdit",
-        text: "Editar",
-        style: "btn btn-info mx-1 btn-sm",
-        fwicon: "fas fa-pen",
-        click: (o) => {
-          window.alert(`Default action ${o}`);
-        },
-      },
-      {
-        key: "btnDelete",
-        text: "Eliminar",
-        style: "btn btn-danger mx-1 btn-sm",
-        fwicon: "fas fa-times",
-        click: (o) => {
-          window.alert(`Default action ${o}`);
-        },
-      },
-    ],
+  const redirectToPostulationsPage = (vacancie) => {
+    navigate(`/company/jobbank/postulations/${vacancie.folio}`);
   };
-  console.log(vacancies);
+
   return (
     <div>
       {isLoading ? (
         <Loading />
       ) : (
         <DataTable
+          firstColumnKey="folio"
           data={vacancies}
           title="Vacantes"
-          hideColumns={["ubicacion", "fk_empresa"]}
+          refreshCallback={refreshData}
+          hideColumns={["ubicacion", "fk_empresa", "descripcion"]}
           renameHeaders={{
-            descripcion: "Descripción",
-            fecha_creacion: "Creada",
-            fecha_expira: "Expira",
+            id: "Folio",
+            fecha_creacion: "Creación",
+            fecha_expira: "Expiración",
             status: "Estado",
           }}
+          actionElement={{
+            element: "vacante",
+            className: "btn btn-link text-purple font-weight-bolder",
+            action: (o) => redirectToPostulationsPage(o),
+          }}
           actions={true}
-          CustomButtons={TableButtons}
+          CustomButtons={ListButtons}
           searchText={"Buscando por"}
           actionsText={"Opciones"}
         />

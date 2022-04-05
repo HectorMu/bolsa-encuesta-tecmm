@@ -248,11 +248,11 @@ const DataTable = ({
             <thead>
               {initialData !== undefined && initialData.length > 0 ? (
                 <tr key={initialData[0].id}>
-                  {Object.keys(initialData[0]).map((e) =>
+                  {Object.keys(initialData[0]).map((e, i) =>
                     renameHeaders !== null &&
                     Object.keys(renameHeaders).includes(e) ? (
                       <th
-                        key={e}
+                        key={e + i}
                         className={`${
                           selectedFilter.toLowerCase() === e
                             ? `text-primary text-uppercase `
@@ -281,7 +281,7 @@ const DataTable = ({
                       </th>
                     ) : (
                       <th
-                        key={e}
+                        key={e + i}
                         className={`${
                           selectedFilter.toLowerCase() === e
                             ? `text-primary text-uppercase`
@@ -320,16 +320,16 @@ const DataTable = ({
             </thead>
             <tbody>
               {initialData !== undefined && initialData.length > 0 ? (
-                initialData.map((d) => (
-                  <tr key={d.id}>
-                    {Object.entries(d).map(([k, e]) => (
+                initialData.map((d, i) => (
+                  <tr key={i}>
+                    {Object.entries(d).map(([k, e], i) => (
                       <td
                         className={`${
                           hideColumns.length > 0 && hideColumns.includes(k)
                             ? `d-none `
                             : ``
                         }`}
-                        key={k}
+                        key={k + i}
                       >
                         {typeof e === "object" &&
                         Object.entries(e).length > 0 ? (
@@ -337,15 +337,15 @@ const DataTable = ({
                             <table className="table m-0 p-0 text-center ">
                               <thead>
                                 <tr>
-                                  {Object.keys(e).map((k) => (
-                                    <th key={k}>{k}</th>
+                                  {Object.keys(e).map((k, i) => (
+                                    <th key={k + i}>{k}</th>
                                   ))}
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr>
                                   {Object.values(e).map((v) => (
-                                    <td key={v}>{v}</td>
+                                    <td key={v + k + i}>{v}</td>
                                   ))}
                                 </tr>
                               </tbody>
@@ -367,7 +367,10 @@ const DataTable = ({
                     {actions === true ? (
                       <td className="d-flex d-sm-flex flex-sm-column flex-column flex-lg-row flex-md-row flex-xl-row">
                         {CustomButtons !== null ? (
-                          <CustomButtons object={d} />
+                          <CustomButtons
+                            object={d}
+                            refreshCallback={refreshCallback}
+                          />
                         ) : (
                           buttons.map((b) => (
                             <button
