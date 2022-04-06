@@ -109,4 +109,13 @@ controller.Delete = async (req, res) => {
   }
 };
 
+controller.GetPostulations = async (req, res) => {
+  try {
+    const data = await CompanyJobs.GetJobPostulations(req.params.job_id);
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = controller;

@@ -82,6 +82,7 @@ const Form = () => {
           <FloatingLabelInput
             inputId="txtFolio"
             placeholder="Folio"
+            disabled={onEditing}
             setValue={(e) =>
               handleChange(
                 "folio",

@@ -61,4 +61,16 @@ const Delete = async (id) => {
   }
 };
 
-export default { List, GetOne, Save, Update, Delete };
+const GetPostulations = async (job_id) => {
+  try {
+    const response = await fetch(
+      `${API}/company/jobs/postulations/${job_id}`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default { List, GetOne, Save, Update, Delete, GetPostulations };

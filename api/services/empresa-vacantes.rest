@@ -44,3 +44,8 @@ DELETE http://localhost:4000/api/company/jobs/delete/239
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiY29ycmVvIjoic3RhbmxleTJAZ21haWwuY29tIiwiZmtfcm9sIjozLCJpYXQiOjE2NDY4ODAwNTV9.hVIGytm2h4ku2QSotJlnsF0b4RBXDjVHheagiwcfwxw
 Content-Type: application/json
 
+
+
+### Get all postulations from a job
+GET http://localhost:4000/api/company/jobs/postulations/345  <- job_id
+

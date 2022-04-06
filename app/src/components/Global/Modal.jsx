@@ -10,7 +10,7 @@ const Modal = ({
   children,
 }) => {
   return (
-    <div>
+    <>
       <button
         type="button"
         className={buttonClass}
@@ -58,7 +58,7 @@ const Modal = ({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

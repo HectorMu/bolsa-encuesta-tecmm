@@ -31,10 +31,10 @@ const Template = {
     );
     return data;
   },
-  async FindOne(id, companyid) {
+  async FindOne(id, company_id) {
     const data = await connection.query(
-      `select * from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ? && fk_empresa = ${companyid}`,
-      [id]
+      `SELECT pb.*,(SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio) AS solicitudes,(SELECT COUNT(*) FROM vistas_publicaciones WHERE fk_publicacion = pb.folio) AS visitas  from publicacion_bolsa pb where fk_empresa = ? && folio = ?`,
+      [company_id, id]
     );
     if (!data.length > 0) {
       return {};
@@ -47,14 +47,16 @@ const Template = {
     ]);
     return results;
   },
-  async Update(data, id, companyid) {
+  async Update(data, id, company_id) {
+    delete data.solicitudes;
+    delete data.visitas;
     const results = await connection.query(
-      `update ${TABLE_NAME} set ? where ${IDENTIFIER_NAME} = ? && fk_empresa = ${companyid}`,
+      `update ${TABLE_NAME} set ? where ${IDENTIFIER_NAME} = ? && fk_empresa = ${company_id}`,
       [data, id]
     );
     return results;
   },
-  async Delete(job_id, companyid) {
+  async Delete(job_id, company_id) {
     await connection.query(
       "delete from vistas_publicaciones where fk_publicacion = ?",
       [job_id]
@@ -63,10 +65,17 @@ const Template = {
       job_id,
     ]);
     const results = await connection.query(
-      `delete from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ? && fk_empresa = ${companyid}`,
+      `delete from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ? && fk_empresa = ${company_id}`,
       [job_id]
     );
 
+    return results;
+  },
+  async GetJobPostulations(job_id) {
+    const results = await connection.query(
+      "select * from solicitud_bolsa where fk_vacante = ?",
+      [job_id]
+    );
     return results;
   },
 };
