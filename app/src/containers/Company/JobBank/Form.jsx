@@ -143,7 +143,7 @@ const Form = () => {
         </div>
         <div className="d-flex justify-content-center">
           <button className="btn btn-primary mr-2">
-            {onEditing ? "Guardar cambios" : "Cancelar"}
+            {onEditing ? "Guardar cambios" : "Guardar"}
           </button>
           <Link to={"/company/jobbank/"} className="btn btn-danger">
             Cancelar
