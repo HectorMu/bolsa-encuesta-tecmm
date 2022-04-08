@@ -6,12 +6,14 @@ import moment from "moment/min/moment-with-locales";
 import helpers from "@/helpers/helpers";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import Loading from "@/components/Global/Loading";
 
 const Showcase = ({
   selection: { selectedJob, setSelectedJob },
   refreshData: RefreshJobs,
 }) => {
   const [cv, setCv] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentPostulation, setCurrentPostulation] = useState({});
   const { params } = useRouterHooks();
   const fileRef = useRef();
@@ -55,7 +57,6 @@ const Showcase = ({
 
   const getPostulationHandler = useCallback(async () => {
     const postulationFetched = await jobsService.getPostulation(params.id);
-
     if (!postulationFetched.id) {
       setCurrentPostulation({});
       setCv(undefined);
@@ -70,8 +71,11 @@ const Showcase = ({
   }, [params.id]);
 
   const handleGetJobFromFetch = useCallback(async () => {
+    if (!params.id) return;
+    setIsLoading(true);
     const fetchedJob = await jobsService.getOneJob(params.id);
     setSelectedJob(fetchedJob);
+    setIsLoading(false);
   }, [params.id]);
 
   useEffect(() => {
@@ -87,37 +91,45 @@ const Showcase = ({
   if (!selectedJob.folio) {
     return (
       <div className="d-flex justify-content-center align-items-center h-50 text-black">
-        <h3>Selecciona un trabajo de la lista para saber mas y postularte!</h3>
+        <h3 className="text-primary font-weight-bolder text-center">
+          ¡Selecciona un trabajo de la lista para saber mas y postularte!
+        </h3>
       </div>
     );
   }
 
   return (
     <div className="p-2">
-      <h3 className="text-primary btn-link text-left font-weight-bolder">
-        {selectedJob.vacante}
-      </h3>
-      <div className="d-flex flex-column flex-lg-row flex-xl-row mt-3">
-        <h5 className="font-weight-bold">{selectedJob.nombre_comercial}</h5>
-        <ul className="custom-list">
-          <li>
-            <h6>{selectedJob.ubicacion}</h6>
-          </li>
-          <li>
-            <span className="badge p-2 badge-primary">
-              <i className="fas fa-clock"></i>{" "}
-              {moment(selectedJob.fecha_creacion).locale("es").fromNow()}
-            </span>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <p>
-          <i className="fas fa-building text-primary"></i>: {selectedJob.tamaño}{" "}
-          empleados
-        </p>
-        <p className="text-black"> {selectedJob.descripcion}</p>
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <h3 className="text-primary btn-link text-left font-weight-bolder">
+            {selectedJob.vacante}
+          </h3>
+          <div className="d-flex flex-column flex-lg-row flex-xl-row mt-3">
+            <h5 className="font-weight-bold">{selectedJob.nombre_comercial}</h5>
+            <ul className="custom-list">
+              <li>
+                <h6>{selectedJob.ubicacion}</h6>
+              </li>
+              <li>
+                <span className="badge p-2 badge-primary">
+                  <i className="fas fa-clock"></i>{" "}
+                  {moment(selectedJob.fecha_creacion).locale("es").fromNow()}
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p>
+              <i className="fas fa-building text-primary"></i>:{" "}
+              {selectedJob.tamaño} empleados
+            </p>
+            <p className="text-black"> {selectedJob.descripcion}</p>
+          </div>
+        </>
+      )}
 
       {currentPostulation?.id ? (
         <div className="d-flex flex-column align-items-center justify-content-center mt-5">

@@ -32,6 +32,7 @@ const sectionAnswers = {
 };
 const index = () => {
   const [answers, setAnswers] = useState(sectionAnswers);
+  const [question3Answered, setQuestion3Answered] = useState(false);
   const { section, questions, isLoading, userSectionAnswers } =
     useGraduatedSurvey();
   const navigate = useNavigate();
@@ -48,9 +49,13 @@ const index = () => {
 
   useEffect(() => {
     if (userSectionAnswers) {
+      if (userSectionAnswers?.respuesta3?.length > 0) {
+        setQuestion3Answered(true);
+      }
       setAnswers(userSectionAnswers);
     }
   }, [userSectionAnswers]);
+  console.log(question3Answered);
   return (
     <>
       {isLoading ? (
@@ -70,11 +75,14 @@ const index = () => {
             answers={answers}
             questions={questions}
           />
-          <Question3
-            handleChange={handleChange}
-            answers={answers}
-            questions={questions}
-          />
+          {!question3Answered && (
+            <Question3
+              handleChange={handleChange}
+              answers={answers}
+              questions={questions}
+            />
+          )}
+
           <Question4
             handleChange={handleChange}
             answers={answers}
