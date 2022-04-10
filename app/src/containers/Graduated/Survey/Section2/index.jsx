@@ -55,6 +55,7 @@ const sectionAnswers = {
 const index = () => {
   const { section, questions, isLoading, userSectionAnswers } =
     useGraduatedSurvey();
+  const [onceQuestionsAnswered, setOnceQuestionsAnswered] = useState(false);
   const [answers, setAnswers] = useState(sectionAnswers);
 
   const navigate = useNavigate();
@@ -72,13 +73,18 @@ const index = () => {
   const setFetchedAnswers = useCallback(() => {
     if (!userSectionAnswers) return;
     setAnswers(userSectionAnswers);
+    if (
+      userSectionAnswers.tiempo_primer_empleo?.length > 0 &&
+      userSectionAnswers.medio_obtener_empleo?.length > 0
+    ) {
+      setOnceQuestionsAnswered(true);
+    }
   }, [userSectionAnswers]);
 
   useEffect(() => {
     setFetchedAnswers();
   }, [setFetchedAnswers]);
 
-  //console.log(userSectionAnswers);
   return (
     <>
       {isLoading ? (
@@ -98,12 +104,20 @@ const index = () => {
               <Study answers={answers} handleChange={handleChange} />
             ) : null}
             {answers.respuesta1 === "Trabaja" ? (
-              <Works answers={answers} handleChange={handleChange} />
+              <Works
+                onceQuestionsAnswered={onceQuestionsAnswered}
+                answers={answers}
+                handleChange={handleChange}
+              />
             ) : null}
             {answers.respuesta1 === "Estudia y trabaja" ? (
               <>
                 <Study answers={answers} handleChange={handleChange} />
-                <Works answers={answers} handleChange={handleChange} />
+                <Works
+                  onceQuestionsAnswered={onceQuestionsAnswered}
+                  answers={answers}
+                  handleChange={handleChange}
+                />
               </>
             ) : null}
           </div>

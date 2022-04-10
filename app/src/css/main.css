@@ -467,3 +467,22 @@ input[type="radio"]:checked:after {
   display: flex;
   gap: 30px;
 }
+
+.btn-outline-primary {
+  border-color: var(--purple) !important;
+  background-color: white !important;
+  color: var(--purple) !important;
+  box-shadow: none !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--purple) !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+.btn-outline-primary.active {
+  background-color: var(--purple) !important;
+  color: white !important;
+  box-shadow: none !important;
+}

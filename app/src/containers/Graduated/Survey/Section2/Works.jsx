@@ -11,11 +11,16 @@ import WorksQuestion9 from "./WorksQuestion9";
 import WorksQuestion10 from "./WorksQuestion10";
 import WorksCompanyData from "./WorksCompanyData";
 
-const Works = ({ answers, handleChange }) => {
+const Works = ({ answers, handleChange, onceQuestionsAnswered }) => {
   return (
     <>
-      <WorksQuestion1 answers={answers} handleChange={handleChange} />
-      <WorksQuestion2 answers={answers} handleChange={handleChange} />
+      {!onceQuestionsAnswered ? (
+        <>
+          <WorksQuestion1 answers={answers} handleChange={handleChange} />
+          <WorksQuestion2 answers={answers} handleChange={handleChange} />
+        </>
+      ) : null}
+
       <WorksQuestion3 answers={answers} handleChange={handleChange} />
       <WorksQuestion4 answers={answers} handleChange={handleChange} />
       <WorksQuestion5 answers={answers} handleChange={handleChange} />

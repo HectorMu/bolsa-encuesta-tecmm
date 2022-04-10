@@ -4,7 +4,12 @@ const useCleanAosAnimations = () => {
   const animationRef = useRef();
 
   useEffect(() => {
-    setTimeout(() => animationRef.current.removeAttribute("data-aos"), 500);
+    setTimeout(
+      () =>
+        animationRef.current.attribute &&
+        animationRef.current.removeAttribute("data-aos"),
+      500
+    );
   }, []);
 
   return animationRef;

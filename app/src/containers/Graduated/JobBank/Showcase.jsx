@@ -8,10 +8,7 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import Loading from "@/components/Global/Loading";
 
-const Showcase = ({
-  selection: { selectedJob, setSelectedJob },
-  refreshData: RefreshJobs,
-}) => {
+const Showcase = ({ selection: { selectedJob, setSelectedJob } }) => {
   const [cv, setCv] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPostulation, setCurrentPostulation] = useState({});
@@ -50,7 +47,6 @@ const Showcase = ({
         }
         toast.success("Postulacion cancelada");
         getPostulationHandler();
-        RefreshJobs();
       }
     });
   };
