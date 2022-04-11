@@ -13,6 +13,10 @@ const SurveyS5P2Details = require("../models/GraduatedSurveyS5P2Details");
 const GraduatedSurveyWorking = require("../models/GraduatedSurveyWorking");
 const GraduatedSurveyStudy = require("../models/GraduatedSurveyStudy");
 
+const pdf = require("pdf-creator-node");
+const fs = require("fs");
+const path = require("path");
+
 const controller = {};
 
 controller.getAllSections = async (req, res) => {
@@ -614,6 +618,41 @@ controller.saveSection6Answers = async (req, res) => {
   const ANSWERS = req.body;
   const SECTION = 6;
   const QUESTIONS = { OPINION_RECOMENDACION: 17 };
+
+  const html = fs.readFileSync("./src/assets/template.html", "utf8");
+  const options = {
+    format: "A4",
+    orientation: "portrait",
+    border: "0mm",
+    header: {
+      height: "0mm",
+    },
+    footer: {
+      height: "20mm",
+    },
+  };
+
+  const document = {
+    html: html,
+    data: {
+      alumn_name: "xd",
+      no_control: "34234",
+      curp: "DAS2343",
+      date: new Date().toLocaleString(),
+    },
+    path: "./src/public/graduated/cvs/xd.pdf",
+    type: "",
+  };
+
+  pdf
+    .create(document, options)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
   try {
     await GraduatedSurveyAnswers.CreateOrUpdateIfExists({
       fk_pregunta: QUESTIONS.OPINION_RECOMENDACION,

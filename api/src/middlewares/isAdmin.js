@@ -1,6 +1,6 @@
 const { USER_ROLES } = require("../helpers/helpers");
 
-const isCompany = (req, res, next) => {
+const IsAdmin = (req, res, next) => {
   //Si no existe el usuario en el request
   if (!req.user) {
     return res.status(400).json({ authorized: false });
@@ -16,4 +16,4 @@ const isCompany = (req, res, next) => {
   next();
 };
 
-module.exports = isCompany;
+module.exports = IsAdmin;
