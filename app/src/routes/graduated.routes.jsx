@@ -2,6 +2,7 @@ import Instructions from "@/pages/Graduated/Survey/Instructions";
 import Survey from "@/pages/Graduated/Survey/Survey";
 import IsGraduated from "@/components/Authentication/IsGraduated";
 import JobBank from "@/pages/Graduated/JobBank/JobBank";
+import Postulations from "@/pages/Company/JobBank/Postulations";
 
 const Routes = [
   {
@@ -13,12 +14,8 @@ const Routes = [
     element: <IsGraduated view={Survey} />,
   },
   {
-    path: "/graduated/jobbank",
-    element: <IsGraduated view={JobBank} />,
-  },
-  {
-    path: "/graduated/jobbank/job/:id",
-    element: <IsGraduated view={JobBank} />,
+    path: "/graduated/jobbank/*",
+    element: <IsGraduated view={Survey} />,
   },
 ];
 

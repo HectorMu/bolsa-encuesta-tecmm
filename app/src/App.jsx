@@ -15,7 +15,7 @@ import "../../node_modules/aos/dist/aos.css";
 import { Toaster } from "react-hot-toast";
 
 //Importing react router elements
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 
 //Importing main container layout
 import Layout from "./containers/Layout/Layout";
@@ -25,6 +25,9 @@ import AppRoutes from "./routes";
 
 //importing session context
 import SessionProvider from "./context/SessionProvider";
+import JobBank from "./pages/Graduated/JobBank/JobBank";
+import Postulations from "./pages/Graduated/JobBank/Postulations";
+import Dashboard from "./pages/Graduated/JobBank/Dashboard";
 
 function App() {
   //Initializing AOS for animations
@@ -38,6 +41,11 @@ function App() {
           {AppRoutes?.map((route) => (
             <Route key={route.path} path={route.path} element={route.element} />
           ))}
+          <Route path="/graduated/jobbank/" element={<Dashboard />}>
+            <Route path="job/:id" element={<JobBank />} />
+            <Route path="jobs" element={<JobBank />} />
+            <Route path="postulations" element={<Postulations />} />
+          </Route>
         </Routes>
       </Layout>
       <Toaster />

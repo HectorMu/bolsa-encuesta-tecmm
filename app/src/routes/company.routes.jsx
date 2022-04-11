@@ -20,7 +20,11 @@ const Routes = [
     element: <IsCompany view={EditJob} />,
   },
   {
-    path: "/company/jobbank/postulations/:id",
+    path: "/company/jobbank/postulations/:job_id",
+    element: <IsCompany view={Postulations} />,
+  },
+  {
+    path: "/company/jobbank/postulations/:job_id/:postulation_id",
     element: <IsCompany view={Postulations} />,
   },
   {

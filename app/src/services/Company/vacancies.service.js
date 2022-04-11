@@ -72,5 +72,38 @@ const GetPostulations = async (job_id) => {
     console.log(error);
   }
 };
+const GetOnePostulation = async (postulation_id) => {
+  try {
+    const response = await fetch(
+      `${API}/company/jobs/postulations/getone/${postulation_id}`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-export default { List, GetOne, Save, Update, Delete, GetPostulations };
+const FlagPostulationAsReviewed = async (postulation_id) => {
+  try {
+    const response = await fetch(
+      `${API}/company/jobs/postulations/reviewed/${postulation_id}`,
+      helpers.authPutConfig()
+    );
+
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default {
+  List,
+  GetOne,
+  Save,
+  Update,
+  Delete,
+  GetPostulations,
+  GetOnePostulation,
+  FlagPostulationAsReviewed,
+};

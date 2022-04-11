@@ -73,8 +73,32 @@ const Template = {
   },
   async GetJobPostulations(job_id) {
     const results = await connection.query(
-      "select * from solicitud_bolsa where fk_vacante = ?",
+      "SELECT * FROM  v_getPostulationsAndProfileDetails where fk_vacante = ?",
       [job_id]
+    );
+    return results;
+  },
+  async GetOneJobPostulation(postulation_id) {
+    const data = await connection.query(
+      "SELECT * FROM  v_getPostulationsAndProfileDetails where id = ?",
+      [postulation_id]
+    );
+    if (!data.length > 0) {
+      return {};
+    }
+    return data[0];
+  },
+  async FlagPostulationAsReviewed(postulation_id) {
+    const results = await connection.query(
+      `update solicitud_bolsa set status = 'Revisado' where id = ?`,
+      [postulation_id]
+    );
+    return results;
+  },
+  async FlagPostulationAsNotReviewed(postulation_id) {
+    const results = await connection.query(
+      `update solicitud_bolsa set status = 'Sin revisar' where id = ?`,
+      [postulation_id]
     );
     return results;
   },

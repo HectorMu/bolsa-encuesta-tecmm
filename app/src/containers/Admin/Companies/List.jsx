@@ -41,13 +41,11 @@ const List = () => {
     });
   };
 
-  const redirectToEditPage = (company) => {
-    navigate(`/companies/edit/${company.id}`);
-  };
+  const redirectToEditPage = (company) =>
+    navigate(`/companies/edit/${company.id}`, { state: company });
 
-  const redirectToDetailsPage = (company) => {
+  const redirectToDetailsPage = (company) =>
     navigate(`/companies/details/${company.id}`);
-  };
 
   const tableConfig = {
     buttons: [

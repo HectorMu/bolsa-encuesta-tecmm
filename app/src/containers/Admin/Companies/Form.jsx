@@ -56,6 +56,9 @@ const Form = () => {
   };
 
   useEffect(() => {
+    if (location.state !== null) {
+      setCompany(location.state);
+    }
     if (location.pathname.includes("edit")) {
       getCompanyFromFetch();
       toggleEditing(true);
@@ -63,7 +66,8 @@ const Form = () => {
     }
     toggleChangePassword(true);
     toggleEditing(false);
-  }, [location.pathname, getCompanyFromFetch]);
+  }, [location.pathname, getCompanyFromFetch, location.state]);
+
   return (
     <div>
       <FormCard title={onEditing ? "Editar empresa" : "Registrar empresa"}>

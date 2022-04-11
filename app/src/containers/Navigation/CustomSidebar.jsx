@@ -67,7 +67,7 @@ const CustomSidebar = ({
               <i className="fas fa-poll-h"></i> Encuesta
             </NavLink>
             <NavLink
-              to="/graduated/jobbank"
+              to="/graduated/jobbank/jobs"
               className="menu-item"
               onClick={() => handleSidebarToggle(!sidebarToggled)}
             >

@@ -118,4 +118,44 @@ controller.GetPostulations = async (req, res) => {
   }
 };
 
+controller.GetOnePostulation = async (req, res) => {
+  try {
+    const data = await CompanyJobs.GetOneJobPostulation(
+      req.params.postulation_id
+    );
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+controller.FlagPostulationAsReviewed = async (req, res) => {
+  try {
+    const results = await CompanyJobs.FlagPostulationAsReviewed(
+      req.params.postulation_id
+    );
+
+    await console.log(results);
+    //Si no exite ninguna fila afectada, significa que ese registro no existe.
+    if (results.affectedRows === 0) {
+      return res.status(400).json({
+        status: false,
+        statusText: "No existe esa postulacion.",
+      });
+    }
+    res.json({
+      status: true,
+      statusText: "Postulacion revisada.",
+      dbresponse: results,
+    });
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
 module.exports = controller;

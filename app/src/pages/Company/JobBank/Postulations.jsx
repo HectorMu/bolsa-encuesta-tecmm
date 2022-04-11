@@ -9,12 +9,15 @@ import Showcase from "@/containers/Company/Postulations/Showcase";
 import VacantDetails from "@/containers/Company/Postulations/VacantDetails";
 
 const Postulations = () => {
-  const [selection, setSelection] = useState({});
   const { params } = useRouterHooks();
 
-  const { hookData: postulations, refreshData } = useServiceFetchV2(
-    () => vacanciesService.GetPostulations(params.id),
-    [params.id]
+  const {
+    hookData: postulations,
+    refreshData,
+    isLoading,
+  } = useServiceFetchV2(
+    () => vacanciesService.GetPostulations(params.job_id),
+    [params.job_id]
   );
 
   return (
@@ -31,16 +34,15 @@ const Postulations = () => {
               <div className="col-md-5 col-lg-5 col-xl-5">
                 <div style={{ height: "65vh" }}>
                   <div style={{ overflowY: "scroll", height: "100%" }}>
-                    <List
-                      postulations={postulations}
-                      selection={selection}
-                      setSelection={setSelection}
-                    />
+                    <List isLoading={isLoading} postulations={postulations} />
                   </div>
                 </div>
               </div>
               <div className="col-md-7 col-lg-7 col-xl-7">
-                <Showcase selection={selection} setSelection={setSelection} />
+                <Showcase
+                  postulations={postulations}
+                  refreshData={refreshData}
+                />
               </div>
             </div>
           </div>
