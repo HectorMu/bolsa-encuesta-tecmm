@@ -42,10 +42,13 @@ const List = ({ searchTerm, jobs, isLoading }) => {
               </div>
 
               <div className="d-flex justify-content-between align-items-end h-100 mt-2">
-                <p>
+                <p style={{ fontSize: "13px" }}>
                   <span className="text-primary font-weight-bold">cv</span>{" "}
                   <span className="text-primary font-weight-bold">
-                    - {e.solicitudes}{" "}
+                    |{" "}
+                    <span className="badge badge-primary ">
+                      {e.solicitudes}
+                    </span>{" "}
                     {e.solicitudes === 1 ? "Solicitud" : "Solicitudes"}
                   </span>
                 </p>
