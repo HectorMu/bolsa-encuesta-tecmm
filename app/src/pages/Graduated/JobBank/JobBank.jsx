@@ -14,11 +14,11 @@ const JobBank = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
-    <div className="container-fluid mb-3">
+    <div className="mb-3">
       <div
         ref={animatedRef}
         data-aos="flip-right"
-        className="col-xl-10 mx-auto"
+        className="col-md-12 col-lg-12 col-xl-11 mx-auto"
       >
         <div className="input-group w-100 mb-3">
           <input
