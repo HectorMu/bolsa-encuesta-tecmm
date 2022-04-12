@@ -15,7 +15,7 @@ const GraduatedSurveyStudy = require("../models/GraduatedSurveyStudy");
 
 const pdf = require("pdf-creator-node");
 const fs = require("fs");
-const path = require("path");
+const qrCode = require("qrcode");
 
 const controller = {};
 
@@ -621,24 +621,28 @@ controller.saveSection6Answers = async (req, res) => {
 
   const html = fs.readFileSync("./src/assets/template.html", "utf8");
   const options = {
-    format: "A4",
+    format: "Letter",
     orientation: "portrait",
     border: "0mm",
     header: {
       height: "0mm",
     },
     footer: {
-      height: "20mm",
+      height: "0mm",
     },
   };
+  const QR = await qrCode.toDataURL(
+    "https://www.youtube.com/watch?v=kF-wqxZPGwA"
+  );
 
   const document = {
-    html: html,
+    html,
     data: {
       alumn_name: "xd",
       no_control: "34234",
       curp: "DAS2343",
       date: new Date().toLocaleString(),
+      QR,
     },
     path: "./src/public/graduated/cvs/xd.pdf",
     type: "",

@@ -4,9 +4,6 @@ import Showcase from "@/containers/Graduated/JobBank/Showcase";
 import useServiceFetch from "@/hooks/useServiceFetch";
 import jobsService from "@/services/Graduated/jobs.service";
 import useCleanAosAnimations from "@/hooks/useCleanAosAnimations";
-import Loading from "@/components/Global/Loading";
-import Postulations from "@/containers/Graduated/JobBank/Postulations";
-import { Outlet } from "react-router-dom";
 
 const JobBank = () => {
   const animatedRef = useCleanAosAnimations();
