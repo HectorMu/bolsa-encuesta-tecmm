@@ -5,6 +5,9 @@ const morgan = require("morgan");
 const path = require("path");
 const app = express();
 const User = require("./models/User");
+const verifyToken = require("./middlewares/verifyToken");
+
+const publicRouter = express.Router();
 
 //Initialazing database connection
 const initDatabase = require("./database");
@@ -17,6 +20,8 @@ app.use(express.json());
 
 User.InitialState();
 
+//To protect the public folder from not authorized users
+app.use(publicRouter.all("/graduated/cvs/*", verifyToken));
 app.use(express.static(path.join(__dirname, "public")));
 
 //Using the routes

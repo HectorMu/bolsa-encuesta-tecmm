@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Modal from "@/components/Global/Modal";
 import useRouterHooks from "@/hooks/useRouterHooks";
 import vacanciesService from "@/services/Company/vacancies.service";
@@ -6,11 +6,14 @@ import toast from "react-hot-toast";
 import Loading from "@/components/Global/Loading";
 import Swal from "sweetalert2";
 import helpers from "@/helpers/helpers";
+import Auth from "@/services/Auth";
 
 const ShowCase = ({ refreshData: refreshPostulations }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [postulation, setPostulation] = useState({});
   const { params, navigate, location } = useRouterHooks();
+  const curriculumRef = useRef();
+
   const handleFlagAsReviewed = async () => {
     Swal.fire({
       text: `Confirm la revision de la postulation No ${postulation.id} del usuario '${postulation.nombre_completo}'?`,
@@ -48,6 +51,16 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
     setIsLoading(false);
   }, [params.postulation_id]);
 
+  const handleGetCVPostulation = async () => {
+    if (!postulation.id) return;
+
+    const CV = await Auth.getResourcesFromPublicFolder(
+      `graduated/cvs/${postulation.curriculum}`
+    );
+    console.log(CV);
+    curriculumRef.current.src = CV;
+  };
+
   useEffect(() => {
     if (location.state !== null) {
       setPostulation(location.state);
@@ -55,6 +68,10 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
     }
     getPostulationHandler();
   }, [getPostulationHandler]);
+
+  useEffect(() => {
+    handleGetCVPostulation();
+  }, [postulation.curriculum]);
 
   return (
     <div>
@@ -111,7 +128,8 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
                   buttonCloseText="Cerrar"
                 >
                   <embed
-                    src={`http://localhost:4000/graduated/cvs/${postulation.curriculum}`}
+                    ref={curriculumRef}
+                    //src={`http://localhost:4000/graduated/cvs/${postulation.curriculum}`}
                     frameBorder="0"
                     width="100%"
                     style={{ height: "100vh", width: "100%" }}

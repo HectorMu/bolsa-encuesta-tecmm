@@ -7,6 +7,7 @@ import helpers from "@/helpers/helpers";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import Loading from "@/components/Global/Loading";
+import Auth from "@/services/Auth";
 
 const Showcase = () => {
   const [cv, setCv] = useState(undefined);
@@ -16,6 +17,7 @@ const Showcase = () => {
   const [currentPostulation, setCurrentPostulation] = useState({});
   const { params, location } = useRouterHooks();
   const fileRef = useRef();
+  const curriculumRef = useRef();
 
   const postulationRegisterHandler = async () => {
     if (cv === undefined) {
@@ -83,6 +85,15 @@ const Showcase = () => {
     setIsLoading(false);
   }, [params.id, location.state]);
 
+  const handleGetCVPostulation = async () => {
+    if (!currentPostulation.id) return;
+    const CV = await Auth.getResourcesFromPublicFolder(
+      `graduated/cvs/${currentPostulation.curriculum}`
+    );
+    console.log(CV);
+    curriculumRef.current.src = CV;
+  };
+
   useEffect(() => {
     handleGetJobFromFetch();
     getPostulationHandler();
@@ -92,6 +103,10 @@ const Showcase = () => {
   useEffect(() => {
     setCv(undefined);
   }, [selectedJob.folio]);
+
+  useEffect(() => {
+    handleGetCVPostulation();
+  }, [currentPostulation.curriculum]);
 
   return (
     <div className="p-2">
@@ -148,7 +163,7 @@ const Showcase = () => {
                     buttonCloseText="Cerrar"
                   >
                     <embed
-                      src={`http://localhost:4000/graduated/cvs/${currentPostulation.curriculum}`}
+                      ref={curriculumRef}
                       frameBorder="0"
                       width="100%"
                       style={{ height: "100vh", width: "100%" }}
