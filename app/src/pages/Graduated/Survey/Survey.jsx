@@ -5,6 +5,7 @@ import Section3 from "@/containers/Graduated/Survey/Section3";
 import Section4 from "@/containers/Graduated/Survey/Section4";
 import Section5 from "@/containers/Graduated/Survey/Section5";
 import Section6 from "@/containers/Graduated/Survey/Section6";
+import { Navigate } from "react-router-dom";
 
 const Section = () => {
   const { params } = useRouterHooks();
@@ -20,6 +21,10 @@ const Section = () => {
             {parseInt(params.section_id) === 4 ? <Section4 /> : null}
             {parseInt(params.section_id) === 5 ? <Section5 /> : null}
             {parseInt(params.section_id) === 6 ? <Section6 /> : null}
+            {parseInt(params.section_id) < 1 ||
+            parseInt(params.section_id) > 6 ? (
+              <Navigate to={"/graduated/survey"} replace={true} />
+            ) : null}
           </div>
         </div>
       </div>

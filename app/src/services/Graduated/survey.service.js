@@ -1,6 +1,18 @@
 import API from "../API";
 import helpers from "../../helpers/helpers";
 
+const checkIfSurveyIsAnswered = async () => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/check-answered`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getSurveySections = async () => {
   try {
     const response = await fetch(
@@ -118,6 +130,7 @@ const saveSection6 = async (answers) => {
   }
 };
 export default {
+  checkIfSurveyIsAnswered,
   getSectionQuestions,
   getSurveySections,
   getSurveySection,

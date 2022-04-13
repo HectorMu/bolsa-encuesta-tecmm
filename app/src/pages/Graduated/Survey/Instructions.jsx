@@ -1,7 +1,17 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import useServiceFetchV2 from "@/hooks/useServiceFetchV2";
+import surveyService from "@/services/Graduated/survey.service";
 import { Link } from "react-router-dom";
+import Loading from "@/components/Global/Loading";
+import Modal from "@/components/Global/Modal";
 
 const Survey = () => {
+  const [isAnswered, setIsAnswered] = useState(false);
+  const { hookData: answeredDetails, isLoading } = useServiceFetchV2(
+    surveyService.checkIfSurveyIsAnswered,
+    []
+  );
+
   return (
     <div className="container-fluid text-black">
       <div className="d-sm-flex align-items-center justify-content-center mb-4">
@@ -9,43 +19,95 @@ const Survey = () => {
           Cuestionario de seguimiento de egresados
         </h1>
       </div>
-      <h3 className="text-left ">Instrucciones:</h3>
-      <p>
-        Por favor lea cuidadosamente y conteste este cuestionario de la
-        siguiente manera, segun sea el caso:
-      </p>
-      <ol start={1} className="font-weight-bold text-justify instructions-list">
-        <li>
-          En el caso de preguntas cerradas, seleccione la opcion que considere
-          apropiada.
-        </li>
-        <li>
-          En las preguntas de valoracion la escala utilizada es del 1 al 5, en
-          la que 1 es igual a "muy malo" y 5 es "muy bueno"
-        </li>
-        <li>
-          En los casos de preguntas abiertas dejamos un campo de texto para que
-          escriba con mayuscula una respuesta.
-        </li>
-        <li>
-          Al final anexamos un inciso para comentarios y sugerencias, le
-          agradeceremos que escriba lo que considere prudente para mejorar
-          nuestro sistema educativo o bien los temas que, a su juicio, hayamos
-          omitido en el cuestionario
-        </li>
-      </ol>
-      <p>
-        Gracias por su gentil colaboracion, una vez este listo, presione el
-        boton para comenzar.
-      </p>
-      <div className="d-flex justify-content-center h-100 mt-4">
-        <Link
-          to={"/graduated/survey/section/1"}
-          className={"btn btn-primary btn-lg"}
-        >
-          Comenzar <i className="fas fa-arrow-right"></i>
-        </Link>
-      </div>
+
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {answeredDetails.fk_egresado ? (
+            <div className="col-lg-6 mx-auto">
+              <div className="card shadow-lg border-0 animated--grow-in">
+                <div className="card-body">
+                  <h5 className="text-center mb-4">
+                    Ya has contestado la encuesta, puedes ver tu acuse aquí
+                  </h5>
+
+                  <div className="d-flex justify-content-center">
+                    <Modal
+                      buttonClass="btn btn-primary btn-lg"
+                      buttonCloseText="Cerrar"
+                      id="acuse"
+                      title="Mi acuse"
+                      modalClass="modal-dialog modal-xl modal-dialog-scrollable"
+                      buttonText="Ver acuse"
+                    >
+                      <embed
+                        src={`http://localhost:4000/graduated/acuses/${answeredDetails.acuse}`}
+                        frameBorder="0"
+                        width="100%"
+                        style={{ height: "100vh", width: "100%" }}
+                      />
+                    </Modal>
+                  </div>
+                  <h5 className="mt-5">
+                    Si te pidieron actualizar tus respuestas puedes{" "}
+                    <Link
+                      className="btn-link btn-link-primary"
+                      to={"/graduated/survey/section/1"}
+                    >
+                      contestar la encuesta de nuevo{" "}
+                      <i className="fas fa-arrow-right fa-xs"></i>
+                    </Link>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <h3 className="text-left ">Instrucciones:</h3>
+              <p>
+                Por favor lea cuidadosamente y conteste este cuestionario de la
+                siguiente manera, segun sea el caso:
+              </p>
+              <ol
+                start={1}
+                className="font-weight-bold text-justify instructions-list"
+              >
+                <li>
+                  En el caso de preguntas cerradas, seleccione la opcion que
+                  considere apropiada.
+                </li>
+                <li>
+                  En las preguntas de valoracion la escala utilizada es del 1 al
+                  5, en la que 1 es igual a "muy malo" y 5 es "muy bueno"
+                </li>
+                <li>
+                  En los casos de preguntas abiertas dejamos un campo de texto
+                  para que escriba con mayuscula una respuesta.
+                </li>
+                <li>
+                  Al final anexamos un inciso para comentarios y sugerencias, le
+                  agradeceremos que escriba lo que considere prudente para
+                  mejorar nuestro sistema educativo o bien los temas que, a su
+                  juicio, hayamos omitido en el cuestionario
+                </li>
+              </ol>
+              <p>
+                Gracias por su gentil colaboracion, una vez este listo, presione
+                el boton para comenzar.
+              </p>
+              <div className="d-flex justify-content-center h-100 mt-4">
+                <Link
+                  to={"/graduated/survey/section/1"}
+                  className={"btn btn-primary btn-lg"}
+                >
+                  Comenzar <i className="fas fa-arrow-right"></i>
+                </Link>
+              </div>
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 };

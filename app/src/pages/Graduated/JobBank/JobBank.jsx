@@ -1,14 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import List from "@/containers/Graduated/JobBank/List";
 import Showcase from "@/containers/Graduated/JobBank/Showcase";
 import useServiceFetch from "@/hooks/useServiceFetch";
 import jobsService from "@/services/Graduated/jobs.service";
 import useCleanAosAnimations from "@/hooks/useCleanAosAnimations";
+import profileService from "@/services/Graduated/profile.service";
+import useRouterHooks from "@/hooks/useRouterHooks";
+import toast from "react-hot-toast";
 
 const JobBank = () => {
   const animatedRef = useCleanAosAnimations();
+  const { navigate } = useRouterHooks();
   const { hookData, isLoading } = useServiceFetch(jobsService.getJobs);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const verifyUserProfileHandler = async () => {
+    const fetchedProfile = await profileService.getProfile();
+    if (!fetchedProfile.id) {
+      navigate("/profile");
+      return toast(
+        "Antes de empezar a ver trabajos completa la informacion de tu perfil."
+      );
+    }
+  };
+
+  useEffect(() => {
+    verifyUserProfileHandler();
+  }, []);
 
   return (
     <div className="mb-3">
@@ -20,7 +38,7 @@ const JobBank = () => {
         <div className="input-group w-100 mb-3">
           <input
             type="text"
-            className="form-control bg-light border-0 "
+            className="form-control bg-light"
             placeholder="Buscar trabajos..."
             aria-label="Search"
             aria-describedby="basic-addon2"

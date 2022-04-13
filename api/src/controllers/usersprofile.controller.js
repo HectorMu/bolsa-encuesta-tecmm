@@ -32,9 +32,10 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
 
     if (!profileExists.id) {
       //Verificamos duplicidad de campos
-      const correoExists = await helpers.isDuplicated(
+      const correoExists = await helpers.isDuplicatedOnUpdate(
         "usuarios",
         "correo",
+        req.user.id,
         req.body.correo
       );
       if (correoExists) {
@@ -83,6 +84,7 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
         fk_usuario: req.user.id,
         ...rest,
       };
+
       await Graduated.Create(profileData);
       return res.json({
         status: true,

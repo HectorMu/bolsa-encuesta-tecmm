@@ -6,6 +6,13 @@ const isGraduated = require("../middlewares/isGraduated");
 const graduatedSurveyController = require("../controllers/graduated.survey.controller");
 
 router.get(
+  "/graduated/survey/check-answered",
+  verifyToken,
+  isGraduated,
+  graduatedSurveyController.checkIfSurveyIsAnswered
+);
+
+router.get(
   "/graduated/survey/sections",
   verifyToken,
   isGraduated,

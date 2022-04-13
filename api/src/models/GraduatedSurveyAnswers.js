@@ -50,6 +50,23 @@ const Template = {
     );
     return results;
   },
+  async getUserSurveyStatus(fk_egresado) {
+    const data = await connection.query(
+      "select * from encuesta_egresado_contestada where fk_egresado = ?",
+      [fk_egresado]
+    );
+    if (!data.length > 0) {
+      return {};
+    }
+    return data[0];
+  },
+  async SurveyAnswered(fk_egresado, fecha, acuse) {
+    const results = await connection.query(
+      "insert into encuesta_egresado_contestada set ? ",
+      [{ fk_egresado, fecha, acuse }]
+    );
+    return results;
+  },
 };
 
 module.exports = Template;

@@ -27,7 +27,10 @@ const SessionDropdown = ({ user, setUser }) => {
           <span className="mr-2 d-none d-lg-inline text-white small">
             {user.correo}
           </span>
-          <i className="fas fa-user text-white"></i>
+          <img
+            className="img-profile rounded-circle"
+            src={`https://ui-avatars.com/api/?name=${user.correo}`}
+          />
         </a>
         <div
           className="dropdown-menu dropdown-menu-right shadow animated--grow-in"

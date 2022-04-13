@@ -22,12 +22,13 @@ const index = () => {
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
 
   const saveAndSkipToNextSection = async () => {
+    const tLoading = toast.loading("Guardando resultados y generando acuse...");
     const results = await surveyService.saveSection6(answers);
     if (!results.status) {
-      return toast.error(results.statusText);
+      return toast.error(results.statusText, { id: tLoading });
     }
     navigate("/graduated/survey");
-    toast.success("Gracias por contestar la encuesta!");
+    toast.success("Gracias por contestar la encuesta!", { id: tLoading });
   };
 
   useEffect(() => {

@@ -20,6 +20,20 @@ const qrCode = require("qrcode");
 
 const controller = {};
 
+controller.checkIfSurveyIsAnswered = async (req, res) => {
+  try {
+    const data = await GraduatedSurveyAnswers.getUserSurveyStatus(req.user.id);
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
 controller.getAllSections = async (req, res) => {
   try {
     const data = await GraduatedSurveySections.List();
@@ -620,52 +634,68 @@ controller.saveSection6Answers = async (req, res) => {
   const SECTION = 6;
   const QUESTIONS = { OPINION_RECOMENDACION: 17 };
 
-  const html = fs.readFileSync("./src/assets/template.html", "utf8");
-  const options = {
-    format: "Letter",
-    orientation: "portrait",
-    border: "0mm",
-    header: {
-      height: "0mm",
-    },
-    footer: {
-      height: "0mm",
-    },
-  };
-
-  const graduatedData = await GraduatedProfile.FindOne(req.user.id);
-  const QR = await qrCode.toDataURL("http://192.168.1.77:3000");
-
-  const document = {
-    html,
-    data: {
-      municipality: "Lagos de Moreno",
-      state: "Jal",
-      alumn_name: graduatedData.nombre_completo,
-      no_control: graduatedData.no_control,
-      curp: graduatedData.curp,
-      date: new Date().toLocaleDateString("es", {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }),
-      QR,
-    },
-    path: `./src/public/graduated/acuses/acuse_${req.user.id}-${graduatedData.no_control}.pdf`,
-    type: "",
-  };
-
-  pdf
-    .create(document, options)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
   try {
+    const alreadyContested = await GraduatedSurveyAnswers.getUserSurveyStatus(
+      req.user.id
+    );
+    if (!alreadyContested.fk_egresado) {
+      const html = fs.readFileSync("./src/assets/template.html", "utf8");
+      const options = {
+        format: "Letter",
+        orientation: "portrait",
+        border: "0mm",
+        header: {
+          height: "0mm",
+        },
+        footer: {
+          height: "0mm",
+        },
+      };
+
+      const graduatedData = await GraduatedProfile.FindOne(req.user.id);
+      const QR = await qrCode.toDataURL("http://192.168.1.77:3000");
+
+      const document = {
+        html,
+        data: {
+          municipality: "Lagos de Moreno",
+          state: "Jal",
+          alumn_name: graduatedData.nombre_completo,
+          no_control: graduatedData.no_control,
+          curp: graduatedData.curp,
+          date: new Date().toLocaleDateString("es", {
+            weekday: "short",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          }),
+          QR,
+        },
+        path: `./src/public/graduated/acuses/acuse_${req.user.id}-${graduatedData.no_control}.pdf`,
+        type: "",
+      };
+
+      pdf
+        .create(document, options)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.error(error);
+          return res.json({
+            status: false,
+            statusText: "Algo fue mal, contácta al area de sistemas.",
+            error,
+          });
+        });
+
+      await GraduatedSurveyAnswers.SurveyAnswered(
+        req.user.id,
+        new Date().toLocaleString(),
+        `acuse_${req.user.id}-${graduatedData.no_control}.pdf`
+      );
+    }
+
     await GraduatedSurveyAnswers.CreateOrUpdateIfExists({
       fk_pregunta: QUESTIONS.OPINION_RECOMENDACION,
       fk_seccion: SECTION,

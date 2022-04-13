@@ -72,7 +72,8 @@ create table perfil_egresado(
 create table encuesta_egresado_contestada(
     fk_egresado int PRIMARY key AUTO_INCREMENT,
     fecha varchar(50),
-    acuse varchar(400)
+    acuse varchar(400),
+    foreign key (fk_egresado) references usuarios (id)
 );
 
 CREATE TABLE seccion(
