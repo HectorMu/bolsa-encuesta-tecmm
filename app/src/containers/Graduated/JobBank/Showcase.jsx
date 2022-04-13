@@ -56,6 +56,7 @@ const Showcase = () => {
   };
 
   const getPostulationHandler = useCallback(async () => {
+    if (!params.id) return;
     setLoadingPostulation(true);
     const postulationFetched = await jobsService.getPostulation(params.id);
     if (!postulationFetched.id) {
@@ -70,11 +71,13 @@ const Showcase = () => {
   }, [params.id]);
 
   const registerPostVisit = useCallback(async () => {
+    if (!params.id) return;
     await jobsService.registerJobVisit(params.id);
   }, [params.id]);
 
   const handleGetJobFromFetch = useCallback(async () => {
     if (!params.id) return;
+
     if (location.state !== null) {
       setSelectedJob(location.state);
       return;

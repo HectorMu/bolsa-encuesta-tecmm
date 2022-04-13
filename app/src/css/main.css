@@ -487,9 +487,6 @@ input[type="radio"]:checked:after {
   box-shadow: none !important;
 }
 
-.form-control {
-  border-color: var(--purple-light) !important;
-}
 .form-control:focus {
   border-color: var(--purple);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
