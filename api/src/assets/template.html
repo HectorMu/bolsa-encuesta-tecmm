@@ -19,20 +19,22 @@
         src="http:localhost:4000/images/Superior.png"
         alt=""
       />
-      <h3 style="text-align: end; margin-right: 200px">{{date}}</h3>
+      <h3 style="text-align: end; margin-right: 120px; font-weight: lighter">
+        {{municipality}}, {{state}}, el {{date}}
+      </h3>
 
       <div style="text-align: center">
-        <h1 style="font-weight: bolder">CONSTANCIA DE ENCUESTA DE EGRESO</h1>
+        <h1 style="font-weight: bold">CONSTANCIA DE ENCUESTA DE EGRESO</h1>
         <h2 style="font-weight: lighter">
           Por medio de esta constancia hago constatar que el alumno
         </h2>
         <h2>{{alumn_name}}</h2>
-        <h2>Numero de control</h2>
+        <h2 style="font-weight: lighter">Numero de control</h2>
         <h2>{{no_control}}</h2>
-        <h1>CURP</h1>
+        <h2 style="font-weight: lighter">CURP</h2>
         <h2>{{curp}}</h2>
-        <h2>
-          Realizo la contestacion de la encuesta de seguimiento de alumnos
+        <h2 style="font-weight: lighter">
+          Realizó la contestación de la encuesta de seguimiento de alumnos
         </h2>
         <img height="200px" src="{{QR}}" alt="" style="padding-bottom: 93px" />
       </div>

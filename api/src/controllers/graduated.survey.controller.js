@@ -12,6 +12,7 @@ const SurveyS5P2Details = require("../models/GraduatedSurveyS5P2Details");
 //Section2 table models
 const GraduatedSurveyWorking = require("../models/GraduatedSurveyWorking");
 const GraduatedSurveyStudy = require("../models/GraduatedSurveyStudy");
+const GraduatedProfile = require("../models/GraduatedProfile");
 
 const pdf = require("pdf-creator-node");
 const fs = require("fs");
@@ -631,20 +632,27 @@ controller.saveSection6Answers = async (req, res) => {
       height: "0mm",
     },
   };
-  const QR = await qrCode.toDataURL(
-    "https://www.youtube.com/watch?v=kF-wqxZPGwA"
-  );
+
+  const graduatedData = await GraduatedProfile.FindOne(req.user.id);
+  const QR = await qrCode.toDataURL("http://192.168.1.77:3000");
 
   const document = {
     html,
     data: {
-      alumn_name: "xd",
-      no_control: "34234",
-      curp: "DAS2343",
-      date: new Date().toLocaleString(),
+      municipality: "Lagos de Moreno",
+      state: "Jal",
+      alumn_name: graduatedData.nombre_completo,
+      no_control: graduatedData.no_control,
+      curp: graduatedData.curp,
+      date: new Date().toLocaleDateString("es", {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }),
       QR,
     },
-    path: "./src/public/graduated/cvs/xd.pdf",
+    path: `./src/public/graduated/acuses/acuse_${req.user.id}-${graduatedData.no_control}.pdf`,
     type: "",
   };
 
