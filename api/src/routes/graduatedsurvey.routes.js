@@ -13,6 +13,10 @@ router.get(
 );
 
 router.get(
+  "/graduated/survey/verify-qr-token/:token",
+  graduatedSurveyController.verifySurveyAnsweredToken
+);
+router.get(
   "/graduated/survey/sections",
   verifyToken,
   isGraduated,

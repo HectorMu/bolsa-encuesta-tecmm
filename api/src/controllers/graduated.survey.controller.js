@@ -17,6 +17,7 @@ const GraduatedProfile = require("../models/GraduatedProfile");
 const pdf = require("pdf-creator-node");
 const fs = require("fs");
 const qrCode = require("qrcode");
+const jwt = require("jsonwebtoken");
 
 const controller = {};
 
@@ -652,8 +653,17 @@ controller.saveSection6Answers = async (req, res) => {
         },
       };
 
+      const tokenPayload = {
+        graduated_id: req.user.id,
+      };
+      const token = jwt.sign(
+        tokenPayload,
+        process.env.VERIFY_GRADUATED_SURVEY_TOKEN_SECRET
+      );
       const graduatedData = await GraduatedProfile.FindOne(req.user.id);
-      const QR = await qrCode.toDataURL("http://192.168.1.77:3000");
+      const QR = await qrCode.toDataURL(
+        `http://192.168.1.77:3000/survey/verify/${token}/`
+      );
 
       const document = {
         html,
@@ -715,5 +725,67 @@ controller.saveSection6Answers = async (req, res) => {
     });
   }
 };
+
+controller.verifySurveyAnsweredToken = async (req, res) => {
+  const { token } = req.params;
+
+  const decodedToken = jwt.verify(
+    token,
+    process.env.VERIFY_GRADUATED_SURVEY_TOKEN_SECRET,
+    async (err, decoded) => {
+      if (err) {
+        if (err) {
+          return res.json({
+            status: false,
+            statusText: "Enlace malformado.",
+          });
+        }
+      }
+
+      try {
+        const { nombre_completo, curp, no_control } =
+          await GraduatedProfile.FindOne(decoded.graduated_id);
+
+        if (!nombre_completo) {
+          return res.json({
+            status: false,
+            statusText: "El egresado no tiene un perfil en el sistema.",
+          });
+        }
+
+        const surveyContested =
+          await GraduatedSurveyAnswers.getUserSurveyStatus(
+            decoded.graduated_id
+          );
+
+        if (!surveyContested.fk_egresado) {
+          const responsePayload = {
+            nombre_completo,
+            curp,
+            no_control,
+          };
+          return res.json({ status: false, responsePayload });
+        }
+
+        const responsePayload = {
+          nombre_completo,
+          curp,
+          no_control,
+          fecha: surveyContested.fecha,
+        };
+        return res.json({ status: true, responsePayload });
+      } catch (error) {
+        console.log("Error" + error);
+        res.json({
+          status: false,
+          statusText: "Algo fue mal, contácta al area de sistemas.",
+          error,
+        });
+      }
+    }
+  );
+};
+
+controller.get;
 
 module.exports = controller;

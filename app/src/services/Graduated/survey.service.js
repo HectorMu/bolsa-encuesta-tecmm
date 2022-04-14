@@ -1,6 +1,17 @@
 import API from "../API";
 import helpers from "../../helpers/helpers";
 
+const verifyQRToken = async (token) => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/verify-qr-token/${token}`
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const checkIfSurveyIsAnswered = async () => {
   try {
     const response = await fetch(
@@ -130,6 +141,7 @@ const saveSection6 = async (answers) => {
   }
 };
 export default {
+  verifyQRToken,
   checkIfSurveyIsAnswered,
   getSectionQuestions,
   getSurveySections,
