@@ -61,80 +61,106 @@ controller.Login = async (req, res) => {
 controller.sendRecoverEmail = async (req, res) => {
   const { email } = req.body;
   const results = await connection.query(
-    "select * from users where email = ?",
+    "select * from usuarios where correo = ?",
     [email]
   );
   if (results.length > 0) {
-    nodeMailer.Send(req, res);
+    nodeMailer.SendRecover(req, res);
   } else {
     res.status(200).json({
       status: false,
       statusText:
-        "Provided email invalid, no existing account with this email.",
+        "No existe una cuenta con este correo electrónico registrado.",
     });
   }
 };
 controller.VerifyRecoverEmailToken = (req, res) => {
   const { ResetToken } = req.params;
+
+  const decodedResetToken = jwt.verify(
+    ResetToken,
+    process.env.EMAIL_TOKEN_SECRET,
+    (err, decoded) => {
+      if (err) {
+        if (err.name === "TokenExpiredError") {
+          return res.json({
+            status: false,
+            statusText: "El enlace ha expirado.",
+          });
+        }
+        if (err) {
+          return res.json({
+            status: false,
+            statusText: "Enlace malformado.",
+          });
+        }
+      } else {
+        return res
+          .status(200)
+          .json({ status: true, statusText: "Valid token" });
+      }
+      return decoded;
+    }
+  );
+};
+
+controller.ResetPassword = async (req, res) => {
+  const { ResetToken } = req.params;
+  const { password, confirm } = req.body;
+
+  if (!password.length > 8) {
+    return res.json({
+      status: false,
+      statusText: "La contraseña debe tener minimo 8 caracteres de largo.",
+    });
+  }
+  if (password !== confirm) {
+    return res.json({
+      status: false,
+      statusText: "Las contraseñas no coinciden.",
+    });
+  }
+
   try {
     const decodedResetToken = jwt.verify(
       ResetToken,
       process.env.EMAIL_TOKEN_SECRET,
       (err, decoded) => {
         if (err) {
-          err = {
-            name: "TokenExpiredError",
-            message: "jwt expired",
-            status: false,
-          };
-          return;
-        } else {
-          return {
-            status: true,
-            decoded,
-          };
+          if (err.name === "TokenExpiredError") {
+            return res.json({
+              status: false,
+              statusText: "El enlace ha expirado.",
+            });
+          }
+          if (err) {
+            return res.json({
+              status: false,
+              statusText: "Enlace malformado.",
+            });
+          }
         }
+        return decoded;
       }
-    );
-
-    if (!decodedResetToken.status)
-      return res
-        .status(200)
-        .json({ status: false, statusText: "Invalid token, token expired" });
-
-    res.status(200).json({ status: true, statusText: "Valid token" });
-  } catch (error) {
-    res.status(200).json({
-      status: false,
-      statusText: "Invalid token, token malformed or expired",
-    });
-  }
-};
-
-controller.ResetPassword = async (req, res) => {
-  const { ResetToken } = req.params;
-  const { password } = req.body;
-
-  try {
-    const decodedResetToken = jwt.verify(
-      ResetToken,
-      process.env.EMAIL_TOKEN_SECRET
     );
 
     const { id } = decodedResetToken;
 
     const hashedPassword = await helpers.encryptPassword(password);
 
-    await connection.query("update users set password = ? where id = ?", [
+    await connection.query("update usuarios set clave = ? where id = ?", [
       hashedPassword,
       id,
     ]);
 
-    res.status(200).json({ status: true, statusText: "Password changed" });
+    res
+      .status(200)
+      .json({ status: true, statusText: "Contraseña cambiada correctamente." });
   } catch (error) {
-    res.status(200).json({
+    res.json({
       status: false,
-      statusText: "Something wen't wrong, try again later.",
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
     });
   }
 };

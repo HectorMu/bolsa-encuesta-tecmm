@@ -4,15 +4,16 @@ module.exports = (link) => {
         <div class="container" style="font-family: arial;">
                              <div class="col-md-12">
                                  <div class="box" style="border: 1px solid #e9ecef;padding: 5px;">
-                                      <h1><Strong>¡Hi there!</Strong></h1> 
+                                      <h1><Strong>¡Hola!</Strong></h1> 
                                       <p style="font-size: 20px;">
-                                          You are receiving this email because you did a password reset request for your account.
-                                          This link will be active only by 15 minutes counting since the request was made.
+                                          Estas recibiendo este correo electrónico por que solicitaste un cambio de contraseña para tu cuenta.
+                                          Este enlance solo estara activo 15 minutos despues de que el cambio de contraseña ha sido solicitado.
+                                      
                                          <br>
                                          <br>
                                          <center> 
                                              <a  style="text-decoration: none;color: 
-                                             #fff;background-color: gray;border-color: gray;
+                                             #fff;background-color: #9317c2;border-color: #9317c2;
                                              display: inline-block;
                                              margin-bottom: 0;font-weight: 400;
                                              text-align: center;white-space: nowrap;
@@ -22,15 +23,14 @@ module.exports = (link) => {
                                              padding: 6px 12px;font-size: 20px;line-height: 1.42857143;
                                              border-radius: 4px;-webkit-user-select: none;-moz-user-select: none;
                                              -ms-user-select: none;user-select: none;"  
-                                             style="font-size: 20px;" href="${link}" >Reset password</a>
+                                             style="font-size: 20px;" href="${link}" >Cambiar contraseña</a>
                                          </center>
                                          <br>
                                          <br>
                                              <p style="font-size: 20px;">
-                                                If you didn't request a password change, you can ignore this email.
-                                                 
+                                             Si tu no solicitaste un cambio de contraseña puedes ignorar este correo electrónico                                       
                                                  <br>
-                                                 Greetings, Héctor Muñoz, Node Notes CEO.
+                                                Instituto Tecnológico Superior José Mario Molina Pasquel y Henríquez
                                              </p>
                                       </p>  
                                  </div>
