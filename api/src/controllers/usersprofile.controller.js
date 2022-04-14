@@ -158,4 +158,167 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
   }
 };
 
+controller.getCompanyProfile = async (req, res) => {
+  try {
+    const data = await Company.FindOne(req.user.id);
+    res.json(data);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.saveOrUpdateCompanyProfile = async (req, res) => {
+  const { correo, clave, ...rest } = req.body;
+
+  const basicData = {
+    correo,
+    clave,
+    fk_rol: 3,
+  };
+  try {
+    const profileExists = await Company.FindOne(req.user.id);
+
+    if (!profileExists.nombre_comercial) {
+      //Verificamos duplicidad de campos
+      const correoExists = await helpers.isDuplicatedOnUpdate(
+        "usuarios",
+        "correo",
+        req.user.id,
+        basicData.correo
+      );
+
+      if (correoExists) {
+        return res.json({
+          status: false,
+          statusText: "Este correo electronico ya esta registrado.",
+        });
+      }
+
+      //Si recibimos una clave, significa que se quiere editar, entonces la hasheamos
+      if (basicData.clave !== null && basicData.clave !== undefined) {
+        basicData.clave = await helpers.encryptPassword(basicData.clave);
+      } else {
+        //Si no recibimos una clave, entonces eliminamos la propiedad del objeto
+        //Para no mutar la clave actual guardada en la base de datos
+        delete basicData.clave;
+      }
+      await User.Update(basicData, req.user.id);
+      const profileData = {
+        fk_usuario: req.user.id,
+        ...rest,
+      };
+      await Company.Create(profileData);
+      return res.json({
+        status: true,
+        statusText: "Perfil creado correctamente.",
+      });
+    }
+
+    //Validamos duplicacion de campos
+    const correoExists = await helpers.isDuplicatedOnUpdate(
+      "usuarios",
+      "correo",
+      req.user.id,
+      basicData.correo
+    );
+
+    if (correoExists) {
+      return res.json({
+        status: false,
+        statusText: "Este correo electronico ya esta registrado.",
+      });
+    }
+
+    //Si recibimos una clave, significa que se quiere editar, entonces la hasheamos
+    if (basicData.clave !== null && basicData.clave !== undefined) {
+      basicData.clave = await helpers.encryptPassword(basicData.clave);
+    } else {
+      //Si no recibimos una clave, entonces eliminamos la propiedad del objeto
+      //Para no mutar la clave actual guardada en la base de datos
+      delete basicData.clave;
+    }
+
+    await User.Update(basicData, req.user.id);
+    await Company.Update(rest, req.user.id);
+    return res.json({
+      status: true,
+      statusText: "Perfil editado correctamente.",
+    });
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.getUserProfile = async (req, res) => {
+  try {
+    const data = await User.FindOne(req.user.id);
+    res.json(data);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.saveOrUpdateUserProfile = async (req, res) => {
+  const { correo, clave } = req.body;
+
+  const basicData = {
+    correo,
+    clave,
+    fk_rol: 1,
+  };
+  try {
+    //Validamos duplicacion de campos
+    const correoExists = await helpers.isDuplicatedOnUpdate(
+      "usuarios",
+      "correo",
+      req.user.id,
+      basicData.correo
+    );
+
+    if (correoExists) {
+      return res.json({
+        status: false,
+        statusText: "Este correo electronico ya esta registrado.",
+      });
+    }
+
+    //Si recibimos una clave, significa que se quiere editar, entonces la hasheamos
+    if (basicData.clave !== null && basicData.clave !== undefined) {
+      basicData.clave = await helpers.encryptPassword(basicData.clave);
+    } else {
+      //Si no recibimos una clave, entonces eliminamos la propiedad del objeto
+      //Para no mutar la clave actual guardada en la base de datos
+      delete basicData.clave;
+    }
+
+    await User.Update(basicData, req.user.id);
+    return res.json({
+      status: true,
+      statusText: "Perfil editado correctamente.",
+    });
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
 module.exports = controller;

@@ -3,6 +3,7 @@ const router = express.Router();
 //middlewares
 const verifyToken = require("../middlewares/verifyToken");
 const validations = require("../middlewares/validations/users.validations");
+const companiesValidations = require("../middlewares/validations/company.validations");
 const isAdmin = require("../middlewares/isAdmin");
 
 //contoller import
@@ -13,6 +14,7 @@ router.post(
   verifyToken,
   isAdmin,
   validations,
+  companiesValidations,
   controller.Save
 );
 router.get("/users/company/getall", verifyToken, isAdmin, controller.GetAll);
@@ -27,6 +29,7 @@ router.put(
   verifyToken,
   isAdmin,
   validations,
+  companiesValidations,
   controller.Update
 );
 router.delete(

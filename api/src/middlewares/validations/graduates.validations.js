@@ -46,29 +46,37 @@ const validations = (req, res, next) => {
   }
 
   if (typeof req.body.cp !== "number") {
-    return res.status(400).json({
-      status: false,
-      statusText: "El codigo postal no es valido.",
-    });
+    if (isNaN(req.body.cp)) {
+      return res.status(400).json({
+        status: false,
+        statusText: "El codigo postal no es valido.",
+      });
+    }
   }
 
   if (typeof req.body.numero_casa !== "number") {
-    return res.status(400).json({
-      status: false,
-      statusText: "El numero de casa no es valido.",
-    });
+    if (isNaN(req.body.numero_casa)) {
+      return res.status(400).json({
+        status: false,
+        statusText: "El numero de casa no es valido.",
+      });
+    }
   }
   if (typeof req.body.tel_casa !== "number") {
-    return res.status(400).json({
-      status: false,
-      statusText: "El telefono de casa debe ser un numero valido.",
-    });
+    if (isNaN(req.body.tel_casa)) {
+      return res.status(400).json({
+        status: false,
+        statusText: "El telefono de casa debe ser un numero valido.",
+      });
+    }
   }
   if (typeof req.body.telefono !== "number") {
-    return res.status(400).json({
-      status: false,
-      statusText: "El telefono de debe ser un numero valido.",
-    });
+    if (isNaN(req.body.telefono)) {
+      return res.status(400).json({
+        status: false,
+        statusText: "El telefono de debe ser un numero valido.",
+      });
+    }
   }
 
   next();
