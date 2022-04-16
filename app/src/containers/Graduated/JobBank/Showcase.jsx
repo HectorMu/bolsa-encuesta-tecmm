@@ -166,7 +166,7 @@ const Showcase = () => {
                 </div>
               ) : (
                 <div className="d-flex flex-column align-items-center justify-content-center mt-5">
-                  {cvFile !== undefined && (
+                  {cvFile !== null && (
                     <div
                       data-aos="flip-left"
                       className="d-flex flex-column align-items-center justify-content-center "
@@ -193,7 +193,7 @@ const Showcase = () => {
                     onClick={postulationRegisterHandler}
                     className="btn btn-primary btn-lg mt-3"
                   >
-                    {cvFile !== undefined ? "Enviar CV" : "Postularme"}
+                    {cvFile !== null ? "Enviar CV" : "Postularme"}
                   </button>
                   <p className="mt-4">
                     Nota: El curriculum debe estar en formato PDF
