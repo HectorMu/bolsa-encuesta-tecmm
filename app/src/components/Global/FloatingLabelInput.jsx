@@ -9,11 +9,13 @@ const FloatingLabelInput = ({
   focusAction = null,
   list = null,
   disabled = false,
+  name,
 }) => {
   return (
     <div className="formgroup__animated mb-3">
       <input
         type={type}
+        name={name}
         id={inputId}
         className={`input__animated ${setClass}`}
         placeholder=" "

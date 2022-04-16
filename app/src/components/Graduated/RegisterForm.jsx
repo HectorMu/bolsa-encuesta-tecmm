@@ -88,7 +88,8 @@ const RegisterForm = ({
                 inputId="txtCorreo"
                 placeholder="Correo"
                 type="email"
-                setValue={(e) => handleEntriesChange("correo", e.target.value)}
+                name={"correo"}
+                setValue={handleEntriesChange}
                 value={graduated.correo}
               />
             </div>
@@ -103,9 +104,8 @@ const RegisterForm = ({
                     inputId="txtClave"
                     placeholder="Clave"
                     type="password"
-                    setValue={(e) =>
-                      handleEntriesChange("clave", e.target.value)
-                    }
+                    setValue={handleEntriesChange}
+                    name={"clave"}
                     value={graduated.clave}
                   />
                 </div>
@@ -117,9 +117,8 @@ const RegisterForm = ({
                     inputId="txtClaveCon"
                     placeholder="Confirmar"
                     type="password"
-                    setValue={(e) =>
-                      handleEntriesChange("confirmar", e.target.value)
-                    }
+                    setValue={handleEntriesChange}
+                    name={"confirmar"}
                     value={graduated.confirmar}
                   />
                 </div>
@@ -131,9 +130,8 @@ const RegisterForm = ({
                 inputId="txtncontrol"
                 placeholder="Numero de control"
                 type="number"
-                setValue={(e) =>
-                  handleEntriesChange("no_control", parseInt(e.target.value))
-                }
+                setValue={handleEntriesChange}
+                name={"no_control"}
                 value={graduated.no_control}
               />
             </div>
@@ -142,9 +140,8 @@ const RegisterForm = ({
                 inputId="txtNombre"
                 placeholder="Nombre completo"
                 type="text"
-                setValue={(e) =>
-                  handleEntriesChange("nombre_completo", e.target.value)
-                }
+                setValue={handleEntriesChange}
+                name={"nombre_completo"}
                 value={graduated.nombre_completo}
               />
             </div>
@@ -153,9 +150,8 @@ const RegisterForm = ({
                 inputId="txtNombre"
                 placeholder="Fecha de nacimiento"
                 type="date"
-                setValue={(e) =>
-                  handleEntriesChange("fechaNacimiento", e.target.value)
-                }
+                setValue={handleEntriesChange}
+                name={"fechaNacimiento"}
                 value={graduated.fechaNacimiento}
               />
             </div>
@@ -164,7 +160,8 @@ const RegisterForm = ({
                 inputId="txtCurp"
                 placeholder="CURP"
                 type="text"
-                setValue={(e) => handleEntriesChange("curp", e.target.value)}
+                setValue={handleEntriesChange}
+                name={"curp"}
                 value={graduated.curp}
               />
             </div>
@@ -172,7 +169,8 @@ const RegisterForm = ({
               <select
                 className="form-control form-select mb-3"
                 style={{ height: "47px" }}
-                onChange={(e) => handleEntriesChange("sexo", e.target.value)}
+                onChange={handleEntriesChange}
+                name="sexo"
                 value={graduated.sexo}
               >
                 <option value="">Sexo (Seleccione una opcion)</option>
@@ -185,9 +183,8 @@ const RegisterForm = ({
               <select
                 className="form-control form-select"
                 style={{ height: "47px" }}
-                onChange={(e) =>
-                  handleEntriesChange("estado_civil", e.target.value)
-                }
+                onChange={handleEntriesChange}
+                name={"estado_civil"}
                 value={graduated.estado_civil}
               >
                 <option value={""}>Estado civil (Seleccione una opcion)</option>
@@ -210,7 +207,8 @@ const RegisterForm = ({
                 inputId="txtEstado"
                 placeholder="Estado"
                 type="text"
-                setValue={(e) => handleEntriesChange("estado", e.target.value)}
+                setValue={handleEntriesChange}
+                name={"estado"}
                 value={graduated.estado}
               />
             </div>
@@ -219,9 +217,8 @@ const RegisterForm = ({
                 inputId="txtMunicipio"
                 placeholder="Municipio"
                 type="text"
-                setValue={(e) =>
-                  handleEntriesChange("municipio", e.target.value)
-                }
+                setValue={handleEntriesChange}
+                name={"municipio"}
                 value={graduated.municipio}
               />
             </div>
@@ -230,7 +227,8 @@ const RegisterForm = ({
                 inputId="txtCalle"
                 placeholder="Calle"
                 type="text"
-                setValue={(e) => handleEntriesChange("calle", e.target.value)}
+                setValue={handleEntriesChange}
+                name={"calle"}
                 value={graduated.calle}
               />
             </div>
@@ -239,9 +237,8 @@ const RegisterForm = ({
                 inputId="txtNumero"
                 placeholder="Numero de casa"
                 type="number"
-                setValue={(e) =>
-                  handleEntriesChange("numero_casa", parseInt(e.target.value))
-                }
+                setValue={handleEntriesChange}
+                name={"numero_casa"}
                 value={graduated.numero_casa}
               />
             </div>
@@ -250,7 +247,8 @@ const RegisterForm = ({
                 inputId="txtColonia"
                 placeholder="Colonia"
                 type="text"
-                setValue={(e) => handleEntriesChange("colonia", e.target.value)}
+                setValue={handleEntriesChange}
+                name={"colonia"}
                 value={graduated.colonia}
               />
             </div>
@@ -259,9 +257,8 @@ const RegisterForm = ({
                 inputId="txtCP"
                 placeholder="Codigo Postal"
                 type="number"
-                setValue={(e) =>
-                  handleEntriesChange("cp", parseInt(e.target.value))
-                }
+                setValue={handleEntriesChange}
+                name={"cp"}
                 value={graduated.cp}
               />
             </div>
@@ -282,9 +279,8 @@ const RegisterForm = ({
                 inputId="txtTelefono"
                 placeholder="Telefono"
                 type="number"
-                setValue={(e) =>
-                  handleEntriesChange("telefono", parseInt(e.target.value))
-                }
+                setValue={handleEntriesChange}
+                name={"telefono"}
                 value={graduated.telefono}
               />
             </div>
@@ -293,9 +289,8 @@ const RegisterForm = ({
                 inputId="txtTelefonoC"
                 placeholder="Telefono casa"
                 type="number"
-                setValue={(e) =>
-                  handleEntriesChange("tel_casa", parseInt(e.target.value))
-                }
+                setValue={handleEntriesChange}
+                name={"tel_casa"}
                 value={graduated.tel_casa}
               />
             </div>
@@ -314,7 +309,8 @@ const RegisterForm = ({
               <select
                 className="form-control form-select mb-3"
                 style={{ height: "47px" }}
-                onChange={(e) => handleEntriesChange("carrera", e.target.value)}
+                onChange={handleEntriesChange}
+                name={"carrera"}
                 value={graduated.carrera}
               >
                 <option value={""}>Carrera (Seleccione una opcion)</option>
@@ -330,9 +326,8 @@ const RegisterForm = ({
                 inputId="txtEgreso"
                 placeholder="Fecha de egreso"
                 type="date"
-                setValue={(e) =>
-                  handleEntriesChange("fecha_egreso", e.target.value)
-                }
+                setValue={handleEntriesChange}
+                name={"fecha_egreso"}
                 value={graduated.fecha_egreso}
               />
             </div>
@@ -346,9 +341,8 @@ const RegisterForm = ({
                 inputId="txtIdioma"
                 placeholder="Ingles"
                 type="number"
-                setValue={(e) =>
-                  handleIdiomaExtranjeroChange("Ingles", e.target.value)
-                }
+                setValue={handleIdiomaExtranjeroChange}
+                name="Ingles"
                 value={idiomaExtranjero?.Ingles}
                 ranges={{ min: 0, max: 100 }}
               />
@@ -358,9 +352,8 @@ const RegisterForm = ({
                 inputId="txtIdiomaOtro"
                 placeholder="Otro idioma"
                 type="number"
-                setValue={(e) =>
-                  handleIdiomaExtranjeroChange("Otro", e.target.value)
-                }
+                setValue={handleIdiomaExtranjeroChange}
+                name={"Otro"}
                 value={idiomaExtranjero?.Otro}
               />
             </div>
@@ -369,12 +362,8 @@ const RegisterForm = ({
                 inputId="txtPaquetes"
                 placeholder="Paquetes computacionales"
                 type="text"
-                setValue={(e) =>
-                  handleEntriesChange(
-                    "paquetes_computacionales",
-                    e.target.value
-                  )
-                }
+                setValue={handleEntriesChange}
+                name={"paquetes_computacionales"}
                 value={graduated.paquetes_computacionales}
               />
             </div>
@@ -382,9 +371,8 @@ const RegisterForm = ({
               <select
                 className="form-control form-select"
                 style={{ height: "47px" }}
-                onChange={(e) =>
-                  handleEntriesChange("titulado", e.target.value)
-                }
+                onChange={handleEntriesChange}
+                name={"titulado"}
                 value={graduated.titulado}
               >
                 <option value={""}>¿Titulado? (Seleccione una opcion)</option>

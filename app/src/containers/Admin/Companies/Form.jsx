@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 //importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useForm from "@/hooks/useForm";
 
 import FormCard from "@/components/Global/FormCard";
 import { Entries } from "@/components/Company/RegisterForm";
@@ -11,13 +12,10 @@ import companiesService from "@/services/Admin/companies.service";
 import toast from "react-hot-toast";
 
 const Form = () => {
-  const [company, setCompany] = useState(Entries);
+  const { form: company, setForm: setCompany, handleChange } = useForm(Entries);
   const [onEditing, toggleEditing] = useState(false);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const { location, navigate, params } = useRouterHooks();
-
-  const handleEntriesChange = (key, value) =>
-    setCompany({ ...company, [key]: value });
 
   const getCompanyFromFetch = useCallback(async () => {
     const companyFetched = await companiesService.GetOne(params.id);
@@ -70,7 +68,7 @@ const Form = () => {
         company={company}
         onEditing={onEditing}
         onChangePassword={onChangePassword}
-        handleEntriesChange={handleEntriesChange}
+        handleChange={handleChange}
         toggleChangePassword={toggleChangePassword}
       />
     </FormCard>

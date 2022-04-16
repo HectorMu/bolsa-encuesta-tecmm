@@ -64,6 +64,7 @@ controller.GetOne = async (req, res) => {
 };
 
 controller.Save = async (req, res) => {
+  console.log(req.body);
   //Destructuramos los datos basicos para la tabla usuarios, el ...rest equivale a los datos restantes
   const { correo, clave, ...rest } = req.body;
 
@@ -115,7 +116,7 @@ controller.Save = async (req, res) => {
     //por lo que nos sirve para agregar el perfil
 
     //Hasheamos la clave para no guardarla en texto plano
-    basicData.clave = await helpers.encryptPassword(basicData.clave);
+    basicData.clave = await helpers.encryptPassword(basicData.clave.toString());
 
     const userCreation = await User.Create(basicData);
 
@@ -123,6 +124,7 @@ controller.Save = async (req, res) => {
     //pasamos el resto de los datos (...rest),  y pasamos el insert id que nos retorno la accion de creacion
     const profileData = {
       fk_usuario: userCreation.insertId,
+      curriculum: "Pendiente",
       ...rest,
     };
     await Graduated.Create(profileData);
@@ -194,7 +196,9 @@ controller.Update = async (req, res) => {
 
     //Si recibimos una clave, significa que se quiere editar, entonces la hasheamos
     if (basicData.clave !== null && basicData.clave !== undefined) {
-      basicData.clave = await helpers.encryptPassword(basicData.clave);
+      basicData.clave = await helpers.encryptPassword(
+        basicData.clave.toString()
+      );
     } else {
       //Si no recibimos una clave, entonces eliminamos la propiedad del objeto
       //Para no mutar la clave actual guardada en la base de datos

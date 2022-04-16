@@ -47,7 +47,7 @@ const RegisterForm = ({
   company,
   onEditing,
   onChangePassword,
-  handleEntriesChange,
+  handleChange,
   toggleChangePassword,
 }) => {
   const [eActivitiesJson, setEActivitiesJson] = useState([]);
@@ -82,9 +82,8 @@ const RegisterForm = ({
                   inputId="txtCorreo"
                   placeholder="Correo"
                   type="email"
-                  setValue={(e) =>
-                    handleEntriesChange("correo", e.target.value)
-                  }
+                  setValue={handleChange}
+                  name={"correo"}
                   value={company.correo}
                 />
               </div>
@@ -99,9 +98,8 @@ const RegisterForm = ({
                       inputId="txtClave"
                       placeholder="Clave"
                       type="password"
-                      setValue={(e) =>
-                        handleEntriesChange("clave", e.target.value)
-                      }
+                      setValue={handleChange}
+                      name={"clave"}
                       value={company.clave}
                     />
                   </div>
@@ -113,9 +111,8 @@ const RegisterForm = ({
                       inputId="txtConfirmar"
                       placeholder="Confirmar"
                       type="password"
-                      setValue={(e) =>
-                        handleEntriesChange("confirmar", e.target.value)
-                      }
+                      setValue={handleChange}
+                      name={"confirmar"}
                       value={company.confirmar}
                     />
                   </div>
@@ -127,9 +124,8 @@ const RegisterForm = ({
                   inputId="txtNombreComercial"
                   placeholder="Nombre comercial"
                   type="text"
-                  setValue={(e) =>
-                    handleEntriesChange("nombre_comercial", e.target.value)
-                  }
+                  setValue={handleChange}
+                  name={"nombre_comercial"}
                   value={company.nombre_comercial}
                 />
               </div>
@@ -137,9 +133,8 @@ const RegisterForm = ({
                 <select
                   className="form-control form-select mb-3"
                   style={{ height: "47px" }}
-                  onChange={(e) =>
-                    handleEntriesChange("tipo_empresa", e.target.value)
-                  }
+                  onChange={handleChange}
+                  name={"tipo_empresa"}
                   value={company.tipo_empresa}
                 >
                   <option value={""}>
@@ -154,10 +149,9 @@ const RegisterForm = ({
                 <FloatingLabelInput
                   inputId="txtTelefono"
                   placeholder="Telefono"
-                  setValue={(e) =>
-                    handleEntriesChange("telefono", parseInt(e.target.value))
-                  }
+                  setValue={handleChange}
                   type="number"
+                  name={"telefono"}
                   value={company.telefono}
                 />
               </div>
@@ -165,9 +159,8 @@ const RegisterForm = ({
                 <select
                   className="form-control form-select mb-3"
                   style={{ height: "47px" }}
-                  onChange={(e) =>
-                    handleEntriesChange("tamaño", e.target.value)
-                  }
+                  onChange={handleChange}
+                  name={"tamaño"}
                   value={company.tamaño}
                 >
                   <option value={""}>Tamaño (Seleccione una opción)</option>
@@ -197,9 +190,8 @@ const RegisterForm = ({
                   type="text"
                   list={"activitiesList"}
                   focusAction={() => setEActivitiesJson(economicActivities)}
-                  setValue={(e) =>
-                    handleEntriesChange("actividad_economica", e.target.value)
-                  }
+                  setValue={handleChange}
+                  name={"actividad_economica"}
                   value={company.actividad_economica}
                 />
                 <datalist id="activitiesList">
@@ -220,9 +212,8 @@ const RegisterForm = ({
                   inputId="txtEstado"
                   placeholder="Estado"
                   type="text"
-                  setValue={(e) =>
-                    handleEntriesChange("estado", e.target.value)
-                  }
+                  setValue={handleChange}
+                  name={"estado"}
                   value={company.estado}
                 />
               </div>
@@ -231,9 +222,8 @@ const RegisterForm = ({
                   inputId="txtMunicipio"
                   placeholder="Municipio"
                   type="text"
-                  setValue={(e) =>
-                    handleEntriesChange("municipio", e.target.value)
-                  }
+                  setValue={handleChange}
+                  name={"municipio"}
                   value={company.municipio}
                 />
               </div>
@@ -243,9 +233,8 @@ const RegisterForm = ({
                   inputId="txtColonia"
                   placeholder="Colonia"
                   type="text"
-                  setValue={(e) =>
-                    handleEntriesChange("colonia", e.target.value)
-                  }
+                  setValue={handleChange}
+                  name={"colonia"}
                   value={company.colonia}
                 />
               </div>
@@ -254,7 +243,8 @@ const RegisterForm = ({
                   inputId="txtCalle"
                   placeholder="Calle"
                   type="text"
-                  setValue={(e) => handleEntriesChange("calle", e.target.value)}
+                  setValue={handleChange}
+                  name={"calle"}
                   value={company.calle}
                 />
               </div>
@@ -262,13 +252,9 @@ const RegisterForm = ({
                 <FloatingLabelInput
                   inputId="txtNumero"
                   placeholder="Numero"
-                  setValue={(e) =>
-                    handleEntriesChange(
-                      "numero_empresa",
-                      parseInt(e.target.value)
-                    )
-                  }
+                  setValue={handleChange}
                   type="number"
+                  name={"numero_empresa"}
                   value={company.numero_empresa}
                 />
               </div>
@@ -276,10 +262,9 @@ const RegisterForm = ({
                 <FloatingLabelInput
                   inputId="txtCP"
                   placeholder="Codigo Postal"
-                  setValue={(e) =>
-                    handleEntriesChange("cp", parseInt(e.target.value))
-                  }
+                  setValue={handleChange}
                   type="number"
+                  name={"cp"}
                   value={company.cp}
                 />
               </div>

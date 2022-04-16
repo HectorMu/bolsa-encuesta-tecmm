@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useForm from "@/hooks/useForm";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -13,14 +14,10 @@ import { Entries } from "./FormEntries";
 import usersService from "@/services/Admin/users.service";
 
 const Form = () => {
-  const [user, setUser] = useState(Entries);
-
+  const { form: user, setForm: setUser, handleChange } = useForm(Entries);
   const [onEditing, toggleEditing] = useState(false);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const { navigate, location, params } = useRouterHooks();
-
-  const handleEntriesChange = (key, value) =>
-    setUser({ ...user, [key]: value });
 
   const getUserFromFetch = useCallback(async () => {
     const userFetched = await usersService.GetOne(params.id);
@@ -97,9 +94,8 @@ const Form = () => {
                   inputId="txtCorreo"
                   placeholder="Correo"
                   type="email"
-                  setValue={(e) =>
-                    handleEntriesChange("correo", e.target.value)
-                  }
+                  name={"correo"}
+                  setValue={handleChange}
                   value={user.correo}
                 />
               </div>
@@ -114,9 +110,8 @@ const Form = () => {
                       inputId="txtClave"
                       placeholder="Clave"
                       type="password"
-                      setValue={(e) =>
-                        handleEntriesChange("clave", e.target.value)
-                      }
+                      name={"clave"}
+                      setValue={handleChange}
                       value={user.clave}
                     />
                   </div>
@@ -128,9 +123,8 @@ const Form = () => {
                       inputId="txtClaveCon"
                       placeholder="Confirmar"
                       type="password"
-                      setValue={(e) =>
-                        handleEntriesChange("confirmar", e.target.value)
-                      }
+                      setValue={handleChange}
+                      name={"confirmar"}
                       value={user.confirmar}
                     />
                   </div>
@@ -141,9 +135,8 @@ const Form = () => {
                 <select
                   className="form-control form-select mb-3"
                   style={{ height: "47px" }}
-                  onChange={(e) =>
-                    handleEntriesChange("fk_rol", e.target.value)
-                  }
+                  onChange={handleChange}
+                  name={"fk_rol"}
                   value={user.fk_rol}
                 >
                   <option value={""}>Rol (Seleccione una opción)</option>

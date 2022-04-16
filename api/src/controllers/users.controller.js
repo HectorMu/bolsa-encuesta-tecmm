@@ -49,7 +49,7 @@ controller.Save = async (req, res) => {
     }
 
     //Hasheamos la clave para no guardarla en texto plano
-    user.clave = await helpers.encryptPassword(user.clave);
+    user.clave = await helpers.encryptPassword(user.clave.toString());
 
     const results = await User.Create(user);
     console.log(results);
@@ -95,7 +95,9 @@ controller.Update = async (req, res) => {
       });
     }
     if (basicData.clave !== null && basicData.clave !== undefined) {
-      basicData.clave = await helpers.encryptPassword(basicData.clave);
+      basicData.clave = await helpers.encryptPassword(
+        basicData.clave.toString()
+      );
     } else {
       delete basicData.clave;
     }

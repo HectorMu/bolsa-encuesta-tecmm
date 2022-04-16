@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useForm from "@/hooks/useForm";
 import toast from "react-hot-toast";
 
 //Componentes personalizados para agilizar la construccion al reutilizarlos
@@ -12,12 +13,22 @@ import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
 import graduatesService from "@/services/Admin/graduates.service";
 
 const Form = () => {
-  const [graduated, setGraduated] = useState(Entries);
+  const {
+    form: graduated,
+    setForm: setGraduated,
+    handleChange: handleEntriesChange,
+  } = useForm(Entries);
+
   //aqui usamos un estado aparte para manejar el cambio de del idioma extranjero,
   //Ya que es una propiedad anidada dentro dl usuario
-  const [idiomaExtranjero, setIdiomaExtranjero] = useState(
-    NestedEntries.idioma_extranjero
-  );
+  // const [idiomaExtranjero, setIdiomaExtranjero] = useState(
+  //   NestedEntries.idioma_extranjero
+  // );
+  const {
+    form: idiomaExtranjero,
+    setForm: setIdiomaExtranjero,
+    handleChange: handleIdiomaExtranjeroChange,
+  } = useForm(NestedEntries.idioma_extranjero);
 
   //Estado para controlar si el usuario esta editando, usamos un efecto para cambiar este estado
   const [onEditing, toggleEditing] = useState(false);
@@ -26,16 +37,6 @@ const Form = () => {
   const [onChangePassword, toggleChangePassword] = useState(false);
   //usamos este hook para traer todos los hooks comunes a utilizar de react-router-dom
   const { navigate, location, params } = useRouterHooks();
-
-  //para controlar el cambio de los input, copiamos el objeto y cambiamos las propiedades
-  //recibe una key, que es la propiedad y el valor de esa key
-  const handleEntriesChange = (key, value) =>
-    setGraduated({ ...graduated, [key]: value });
-
-  //para controllar bjeto el idioma extranjero, ya que es una propiedad aparte
-  const handleIdiomaExtranjeroChange = (key, value) => {
-    setIdiomaExtranjero({ ...idiomaExtranjero, [key]: value });
-  };
 
   //Para obtener un graduado basandonos en el id y filtrando los usuarios desde ahi
   const getGraduatedFromFetch = useCallback(async () => {
@@ -66,6 +67,8 @@ const Form = () => {
       //que es nuestro estado
       idioma_extranjero: idiomaExtranjero,
     };
+
+    console.log(newGraduated);
 
     //Si estamos editando
     if (onEditing) {
@@ -116,6 +119,7 @@ const Form = () => {
     toggleEditing(false);
   }, [location.pathname, getGraduatedFromFetch]);
 
+  console.log(graduated);
   return (
     <FormCard title={onEditing ? "Editar egresado" : "Datos del egresado"}>
       <RegisterForm
