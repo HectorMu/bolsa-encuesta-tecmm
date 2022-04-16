@@ -11,6 +11,7 @@ import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
 //importando servicios
 import profileService from "@/services/Graduated/profile.service";
 import GraduatedCurriculum from "./GraduatedCurriculum";
+import useRouterHooks from "@/hooks/useRouterHooks";
 
 const Graduated = () => {
   const [graduated, setGraduated] = useState(Entries);
@@ -55,7 +56,11 @@ const Graduated = () => {
       return toast.error(results.statusText);
     }
     toast.success(results.statusText);
+
     getProfileHandler();
+
+    setCurrentSelection("Curriculum");
+    toast("Puedes subir tu curriculum ahora para poder postularte");
   };
 
   useEffect(() => {
@@ -69,26 +74,28 @@ const Graduated = () => {
   return (
     <div>
       <div className="d-flex justify-content-center mb-3">
-        <div className="btn-group" role="group" aria-label="Basic example">
-          <button
-            onClick={({ target }) => setCurrentSelection(target.value)}
-            value={"Profile"}
-            className={`btn btn-primary btn-outline-primary ${
-              currentSelection === "Profile" && "active"
-            }`}
-          >
-            Perfil
-          </button>
-          <button
-            onClick={({ target }) => setCurrentSelection(target.value)}
-            value={"Curriculum"}
-            className={`btn btn-primary btn-outline-primary ${
-              currentSelection === "Curriculum" && "active"
-            }`}
-          >
-            Curriculum
-          </button>
-        </div>
+        {graduated?.id && (
+          <div className="btn-group" role="group" aria-label="Basic example">
+            <button
+              onClick={({ target }) => setCurrentSelection(target.value)}
+              value={"Profile"}
+              className={`btn btn-primary btn-outline-primary ${
+                currentSelection === "Profile" && "active"
+              }`}
+            >
+              Perfil
+            </button>
+            <button
+              onClick={({ target }) => setCurrentSelection(target.value)}
+              value={"Curriculum"}
+              className={`btn btn-primary btn-outline-primary ${
+                currentSelection === "Curriculum" && "active"
+              }`}
+            >
+              Curriculum
+            </button>
+          </div>
+        )}
       </div>
 
       {currentSelection === "Profile" ? (
