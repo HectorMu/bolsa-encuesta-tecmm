@@ -20,15 +20,7 @@ const Showcase = () => {
   const curriculumRef = useRef();
 
   const postulationRegisterHandler = async () => {
-    if (cv === undefined) {
-      fileRef.current.click();
-      return;
-    }
-
-    let formData = new FormData();
-    formData.append("cv", cv);
-
-    const results = await jobsService.registerPostulation(formData, params.id);
+    const results = await jobsService.registerPostulation(params.id);
     if (!results.status) {
       return toast.error(results.statusText);
     }

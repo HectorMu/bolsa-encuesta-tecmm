@@ -73,6 +73,7 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
     handleGetCVPostulation();
   }, [postulation.curriculum]);
 
+  console.log(location.state);
   return (
     <div>
       {!params.postulation_id ? (

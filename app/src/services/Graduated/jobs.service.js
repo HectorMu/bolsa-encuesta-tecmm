@@ -31,17 +31,11 @@ const registerJobVisit = async (job_id) => {
   }
 };
 
-const registerPostulation = async (formData, job_id) => {
+const registerPostulation = async (job_id) => {
   try {
     const response = await fetch(
       `${API}/graduated/postulations/save/${job_id}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: helpers.getAndSetAccessToken(),
-        },
-        body: formData,
-      }
+      helpers.authPostConfig()
     );
 
     return await response.json();

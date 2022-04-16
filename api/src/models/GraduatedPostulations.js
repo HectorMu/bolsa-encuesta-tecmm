@@ -12,8 +12,8 @@ const Template = {
   },
   async FindOne(job_id, userid) {
     const data = await connection.query(
-      `select * from ${TABLE_NAME} where fk_vacante = ? && fk_egresado = ${userid}`,
-      [job_id]
+      `SELECT sb.*, pe.curriculum from ${TABLE_NAME} sb, perfil_egresado pe where sb.fk_vacante = ? && sb.fk_egresado = ? && pe.fk_usuario = sb.fk_egresado;`,
+      [job_id, userid]
     );
     if (!data.length > 0) {
       return {};

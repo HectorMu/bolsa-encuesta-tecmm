@@ -15,6 +15,7 @@ const Template = {
         delete g.fk_usuario,
         delete g.creadoEn,
         delete g.actualizadoEn;
+
       return g;
     });
     return graduated;
@@ -51,6 +52,7 @@ const Template = {
     //borramos el id antes de editar, ya que solo nos interesa editar los demas datos
     //ademas que el id es la fk de la cuenta del usuario
     delete data.id;
+    delete data.curriculum;
 
     const results = await connection.query(
       `update ${TABLE_NAME} set ? where ${IDENTIFIER_NAME} = ?`,
@@ -63,6 +65,15 @@ const Template = {
       `delete from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ?`,
       [id]
     );
+    return results;
+  },
+
+  async UpdateCurriculum(fileName, id) {
+    const results = await connection.query(
+      `update ${TABLE_NAME} set curriculum = ? where ${IDENTIFIER_NAME} = ?`,
+      [fileName, id]
+    );
+
     return results;
   },
 };

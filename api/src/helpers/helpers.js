@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const connection = require("../database");
 const path = require("path");
 const multer = require("multer");
+const GraduatedProfile = require("../models/GraduatedProfile");
 
 const helpers = {};
 
@@ -106,8 +107,10 @@ helpers.multerStorageConfig = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./src/public/graduated/cvs/");
   },
-  filename: function (req, file, cb) {
-    cb(null, `graduated-${req.user.id}__job-${req.params.job_id}_CV.pdf`);
+  filename: async function (req, file, cb) {
+    const graduated = await GraduatedProfile.FindOne(req.user.id);
+
+    cb(null, `graduated-${graduated.no_control}_CV.pdf`);
   },
 });
 

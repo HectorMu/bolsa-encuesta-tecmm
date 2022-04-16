@@ -10,9 +10,11 @@ import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
 
 //importando servicios
 import profileService from "@/services/Graduated/profile.service";
+import GraduatedCurriculum from "./GraduatedCurriculum";
 
 const Graduated = () => {
   const [graduated, setGraduated] = useState(Entries);
+  const [currentSelection, setCurrentSelection] = useState("Profile");
   const [idiomaExtranjero, setIdiomaExtranjero] = useState(
     NestedEntries.idioma_extranjero
   );
@@ -64,20 +66,51 @@ const Graduated = () => {
     setGraduated({ ...graduated, ["correo"]: user.correo });
   }, [user]);
 
-  console.log(onChangePassword);
   return (
-    <FormCard title={"Mi perfil"}>
-      <RegisterForm
-        handleSubmit={handleSubmit}
-        graduated={graduated}
-        handleEntriesChange={handleEntriesChange}
-        handleIdiomaExtranjeroChange={handleIdiomaExtranjeroChange}
-        onEditing={onEditing}
-        onChangePassword={onChangePassword}
-        toggleChangePassword={toggleChangePassword}
-        idiomaExtranjero={idiomaExtranjero}
-      />
-    </FormCard>
+    <div>
+      <div className="d-flex justify-content-center mb-3">
+        <div className="btn-group" role="group" aria-label="Basic example">
+          <button
+            onClick={({ target }) => setCurrentSelection(target.value)}
+            value={"Profile"}
+            className={`btn btn-primary btn-outline-primary ${
+              currentSelection === "Profile" && "active"
+            }`}
+          >
+            Perfil
+          </button>
+          <button
+            onClick={({ target }) => setCurrentSelection(target.value)}
+            value={"Curriculum"}
+            className={`btn btn-primary btn-outline-primary ${
+              currentSelection === "Curriculum" && "active"
+            }`}
+          >
+            Curriculum
+          </button>
+        </div>
+      </div>
+
+      {currentSelection === "Profile" ? (
+        <FormCard title={"Mi perfil"}>
+          <RegisterForm
+            handleSubmit={handleSubmit}
+            graduated={graduated}
+            handleEntriesChange={handleEntriesChange}
+            handleIdiomaExtranjeroChange={handleIdiomaExtranjeroChange}
+            onEditing={onEditing}
+            onChangePassword={onChangePassword}
+            toggleChangePassword={toggleChangePassword}
+            idiomaExtranjero={idiomaExtranjero}
+          />
+        </FormCard>
+      ) : (
+        <GraduatedCurriculum
+          getProfileHandler={getProfileHandler}
+          curriculum={graduated.curriculum}
+        />
+      )}
+    </div>
   );
 };
 

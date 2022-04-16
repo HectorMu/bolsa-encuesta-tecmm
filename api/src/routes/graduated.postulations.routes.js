@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middlewares/verifyToken");
-const uploadCV = require("../middlewares/uploadCV");
 const isGraduated = require("../middlewares/isGraduated");
 
 const controller = require("../controllers/graduated.postulations.controller");
@@ -22,7 +21,6 @@ router.get(
 router.post(
   "/graduated/postulations/save/:job_id",
   verifyToken,
-  uploadCV,
   isGraduated,
   controller.Save
 );

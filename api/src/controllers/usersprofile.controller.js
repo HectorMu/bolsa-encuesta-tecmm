@@ -19,6 +19,41 @@ controller.getGraduatedProfile = async (req, res) => {
   }
 };
 
+controller.uploadGraduatedCV = async (req, res) => {
+  const files = req.files;
+  const curriculum = files.cv[0];
+
+  try {
+    await Graduated.UpdateCurriculum(curriculum.filename, req.user.id);
+
+    res.json({
+      status: true,
+      statusText: "Curriculum subido correctamente.",
+    });
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.getGraduatedCV = async (req, res) => {
+  try {
+    const graduated = await Graduated.FindOne(req.user.id);
+    res.json(graduated.curriculum);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
 controller.saveOrUpdateGraduatedProfile = async (req, res) => {
   const { correo, clave, ...rest } = req.body;
 
@@ -82,6 +117,7 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
       await User.Update(basicData, req.user.id);
       const profileData = {
         fk_usuario: req.user.id,
+        curriculum: "Pendiente",
         ...rest,
       };
 

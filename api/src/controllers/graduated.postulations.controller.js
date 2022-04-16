@@ -1,6 +1,5 @@
 const GraduatedPostulations = require("../models/GraduatedPostulations");
-const fs = require("fs");
-const path = require("path");
+const GraduatedProfile = require("../models/GraduatedProfile");
 const controller = {};
 
 controller.GetAll = async (req, res) => {
@@ -35,7 +34,6 @@ controller.GetOne = async (req, res) => {
 };
 
 controller.Save = async (req, res) => {
-  const files = req.files;
   const { job_id } = req.params;
   const newPostulation = {
     ...req.body,
@@ -44,8 +42,17 @@ controller.Save = async (req, res) => {
     fk_vacante: job_id,
   };
 
-  newPostulation.curriculum = files.cv[0].filename;
   try {
+    const { curriculum: hasCurriculum } = await GraduatedProfile.FindOne(
+      req.user.id
+    );
+
+    if (hasCurriculum === "Pendiente") {
+      return res.json({
+        status: false,
+        statusText: "No tienes un curriculum... puedes subirlo en tu pérfil.",
+      });
+    }
     const results = await GraduatedPostulations.Create(newPostulation);
     console.log(results);
     res.json({
@@ -96,24 +103,6 @@ controller.Update = async (req, res) => {
 
 controller.Delete = async (req, res) => {
   try {
-    const getCurriculumName = await GraduatedPostulations.FindOne(
-      req.params.job_id,
-      req.user.id
-    );
-
-    if (getCurriculumName.id) {
-      const fileName = getCurriculumName.curriculum;
-
-      fs.unlink(
-        path.basename("/src/") + `/public/graduated/cvs/${fileName}`,
-        (error) => {
-          if (error) {
-            console.log(error);
-          }
-          console.log(`File ${fileName} deleted`);
-        }
-      );
-    }
     const results = await GraduatedPostulations.Delete(
       req.params.job_id,
       req.user.id

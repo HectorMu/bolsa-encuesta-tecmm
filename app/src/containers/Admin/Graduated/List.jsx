@@ -101,6 +101,7 @@ const List = () => {
             "estado_civil",
             "curp",
             "sexo",
+            "curriculum",
           ]}
           renameHeaders={{
             id: "Folio",

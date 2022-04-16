@@ -24,6 +24,7 @@ const useGraduatedSurvey = () => {
 
   const getUserAnswersHandler = useCallback(
     async (isCanceled) => {
+      console.log(isCanceled);
       if (!isCanceled) {
         const fetchedAnswers = await surveyService.getAnswersBySection(
           params.section_id
