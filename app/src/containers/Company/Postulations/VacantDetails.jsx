@@ -69,18 +69,23 @@ const VacantDetails = () => {
             <div className="d-flex flex-column flex-sm-column flex-md-column flex-lg-column flex-xl-row">
               <p>
                 <span className="badge badge-pill badge-primary mr-0 mr-xl-2  px-4">
-                  {vacant?.visitas}{" "}
+                  <i className="fas fa-eye"></i> {vacant?.visitas}{" "}
                   {vacant?.visitas === 1 ? "Visita" : "Visitas"}
                 </span>
               </p>
               <p>
                 <span className="badge badge-pill badge-primary  mr-0 mr-xl-2 py-1 px-4">
-                  {vacant?.solicitudes}{" "}
+                  <i className="fas fa-envelope"></i> {vacant?.solicitudes}{" "}
                   {vacant?.solicitudes === 1 ? "Solicitud" : "Solicitudes"}
                 </span>
               </p>
               <p>
                 <span className="badge badge-pill badge-primary ml-0 ml-xl-2 py-1 px-4">
+                  {vacant?.status === "Abierta" ? (
+                    <i className="fas fa-lock-open"></i>
+                  ) : (
+                    <i className="fas fa-lock"></i>
+                  )}{" "}
                   {vacant?.status}
                 </span>
               </p>

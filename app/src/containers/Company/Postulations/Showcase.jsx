@@ -16,7 +16,7 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
 
   const handleFlagAsReviewed = async () => {
     Swal.fire({
-      text: `Confirm la revision de la postulation No ${postulation.id} del usuario '${postulation.nombre_completo}'?`,
+      text: `¿Confirma la revisión de la postulación No. ${postulation.id} del usuario '${postulation.nombre_completo}'?`,
       icon: "info",
       ...helpers.alertConfig,
     }).then(async (result) => {

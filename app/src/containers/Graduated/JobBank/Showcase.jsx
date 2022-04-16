@@ -10,14 +10,14 @@ import Loading from "@/components/Global/Loading";
 import Auth from "@/services/Auth";
 
 const Showcase = () => {
-  const [cv, setCv] = useState(undefined);
+  const [cvFile, setCvFile] = useState(null);
   const [selectedJob, setSelectedJob] = useState({});
+  const [curriculumPath, setCurriculumPath] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingPostulation, setLoadingPostulation] = useState(false);
   const [currentPostulation, setCurrentPostulation] = useState({});
   const { params, location } = useRouterHooks();
   const fileRef = useRef();
-  const curriculumRef = useRef();
 
   const postulationRegisterHandler = async () => {
     const results = await jobsService.registerPostulation(params.id);
@@ -27,7 +27,6 @@ const Showcase = () => {
 
     toast.success("Curriculum enviado");
     getPostulationHandler();
-    RefreshJobs();
   };
 
   const deletePostulationHandler = async () => {
@@ -41,7 +40,7 @@ const Showcase = () => {
         if (!results.status) {
           return toast.error(results.statusText);
         }
-        toast.success("Postulacion cancelada");
+        toast.success("Postulación cancelada");
         getPostulationHandler();
       }
     });
@@ -53,10 +52,16 @@ const Showcase = () => {
     const postulationFetched = await jobsService.getPostulation(params.id);
     if (!postulationFetched.id) {
       setCurrentPostulation({});
-      setCv(undefined);
+      setCvFile(null);
       setLoadingPostulation(false);
       return;
     }
+
+    const CV = await Auth.getResourcesFromPublicFolder(
+      `graduated/cvs/${postulationFetched.curriculum}`
+    );
+
+    setCurriculumPath(CV);
 
     setCurrentPostulation(postulationFetched);
     setLoadingPostulation(false);
@@ -80,15 +85,6 @@ const Showcase = () => {
     setIsLoading(false);
   }, [params.id, location.state]);
 
-  const handleGetCVPostulation = async () => {
-    if (!currentPostulation.id) return;
-    const CV = await Auth.getResourcesFromPublicFolder(
-      `graduated/cvs/${currentPostulation.curriculum}`
-    );
-    console.log(CV);
-    curriculumRef.current.src = CV;
-  };
-
   useEffect(() => {
     handleGetJobFromFetch();
     getPostulationHandler();
@@ -96,12 +92,8 @@ const Showcase = () => {
   }, [handleGetJobFromFetch, registerPostVisit, getPostulationHandler]);
 
   useEffect(() => {
-    setCv(undefined);
+    setCvFile(null);
   }, [selectedJob.folio]);
-
-  useEffect(() => {
-    handleGetCVPostulation();
-  }, [currentPostulation.curriculum]);
 
   return (
     <div className="p-2">
@@ -158,7 +150,7 @@ const Showcase = () => {
                     buttonCloseText="Cerrar"
                   >
                     <embed
-                      ref={curriculumRef}
+                      src={curriculumPath}
                       frameBorder="0"
                       width="100%"
                       style={{ height: "100vh", width: "100%" }}
@@ -174,14 +166,14 @@ const Showcase = () => {
                 </div>
               ) : (
                 <div className="d-flex flex-column align-items-center justify-content-center mt-5">
-                  {cv !== undefined && (
+                  {cvFile !== undefined && (
                     <div
                       data-aos="flip-left"
                       className="d-flex flex-column align-items-center justify-content-center "
                     >
-                      <p>Archivo seleccionado: {cv.name}</p>
+                      <p>Archivo seleccionado: {cvFile?.name}</p>
                       <button
-                        onClick={() => setCv(undefined)}
+                        onClick={() => setCvFile({})}
                         className="btn btn-primary btn-sm"
                       >
                         Quitar <i className="fas fa-times"></i>
@@ -193,7 +185,7 @@ const Showcase = () => {
                     <input
                       ref={fileRef}
                       type={"file"}
-                      onChangeCapture={(e) => setCv(e.target.files[0])}
+                      onChangeCapture={(e) => setCvFile(e.target.files[0])}
                       hidden={true}
                     />
                   </div>
@@ -201,7 +193,7 @@ const Showcase = () => {
                     onClick={postulationRegisterHandler}
                     className="btn btn-primary btn-lg mt-3"
                   >
-                    {cv !== undefined ? "Enviar CV" : "Postularme"}
+                    {cvFile !== undefined ? "Enviar CV" : "Postularme"}
                   </button>
                   <p className="mt-4">
                     Nota: El curriculum debe estar en formato PDF
