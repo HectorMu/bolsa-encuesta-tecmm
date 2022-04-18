@@ -1,7 +1,8 @@
 {
   "name": "bolsa-encuesta-tecmm",
   "version": "1.0.0",
-  "description": "",
+  "description": "Proyecto para el TECMM Lagos de Moreno, en donde se requiere un control de encuesta para egresados y una bolsa de trabajo local.",
+  "private":true,
   "workspaces": [
     "app",
     "api"
@@ -15,7 +16,7 @@
     "start": "npm run build:app && npm run start:api"
   },
   "keywords": [],
-  "author": "",
+  "author": "Juan Luis Noriega Gómez and Héctor Manuel Muñoz Flores",
   "license": "ISC",
   "dependencies": {
     "aos": "^2.3.4",
