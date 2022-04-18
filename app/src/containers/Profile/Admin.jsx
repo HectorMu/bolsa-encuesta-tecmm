@@ -6,6 +6,7 @@ import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import Accordion from "@/components/Global/Accordion";
 import Collapsable from "@/components/Global/Collapsable";
 import useSession from "@/hooks/useSession";
+import useForm from "@/hooks/useForm";
 
 import profileService from "@/services/Admin/profile.service";
 
@@ -16,13 +17,14 @@ const Entries = {
 };
 
 const Admin = () => {
-  const [admin, setAdmin] = useState(Entries);
+  const {
+    form: admin,
+    setForm: setAdmin,
+    handleEntriesChange,
+  } = useForm(Entries);
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const { user, verifySession } = useSession();
-
-  const handleEntriesChange = (key, value) =>
-    setAdmin({ ...admin, [key]: value });
 
   const getProfileHandler = useCallback(async () => {
     const adminFetched = await verifySession(() => profileService.getProfile());

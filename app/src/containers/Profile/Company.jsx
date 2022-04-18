@@ -3,19 +3,17 @@ import toast from "react-hot-toast";
 import FormCard from "@/components/Global/FormCard";
 import RegisterForm from "@/components/Company/RegisterForm";
 import useSession from "@/hooks/useSession";
+import useForm from "@/hooks/useForm";
 
 import { Entries } from "@/components/Company/RegisterForm";
 
 import profileService from "@/services/Company/profile.service";
 
 const Company = () => {
-  const [company, setCompany] = useState(Entries);
+  const { form: company, setForm: setCompany, handleChange } = useForm(Entries);
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const { user, verifySession } = useSession();
-
-  const handleEntriesChange = (key, value) =>
-    setCompany({ ...company, [key]: value });
 
   const getProfileHandler = useCallback(async () => {
     const companyFetched = await verifySession(() =>
@@ -62,7 +60,7 @@ const Company = () => {
         company={company}
         onEditing={onEditing}
         onChangePassword={onChangePassword}
-        handleEntriesChange={handleEntriesChange}
+        handleChange={handleChange}
         toggleChangePassword={toggleChangePassword}
       />
     </FormCard>
