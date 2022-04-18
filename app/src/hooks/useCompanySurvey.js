@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import useRouterHooks from "./useRouterHooks";
+import useSession from "./useSession";
 import surveyService from "@/services/Company/survey.service";
 import profileService from "@/services/Company/profile.service";
 import toast from "react-hot-toast";
@@ -10,9 +11,10 @@ const useCompanySurvey = () => {
   const [userSectionAnswers, setUserSectionAnswers] = useState([]);
   const [questions, setQuestions] = useState([]);
   const { params, navigate } = useRouterHooks();
+  const { verifySession } = useSession();
 
   const checkIfHasProfileHandler = useCallback(async () => {
-    const results = await profileService.getProfile();
+    const results = await verifySession(() => profileService.getProfile());
     if (!results.id) {
       navigate("/profile");
       toast(
@@ -25,8 +27,8 @@ const useCompanySurvey = () => {
   const getUserAnswersHandler = useCallback(
     async (isCanceled) => {
       if (!isCanceled) {
-        const fetchedAnswers = await surveyService.getAnswersBySection(
-          params.section_id
+        const fetchedAnswers = await verifySession(() =>
+          surveyService.getAnswersBySection(params.section_id)
         );
         setUserSectionAnswers(fetchedAnswers);
       }
@@ -38,8 +40,8 @@ const useCompanySurvey = () => {
     async (isCanceled) => {
       if (!isCanceled) {
         setIsLoading(true);
-        const fetchedQuestions = await surveyService.getSectionQuestions(
-          params.section_id
+        const fetchedQuestions = await verifySession(() =>
+          surveyService.getSectionQuestions(params.section_id)
         );
         setQuestions(fetchedQuestions);
       }
@@ -50,8 +52,8 @@ const useCompanySurvey = () => {
   const getSectionHandler = useCallback(
     async (isCanceled) => {
       if (!isCanceled) {
-        const fetchedSection = await surveyService.getSurveySection(
-          params.section_id
+        const fetchedSection = await verifySession(() =>
+          surveyService.getSurveySection(params.section_id)
         );
         setSection(fetchedSection);
         setIsLoading(false);

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useSession from "@/hooks/useSession";
 
 //importing custom components
 import Loading from "@/components/Global/Loading";
@@ -30,11 +31,14 @@ const index = () => {
   const { section, questions, isLoading, userSectionAnswers } =
     useGraduatedSurvey();
   const navigate = useNavigate();
+  const { verifySession } = useSession();
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
 
   const saveAndSkipToNextSection = async () => {
-    const results = await surveyService.saveSection1(answers);
+    const results = await verifySession(() =>
+      surveyService.saveSection1(answers)
+    );
     if (!results.status) {
       return toast.error(results.statusText);
     }

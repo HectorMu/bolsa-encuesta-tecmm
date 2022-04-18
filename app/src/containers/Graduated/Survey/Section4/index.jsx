@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import useSession from "@/hooks/useSession";
 import Loading from "../../../../components/Global/Loading";
 
 //Graduated survey hook to get the current section data based on url param section_id
@@ -24,11 +25,14 @@ const index = () => {
   const { section, questions, isLoading, userSectionAnswers } =
     useGraduatedSurvey();
   const navigate = useNavigate();
+  const { verifySession } = useSession();
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
 
   const saveAndSkipToNextSection = async () => {
-    const results = await surveyService.saveSection4(answers);
+    const results = await verifySession(() =>
+      surveyService.saveSection4(answers)
+    );
     if (!results.status) {
       return toast.error(results.statusText);
     }

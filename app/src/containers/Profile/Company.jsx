@@ -12,14 +12,15 @@ const Company = () => {
   const [company, setCompany] = useState(Entries);
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
-  const { user } = useSession();
+  const { user, verifySession } = useSession();
 
   const handleEntriesChange = (key, value) =>
     setCompany({ ...company, [key]: value });
 
   const getProfileHandler = useCallback(async () => {
-    const companyFetched = await profileService.getProfile();
-    console.log(companyFetched);
+    const companyFetched = await verifySession(() =>
+      profileService.getProfile()
+    );
     if (!companyFetched.id) return;
 
     setCompany(companyFetched);
@@ -36,7 +37,9 @@ const Company = () => {
       delete profile.confirmar;
     }
 
-    const results = await profileService.saveOrUpdateProfile(profile);
+    const results = await verifySession(() =>
+      profileService.saveOrUpdateProfile(profile)
+    );
     if (!results.status) {
       return toast.error(results.statusText);
     }

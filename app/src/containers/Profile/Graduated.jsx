@@ -21,7 +21,7 @@ const Graduated = () => {
   );
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
-  const { user } = useSession();
+  const { user, verifySession } = useSession();
 
   const handleEntriesChange = (key, value) =>
     setGraduated({ ...graduated, [key]: value });
@@ -31,7 +31,9 @@ const Graduated = () => {
   };
 
   const getProfileHandler = useCallback(async () => {
-    const graduatedFetched = await profileService.getProfile();
+    const graduatedFetched = await verifySession(() =>
+      profileService.getProfile()
+    );
     if (!graduatedFetched.id) return;
 
     const { idioma_extranjero, ...rest } = graduatedFetched;
@@ -51,7 +53,9 @@ const Graduated = () => {
       delete profile.confirmar;
     }
 
-    const results = await profileService.saveOrUpdateProfile(profile);
+    const results = await verifySession(() =>
+      profileService.saveOrUpdateProfile(profile)
+    );
     if (!results.status) {
       return toast.error(results.statusText);
     }
