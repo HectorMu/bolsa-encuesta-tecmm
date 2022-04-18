@@ -1,10 +1,7 @@
-import { useLayoutEffect } from "react";
 import useServiceFetchV2 from "@/hooks/useServiceFetchV2";
 import surveyService from "@/services/Graduated/survey.service";
 import useRouterHooks from "@/hooks/useRouterHooks";
-import toast from "react-hot-toast";
 import Loading from "@/components/Global/Loading";
-import moment from "moment/min/moment-with-locales";
 
 const VerifyQR = () => {
   const { params } = useRouterHooks();

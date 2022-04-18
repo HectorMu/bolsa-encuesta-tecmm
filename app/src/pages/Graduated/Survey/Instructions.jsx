@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
 import useServiceFetchV2 from "@/hooks/useServiceFetchV2";
+import useSession from "@/hooks/useSession";
 import surveyService from "@/services/Graduated/survey.service";
 import { Link } from "react-router-dom";
 import Loading from "@/components/Global/Loading";
 import Modal from "@/components/Global/Modal";
 
 const Survey = () => {
-  const [isAnswered, setIsAnswered] = useState(false);
+  const { verifySession } = useSession();
   const { hookData: answeredDetails, isLoading } = useServiceFetchV2(
-    surveyService.checkIfSurveyIsAnswered,
+    () => verifySession(surveyService.checkIfSurveyIsAnswered),
     []
   );
 
