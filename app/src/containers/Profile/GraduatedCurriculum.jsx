@@ -3,6 +3,7 @@ import profileService from "@/services/Graduated/profile.service";
 import Auth from "@/services/Auth";
 import toast from "react-hot-toast";
 import Loading from "@/components/Global/Loading";
+import useSession from "@/hooks/useSession";
 
 const GraduatedCurriculum = () => {
   const [cvName, setCVName] = useState("");
@@ -11,10 +12,13 @@ const GraduatedCurriculum = () => {
   const [loadingCurriculum, setLoadingCurriculum] = useState(false);
   const [cvFile, setCvFile] = useState(null);
   const uploadFileRef = useRef();
+  const { verifySession } = useSession();
 
   const getCurriculumHandler = async () => {
     setLoadingCurriculum(true);
-    const fetchedCurriculum = await profileService.getCurriculum();
+    const fetchedCurriculum = await verifySession(() =>
+      profileService.getCurriculum()
+    );
     setCVName(fetchedCurriculum);
 
     if (fetchedCurriculum === "Pendiente") return;
@@ -37,7 +41,9 @@ const GraduatedCurriculum = () => {
     if (cvFile === null) return;
 
     const tLoading = toast.loading("Validando y subiendo...");
-    const results = await profileService.uploadCurriculum(formData);
+    const results = await verifySession(() =>
+      profileService.uploadCurriculum(formData)
+    );
     if (!results.status) {
       return toast.error(results.statusText, { id: tLoading });
     }

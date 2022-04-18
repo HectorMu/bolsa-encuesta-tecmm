@@ -1,5 +1,6 @@
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import { useState, useEffect } from "react";
+import useSession from "@/hooks/useSession";
 
 import surveyService from "@/services/Company/survey.service";
 
@@ -32,9 +33,12 @@ const SectionP6Answers = {
 const Question6 = ({ questions }) => {
   const [newAnswerP6, setnewAnswerP6] = useState(SectionP6Answers);
   const [detailsP6, setDetailsP6] = useState([]);
+  const { verifySession } = useSession();
 
   const getP6DetailsHandler = async () => {
-    const fetchedDetails = await surveyService.getP6Answers();
+    const fetchedDetails = await verifySession(() =>
+      surveyService.getP6Answers()
+    );
     setDetailsP6(fetchedDetails);
   };
 
@@ -42,12 +46,16 @@ const Question6 = ({ questions }) => {
     setnewAnswerP6({ ...newAnswerP6, [key]: value });
 
   const saveAnswerP6 = async () => {
-    const results = await surveyService.saveP6DetailsSectionb(newAnswerP6);
+    const results = await verifySession(() =>
+      surveyService.saveP6DetailsSectionb(newAnswerP6)
+    );
     getP6DetailsHandler();
   };
 
   const deleteAnswerP6 = async (detail) => {
-    const results = await surveyService.deleteP6Answer(detail.id);
+    const results = await verifySession(() =>
+      surveyService.deleteP6Answer(detail.id)
+    );
     getP6DetailsHandler();
   };
 

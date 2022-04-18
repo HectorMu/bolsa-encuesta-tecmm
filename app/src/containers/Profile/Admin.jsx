@@ -19,13 +19,13 @@ const Admin = () => {
   const [admin, setAdmin] = useState(Entries);
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
-  const { user } = useSession();
+  const { user, verifySession } = useSession();
 
   const handleEntriesChange = (key, value) =>
     setAdmin({ ...admin, [key]: value });
 
   const getProfileHandler = useCallback(async () => {
-    const adminFetched = await profileService.getProfile();
+    const adminFetched = await verifySession(() => profileService.getProfile());
     if (!adminFetched.id) return;
 
     setAdmin(adminFetched);
@@ -42,7 +42,9 @@ const Admin = () => {
       delete profile.confirmar;
     }
 
-    const results = await profileService.saveOrUpdateProfile(profile);
+    const results = await verifySession(() =>
+      profileService.saveOrUpdateProfile(profile)
+    );
     if (!results.status) {
       return toast.error(results.statusText);
     }
