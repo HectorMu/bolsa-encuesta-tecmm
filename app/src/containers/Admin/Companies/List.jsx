@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 import helpers from "@/helpers/helpers";
 
 //importando librerias para alertas
@@ -11,17 +12,19 @@ import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
 
 //importando hooks
-import useServiceFetch from "@/hooks/useServiceFetch";
+import useServiceFetch from "@/hooks/useServiceFetchV2";
 
 //importando servicios
 import companyService from "@/services/Admin/companies.service";
 
 const List = () => {
-  const [companies, setCompanies] = useState([]);
-  const { isLoading, refreshData } = useServiceFetch(
-    companyService.List,
-    setCompanies
-  );
+  //const [companies, setCompanies] = useState([]);
+  const { verifySession } = useSession();
+  const {
+    isLoading,
+    hookData: companies,
+    refreshData,
+  } = useServiceFetch(() => verifySession(companyService.List), []);
   const { navigate } = useRouterHooks();
 
   const handleDeletion = async (company) => {
@@ -31,7 +34,9 @@ const List = () => {
       ...helpers.alertConfig,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const deleteResults = await companyService.Delete(company.id);
+        const deleteResults = await verifySession(() =>
+          companyService.Delete(company.id)
+        );
         if (!deleteResults.status) {
           return toast.error(deleteResults.statusText);
         }

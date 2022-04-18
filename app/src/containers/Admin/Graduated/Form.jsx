@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import useSession from "@/hooks/useSession";
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useForm from "@/hooks/useForm";
 import toast from "react-hot-toast";
@@ -13,6 +14,7 @@ import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
 import graduatesService from "@/services/Admin/graduates.service";
 
 const Form = () => {
+  const { verifySession } = useSession();
   const {
     form: graduated,
     setForm: setGraduated,
@@ -40,7 +42,9 @@ const Form = () => {
 
   //Para obtener un graduado basandonos en el id y filtrando los usuarios desde ahi
   const getGraduatedFromFetch = useCallback(async () => {
-    const graduatedFetched = await graduatesService.GetOne(params.id);
+    const graduatedFetched = await verifySession(() =>
+      graduatesService.GetOne(params.id)
+    );
     if (!graduatedFetched.id) {
       navigate("/graduated");
       toast.error("Este registro no existe.");
@@ -79,7 +83,9 @@ const Form = () => {
       }
 
       //como estamos editando, mandamos a llamar el servicio de editar
-      const results = await graduatesService.Update(newGraduated, params.id);
+      const results = await verifySession(() =>
+        graduatesService.Update(newGraduated, params.id)
+      );
       //si hay un error lo mostramos
       if (!results.status) {
         return toast.error(results.statusText);
@@ -90,7 +96,9 @@ const Form = () => {
     //Si no estamos editando
     else {
       //como no estamos editando, mandamos a llamar el servicio de guardar
-      const results = await graduatesService.Save(newGraduated);
+      const results = await verifySession(() =>
+        graduatesService.Save(newGraduated)
+      );
       //si hay un error lo mostramos
       if (!results.status) {
         return toast.error(results.statusText);
@@ -119,7 +127,6 @@ const Form = () => {
     toggleEditing(false);
   }, [location.pathname, getGraduatedFromFetch]);
 
-  console.log(graduated);
   return (
     <FormCard title={onEditing ? "Editar egresado" : "Datos del egresado"}>
       <RegisterForm

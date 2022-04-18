@@ -3,6 +3,7 @@ import useRouterHooks from "@/hooks/useRouterHooks";
 import useForm from "@/hooks/useForm";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import useSession from "@/hooks/useSession";
 
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import Accordion from "@/components/Global/Accordion";
@@ -15,12 +16,15 @@ import usersService from "@/services/Admin/users.service";
 
 const Form = () => {
   const { form: user, setForm: setUser, handleChange } = useForm(Entries);
+  const { verifySession } = useSession();
   const [onEditing, toggleEditing] = useState(false);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const { navigate, location, params } = useRouterHooks();
 
   const getUserFromFetch = useCallback(async () => {
-    const userFetched = await usersService.GetOne(params.id);
+    const userFetched = await verifySession(() =>
+      usersService.GetOne(params.id)
+    );
     if (!userFetched.id) {
       navigate("/accounts");
       toast.error("Este registro no existe.");
@@ -33,14 +37,16 @@ const Form = () => {
     e.preventDefault();
 
     if (onEditing) {
-      const results = await usersService.Update(user, params.id);
+      const results = await verifySession(() =>
+        usersService.Update(user, params.id)
+      );
       if (!results.status) {
         return toast.error(results.statusText);
       }
       toast.success("Cuenta editada correctamente.");
       navigate("/accounts");
     } else {
-      const results = await usersService.Save(user);
+      const results = await verifySession(() => usersService.Save(user));
       if (!results.status) {
         return toast.error(results.statusText);
       }

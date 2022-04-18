@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import vacanciesService from "@/services/Company/vacancies.service";
 import toast from "react-hot-toast";
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 
 const Entries = {
   folio: "",
@@ -17,18 +18,19 @@ const Entries = {
 
 const Form = () => {
   const [vacant, setVacant] = useState(Entries);
+  const { verifySession } = useSession();
   const [onEditing, setOnEditing] = useState(false);
 
   const handleChange = (key, value) => setVacant({ ...vacant, [key]: value });
   const { navigate, params, location } = useRouterHooks();
 
-  console.log(params);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (onEditing) {
-      const results = await vacanciesService.Update(vacant, params.id);
+      const results = await verifySession(() =>
+        vacanciesService.Update(vacant, params.id)
+      );
       if (!results.status) return toast.error(results.statusText);
 
       if (vacant.status === "Cerrada") {
@@ -41,7 +43,7 @@ const Form = () => {
       toast.success("Vacante editada y publicada");
       navigate("/company/jobbank/");
     } else {
-      const results = await vacanciesService.Save(vacant);
+      const results = await verifySession(() => vacanciesService.Save(vacant));
       if (!results.status) return toast.error(results.statusText);
 
       if (vacant.status === "Cerrada") {
@@ -57,7 +59,9 @@ const Form = () => {
   };
 
   const getVacantFromFetch = useCallback(async () => {
-    const fetchedVacant = await vacanciesService.GetOne(params.id);
+    const fetchedVacant = await verifySession(() =>
+      vacanciesService.GetOne(params.id)
+    );
     if (!fetchedVacant.folio) {
       toast.error("Este registro no existe");
       navigate("/company/jobbank/");
@@ -66,8 +70,6 @@ const Form = () => {
     delete fetchedVacant.fk_empresa;
     setVacant(fetchedVacant);
   }, [params.id]);
-
-  console.log(vacant);
 
   useEffect(() => {
     if (location.pathname.includes("edit")) {

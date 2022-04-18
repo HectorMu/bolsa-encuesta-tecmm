@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 //importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useForm from "@/hooks/useForm";
+import useSession from "@/hooks/useSession";
 
 import FormCard from "@/components/Global/FormCard";
 import { Entries } from "@/components/Company/RegisterForm";
@@ -13,12 +14,15 @@ import toast from "react-hot-toast";
 
 const Form = () => {
   const { form: company, setForm: setCompany, handleChange } = useForm(Entries);
+  const { verifySession } = useSession();
   const [onEditing, toggleEditing] = useState(false);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const { location, navigate, params } = useRouterHooks();
 
   const getCompanyFromFetch = useCallback(async () => {
-    const companyFetched = await companiesService.GetOne(params.id);
+    const companyFetched = await verifySession(() =>
+      companiesService.GetOne(params.id)
+    );
 
     if (!companyFetched.id) {
       navigate("/companies");
@@ -32,14 +36,16 @@ const Form = () => {
     e.preventDefault();
 
     if (onEditing) {
-      const results = await companiesService.Update(company, params.id);
+      const results = await verifySession(() =>
+        companiesService.Update(company, params.id)
+      );
       if (!results.status) {
         return toast.error(results.statusText);
       }
       toast.success("Empresa editada correctamente");
       navigate("/companies");
     } else {
-      const results = await companiesService.Save(company);
+      const results = await verifySession(() => companiesService.Save(company));
       if (!results.status) {
         return toast.error(results.statusText);
       }

@@ -9,21 +9,31 @@ const verifiyToken = (req, res, next) => {
   const AccessToken = req.headers.authorization.split(" ")[1];
 
   //Intentamos la decodificacion
-  try {
-    const decodedAccessToken = jwt.verify(
-      AccessToken,
-      process.env.ACCESS_TOKEN_SECRET
-    );
-    //Agregamos el token decodificado a la peticion, cuando pase este middleware
-    //Ahora podremos acceder a la informacion deocodificada del usuario desde: req.user.nombre <== ejemplo
-    req.user = decodedAccessToken;
+  const decodedAccessToken = jwt.verify(
+    AccessToken,
+    process.env.ACCESS_TOKEN_SECRET,
+    (err, decoded) => {
+      if (err) {
+        if (err.name === "TokenExpiredError") {
+          return res.status(403).json({
+            authorized: false,
+            statusText: "Tu sesión ha expirado.",
+          });
+        }
 
-    if (decodedAccessToken) next();
-  } catch (error) {
-    //si sale mal, el token ha expirado o esta mal formado, entonces no puede acceder a la api
-    console.log(error);
-    return res.status(401).json({ authorized: false });
-  }
+        return res.status(404).json({
+          authorized: false,
+          statusText: "El token de acceso no es válido o esta mal formado.",
+        });
+      }
+      return decoded;
+    }
+  );
+  //Agregamos el token decodificado a la peticion, cuando pase este middleware
+  //Ahora podremos acceder a la informacion deocodificada del usuario desde: req.user.nombre <== ejemplo
+  req.user = decodedAccessToken;
+
+  if (req.user.id) next();
 };
 
 module.exports = verifiyToken;
