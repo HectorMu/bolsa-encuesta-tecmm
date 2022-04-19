@@ -37,15 +37,15 @@ app.use("/api", require("./routes/companysurvey.routes"));
 app.use("/api", require("./routes/usersprofile.routes"));
 
 //To deploy a react router app build with an express server, this must be here forever
-// app.use(express.static(path.join(__dirname, "build")));
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "build/index.html"), (err) => {
-//     if (err) {
-//       res.status(500).send("error");
-//       console.log(err);
-//     }
-//   });
-// });
+app.use(express.static(path.join(__dirname, "build")));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build/index.html"), (err) => {
+    if (err) {
+      res.status(500).send("error");
+      console.log(err);
+    }
+  });
+});
 
 //Initialazing the server
 let port = process.env.PORT || 4000;

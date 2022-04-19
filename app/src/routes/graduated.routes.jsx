@@ -1,6 +1,15 @@
-import Instructions from "@/pages/Graduated/Survey/Instructions";
-import Survey from "@/pages/Graduated/Survey/Survey";
-import IsGraduated from "@/components/Authentication/IsGraduated";
+import { lazy } from "react";
+// import Instructions from "@/pages/Graduated/Survey/Instructions";
+// import Survey from "@/pages/Graduated/Survey/Survey";
+// import IsGraduated from "@/components/Authentication/IsGraduated";
+
+const Instructions = lazy(() =>
+  import("@/pages/Graduated/Survey/Instructions")
+);
+const Survey = lazy(() => import("@/pages/Graduated/Survey/Survey"));
+const IsGraduated = lazy(() =>
+  import("@/components/Authentication/IsGraduated")
+);
 
 const Routes = [
   {
