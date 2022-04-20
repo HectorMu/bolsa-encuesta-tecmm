@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import OptionsContainer from "@/components/Survey/OptionsContainer";
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 
 const OPTIONS = [1, 2, 3, 4, 5];
 
@@ -20,7 +21,6 @@ const subQuestions = {
   capacidad_analisis: "Capacidad de abstracción, análisis y síntesis",
   liderazgo: "Liderazgo y toma de decisiones",
   adaptacion_cambio: "Adaptación al cambio",
-  otros: "Otras",
 };
 const Question10 = ({ handleChange, answers, questions }) => {
   return (
@@ -47,6 +47,27 @@ const Question10 = ({ handleChange, answers, questions }) => {
             </div>
           </Fragment>
         ))}
+        <div className="col-12 col-xl-4">
+          <div className="d-flex align-items-center h-100">
+            <FloatingLabelInput
+              placeholder="Otras competencias (Especifique)"
+              inputId="txtOtrosDetalle"
+              type="text"
+              setValue={(e) => handleChange("otros_detalle", e.target.value)}
+              value={answers.otros_detalle}
+            />
+          </div>
+        </div>
+        <div className="col-12 col-xl-8 mb-4">
+          <OptionsContainer
+            cols="col-2 col-md-2 col-xl-1 mx-auto"
+            SECTIONID={"Q10SCOther"}
+            handleChange={handleChange}
+            OPTIONS={OPTIONS}
+            answers={answers}
+            ANSWER={"otros"}
+          />
+        </div>
       </div>
     </div>
   );

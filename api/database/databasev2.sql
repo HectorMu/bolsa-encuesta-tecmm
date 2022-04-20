@@ -283,7 +283,7 @@ conocimiento_idiomas_extranjeros VARCHAR(20),
 recomendaciones VARCHAR(20),
 personalidad VARCHAR(20),
 capacidad_liderazgo VARCHAR(20),
-otros_p8 VARCHAR(20),
+otros_p8 TEXT,
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
@@ -308,6 +308,7 @@ capacidad_analisis INT,
 liderazgo INT,
 adaptacion_cambio INT,
 otros INT,
+otros_detalle TEXT,
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );

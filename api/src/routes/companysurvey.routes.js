@@ -4,6 +4,7 @@ const verifyToken = require("../middlewares/verifyToken");
 const isCompany = require("../middlewares/isCompany");
 
 const companySurveyController = require("../controllers/company.survey.controller");
+const surveyValidations = require("../middlewares/validations/surveyCompany.validations");
 
 router.get(
   "/company/survey/seccionb/getp6answers",
@@ -50,6 +51,7 @@ router.post(
   "/company/survey/sectionb",
   verifyToken,
   isCompany,
+  surveyValidations,
   companySurveyController.SaveSectionBAnswers
 );
 
@@ -64,6 +66,7 @@ router.post(
   "/company/survey/sectionc",
   verifyToken,
   isCompany,
+  surveyValidations,
   companySurveyController.SaveSectionCAnswers
 );
 

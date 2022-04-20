@@ -274,6 +274,7 @@ controller.SaveSectionCAnswers = async (req, res) => {
     liderazgo,
     adaptacion_cambio,
     otros,
+    otros_detalle,
   } = req.body;
   const { excelente, muy_bueno, bueno, regular, malo } = req.body;
   const SECTION = 2;
@@ -305,6 +306,7 @@ controller.SaveSectionCAnswers = async (req, res) => {
       liderazgo,
       adaptacion_cambio,
       otros,
+      otros_detalle,
     });
     await SurveyScP11Details.CreateOrUpdateIfExists({
       fk_usuario: req.user.id,

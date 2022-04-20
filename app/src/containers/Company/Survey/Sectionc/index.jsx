@@ -31,6 +31,7 @@ const SectionAnswers = {
   liderazgo: "",
   adaptacion_cambio: "",
   otros: "",
+  otros_detalle: "",
   excelente: "",
   muy_bueno: "",
   bueno: "",
@@ -47,6 +48,7 @@ const index = () => {
   const navigate = useNavigate();
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
+  console.log(userSectionAnswers);
 
   const saveAndSkipToNextSection = async () => {
     const results = await surveyService.saveSectionc(answers);

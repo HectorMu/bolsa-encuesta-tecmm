@@ -15,7 +15,6 @@ const subQuestions = {
   recomendaciones: "Recomendaciones/Referencias",
   personalidad: "Personalidad/Actitudes",
   capacidad_liderazgo: "Capacidad de liderazgo",
-  otros_p8: "Otros",
 };
 const Question8 = ({ handleChange, answers, questions }) => {
   return (
@@ -41,6 +40,22 @@ const Question8 = ({ handleChange, answers, questions }) => {
             </div>
           </Fragment>
         ))}
+        <div className="col-12 col-xl-3">
+          <div className="d-flex align-items-center h-100">
+            <h6>Otros</h6>
+          </div>
+        </div>
+        <div className="col-12 col-xl-9 mb-4">
+          <OptionsContainer
+            ANSWER={"otros_p8"}
+            OPTIONS={["No requerido"]}
+            SECTIONID={"Q8SBOther"}
+            other={true}
+            answers={answers}
+            handleChange={handleChange}
+            otherText="Requerido"
+          />
+        </div>
       </div>
     </div>
   );

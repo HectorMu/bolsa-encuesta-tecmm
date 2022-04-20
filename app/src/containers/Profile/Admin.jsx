@@ -96,6 +96,7 @@ const Admin = () => {
                   inputId="txtCorreo"
                   placeholder="Correo"
                   type="email"
+                  name={"correo"}
                   setValue={(e) =>
                     handleEntriesChange("correo", e.target.value)
                   }
@@ -113,6 +114,7 @@ const Admin = () => {
                       inputId="txtClave"
                       placeholder="Clave"
                       type="password"
+                      name={"clave"}
                       setValue={(e) =>
                         handleEntriesChange("clave", e.target.value)
                       }
@@ -126,6 +128,7 @@ const Admin = () => {
                       inputId="txtClaveCon"
                       placeholder="Confirmar"
                       type="password"
+                      name={"confirmar"}
                       setValue={(e) =>
                         handleEntriesChange("confirmar", e.target.value)
                       }
