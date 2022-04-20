@@ -4,7 +4,6 @@ import FormCard from "@/components/Global/FormCard";
 import RegisterForm from "@/components/Graduated/RegisterForm";
 import useForm from "@/hooks/useForm";
 import useSession from "@/hooks/useSession";
-import useForm from "@/hooks/useForm";
 
 //Entradas del formulario, es un objeto con los datos a capturar el en formulario
 import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
@@ -62,9 +61,10 @@ const Graduated = () => {
     toast.success(results.statusText);
 
     getProfileHandler();
-
-    setCurrentSelection("Curriculum");
-    toast("Puedes subir tu curriculum ahora para poder postularte");
+    if (results.statusText === "Curriculum creado correctamente.") {
+      setCurrentSelection("Curriculum");
+      toast("Puedes subir tu curriculum ahora para poder postularte");
+    }
   };
 
   useEffect(() => {

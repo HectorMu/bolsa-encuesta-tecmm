@@ -40,8 +40,9 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
     if (!params.postulation_id) return;
 
     setIsLoading(true);
-    const fetchedPostulation = await verifySession(() =>
-      vacanciesService.GetOnePostulation(params.postulation_id)
+    const fetchedPostulation = await verifySession(
+      () => vacanciesService.GetOnePostulation(params.postulation_id),
+      getPostulationHandler
     );
     if (!fetchedPostulation.id) {
       toast.error("Esta postulacion ya no existe.");

@@ -42,8 +42,9 @@ const Form = () => {
 
   //Para obtener un graduado basandonos en el id y filtrando los usuarios desde ahi
   const getGraduatedFromFetch = useCallback(async () => {
-    const graduatedFetched = await verifySession(() =>
-      graduatesService.GetOne(params.id)
+    const graduatedFetched = await verifySession(
+      () => graduatesService.GetOne(params.id),
+      getGraduatedFromFetch
     );
     if (!graduatedFetched.id) {
       navigate("/graduated");

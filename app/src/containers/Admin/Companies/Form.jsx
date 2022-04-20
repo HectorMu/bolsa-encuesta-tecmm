@@ -20,8 +20,9 @@ const Form = () => {
   const { location, navigate, params } = useRouterHooks();
 
   const getCompanyFromFetch = useCallback(async () => {
-    const companyFetched = await verifySession(() =>
-      companiesService.GetOne(params.id)
+    const companyFetched = await verifySession(
+      () => companiesService.GetOne(params.id),
+      getCompanyFromFetch
     );
 
     if (!companyFetched.id) {

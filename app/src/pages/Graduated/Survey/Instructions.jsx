@@ -7,8 +7,12 @@ import Modal from "@/components/Global/Modal";
 
 const Survey = () => {
   const { verifySession } = useSession();
-  const { hookData: answeredDetails, isLoading } = useServiceFetchV2(
-    () => verifySession(surveyService.checkIfSurveyIsAnswered),
+  const {
+    hookData: answeredDetails,
+    isLoading,
+    refreshData,
+  } = useServiceFetchV2(
+    () => verifySession(surveyService.checkIfSurveyIsAnswered, refreshData),
     []
   );
 

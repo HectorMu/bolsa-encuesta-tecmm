@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import useSession from "@/hooks/useSession";
 import vacanciesService from "@/services/Company/vacancies.service";
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useServiceFetchV2 from "@/hooks/useServiceFetchV2";
@@ -10,14 +10,18 @@ import VacantDetails from "@/containers/Company/Postulations/VacantDetails";
 
 const Postulations = () => {
   const { params } = useRouterHooks();
-
+  const { verifySession } = useSession();
   const {
     hookData: postulations,
     refreshData,
     isLoading,
   } = useServiceFetchV2(
-    () => vacanciesService.GetPostulations(params.job_id),
-    [params.job_id]
+    () =>
+      verifySession(
+        () => vacanciesService.GetPostulations(params.job_id),
+        refreshData
+      ),
+    [params.job_id, verifySession]
   );
 
   return (

@@ -17,7 +17,10 @@ const List = () => {
     isLoading,
     refreshData,
     hookData: vacancies,
-  } = useServiceFetch(() => verifySession(vacanciesService.List), []);
+  } = useServiceFetch(
+    () => verifySession(vacanciesService.List, refreshData),
+    []
+  );
   const { navigate } = useRouterHooks();
 
   const redirectToPostulationsPage = (vacancie) => {

@@ -1,4 +1,4 @@
-import { useState, createContext, useLayoutEffect } from "react";
+import { useState, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Auth from "@/services/Auth";
 import toast from "react-hot-toast";
@@ -7,11 +7,10 @@ import Swal from "sweetalert2";
 export const Session = createContext();
 
 function SessionProvider({ children }) {
-  const navigate = useNavigate();
+  const userData = JSON.parse(window.localStorage.getItem("BETECMMSession"));
+  const [user, setUser] = useState(userData);
 
-  const [user, setUser] = useState(null);
-
-  const verifySession = async (serviceCall) => {
+  const verifySession = async (serviceCall, onEffectCall) => {
     const response = await serviceCall();
 
     if ("authorized" in response) {
@@ -24,6 +23,11 @@ function SessionProvider({ children }) {
           inputAttributes: {
             autocapitalize: "off",
             autocorrect: "off",
+          },
+          preConfirm: (password) => {
+            if (!password.length > 0) {
+              return Swal.showValidationMessage("Ingresa una contraseña.");
+            }
           },
         });
 
@@ -43,18 +47,15 @@ function SessionProvider({ children }) {
           );
 
           setUser(JSON.parse(window.localStorage.getItem("BETECMMSession")));
-          toast.success(`${loginResults.statusText}`);
+
+          toast.success("Sesión revalidada.");
+          onEffectCall && onEffectCall();
         }
         return;
       }
     }
     return response;
   };
-  useLayoutEffect(() => {
-    const userData = JSON.parse(window.localStorage.getItem("BETECMMSession"));
-    if (!userData?.id) return;
-    setUser(userData);
-  }, []);
   return (
     <Session.Provider value={{ user, setUser, verifySession }}>
       {children}

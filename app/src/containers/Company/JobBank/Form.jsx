@@ -59,8 +59,9 @@ const Form = () => {
   };
 
   const getVacantFromFetch = useCallback(async () => {
-    const fetchedVacant = await verifySession(() =>
-      vacanciesService.GetOne(params.id)
+    const fetchedVacant = await verifySession(
+      () => vacanciesService.GetOne(params.id),
+      getVacantFromFetch
     );
     if (!fetchedVacant.folio) {
       toast.error("Este registro no existe");
