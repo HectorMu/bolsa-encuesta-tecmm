@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
 import useServiceFetchV2 from "@/hooks/useServiceFetchV2";
+import useSession from "@/hooks/useSession";
 import surveyService from "@/services/Graduated/survey.service";
 import { Link } from "react-router-dom";
 import Loading from "@/components/Global/Loading";
 import Modal from "@/components/Global/Modal";
 
 const Survey = () => {
-  const [isAnswered, setIsAnswered] = useState(false);
+  const { verifySession } = useSession();
   const { hookData: answeredDetails, isLoading } = useServiceFetchV2(
-    surveyService.checkIfSurveyIsAnswered,
+    () => verifySession(surveyService.checkIfSurveyIsAnswered),
     []
   );
 
@@ -24,7 +24,7 @@ const Survey = () => {
         <Loading />
       ) : (
         <>
-          {answeredDetails.fk_egresado ? (
+          {answeredDetails?.fk_egresado ? (
             <div className="col-lg-6 mx-auto">
               <div className="card shadow-lg border-0 animated--grow-in">
                 <div className="card-body">

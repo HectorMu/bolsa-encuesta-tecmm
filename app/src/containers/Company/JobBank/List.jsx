@@ -3,19 +3,21 @@ import React, { useState } from "react";
 import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
 //Custom hooks
-import useServiceFetch from "@/hooks/useServiceFetch";
+import useServiceFetch from "@/hooks/useServiceFetchV2";
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 //Services
 import vacanciesService from "@/services/Company/vacancies.service";
 
 import ListButtons from "./ListButtons";
 
 const List = () => {
-  const [vacancies, setVacancies] = useState([]);
-  const { isLoading, refreshData } = useServiceFetch(
-    vacanciesService.List,
-    setVacancies
-  );
+  const { verifySession } = useSession();
+  const {
+    isLoading,
+    refreshData,
+    hookData: vacancies,
+  } = useServiceFetch(() => verifySession(vacanciesService.List), []);
   const { navigate } = useRouterHooks();
 
   const redirectToPostulationsPage = (vacancie) => {

@@ -3,23 +3,22 @@ import toast from "react-hot-toast";
 import FormCard from "@/components/Global/FormCard";
 import RegisterForm from "@/components/Company/RegisterForm";
 import useSession from "@/hooks/useSession";
+import useForm from "@/hooks/useForm";
 
 import { Entries } from "@/components/Company/RegisterForm";
 
 import profileService from "@/services/Company/profile.service";
 
 const Company = () => {
-  const [company, setCompany] = useState(Entries);
+  const { form: company, setForm: setCompany, handleChange } = useForm(Entries);
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
-  const { user } = useSession();
-
-  const handleEntriesChange = (key, value) =>
-    setCompany({ ...company, [key]: value });
+  const { user, verifySession } = useSession();
 
   const getProfileHandler = useCallback(async () => {
-    const companyFetched = await profileService.getProfile();
-    console.log(companyFetched);
+    const companyFetched = await verifySession(() =>
+      profileService.getProfile()
+    );
     if (!companyFetched.id) return;
 
     setCompany(companyFetched);
@@ -36,7 +35,9 @@ const Company = () => {
       delete profile.confirmar;
     }
 
-    const results = await profileService.saveOrUpdateProfile(profile);
+    const results = await verifySession(() =>
+      profileService.saveOrUpdateProfile(profile)
+    );
     if (!results.status) {
       return toast.error(results.statusText);
     }
@@ -59,7 +60,7 @@ const Company = () => {
         company={company}
         onEditing={onEditing}
         onChangePassword={onChangePassword}
-        handleEntriesChange={handleEntriesChange}
+        handleChange={handleChange}
         toggleChangePassword={toggleChangePassword}
       />
     </FormCard>

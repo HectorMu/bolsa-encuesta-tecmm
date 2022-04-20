@@ -3,6 +3,7 @@ import React from "react";
 import NotificationsBadge from "../../components/Navigation/Navbar/NotificationsBadge";
 import SessionDropdown from "../../components/Navigation/Navbar/SessionDropdown";
 import useSession from "../../hooks/useSession";
+import navLogo from "@/assets/LogoTec.svg";
 import { Link } from "react-router-dom";
 
 const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
@@ -10,14 +11,8 @@ const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
   return (
     <nav className="navbar navbar-expand navbar-light bg-green topbar static-top shadow fixed-top">
       <Link className="navbar-brand text-white font-weight-bolder" to="/">
-        TECMM
+        <img src={navLogo} className="ml-2 w-25 h-50" alt="" />
       </Link>
-      <button
-        className="btn btn-primary d-md-none btn-sm mr-3"
-        onClick={handleSidebarToggle}
-      >
-        <i className="fa fa-bars"></i>
-      </button>
 
       <ul className="navbar-nav ml-auto">
         {user !== null ? (
@@ -27,6 +22,12 @@ const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
           </>
         ) : null}
       </ul>
+      <button
+        className="btn btn-primary d-md-none btn-sm "
+        onClick={handleSidebarToggle}
+      >
+        <i className="fa fa-bars"></i>
+      </button>
     </nav>
   );
 };

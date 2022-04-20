@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import toast from "react-hot-toast";
 //custom hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 //componentes para el reutilizar el show case en multiples vistas de detalle
 import ShowcaseContainer from "@/components/Global/ShowcaseContainer";
 import ShowcaseHeader from "@/components/Global/ShowcaseHeader";
@@ -14,12 +15,15 @@ import graduatesService from "@/services/Admin/graduates.service";
 
 const Showcase = () => {
   const [graduated, setGraduated] = useState({});
+  const { verifySession } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const { params, navigate } = useRouterHooks();
 
   const getGradutedHandler = useCallback(async () => {
     setIsLoading(true);
-    const graduatedFetched = await graduatesService.GetOne(params.id);
+    const graduatedFetched = await verifySession(() =>
+      graduatesService.GetOne(params.id)
+    );
     if (!graduatedFetched.id) {
       toast.error("Este registro no existe");
       navigate("/graduated");
@@ -34,7 +38,6 @@ const Showcase = () => {
     getGradutedHandler();
   }, [getGradutedHandler]);
 
-  console.log(graduated);
   return (
     <>
       {isLoading ? (

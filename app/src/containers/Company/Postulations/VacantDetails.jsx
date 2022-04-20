@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import vacanciesService from "@/services/Company/vacancies.service";
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 import toast from "react-hot-toast";
 import moment from "moment/min/moment-with-locales";
 import ListButtons from "../JobBank/ListButtons";
@@ -11,6 +12,7 @@ const VacantDetails = () => {
   const [vacant, setVacant] = useState({});
   const [relativeTime, setRelativeTime] = useState(true);
 
+  const { verifySession } = useSession();
   const { params, navigate } = useRouterHooks();
 
   const handleBackPage = () => navigate("/company/jobbank/");
@@ -19,7 +21,9 @@ const VacantDetails = () => {
 
   const getVacantDetailsHandler = useCallback(async () => {
     setIsLoading(true);
-    const fetchedVacant = await vacanciesService.GetOne(params.job_id);
+    const fetchedVacant = await verifySession(() =>
+      vacanciesService.GetOne(params.job_id)
+    );
     if (!fetchedVacant.folio) {
       toast.error("Esta vacante no existe.");
       navigate("/company/jobbank");

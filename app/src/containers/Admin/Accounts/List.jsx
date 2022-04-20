@@ -1,15 +1,15 @@
-import { useState } from "react";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 
 //importando componentes personalizados
 import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
 
 //importando hooks
-import useServiceFetch from "@/hooks/useServiceFetch";
+import useServiceFetch from "@/hooks/useServiceFetchV2";
 
 //Importando servicios
 import usersService from "@/services/Admin/users.service";
@@ -18,11 +18,12 @@ import usersService from "@/services/Admin/users.service";
 import helpers from "@/helpers/helpers";
 
 const List = () => {
-  const [users, setUsers] = useState([]);
-  const { isLoading, refreshData } = useServiceFetch(
-    usersService.List,
-    setUsers
-  );
+  const { verifySession } = useSession();
+  const {
+    isLoading,
+    hookData: users,
+    refreshData,
+  } = useServiceFetch(() => verifySession(usersService.List), []);
   const { navigate } = useRouterHooks();
 
   const handleDeletion = async (usuario) => {
@@ -32,7 +33,9 @@ const List = () => {
       ...helpers.alertConfig,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const deleteResults = await usersService.Delete(usuario.id);
+        const deleteResults = await verifySession(() =>
+          usersService.Delete(usuario.id)
+        );
         if (!deleteResults.status) {
           return toast.error(deleteResults.statusText);
         }

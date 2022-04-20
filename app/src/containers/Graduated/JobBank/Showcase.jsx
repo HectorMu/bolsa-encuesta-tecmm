@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import Modal from "@/components/Global/Modal";
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 import jobsService from "@/services/Graduated/jobs.service";
 import moment from "moment/min/moment-with-locales";
 import helpers from "@/helpers/helpers";
@@ -17,10 +18,13 @@ const Showcase = () => {
   const [loadingPostulation, setLoadingPostulation] = useState(false);
   const [currentPostulation, setCurrentPostulation] = useState({});
   const { params, location } = useRouterHooks();
+  const { verifySession } = useSession();
   const fileRef = useRef();
 
   const postulationRegisterHandler = async () => {
-    const results = await jobsService.registerPostulation(params.id);
+    const results = await verifySession(() =>
+      jobsService.registerPostulation(params.id)
+    );
     if (!results.status) {
       return toast.error(results.statusText);
     }
@@ -36,7 +40,9 @@ const Showcase = () => {
       ...helpers.alertConfig,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const results = await jobsService.deletePostulation(params.id);
+        const results = await verifySession(() =>
+          jobsService.deletePostulation(params.id)
+        );
         if (!results.status) {
           return toast.error(results.statusText);
         }
@@ -49,7 +55,9 @@ const Showcase = () => {
   const getPostulationHandler = useCallback(async () => {
     if (!params.id) return;
     setLoadingPostulation(true);
-    const postulationFetched = await jobsService.getPostulation(params.id);
+    const postulationFetched = await verifySession(() =>
+      jobsService.getPostulation(params.id)
+    );
     if (!postulationFetched.id) {
       setCurrentPostulation({});
       setCvFile(null);
@@ -69,7 +77,7 @@ const Showcase = () => {
 
   const registerPostVisit = useCallback(async () => {
     if (!params.id) return;
-    await jobsService.registerJobVisit(params.id);
+    await verifySession(() => jobsService.registerJobVisit(params.id));
   }, [params.id]);
 
   const handleGetJobFromFetch = useCallback(async () => {
@@ -80,7 +88,9 @@ const Showcase = () => {
       return;
     }
     setIsLoading(true);
-    const fetchedJob = await jobsService.getOneJob(params.id);
+    const fetchedJob = await verifySession(() =>
+      jobsService.getOneJob(params.id)
+    );
     setSelectedJob(fetchedJob);
     setIsLoading(false);
   }, [params.id, location.state]);

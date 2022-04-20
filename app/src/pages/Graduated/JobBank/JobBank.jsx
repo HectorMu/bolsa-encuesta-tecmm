@@ -6,16 +6,20 @@ import jobsService from "@/services/Graduated/jobs.service";
 import useCleanAosAnimations from "@/hooks/useCleanAosAnimations";
 import profileService from "@/services/Graduated/profile.service";
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 import toast from "react-hot-toast";
 
 const JobBank = () => {
+  const { verifySession } = useSession();
   const animatedRef = useCleanAosAnimations();
   const { navigate } = useRouterHooks();
   const { hookData, isLoading } = useServiceFetch(jobsService.getJobs);
   const [searchTerm, setSearchTerm] = useState("");
 
   const verifyUserProfileHandler = async () => {
-    const fetchedProfile = await profileService.getProfile();
+    const fetchedProfile = await verifySession(() =>
+      profileService.getProfile()
+    );
     if (!fetchedProfile.id) {
       navigate("/profile");
       return toast(

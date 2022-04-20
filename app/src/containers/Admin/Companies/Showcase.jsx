@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 //custom hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 //Para las alertas
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
@@ -18,6 +19,7 @@ import helpers from "@/helpers/helpers";
 
 const Showcase = () => {
   const [company, setCompany] = useState({});
+  const { verifySession } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const { params, navigate } = useRouterHooks();
 
@@ -33,7 +35,9 @@ const Showcase = () => {
       ...helpers.alertConfig,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const deleteResults = await companiesService.Delete(company.id);
+        const deleteResults = await verifySession(() =>
+          companiesService.Delete(company.id)
+        );
         if (!deleteResults.status) {
           return toast.error(deleteResults.statusText);
         }
@@ -45,7 +49,9 @@ const Showcase = () => {
 
   const getCompanyDetails = useCallback(async () => {
     setIsLoading(true);
-    const fetchedCompany = await companiesService.GetOne(params.id);
+    const fetchedCompany = await verifySession(() =>
+      companiesService.GetOne(params.id)
+    );
     if (!fetchedCompany.id) {
       toast.error("No existe ese registro");
       navigate("/companies");

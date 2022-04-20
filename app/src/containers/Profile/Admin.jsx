@@ -6,6 +6,7 @@ import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import Accordion from "@/components/Global/Accordion";
 import Collapsable from "@/components/Global/Collapsable";
 import useSession from "@/hooks/useSession";
+import useForm from "@/hooks/useForm";
 
 import profileService from "@/services/Admin/profile.service";
 
@@ -16,16 +17,17 @@ const Entries = {
 };
 
 const Admin = () => {
-  const [admin, setAdmin] = useState(Entries);
+  const {
+    form: admin,
+    setForm: setAdmin,
+    handleEntriesChange,
+  } = useForm(Entries);
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
-  const { user } = useSession();
-
-  const handleEntriesChange = (key, value) =>
-    setAdmin({ ...admin, [key]: value });
+  const { user, verifySession } = useSession();
 
   const getProfileHandler = useCallback(async () => {
-    const adminFetched = await profileService.getProfile();
+    const adminFetched = await verifySession(() => profileService.getProfile());
     if (!adminFetched.id) return;
 
     setAdmin(adminFetched);
@@ -42,7 +44,9 @@ const Admin = () => {
       delete profile.confirmar;
     }
 
-    const results = await profileService.saveOrUpdateProfile(profile);
+    const results = await verifySession(() =>
+      profileService.saveOrUpdateProfile(profile)
+    );
     if (!results.status) {
       return toast.error(results.statusText);
     }

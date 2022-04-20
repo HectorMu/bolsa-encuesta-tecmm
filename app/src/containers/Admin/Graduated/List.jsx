@@ -2,14 +2,15 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
-import useRouterHooks from "@/hooks/useRouterHooks";
-
 //importando componentes personalizados
 import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
 
 //importando hooks
-import useServiceFetch from "@/hooks/useServiceFetch";
+import useServiceFetch from "@/hooks/useServiceFetchV2";
+
+import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 
 //importando servicios
 import graduatesService from "@/services/Admin/graduates.service";
@@ -18,11 +19,13 @@ import graduatesService from "@/services/Admin/graduates.service";
 import helpers from "@/helpers/helpers";
 
 const List = () => {
-  const [graduates, setGraduates] = useState([]);
-  const { isLoading, refreshData } = useServiceFetch(
-    graduatesService.List,
-    setGraduates
-  );
+  const { verifySession } = useSession();
+
+  const {
+    isLoading,
+    refreshData,
+    hookData: graduates,
+  } = useServiceFetch(() => verifySession(graduatesService.List), []);
   const { navigate } = useRouterHooks();
 
   const handleDeletion = async (egresado) => {
@@ -32,7 +35,9 @@ const List = () => {
       ...helpers.alertConfig,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const deleteResults = await graduatesService.Delete(egresado.id);
+        const deleteResults = await verifySession(() =>
+          graduatesService.Delete(egresado.id)
+        );
         if (!deleteResults.status) {
           return toast.error(deleteResults.statusText);
         }

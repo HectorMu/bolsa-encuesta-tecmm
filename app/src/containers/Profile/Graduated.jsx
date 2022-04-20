@@ -4,6 +4,7 @@ import FormCard from "@/components/Global/FormCard";
 import RegisterForm from "@/components/Graduated/RegisterForm";
 import useForm from "@/hooks/useForm";
 import useSession from "@/hooks/useSession";
+import useForm from "@/hooks/useForm";
 
 //Entradas del formulario, es un objeto con los datos a capturar el en formulario
 import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
@@ -19,19 +20,20 @@ const Graduated = () => {
     setForm: setGraduated,
     handleChange: handleEntriesChange,
   } = useForm(Entries);
+  const [currentSelection, setCurrentSelection] = useState("Profile");
   const {
     form: idiomaExtranjero,
     setForm: setIdiomaExtranjero,
     handleChange: handleIdiomaExtranjeroChange,
   } = useForm(NestedEntries.idioma_extranjero);
-  const [currentSelection, setCurrentSelection] = useState("Profile");
-
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
-  const { user } = useSession();
+  const { user, verifySession } = useSession();
 
   const getProfileHandler = useCallback(async () => {
-    const graduatedFetched = await profileService.getProfile();
+    const graduatedFetched = await verifySession(() =>
+      profileService.getProfile()
+    );
     if (!graduatedFetched.id) return;
 
     const { idioma_extranjero, ...rest } = graduatedFetched;
@@ -51,7 +53,9 @@ const Graduated = () => {
       delete profile.confirmar;
     }
 
-    const results = await profileService.saveOrUpdateProfile(profile);
+    const results = await verifySession(() =>
+      profileService.saveOrUpdateProfile(profile)
+    );
     if (!results.status) {
       return toast.error(results.statusText);
     }

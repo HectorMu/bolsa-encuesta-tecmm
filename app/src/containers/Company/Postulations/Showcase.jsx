@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Modal from "@/components/Global/Modal";
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 import vacanciesService from "@/services/Company/vacancies.service";
 import toast from "react-hot-toast";
 import Loading from "@/components/Global/Loading";
@@ -9,6 +10,7 @@ import helpers from "@/helpers/helpers";
 import Auth from "@/services/Auth";
 
 const ShowCase = ({ refreshData: refreshPostulations }) => {
+  const { verifySession } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [postulation, setPostulation] = useState({});
   const { params, navigate, location } = useRouterHooks();
@@ -21,8 +23,8 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
       ...helpers.alertConfig,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const results = await vacanciesService.FlagPostulationAsReviewed(
-          postulation.id
+        const results = await verifySession(() =>
+          vacanciesService.FlagPostulationAsReviewed(postulation.id)
         );
         if (!results.status) {
           return toast.error(results.statusText);
@@ -38,8 +40,8 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
     if (!params.postulation_id) return;
 
     setIsLoading(true);
-    const fetchedPostulation = await vacanciesService.GetOnePostulation(
-      params.postulation_id
+    const fetchedPostulation = await verifySession(() =>
+      vacanciesService.GetOnePostulation(params.postulation_id)
     );
     if (!fetchedPostulation.id) {
       toast.error("Esta postulacion ya no existe.");
@@ -73,7 +75,6 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
     handleGetCVPostulation();
   }, [postulation.curriculum]);
 
-  console.log(location.state);
   return (
     <div>
       {!params.postulation_id ? (
@@ -130,7 +131,6 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
                 >
                   <embed
                     ref={curriculumRef}
-                    //src={`http://localhost:4000/graduated/cvs/${postulation.curriculum}`}
                     frameBorder="0"
                     width="100%"
                     style={{ height: "100vh", width: "100%" }}
