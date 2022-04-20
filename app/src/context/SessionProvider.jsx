@@ -38,7 +38,9 @@ function SessionProvider({ children }) {
           };
           const loginResults = await Auth.Login(credentials);
           if (!loginResults.status) {
-            return toast.error(loginResults.statusText);
+            toast.error(loginResults.statusText);
+            await verifySession(serviceCall, onEffectCall);
+            return;
           }
           const sessionData = loginResults.SessionData;
           window.localStorage.setItem(
