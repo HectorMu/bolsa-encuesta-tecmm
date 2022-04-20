@@ -348,7 +348,10 @@ input:-webkit-autofill:active {
 
 .c-sidebar .menu .menu-item {
   display: block;
-  padding: 0.6em;
+  padding-left: 1em;
+  padding-right: 0.6em;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
   color: rgb(54, 54, 54);
   text-decoration: none;
   transition: 0.2s linear;
