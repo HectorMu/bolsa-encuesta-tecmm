@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import FormCard from "@/components/Global/FormCard";
 import RegisterForm from "@/components/Graduated/RegisterForm";
+import useForm from "@/hooks/useForm";
 import useSession from "@/hooks/useSession";
 
 //Entradas del formulario, es un objeto con los datos a capturar el en formulario
@@ -11,24 +12,23 @@ import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
 //importando servicios
 import profileService from "@/services/Graduated/profile.service";
 import GraduatedCurriculum from "./GraduatedCurriculum";
-import useRouterHooks from "@/hooks/useRouterHooks";
 
 const Graduated = () => {
-  const [graduated, setGraduated] = useState(Entries);
+  const {
+    form: graduated,
+    setForm: setGraduated,
+    handleChange: handleEntriesChange,
+  } = useForm(Entries);
+  const {
+    form: idiomaExtranjero,
+    setForm: setIdiomaExtranjero,
+    handleChange: handleIdiomaExtranjeroChange,
+  } = useForm(NestedEntries.idioma_extranjero);
   const [currentSelection, setCurrentSelection] = useState("Profile");
-  const [idiomaExtranjero, setIdiomaExtranjero] = useState(
-    NestedEntries.idioma_extranjero
-  );
+
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const { user } = useSession();
-
-  const handleEntriesChange = (key, value) =>
-    setGraduated({ ...graduated, [key]: value });
-
-  const handleIdiomaExtranjeroChange = (key, value) => {
-    setIdiomaExtranjero({ ...idiomaExtranjero, [key]: value });
-  };
 
   const getProfileHandler = useCallback(async () => {
     const graduatedFetched = await profileService.getProfile();
@@ -71,6 +71,7 @@ const Graduated = () => {
     setGraduated({ ...graduated, ["correo"]: user.correo });
   }, [user]);
 
+  console.log(graduated);
   return (
     <div>
       <div className="d-flex justify-content-center mb-3">
