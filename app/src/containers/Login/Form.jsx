@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 //Importing input personalizado
@@ -51,6 +51,15 @@ const Form = () => {
     });
   };
 
+  useEffect(() => {
+    window.addEventListener("storage", () => {
+      //Seteamos el usuario con el json parseado, y mostramos al usuario un mensaje de bienvenida
+      setUser(JSON.parse(window.localStorage.getItem("BETECMMSession")));
+    });
+    return () => {
+      window.removeEventListener("storage", console.log("Xd 2"));
+    };
+  }, []);
   return (
     <div className="card o-hidden border-0 shadow-lg my-5">
       <div className="card-body p-0">
