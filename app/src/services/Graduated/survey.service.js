@@ -20,7 +20,7 @@ const checkIfSurveyIsAnswered = async () => {
     );
     return await response.json();
   } catch (error) {
-    console.log(error);
+    return { status: false, error };
   }
 };
 

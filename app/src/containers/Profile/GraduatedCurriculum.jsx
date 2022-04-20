@@ -16,9 +16,7 @@ const GraduatedCurriculum = () => {
 
   const getCurriculumHandler = async () => {
     setLoadingCurriculum(true);
-    const fetchedCurriculum = await verifySession(() =>
-      profileService.getCurriculum()
-    );
+    const fetchedCurriculum = await profileService.getCurriculum();
     setCVName(fetchedCurriculum);
 
     if (fetchedCurriculum === "Pendiente") return;
