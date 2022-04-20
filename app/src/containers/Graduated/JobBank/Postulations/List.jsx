@@ -1,16 +1,20 @@
+import React from "react";
 import Loading from "@/components/Global/Loading";
 import useRouterHooks from "@/hooks/useRouterHooks";
 import moment from "moment/min/moment-with-locales";
 
-const List = ({ searchTerm, jobs, isLoading }) => {
-  const { navigate, params } = useRouterHooks();
-  const handleJobSelection = (job) => {
-    navigate(`/graduated/jobbank/jobs/${job.folio}`, { state: job });
+const List = ({ searchTerm, postulations, isLoading }) => {
+  const { params, navigate } = useRouterHooks();
+
+  const handleSelection = (postulation) => {
+    navigate(`/graduated/jobbank/postulations/${postulation.fk_vacante}`, {
+      state: postulation,
+    });
   };
 
   return (
     <div>
-      {!jobs.filter((job) =>
+      {!postulations.filter((job) =>
         job.vacante.toLowerCase().includes(searchTerm.toLowerCase())
       ).length > 0 &&
         searchTerm.length > 0 && (
@@ -21,18 +25,20 @@ const List = ({ searchTerm, jobs, isLoading }) => {
 
       {isLoading ? (
         <Loading />
-      ) : jobs.length > 0 ? (
-        jobs
-          .filter((job) =>
-            job.vacante.toLowerCase().includes(searchTerm.toLowerCase())
+      ) : postulations.length > 0 ? (
+        postulations
+          .filter((postulation) =>
+            postulation.vacante.toLowerCase().includes(searchTerm.toLowerCase())
           )
           .map((e) => (
             <div
-              onClick={() => handleJobSelection(e)}
-              key={e.folio}
+              onClick={() => handleSelection(e)}
+              key={e.fk_vacante}
               style={{ cursor: "pointer" }}
               className={`card rounded-0 pt-3 px-3 border-left-0 border-right-0   ${
-                parseInt(params.id) === e.folio ? "bg-green-light shadow " : ""
+                parseInt(params.id) === e.fk_vacante
+                  ? "bg-green-light shadow "
+                  : ""
               }`}
             >
               <h5 className="text-primary font-weight-bolder">{e.vacante}</h5>

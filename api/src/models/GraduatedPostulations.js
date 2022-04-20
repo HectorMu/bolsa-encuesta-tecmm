@@ -6,7 +6,7 @@ const IDENTIFIER_NAME = "id";
 const Template = {
   async List(userid) {
     const data = await connection.query(
-      `select * from ${TABLE_NAME} where fk_egresado = ${userid}`
+      ` select * from v_getGraduatedJobsAndCompanyDetails  where fk_egresado = ${userid}`
     );
     return data;
   },

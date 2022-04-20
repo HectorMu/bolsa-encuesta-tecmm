@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Modal from "@/components/Global/Modal";
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
@@ -10,13 +10,13 @@ import toast from "react-hot-toast";
 import Loading from "@/components/Global/Loading";
 import Auth from "@/services/Auth";
 
-const Showcase = () => {
+const Showcase = ({ refreshData }) => {
   const [selectedJob, setSelectedJob] = useState({});
   const [curriculumPath, setCurriculumPath] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingPostulation, setLoadingPostulation] = useState(false);
   const [currentPostulation, setCurrentPostulation] = useState({});
-  const { params, location } = useRouterHooks();
+  const { params, location, navigate } = useRouterHooks();
   const { verifySession } = useSession();
 
   const postulationRegisterHandler = async () => {
@@ -45,7 +45,10 @@ const Showcase = () => {
           return toast.error(results.statusText);
         }
         toast.success("Postulación cancelada");
-        getPostulationHandler();
+        navigate("/graduated/jobbank/postulations");
+        await getPostulationHandler();
+        await refreshData();
+        setSelectedJob(null);
       }
     });
   };
@@ -72,11 +75,6 @@ const Showcase = () => {
     setLoadingPostulation(false);
   }, [params.id]);
 
-  const registerPostVisit = useCallback(async () => {
-    if (!params.id) return;
-    await verifySession(() => jobsService.registerJobVisit(params.id));
-  }, [params.id]);
-
   const handleGetJobFromFetch = useCallback(async () => {
     if (!params.id) return;
 
@@ -95,8 +93,7 @@ const Showcase = () => {
   useEffect(() => {
     handleGetJobFromFetch();
     getPostulationHandler();
-    registerPostVisit();
-  }, [handleGetJobFromFetch, registerPostVisit, getPostulationHandler]);
+  }, [handleGetJobFromFetch, getPostulationHandler]);
 
   return (
     <div className="p-2">
@@ -104,7 +101,7 @@ const Showcase = () => {
         <Loading />
       ) : (
         <>
-          {selectedJob.folio ? (
+          {selectedJob?.fk_vacante ? (
             <>
               <h3 className="text-primary btn-link text-left font-weight-bolder">
                 {selectedJob.vacante}
@@ -184,7 +181,7 @@ const Showcase = () => {
           ) : (
             <div className="d-flex justify-content-center align-items-center h-50 text-black">
               <h3 className="text-primary font-weight-bolder text-center">
-                ¡Selecciona un trabajo de la lista para saber mas y postularte!
+                ¡Selecciona una postulacion!
               </h3>
             </div>
           )}

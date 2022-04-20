@@ -32,7 +32,7 @@ const VacantDetails = () => {
     }
     setVacant(fetchedVacant);
     setIsLoading(false);
-  }, [params.job_id, verifySession]);
+  }, [params.job_id]);
 
   useEffect(() => {
     getVacantDetailsHandler();

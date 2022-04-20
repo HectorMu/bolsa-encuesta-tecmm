@@ -21,7 +21,7 @@ const Postulations = () => {
         () => vacanciesService.GetPostulations(params.job_id),
         refreshData
       ),
-    [params.job_id, verifySession]
+    [params.job_id]
   );
 
   return (

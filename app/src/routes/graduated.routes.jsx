@@ -30,11 +30,15 @@ const Routes = [
     element: <IsGraduated view={JobBank} />,
   },
   {
-    path: "/graduated/jobbank/job/:id",
+    path: "/graduated/jobbank/jobs/:id",
     element: <IsGraduated view={JobBank} />,
   },
   {
     path: "/graduated/jobbank/postulations",
+    element: <IsGraduated view={Postulations} />,
+  },
+  {
+    path: "/graduated/jobbank/postulations/:id",
     element: <IsGraduated view={Postulations} />,
   },
 ];
