@@ -11,7 +11,7 @@ const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
   return (
     <nav className="navbar navbar-expand navbar-light bg-green topbar static-top shadow fixed-top">
       <Link className="navbar-brand text-white font-weight-bolder" to="/">
-        <img src={navLogo} className="ml-2 w-25 h-50" alt="" />
+        <img src={navLogo} className="ml-2 navbar-responsive-size" alt="" />
       </Link>
 
       <ul className="navbar-nav ml-auto">

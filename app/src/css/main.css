@@ -521,3 +521,16 @@ input[type="radio"]:checked:after {
 .btn-link.btn-link-primary:hover {
   color: var(--purple-dark);
 }
+
+.navbar-responsive-size {
+  width: 80px;
+  height: 80px;
+  transition: all ease-in-out 200ms;
+}
+
+@media (max-width: 576px) {
+  .navbar-responsive-size {
+    width: 55px;
+    height: 55px;
+  }
+}
