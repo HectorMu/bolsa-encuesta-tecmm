@@ -307,33 +307,33 @@ input:-webkit-autofill:active {
 
 .c-sidebar {
   flex: 1 1 0;
-  max-width: 180px;
+  max-width: 200px;
   padding: 2rem 1rem;
   background-color: #e6e7e9;
-
   z-index: 3;
 }
-.c-sidebar .heading {
-  display: flex;
-  gap: 5px;
-  margin-top: 70px;
+.c-sidebar .menu .heading {
+  margin: -0.5rem 0.9rem;
 }
-.c-sidebar .heading i {
+.c-sidebar .menu .heading i {
   color: rgb(0, 0, 0);
   font-size: 0.6rem;
   font-weight: bold;
   display: inline-block;
 }
-.c-sidebar .heading p {
+.c-sidebar .menu .heading p {
   color: rgb(0, 0, 0);
   font-size: 0.6rem;
   font-weight: bold;
   text-transform: uppercase;
+  display: inline-block;
 }
-.c-sidebar .heading i {
+.c-sidebar .menu .heading i {
   color: rgb(0, 0, 0);
   font-size: 0.6rem;
   font-weight: bold;
+  padding-top: 2.5em;
+  padding-bottom: 2.5em;
 }
 
 .c-sidebar .menu {
@@ -341,23 +341,28 @@ input:-webkit-autofill:active {
   position: sticky;
   top: 90px;
 }
+.c-sidebar-divider {
+  width: 90%;
+  color: rgb(68, 68, 68);
+}
 
 .c-sidebar .menu .menu-item {
   display: block;
-  padding: 0.7em;
-  color: rgb(0, 0, 0);
+  padding: 0.6em;
+  color: rgb(54, 54, 54);
   text-decoration: none;
   transition: 0.2s linear;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .c-sidebar .menu .menu-item:hover {
   color: var(--coffe);
-  border-right: 5px solid var(--purple);
+  border-right: 3px solid var(--purple);
 }
 
 .c-sidebar .menu .menu-item.active {
-  border-right: 5px solid var(--purple);
+  border-right: 3px solid var(--purple);
   color: var(--green);
   font-weight: bolder;
   pointer-events: none;
@@ -365,7 +370,7 @@ input:-webkit-autofill:active {
 
 @media (min-width: 1200px) {
   .c-sidebar {
-    max-width: 150px;
+    max-width: 200px;
   }
 }
 
@@ -376,14 +381,30 @@ input:-webkit-autofill:active {
 }
 @media (max-width: 1024px) {
   .c-sidebar {
-    max-width: 120px;
+    position: fixed;
+    top: 48px;
+    left: -400px;
+    height: 100vh;
+    width: 100%;
+    max-width: 200px;
+    transition: 0.2s linear;
+    z-index: 100;
+  }
+  .c-sidebar.active {
+    left: 0;
+  }
+  .c-sidebar .menu {
+    position: static;
+  }
+  .c-sidebar .heading {
+    margin-top: 10px;
   }
 }
 
 @media (max-width: 768px) {
   .c-sidebar {
     position: fixed;
-    top: 0;
+    top: 48px;
     left: -400px;
     height: 100vh;
     width: 100%;
@@ -405,7 +426,7 @@ input:-webkit-autofill:active {
 @media (max-width: 576px) {
   .c-sidebar {
     position: fixed;
-    top: 0;
+    top: 48px;
     left: -400px;
     height: 100vh;
     width: 100%;

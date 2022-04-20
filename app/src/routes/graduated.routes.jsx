@@ -11,6 +11,11 @@ const IsGraduated = lazy(() =>
   import("@/components/Authentication/IsGraduated")
 );
 
+const JobBank = lazy(() => import("@/pages/Graduated/JobBank/JobBank"));
+const Postulations = lazy(() =>
+  import("@/pages/Graduated/JobBank/Postulations")
+);
+
 const Routes = [
   {
     path: "/graduated/survey",
@@ -19,6 +24,18 @@ const Routes = [
   {
     path: "/graduated/survey/section/:section_id",
     element: <IsGraduated view={Survey} />,
+  },
+  {
+    path: "/graduated/jobbank/jobs",
+    element: <IsGraduated view={JobBank} />,
+  },
+  {
+    path: "/graduated/jobbank/job/:id",
+    element: <IsGraduated view={JobBank} />,
+  },
+  {
+    path: "/graduated/jobbank/postulations",
+    element: <IsGraduated view={Postulations} />,
   },
 ];
 

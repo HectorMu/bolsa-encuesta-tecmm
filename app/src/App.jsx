@@ -29,13 +29,6 @@ import AppRoutes from "./routes";
 //importing session context
 import SessionProvider from "./context/SessionProvider";
 
-//importing graduated nested pages
-const JobBank = lazy(() => import("./pages/Graduated/JobBank/JobBank"));
-const Postulations = lazy(() =>
-  import("./pages/Graduated/JobBank/Postulations")
-);
-const Dashboard = lazy(() => import("./pages/Graduated/JobBank/Dashboard"));
-
 function App() {
   //Initializing AOS for animations
   useEffect(() => {
@@ -53,11 +46,6 @@ function App() {
                 element={route.element}
               />
             ))}
-            <Route path="/graduated/jobbank/" element={<Dashboard />}>
-              <Route path="job/:id" element={<JobBank />} />
-              <Route path="jobs" element={<JobBank />} />
-              <Route path="postulations" element={<Postulations />} />
-            </Route>
           </Routes>
         </Suspense>
       </Layout>

@@ -23,7 +23,7 @@ const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
         ) : null}
       </ul>
       <button
-        className="btn btn-primary d-md-none btn-sm "
+        className="btn btn-primary d-md-block d-lg-none d-xl-none btn-sm "
         onClick={handleSidebarToggle}
       >
         <i className="fa fa-bars"></i>
