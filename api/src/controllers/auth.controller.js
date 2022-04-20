@@ -38,7 +38,7 @@ controller.Login = async (req, res) => {
     const AccessToken = jwt.sign(
       serializedUser,
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "5m" }
+      { expiresIn: "10m" }
     );
 
     const SessionData = {

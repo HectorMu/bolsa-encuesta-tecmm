@@ -24,7 +24,10 @@ const List = () => {
     isLoading,
     hookData: companies,
     refreshData,
-  } = useServiceFetch(() => verifySession(companyService.List), []);
+  } = useServiceFetch(
+    () => verifySession(companyService.List, refreshData),
+    []
+  );
   const { navigate } = useRouterHooks();
 
   const handleDeletion = async (company) => {

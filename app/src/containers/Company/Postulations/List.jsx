@@ -13,7 +13,7 @@ const List = ({ postulations, isLoading }) => {
     <div>
       {isLoading ? (
         <Loading />
-      ) : postulations.length > 0 ? (
+      ) : postulations?.length > 0 ? (
         postulations.map((postulation) => (
           <div
             onClick={() => handleGoToPostulation(postulation)}

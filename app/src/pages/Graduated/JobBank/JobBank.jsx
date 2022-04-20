@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import List from "@/containers/Graduated/JobBank/List";
 import Showcase from "@/containers/Graduated/JobBank/Showcase";
-import useServiceFetch from "@/hooks/useServiceFetch";
+import useServiceFetch from "@/hooks/useServiceFetchV2";
 import jobsService from "@/services/Graduated/jobs.service";
 import useCleanAosAnimations from "@/hooks/useCleanAosAnimations";
 import profileService from "@/services/Graduated/profile.service";
@@ -13,12 +13,16 @@ const JobBank = () => {
   const { verifySession } = useSession();
   const animatedRef = useCleanAosAnimations();
   const { navigate } = useRouterHooks();
-  const { hookData, isLoading } = useServiceFetch(jobsService.getJobs);
+  const { hookData, isLoading, refreshData } = useServiceFetch(
+    () => verifySession(jobsService.getJobs, refreshData),
+    []
+  );
   const [searchTerm, setSearchTerm] = useState("");
 
   const verifyUserProfileHandler = async () => {
-    const fetchedProfile = await verifySession(() =>
-      profileService.getProfile()
+    const fetchedProfile = await verifySession(
+      () => profileService.getProfile(),
+      verifyUserProfileHandler
     );
     if (!fetchedProfile.id) {
       navigate("/profile");
@@ -45,6 +49,7 @@ const JobBank = () => {
             className="form-control bg-light"
             placeholder="Buscar trabajos..."
             aria-label="Search"
+            autoComplete="off"
             aria-describedby="basic-addon2"
             onChange={(e) => setSearchTerm(e.target.value)}
           />

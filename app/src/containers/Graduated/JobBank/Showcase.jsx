@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Modal from "@/components/Global/Modal";
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
@@ -11,7 +11,6 @@ import Loading from "@/components/Global/Loading";
 import Auth from "@/services/Auth";
 
 const Showcase = () => {
-  const [cvFile, setCvFile] = useState(null);
   const [selectedJob, setSelectedJob] = useState({});
   const [curriculumPath, setCurriculumPath] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +18,6 @@ const Showcase = () => {
   const [currentPostulation, setCurrentPostulation] = useState({});
   const { params, location } = useRouterHooks();
   const { verifySession } = useSession();
-  const fileRef = useRef();
 
   const postulationRegisterHandler = async () => {
     const results = await verifySession(() =>
@@ -60,7 +58,6 @@ const Showcase = () => {
     );
     if (!postulationFetched.id) {
       setCurrentPostulation({});
-      setCvFile(null);
       setLoadingPostulation(false);
       return;
     }
@@ -100,10 +97,6 @@ const Showcase = () => {
     getPostulationHandler();
     registerPostVisit();
   }, [handleGetJobFromFetch, registerPostVisit, getPostulationHandler]);
-
-  useEffect(() => {
-    setCvFile(null);
-  }, [selectedJob.folio]);
 
   return (
     <div className="p-2">
@@ -176,34 +169,11 @@ const Showcase = () => {
                 </div>
               ) : (
                 <div className="d-flex flex-column align-items-center justify-content-center mt-5">
-                  {cvFile !== null && (
-                    <div
-                      data-aos="flip-left"
-                      className="d-flex flex-column align-items-center justify-content-center "
-                    >
-                      <p>Archivo seleccionado: {cvFile?.name}</p>
-                      <button
-                        onClick={() => setCvFile({})}
-                        className="btn btn-primary btn-sm"
-                      >
-                        Quitar <i className="fas fa-times"></i>
-                      </button>
-                    </div>
-                  )}
-
-                  <div className="form-group">
-                    <input
-                      ref={fileRef}
-                      type={"file"}
-                      onChangeCapture={(e) => setCvFile(e.target.files[0])}
-                      hidden={true}
-                    />
-                  </div>
                   <button
                     onClick={postulationRegisterHandler}
                     className="btn btn-primary btn-lg mt-3"
                   >
-                    {cvFile !== null ? "Enviar CV" : "Postularme"}
+                    Postularme
                   </button>
                   <p className="mt-4">
                     Nota: El curriculum debe estar en formato PDF

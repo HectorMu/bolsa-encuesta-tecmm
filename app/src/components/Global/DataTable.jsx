@@ -127,6 +127,7 @@ const DataTable = ({
     setInitialData(data);
   }, [data]);
 
+  console.log(initialData);
   return (
     <div className="card shadow-lg mb-4 border-none ">
       <div className="card-header py-3 d-flex justify-content-between d-sm-flex flex-column flex-lg-row flex-md-row flex-xl-row">
@@ -246,7 +247,9 @@ const DataTable = ({
             cellSpacing={0}
           >
             <thead>
-              {initialData !== undefined && initialData.length > 0 ? (
+              {initialData !== undefined &&
+              Array.isArray(initialData) &&
+              initialData.length > 0 ? (
                 <tr key={initialData[0].id}>
                   {Object.keys(initialData[0]).map((e, i) =>
                     renameHeaders !== null &&
@@ -319,7 +322,9 @@ const DataTable = ({
               )}
             </thead>
             <tbody>
-              {initialData !== undefined && initialData.length > 0 ? (
+              {initialData !== undefined &&
+              Array.isArray(initialData) &&
+              initialData.length > 0 ? (
                 initialData.map((d, i) => (
                   <tr key={i}>
                     {Object.entries(d).map(([k, e], i) => (

@@ -1,0 +1,1 @@
+import{d as t}from"./vendor.b272e12a.js";import{c as a,a as e}from"./index.eb6b2ee8.js";const i=({view:s})=>{const{user:r}=a();return r!==null&&r.fk_rol===2?e(s,{}):e(t,{to:"/login",replace:!0})};export{i as default};

@@ -25,7 +25,10 @@ const List = () => {
     isLoading,
     refreshData,
     hookData: graduates,
-  } = useServiceFetch(() => verifySession(graduatesService.List), []);
+  } = useServiceFetch(
+    () => verifySession(graduatesService.List, refreshData),
+    []
+  );
   const { navigate } = useRouterHooks();
 
   const handleDeletion = async (egresado) => {

@@ -7,8 +7,12 @@ import Modal from "@/components/Global/Modal";
 
 const Survey = () => {
   const { verifySession } = useSession();
-  const { hookData: answeredDetails, isLoading } = useServiceFetchV2(
-    () => verifySession(surveyService.checkIfSurveyIsAnswered),
+  const {
+    hookData: answeredDetails,
+    isLoading,
+    refreshData,
+  } = useServiceFetchV2(
+    () => verifySession(surveyService.checkIfSurveyIsAnswered, refreshData),
     []
   );
 
@@ -24,7 +28,7 @@ const Survey = () => {
         <Loading />
       ) : (
         <>
-          {answeredDetails.fk_egresado ? (
+          {answeredDetails?.fk_egresado ? (
             <div className="col-lg-6 mx-auto">
               <div className="card shadow-lg border-0 animated--grow-in">
                 <div className="card-body">

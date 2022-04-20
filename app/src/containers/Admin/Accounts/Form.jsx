@@ -22,8 +22,9 @@ const Form = () => {
   const { navigate, location, params } = useRouterHooks();
 
   const getUserFromFetch = useCallback(async () => {
-    const userFetched = await verifySession(() =>
-      usersService.GetOne(params.id)
+    const userFetched = await verifySession(
+      () => usersService.GetOne(params.id),
+      getUserFromFetch
     );
     if (!userFetched.id) {
       navigate("/accounts");

@@ -12,42 +12,73 @@ const CustomSidebar = ({
   }
   return (
     <aside className={`c-sidebar  ${sidebarToggled ? `active ` : ``} `}>
-      <div className="d-flex justify-content-end">
-        <button
-          onClick={() => handleSidebarToggle(!sidebarToggled)}
-          className="btn btn-sm btn-purple d-block d-sm-block d-md-none d-lg-none d-xl-none d-xxl-none"
-        >
-          <i className="fas fa-times"></i>
-        </button>
-      </div>
+      <div className="d-flex justify-content-end"></div>
       {/* Opciones para administrador */}
       {user.fk_rol === 1 ? (
         <>
-          <div className="heading ">
-            <i className="fas fa-users"></i> <p>Usuarios</p>
-          </div>
           <nav className="menu">
+            <NavLink
+              to="/"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-fw fa-tachometer-alt"></i> Dashboard
+            </NavLink>
+            <hr className="c-sidebar-divider" />
+            <div className="heading">
+              <p>Usuarios</p>
+            </div>
             <NavLink
               to="/accounts"
               className="menu-item"
               onClick={() => handleSidebarToggle(!sidebarToggled)}
             >
-              Cuentas
+              <i className="fas fa-users"></i> Cuentas
             </NavLink>
             <NavLink
               to="/companies"
               className="menu-item"
               onClick={() => handleSidebarToggle(!sidebarToggled)}
             >
-              Empresas
+              <i className="fas fa-building"></i> Empresas
             </NavLink>
             <NavLink
               to="/graduated"
               className="menu-item"
               onClick={() => handleSidebarToggle(!sidebarToggled)}
             >
-              Egresados
+              <i className="fas fa-user-graduate"></i> Egresados
             </NavLink>
+            <hr className="c-sidebar-divider" />
+            <div className="heading">
+              <p>Bolsa de trabajo</p>
+            </div>
+            <NavLink
+              to="/postulations"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-envelope"></i> Postulaciones
+            </NavLink>{" "}
+            <hr className="c-sidebar-divider" />
+            <div className="heading">
+              <p>Encuesta</p>
+            </div>
+            <NavLink
+              to="/survey/report"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-print"></i> Reporte
+            </NavLink>
+            <NavLink
+              to="/survey/contested"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-check"></i> Contestaciones
+            </NavLink>
+            <hr className="c-sidebar-divider" />
           </nav>
         </>
       ) : null}
@@ -55,9 +86,6 @@ const CustomSidebar = ({
       {/* Opciones para egresado */}
       {user.fk_rol === 2 ? (
         <>
-          <div className="heading">
-            <p>Menu</p>
-          </div>
           <nav className="menu">
             <NavLink
               to="/graduated/survey"
@@ -66,6 +94,10 @@ const CustomSidebar = ({
             >
               <i className="fas fa-poll-h"></i> Encuesta
             </NavLink>
+            <hr className="c-sidebar-divider" />
+            <div className="heading">
+              <p>Bolsa de trabajo</p>
+            </div>
             <NavLink
               to="/graduated/jobbank/jobs"
               className="menu-item"
@@ -73,6 +105,14 @@ const CustomSidebar = ({
             >
               <i className="fas fa-briefcase"></i> Trabajos
             </NavLink>
+            <NavLink
+              to="/graduated/jobbank/postulations"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-envelope"></i> Mis postulaciones
+            </NavLink>
+            <hr className="c-sidebar-divider" />
           </nav>
         </>
       ) : null}
@@ -80,10 +120,15 @@ const CustomSidebar = ({
       {/* Opciones para empresa */}
       {user.fk_rol === 3 ? (
         <>
-          <div className="heading">
-            <p>Menu</p>
-          </div>
           <nav className="menu">
+            <NavLink
+              to="/"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-fw fa-tachometer-alt"></i> Dashboard
+            </NavLink>
+            <hr className="c-sidebar-divider" />
             <NavLink
               to="/company/survey"
               className="menu-item"
@@ -91,13 +136,20 @@ const CustomSidebar = ({
             >
               <i className="fas fa-poll-h"></i> Encuesta
             </NavLink>
+
+            <hr className="c-sidebar-divider" />
+
+            <div className="heading">
+              <p>Bolsa de trabajo</p>
+            </div>
             <NavLink
               to="/company/jobbank"
               className="menu-item"
               onClick={() => handleSidebarToggle(!sidebarToggled)}
             >
-              <i className="fas fa-briefcase"></i> Trabajos
+              <i className="fas fa-briefcase"></i> Mis vacantes
             </NavLink>
+            <hr className="c-sidebar-divider" />
           </nav>
         </>
       ) : null}

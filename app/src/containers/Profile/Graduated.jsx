@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import FormCard from "@/components/Global/FormCard";
 import RegisterForm from "@/components/Graduated/RegisterForm";
-import useSession from "@/hooks/useSession";
 import useForm from "@/hooks/useForm";
+import useSession from "@/hooks/useSession";
 
 //Entradas del formulario, es un objeto con los datos a capturar el en formulario
 import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
@@ -12,7 +12,6 @@ import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
 //importando servicios
 import profileService from "@/services/Graduated/profile.service";
 import GraduatedCurriculum from "./GraduatedCurriculum";
-import useRouterHooks from "@/hooks/useRouterHooks";
 
 const Graduated = () => {
   const {
@@ -62,9 +61,10 @@ const Graduated = () => {
     toast.success(results.statusText);
 
     getProfileHandler();
-
-    setCurrentSelection("Curriculum");
-    toast("Puedes subir tu curriculum ahora para poder postularte");
+    if (results.statusText === "Curriculum creado correctamente.") {
+      setCurrentSelection("Curriculum");
+      toast("Puedes subir tu curriculum ahora para poder postularte");
+    }
   };
 
   useEffect(() => {
@@ -75,6 +75,7 @@ const Graduated = () => {
     setGraduated({ ...graduated, ["correo"]: user.correo });
   }, [user]);
 
+  console.log(graduated);
   return (
     <div>
       <div className="d-flex justify-content-center mb-3">

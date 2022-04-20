@@ -31,6 +31,18 @@ const registerJobVisit = async (job_id) => {
   }
 };
 
+const getGraduatedPostulations = async () => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/postulations`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const registerPostulation = async (job_id) => {
   try {
     const response = await fetch(
@@ -75,4 +87,5 @@ export default {
   registerPostulation,
   getPostulation,
   deletePostulation,
+  getGraduatedPostulations,
 };

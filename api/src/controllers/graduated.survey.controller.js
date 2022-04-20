@@ -785,7 +785,4 @@ controller.verifySurveyAnsweredToken = async (req, res) => {
     }
   );
 };
-
-controller.get;
-
 module.exports = controller;

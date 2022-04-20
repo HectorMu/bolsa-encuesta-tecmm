@@ -21,8 +21,9 @@ const VacantDetails = () => {
 
   const getVacantDetailsHandler = useCallback(async () => {
     setIsLoading(true);
-    const fetchedVacant = await verifySession(() =>
-      vacanciesService.GetOne(params.job_id)
+    const fetchedVacant = await verifySession(
+      () => vacanciesService.GetOne(params.job_id),
+      getVacantDetailsHandler
     );
     if (!fetchedVacant.folio) {
       toast.error("Esta vacante no existe.");

@@ -49,8 +49,9 @@ const Showcase = () => {
 
   const getCompanyDetails = useCallback(async () => {
     setIsLoading(true);
-    const fetchedCompany = await verifySession(() =>
-      companiesService.GetOne(params.id)
+    const fetchedCompany = await verifySession(
+      () => companiesService.GetOne(params.id),
+      getCompanyDetails
     );
     if (!fetchedCompany.id) {
       toast.error("No existe ese registro");

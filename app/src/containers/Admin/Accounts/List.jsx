@@ -23,7 +23,7 @@ const List = () => {
     isLoading,
     hookData: users,
     refreshData,
-  } = useServiceFetch(() => verifySession(usersService.List), []);
+  } = useServiceFetch(() => verifySession(usersService.List, refreshData), []);
   const { navigate } = useRouterHooks();
 
   const handleDeletion = async (usuario) => {

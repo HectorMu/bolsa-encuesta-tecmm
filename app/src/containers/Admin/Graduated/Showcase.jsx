@@ -21,8 +21,9 @@ const Showcase = () => {
 
   const getGradutedHandler = useCallback(async () => {
     setIsLoading(true);
-    const graduatedFetched = await verifySession(() =>
-      graduatesService.GetOne(params.id)
+    const graduatedFetched = await verifySession(
+      () => graduatesService.GetOne(params.id),
+      getGradutedHandler
     );
     if (!graduatedFetched.id) {
       toast.error("Este registro no existe");

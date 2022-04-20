@@ -5,7 +5,7 @@ import moment from "moment/min/moment-with-locales";
 const List = ({ searchTerm, jobs, isLoading }) => {
   const { navigate, params } = useRouterHooks();
   const handleJobSelection = (job) => {
-    navigate(`/graduated/jobbank/job/${job.folio}`, { state: job });
+    navigate(`/graduated/jobbank/jobs/${job.folio}`, { state: job });
   };
 
   return (
