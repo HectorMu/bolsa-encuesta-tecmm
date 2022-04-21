@@ -20,8 +20,8 @@ create table usuarios(
     clave varchar(300),
     fk_rol int,
     FOREIGN KEY (fk_rol) REFERENCES roles (id),
-    creadoEn varchar(50),
-    actualizadoEn varchar(50)
+    creadoEn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizadoEn DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 create table perfil_empresa(
@@ -37,8 +37,8 @@ create table perfil_empresa(
     tipo_empresa varchar(50),
     tamaño varchar(100),
     actividad_economica varchar(200),
-    creadoEn varchar(50),
-    actualizadoEn varchar(50),
+    creadoEn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizadoEn DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
@@ -64,8 +64,8 @@ create table perfil_egresado(
     titulado varchar(10),
     paquetes_computacionales TEXT,
     curriculum varchar(250),
-    creadoEn varchar(50),
-    actualizadoEn varchar(50),
+    creadoEn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizadoEn DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
@@ -364,71 +364,9 @@ create table solicitud_bolsa(
     foreign key(fk_egresado)references usuarios(id)
 );
 
-//DISPARADORES------------------------------------------------------------------------------
-
-DELIMITER //
-CREATE TRIGGER `perfil_egresado_FechaActualizacion` BEFORE UPDATE ON `perfil_egresado` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `perfil_egresado_FechaInserccion` BEFORE INSERT ON `perfil_egresado` FOR EACH ROW BEGIN
-	SET NEW.creadoEn = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `perfil_empresa_FechaActualizacion` BEFORE UPDATE ON `perfil_empresa` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `perfil_empresa_FechaInserccion` BEFORE INSERT ON `perfil_empresa` FOR EACH ROW BEGIN
-	SET NEW.creadoEn = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `publicacion_bolsa_FechaInserccion` BEFORE INSERT ON `publicacion_bolsa` FOR EACH ROW BEGIN
-	SET NEW.fecha_creacion = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-
-
-DELIMITER //
-CREATE TRIGGER `usuarios_BorrarDatosExistentesEgresado` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
-	DELETE FROM perfil_egresado WHERE fk_usuario = OLD.id;
-	DELETE FROM solicitud_bolsa WHERE fk_egresado = OLD.id;
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `usuarios_BorrarDatosExistentesEmpresa` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
-	DELETE FROM perfil_empresa WHERE fk_usuario = OLD.id;
-	DELETE FROM publicacion_bolsa WHERE fk_empresa = OLD.id;
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `usuarios_FechaDeActualizacion` BEFORE UPDATE ON `usuarios` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `usuarios_FechaDeInsercion` BEFORE INSERT ON `usuarios` FOR EACH ROW BEGIN
-	SET NEW.creadoEn = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
 
 CREATE VIEW view_getJobsAndCompanyDetails AS  SELECT pb.folio, pb.fk_empresa, pb.vacante, (SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio ) AS solicitudes,  pb.descripcion, pb.ubicacion, pb.fecha_creacion, pb.fecha_expira, pe.nombre_comercial, pe.`tamaño`, pe.estado, pb.status,  pe.municipio from publicacion_bolsa pb, perfil_empresa pe WHERE pb.fk_empresa = pe.fk_usuario;
 CREATE VIEW v_getPostulationsAndProfileDetails AS select sb.*, u.correo, pe.no_control, pe.nombre_completo, pe.telefono, pe.tel_casa, pe.curriculum FROM solicitud_bolsa sb, usuarios u, perfil_egresado pe WHERE sb.fk_egresado = u.id && pe.fk_usuario = u.id;
-CREATE VIEW v_getGraduatedJobsAndCompanyDetails AS  SELECT sb.*, pb.vacante,  (SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio ) AS solicitudes, pb.descripcion, pb.ubicacion, pb.`status` AS publicacion_status, pe.nombre_comercial, pe.`tamaño`, pe.estado, pe.municipio, pe.colonia, pb.fecha_creacion  FROM solicitud_bolsa sb, publicacion_bolsa pb, perfil_empresa pe WHERE sb.fk_vacante = pb.folio && pe.fk_usuario = pb.fk_empresa 
+CREATE VIEW v_getGraduatedJobsAndCompanyDetails AS  SELECT sb.*, pb.vacante,  (SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio ) AS solicitudes, pb.descripcion, pb.ubicacion, pb.`status` AS publicacion_status, pe.nombre_comercial, pe.`tamaño`, pe.estado, pe.municipio, pe.colonia, pb.fecha_creacion  FROM solicitud_bolsa sb, publicacion_bolsa pb, perfil_empresa pe WHERE sb.fk_vacante = pb.folio && pe.fk_usuario = pb.fk_empresa;
 
 
