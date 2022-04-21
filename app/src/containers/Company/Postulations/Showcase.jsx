@@ -18,7 +18,7 @@ import vacanciesService from "@/services/Company/vacancies.service";
 import Auth from "@/services/Auth";
 
 const ShowCase = ({ refreshData: refreshPostulations }) => {
-  const { verifySession } = useSession();
+  const { verifySession, user } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [postulation, setPostulation] = useState({});
   const { params, navigate, location } = useRouterHooks();
@@ -101,7 +101,7 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
                   Estado:{" "}
                   <span className="text-primary">{postulation.status}</span>
                 </h6>
-                {postulation.status !== "Revisado" && (
+                {postulation.status !== "Revisado" && user.fk_rol !== 1 && (
                   <button
                     onClick={handleFlagAsReviewed}
                     className="btn btn-primary btn-sm rounded-pill"

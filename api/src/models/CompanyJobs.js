@@ -24,6 +24,22 @@ const Template = {
     }
     return data[0];
   },
+  async ListAllForAdmin() {
+    const data = await connection.query(
+      `SELECT pb.folio, pb.vacante, pe.nombre_comercial,  pb.descripcion, pb.ubicacion,pb.fecha_creacion, pb.fecha_expira, pb.status,  (SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio) AS solicitudes,(SELECT COUNT(*) FROM vistas_publicaciones WHERE fk_publicacion = pb.folio) AS visitas  from publicacion_bolsa pb, perfil_empresa pe WHERE pb.fk_empresa =  pe.fk_usuario;`
+    );
+    return data;
+  },
+  async FindOneForAdmin(id) {
+    const data = await connection.query(
+      `SELECT pe.nombre_comercial, pb.*,  (SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio) AS solicitudes,(SELECT COUNT(*) FROM vistas_publicaciones WHERE fk_publicacion = pb.folio) AS visitas  from publicacion_bolsa pb, perfil_empresa pe WHERE pb.fk_empresa = pe.fk_usuario && pb.folio = ?`,
+      [id]
+    );
+    if (!data.length > 0) {
+      return {};
+    }
+    return data[0];
+  },
   async List(companyid) {
     const data = await connection.query(
       `SELECT pb.*,(SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio) AS solicitudes,(SELECT COUNT(*) FROM vistas_publicaciones WHERE fk_publicacion = pb.folio) AS visitas  from publicacion_bolsa pb where fk_empresa = ?`,

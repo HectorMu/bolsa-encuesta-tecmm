@@ -54,7 +54,7 @@ const CustomSidebar = ({
               <p>Bolsa de trabajo</p>
             </div>
             <NavLink
-              to="/postulations"
+              to="/jobbank"
               className="menu-item"
               onClick={() => handleSidebarToggle(!sidebarToggled)}
             >

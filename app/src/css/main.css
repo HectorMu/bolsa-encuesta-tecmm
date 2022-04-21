@@ -361,7 +361,7 @@ input:-webkit-autofill:active {
 
 .c-sidebar .menu .menu-item:hover {
   color: var(--coffe);
-  border-right: 3px solid var(--purple);
+  transform: translateX(2px);
 }
 
 .c-sidebar .menu .menu-item.active {

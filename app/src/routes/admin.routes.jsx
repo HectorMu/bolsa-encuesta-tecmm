@@ -33,6 +33,9 @@ const AddGraduated = lazy(() => import("../pages/Admin/Graduated/Add"));
 const EditGraduated = lazy(() => import("../pages/Admin/Graduated/Edit"));
 const DetailsGraduated = lazy(() => import("../pages/Admin/Graduated/Details"));
 
+const Jobs = lazy(() => import("../pages/Admin/JobBank/Jobs"));
+const Postulations = lazy(() => import("../pages/Admin/JobBank/Postulations"));
+
 const Routes = [
   {
     path: "/accounts",
@@ -78,6 +81,18 @@ const Routes = [
   {
     path: "/graduated/details/:id",
     element: <IsAdmin view={DetailsGraduated} />,
+  },
+  {
+    path: "/jobbank",
+    element: <IsAdmin view={Jobs} />,
+  },
+  {
+    path: "/jobbank/postulations/:job_id/",
+    element: <IsAdmin view={Postulations} />,
+  },
+  {
+    path: "/jobbank/postulations/:job_id/:postulation_id",
+    element: <IsAdmin view={Postulations} />,
   },
 ];
 

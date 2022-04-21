@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 //Custom components
 import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
@@ -6,9 +7,7 @@ import useServiceFetch from "@/hooks/useServiceFetchV2";
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
 //Services
-import vacanciesService from "@/services/Company/vacancies.service";
-
-import ListButtons from "./ListButtons";
+import jobsService from "@/services/Admin/jobs.service";
 
 const List = () => {
   const { verifySession } = useSession();
@@ -16,14 +15,11 @@ const List = () => {
     isLoading,
     refreshData,
     hookData: vacancies,
-  } = useServiceFetch(
-    () => verifySession(vacanciesService.List, refreshData),
-    []
-  );
+  } = useServiceFetch(() => verifySession(jobsService.List, refreshData), []);
   const { navigate } = useRouterHooks();
 
   const redirectToPostulationsPage = (vacancie) => {
-    navigate(`/company/jobbank/postulations/${vacancie.folio}`);
+    navigate(`/jobbank/postulations/${vacancie.folio}`);
   };
 
   return (
@@ -41,6 +37,7 @@ const List = () => {
             id: "Folio",
             fecha_creacion: "Creación",
             fecha_expira: "Expiración",
+            nombre_comercial: "Empresa",
             status: "Estado",
           }}
           actionElement={{
@@ -48,11 +45,8 @@ const List = () => {
             className: "btn btn-link text-purple font-weight-bolder",
             action: (o) => redirectToPostulationsPage(o),
           }}
-          actions={true}
-          CustomButtons={ListButtons}
           searchText={"Buscando por"}
           actionsText={"Opciones"}
-          emptyDataText={"Sin registros"}
         />
       )}
     </div>

@@ -7,7 +7,7 @@ const companiesValidations = require("../middlewares/validations/company.validat
 const isAdmin = require("../middlewares/isAdmin");
 
 //contoller import
-const controller = require("../controllers/company.controller");
+const controller = require("../controllers/admin.company.controller");
 
 router.post(
   "/users/company/save",

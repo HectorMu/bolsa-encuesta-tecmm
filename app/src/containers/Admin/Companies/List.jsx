@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 //Importando helpers
 import helpers from "@/helpers/helpers";
 
@@ -20,7 +18,6 @@ import useSession from "@/hooks/useSession";
 import companyService from "@/services/Admin/companies.service";
 
 const List = () => {
-  //const [companies, setCompanies] = useState([]);
   const { verifySession } = useSession();
   const {
     isLoading,

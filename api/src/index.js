@@ -27,14 +27,15 @@ app.use(express.static(path.join(__dirname, "public")));
 //Using the routes
 app.use("/api", require("./routes/template.routes"));
 app.use("/api", require("./routes/auth.routes"));
-app.use("/api", require("./routes/users.routes"));
-app.use("/api", require("./routes/company.routes"));
-app.use("/api", require("./routes/graduated.routes"));
+app.use("/api", require("./routes/admin.users.routes"));
+app.use("/api", require("./routes/admin.company.routes"));
+app.use("/api", require("./routes/admin.graduated.routes"));
+app.use("/api", require("./routes/admin.jobs.postulations.routes"));
 app.use("/api", require("./routes/company.jobs.routes"));
 app.use("/api", require("./routes/graduated.postulations.routes"));
-app.use("/api", require("./routes/graduatedsurvey.routes"));
-app.use("/api", require("./routes/companysurvey.routes"));
-app.use("/api", require("./routes/usersprofile.routes"));
+app.use("/api", require("./routes/graduated.survey.routes"));
+app.use("/api", require("./routes/company.survey.routes"));
+app.use("/api", require("./routes/users.profile.routes"));
 
 //To deploy a react router app build with an express server, this must be here forever
 app.use(express.static(path.join(__dirname, "build")));

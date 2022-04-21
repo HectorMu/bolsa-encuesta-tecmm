@@ -12,24 +12,41 @@ import useSession from "@/hooks/useSession";
 import Loading from "@/components/Global/Loading";
 
 //Importando servicios
-import vacanciesService from "@/services/Company/vacancies.service";
+import vacanciesCompanyService from "@/services/Company/vacancies.service";
+import vacanciesAdminService from "@/services/Admin/jobs.service";
 
 const VacantDetails = () => {
   const [isLoading, setIsLoading] = useState({});
   const [vacant, setVacant] = useState({});
   const [relativeTime, setRelativeTime] = useState(true);
 
-  const { verifySession } = useSession();
+  const { verifySession, user } = useSession();
   const { params, navigate } = useRouterHooks();
 
-  const handleBackPage = () => navigate("/company/jobbank/");
+  const handleBackPage = () =>
+    user.fk_rol === 1 ? navigate("/jobbank") : navigate("/company/jobbank");
 
   const toggleRelativeTime = () => setRelativeTime(!relativeTime);
 
   const getVacantDetailsHandler = useCallback(async () => {
+    if (user.fk_rol === 1) {
+      setIsLoading(true);
+      const fetchedVacant = await verifySession(
+        () => vacanciesAdminService.GetOne(params.job_id),
+        getVacantDetailsHandler
+      );
+      if (!fetchedVacant.folio) {
+        toast.error("Esta vacante no existe.");
+        navigate("/company/jobbank");
+        return;
+      }
+      setVacant(fetchedVacant);
+      setIsLoading(false);
+      return;
+    }
     setIsLoading(true);
     const fetchedVacant = await verifySession(
-      () => vacanciesService.GetOne(params.job_id),
+      () => vacanciesCompanyService.GetOne(params.job_id),
       getVacantDetailsHandler
     );
     if (!fetchedVacant.folio) {
@@ -58,14 +75,20 @@ const VacantDetails = () => {
                   {" "}
                   <i className="fas fa-arrow-left text-primary"></i>
                 </button>
+                {user.fk_rol === 1 && (
+                  <h6 className="text-primary font-weight-bold">
+                    {vacant?.nombre_comercial}
+                  </h6>
+                )}
                 <h6 className="text-primary font-weight-bold">
                   Folio: {vacant?.folio}
                 </h6>
-
-                <ListButtons
-                  object={vacant}
-                  refreshCallback={getVacantDetailsHandler}
-                />
+                {user.fk_rol !== 1 && (
+                  <ListButtons
+                    object={vacant}
+                    refreshCallback={getVacantDetailsHandler}
+                  />
+                )}
               </div>
             </div>
             <div className="col-6">
@@ -112,7 +135,7 @@ const VacantDetails = () => {
                   Publicado:{" "}
                   {relativeTime
                     ? moment(vacant?.fecha_creacion).locale("es").fromNow()
-                    : vacant?.fecha_creacion}
+                    : vacant?.fecha_creacion.replace("T", " ").split(" ")[0]}
                 </span>
               </p>
               <p>

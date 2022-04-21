@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middlewares/verifyToken");
 const isCompany = require("../middlewares/isCompany");
+const isCompanyOrAdmin = require("../middlewares/isCompanyOrAdmin");
 
 const controller = require("../controllers/company.jobs.controller");
 
@@ -9,19 +10,19 @@ router.get("/company/jobs/getall", verifyToken, isCompany, controller.GetAll);
 router.get(
   "/company/jobs/postulations/:job_id",
   verifyToken,
-  isCompany,
+  isCompanyOrAdmin,
   controller.GetPostulations
 );
 router.get(
   "/company/jobs/postulations/getone/:postulation_id",
   verifyToken,
-  isCompany,
+  isCompanyOrAdmin,
   controller.GetOnePostulation
 );
 router.get(
   "/company/jobs/getone/:id",
   verifyToken,
-  isCompany,
+  isCompanyOrAdmin,
   controller.GetOne
 );
 router.post("/company/jobs/save", verifyToken, isCompany, controller.Save);

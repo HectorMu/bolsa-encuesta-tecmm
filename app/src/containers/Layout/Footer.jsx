@@ -1,5 +1,3 @@
-import React from "react";
-
 const Footer = ({ webSite = "Your Website", year = "2022" }) => {
   return (
     <footer className="sticky-footer bg-white">

@@ -4,7 +4,7 @@ const isAdmin = require("../middlewares/isAdmin");
 const verifyToken = require("../middlewares/verifyToken");
 const validations = require("../middlewares/validations/users.validations");
 
-const controller = require("../controllers/users.controller");
+const controller = require("../controllers/admin.users.controller");
 
 //Endpoints basicos
 router.get("/users/getall", verifyToken, isAdmin, controller.GetAll);

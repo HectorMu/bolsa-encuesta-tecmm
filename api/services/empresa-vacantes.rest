@@ -2,7 +2,7 @@
 
 ### Get all own company jobs with token list
 GET http://localhost:4000/api/company/jobs/getall
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiY29ycmVvIjoic3RhbmxleTJAZ21haWwuY29tIiwiZmtfcm9sIjozLCJpYXQiOjE2NDY4ODAwNTV9.hVIGytm2h4ku2QSotJlnsF0b4RBXDjVHheagiwcfwxw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiY29ycmVvIjoic3RhbmxleUBnbWFpbC5jb20iLCJma19yb2wiOjMsImlhdCI6MTY1MDU2MDc0NiwiZXhwIjoxNjUwNTYxMzQ2fQ.bNcv44QHEA_jI2700r83mM0JwgRdeBbcmN2e8LpynjM
 
 ### Get one job from company
 GET http://localhost:4000/api/company/jobs/getone/238
@@ -46,6 +46,10 @@ Content-Type: application/json
 
 
 
+
+### Get all postulations
+
+
 ### Get all postulations from a job
 GET http://localhost:4000/api/company/jobs/postulations/345  <- job_id
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29ycmVvIjoiYWRtaW5AZ21haWwuY29tIiwiZmtfcm9sIjoxLCJpYXQiOjE2NTA1NTg5MTcsImV4cCI6MTY1MDU1OTUxN30.tnbalPFSiKoXmf5OGrxBYse727nbcMPEiW1Up6GNIxE

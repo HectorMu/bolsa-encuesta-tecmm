@@ -3,15 +3,25 @@ import Loading from "@/components/Global/Loading";
 
 //Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 
 const List = ({ postulations, isLoading }) => {
   const { navigate, params } = useRouterHooks();
+  const { user } = useSession();
 
-  const handleGoToPostulation = (postulation) =>
+  const handleGoToPostulation = (postulation) => {
+    console.log(user);
+    if (user.fk_rol === 1) {
+      navigate(`/jobbank/postulations/${params.job_id}/${postulation.id}`, {
+        state: postulation,
+      });
+      return;
+    }
     navigate(
       `/company/jobbank/postulations/${params.job_id}/${postulation.id}`,
       { state: postulation }
     );
+  };
 
   return (
     <div>

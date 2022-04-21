@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middlewares/verifyToken");
 
-const controller = require("../controllers/usersprofile.controller");
+const controller = require("../controllers/users.profile.controller");
 const uploadCVMiddleware = require("../middlewares/uploadCV");
 const validations = require("../middlewares/validations/users.validations");
 const companiesValidations = require("../middlewares/validations/company.validations");

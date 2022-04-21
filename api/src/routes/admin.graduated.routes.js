@@ -8,7 +8,7 @@ const validations = require("../middlewares/validations/users.validations");
 const graduatesValidations = require("../middlewares/validations/graduates.validations");
 
 //controller import
-const controller = require("../controllers/graduated.controller");
+const controller = require("../controllers/admin.graduated.controller");
 
 router.get("/jobs", controller.GetAllActiveJobs);
 
