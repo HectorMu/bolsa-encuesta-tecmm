@@ -19,6 +19,12 @@ import { Entries } from "./FormEntries";
 //Importando servicios
 import usersService from "@/services/Admin/users.service";
 
+const ROLES = {
+  Administrador: 1,
+  Egresado: 2,
+  Empresa: 3,
+};
+
 const Form = () => {
   const { form: user, setForm: setUser, handleChange } = useForm(Entries);
   const { verifySession } = useSession();
@@ -42,28 +48,38 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const tLoading = toast.loading("Guardando...");
     if (onEditing) {
       const results = await verifySession(() =>
         usersService.Update(user, params.id)
       );
       if (!results.status) {
-        return toast.error(results.statusText);
+        return toast.error(results.statusText, { id: tLoading });
       }
-      toast.success("Cuenta editada correctamente.");
+      toast.success("Cuenta editada correctamente.", { id: tLoading });
       navigate("/accounts");
     } else {
       const results = await verifySession(() => usersService.Save(user));
       if (!results.status) {
-        return toast.error(results.statusText);
+        return toast.error(results.statusText, { id: tLoading });
       }
-      toast.success("Cuenta guardada correctamente.");
+      toast.success("Cuenta guardada correctamente.", { id: tLoading });
       navigate("/accounts");
     }
   };
 
   useEffect(() => {
     if (location.state !== null) {
+      const filteredRol = Object.entries(ROLES).filter(
+        ([key]) => key === location.state.rol
+      )[0];
+
+      location.state.fk_rol = filteredRol[1];
+      delete location.state.rol;
+
       setUser(location.state);
+      toggleEditing(true);
+      return;
     }
     if (location.pathname.includes("edit")) {
       getUserFromFetch();

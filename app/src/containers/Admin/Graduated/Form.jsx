@@ -76,8 +76,7 @@ const Form = () => {
       idioma_extranjero: idiomaExtranjero,
     };
 
-    console.log(newGraduated);
-
+    const tLoading = toast.loading("Guardando...");
     //Si estamos editando
     if (onEditing) {
       //Si no estamos cambiando la contraseña eliminamos esa propiedad para no enviarla al
@@ -92,9 +91,9 @@ const Form = () => {
       );
       //si hay un error lo mostramos
       if (!results.status) {
-        return toast.error(results.statusText);
+        return toast.error(results.statusText, { id: tLoading });
       }
-      toast.success("Egresado editado correctamente.");
+      toast.success("Egresado editado correctamente.", { id: tLoading });
       navigate("/graduated");
     }
     //Si no estamos editando
@@ -105,9 +104,9 @@ const Form = () => {
       );
       //si hay un error lo mostramos
       if (!results.status) {
-        return toast.error(results.statusText);
+        return toast.error(results.statusText, { id: tLoading });
       }
-      toast.success("Egresado guardado correctamente.");
+      toast.success("Egresado guardado correctamente.", { id: tLoading });
       navigate("/graduated");
     }
   };
@@ -118,6 +117,8 @@ const Form = () => {
   useEffect(() => {
     if (location.state !== null) {
       setGraduated(location.state);
+      toggleEditing(true);
+      return;
     }
     if (location.pathname.includes("edit")) {
       //Si estamos editando, ejecutamos el metodo siguiente para obtener un

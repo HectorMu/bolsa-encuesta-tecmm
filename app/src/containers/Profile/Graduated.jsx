@@ -14,6 +14,7 @@ import RegisterForm from "@/components/Graduated/RegisterForm";
 import profileService from "@/services/Graduated/profile.service";
 
 import GraduatedCurriculum from "./GraduatedCurriculum";
+import Loading from "@/components/Global/Loading";
 
 const Graduated = () => {
   const {
@@ -28,18 +29,24 @@ const Graduated = () => {
     handleChange: handleIdiomaExtranjeroChange,
   } = useForm(NestedEntries.idioma_extranjero);
   const [onEditing] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const { user, verifySession } = useSession();
 
   const getProfileHandler = useCallback(async () => {
+    setIsLoading(true);
     const graduatedFetched = await verifySession(() =>
       profileService.getProfile()
     );
-    if (!graduatedFetched.id) return;
+    if (!graduatedFetched.id) {
+      setIsLoading(false);
+      return;
+    }
 
     const { idioma_extranjero, ...rest } = graduatedFetched;
     setGraduated(rest);
     setIdiomaExtranjero(idioma_extranjero);
+    setIsLoading(false);
   }, []);
 
   const handleSubmit = async (e) => {
@@ -54,18 +61,19 @@ const Graduated = () => {
       delete profile.confirmar;
     }
 
+    const tLoading = toast.loading("Guardando...");
     const results = await verifySession(() =>
       profileService.saveOrUpdateProfile(profile)
     );
     if (!results.status) {
-      return toast.error(results.statusText);
+      return toast.error(results.statusText, { id: tLoading });
     }
-    toast.success(results.statusText);
+    toast.success(results.statusText, { id: tLoading });
 
     getProfileHandler();
-    if (results.statusText === "Curriculum creado correctamente.") {
+    if (results.statusText === "Perfil creado correctamente.") {
       setCurrentSelection("Curriculum");
-      toast("Puedes subir tu curriculum ahora para poder postularte");
+      toast("Puedes subir tu curriculum ahora para poder postularte.");
     }
   };
 
@@ -77,7 +85,6 @@ const Graduated = () => {
     setGraduated({ ...graduated, ["correo"]: user.correo });
   }, [user]);
 
-  console.log(graduated);
   return (
     <div>
       <div className="d-flex justify-content-center mb-3">
@@ -105,7 +112,9 @@ const Graduated = () => {
         )}
       </div>
 
-      {currentSelection === "Profile" ? (
+      {isLoading ? (
+        <Loading />
+      ) : currentSelection === "Profile" ? (
         <FormCard title={"Mi perfil"}>
           <RegisterForm
             handleSubmit={handleSubmit}

@@ -23,7 +23,9 @@ const List = () => {
   const { navigate } = useRouterHooks();
 
   const redirectToPostulationsPage = (vacancie) => {
-    navigate(`/company/jobbank/postulations/${vacancie.folio}`);
+    navigate(`/company/jobbank/postulations/${vacancie.folio}`, {
+      state: vacancie,
+    });
   };
 
   return (
@@ -36,7 +38,12 @@ const List = () => {
           data={vacancies}
           title="Vacantes"
           refreshCallback={refreshData}
-          hideColumns={["ubicacion", "fk_empresa", "descripcion"]}
+          hideColumns={[
+            "ubicacion",
+            "fk_empresa",
+            "descripcion",
+            "nombre_comercial",
+          ]}
           renameHeaders={{
             id: "Folio",
             fecha_creacion: "Creación",

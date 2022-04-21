@@ -38,21 +38,22 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const tLoading = toast.loading("Guardando...");
     if (onEditing) {
       const results = await verifySession(() =>
         companiesService.Update(company, params.id)
       );
       if (!results.status) {
-        return toast.error(results.statusText);
+        return toast.error(results.statusText, { id: tLoading });
       }
-      toast.success("Empresa editada correctamente");
+      toast.success("Empresa editada correctamente", { id: tLoading });
       navigate("/companies");
     } else {
       const results = await verifySession(() => companiesService.Save(company));
       if (!results.status) {
-        return toast.error(results.statusText);
+        return toast.error(results.statusText, { id: tLoading });
       }
-      toast.success("Empresa registrada correctamente");
+      toast.success("Empresa registrada correctamente", { id: tLoading });
       navigate("/companies");
     }
   };
@@ -60,6 +61,8 @@ const Form = () => {
   useEffect(() => {
     if (location.state !== null) {
       setCompany(location.state);
+      toggleEditing(true);
+      return;
     }
     if (location.pathname.includes("edit")) {
       getCompanyFromFetch();

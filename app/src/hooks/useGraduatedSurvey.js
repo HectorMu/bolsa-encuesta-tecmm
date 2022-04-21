@@ -13,6 +13,43 @@ const useGraduatedSurvey = () => {
   const { params, navigate } = useRouterHooks();
   const { verifySession } = useSession();
 
+  const getSectionHandler = useCallback(
+    async (isCanceled) => {
+      if (!isCanceled) {
+        setIsLoading(true);
+        const fetchedSection = await verifySession(() =>
+          surveyService.getSurveySection(params.section_id)
+        );
+        setSection(fetchedSection);
+      }
+    },
+    [params.section_id]
+  );
+
+  const getQuestionsHandler = useCallback(
+    async (isCanceled) => {
+      if (!isCanceled) {
+        const fetchedQuestions = await verifySession(() =>
+          surveyService.getSectionQuestions(params.section_id)
+        );
+        setQuestions(fetchedQuestions);
+      }
+    },
+    [params.section_id]
+  );
+
+  const getUserAnswersHandler = useCallback(
+    async (isCanceled) => {
+      if (!isCanceled) {
+        const fetchedAnswers = await verifySession(() =>
+          surveyService.getAnswersBySection(params.section_id)
+        );
+        setUserSectionAnswers(fetchedAnswers);
+        setIsLoading(false);
+      }
+    },
+    [params.section_id]
+  );
   const checkIfHasProfileHandler = useCallback(async () => {
     const results = await verifySession(() => profileService.getProfile());
     if (!results.id) {
@@ -23,45 +60,6 @@ const useGraduatedSurvey = () => {
       return;
     }
   }, [params.section_id]);
-
-  const getUserAnswersHandler = useCallback(
-    async (isCanceled) => {
-      console.log(isCanceled);
-      if (!isCanceled) {
-        const fetchedAnswers = await verifySession(() =>
-          surveyService.getAnswersBySection(params.section_id)
-        );
-        setUserSectionAnswers(fetchedAnswers);
-      }
-    },
-    [params.section_id]
-  );
-
-  const getQuestionsHandler = useCallback(
-    async (isCanceled) => {
-      if (!isCanceled) {
-        setIsLoading(true);
-        const fetchedQuestions = await verifySession(() =>
-          surveyService.getSectionQuestions(params.section_id)
-        );
-        setQuestions(fetchedQuestions);
-      }
-    },
-    [params.section_id]
-  );
-
-  const getSectionHandler = useCallback(
-    async (isCanceled) => {
-      if (!isCanceled) {
-        const fetchedSection = await verifySession(() =>
-          surveyService.getSurveySection(params.section_id)
-        );
-        setSection(fetchedSection);
-        setIsLoading(false);
-      }
-    },
-    [params.section_id]
-  );
 
   useEffect(() => {
     let isCanceled = false;

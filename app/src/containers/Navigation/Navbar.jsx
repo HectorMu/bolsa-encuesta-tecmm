@@ -1,6 +1,5 @@
 import React from "react";
 //Importando componentes de navegacion
-import NotificationsBadge from "../../components/Navigation/Navbar/NotificationsBadge";
 import SessionDropdown from "../../components/Navigation/Navbar/SessionDropdown";
 import useSession from "../../hooks/useSession";
 import navLogo from "@/assets/LogoTec.svg";
@@ -17,7 +16,6 @@ const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
       <ul className="navbar-nav ml-auto">
         {user !== null ? (
           <>
-            <NotificationsBadge />
             <SessionDropdown user={user} setUser={setUser} />
           </>
         ) : null}

@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import FormCard from "@/components/Global/FormCard";
 import RegisterForm from "@/components/Company/RegisterForm";
 import { Entries } from "@/components/Company/RegisterForm";
+import Loading from "@/components/Global/Loading";
 
 //Importando hooks
 import useSession from "@/hooks/useSession";
@@ -17,35 +18,39 @@ const Company = () => {
   const { form: company, setForm: setCompany, handleChange } = useForm(Entries);
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { user, verifySession } = useSession();
 
   const getProfileHandler = useCallback(async () => {
+    setIsLoading(true);
     const companyFetched = await verifySession(() =>
       profileService.getProfile()
     );
-    if (!companyFetched.id) return;
-
+    if (!companyFetched.id) {
+      setIsLoading(false);
+      return;
+    }
     setCompany(companyFetched);
+    setIsLoading(false);
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const profile = {
-      ...company,
-    };
 
     if (!onChangePassword) {
-      delete profile.clave;
-      delete profile.confirmar;
+      delete company.clave;
+      delete company.confirmar;
     }
 
+    const tLoading = toast.loading("Guardando...");
+
     const results = await verifySession(() =>
-      profileService.saveOrUpdateProfile(profile)
+      profileService.saveOrUpdateProfile(company)
     );
     if (!results.status) {
-      return toast.error(results.statusText);
+      return toast.error(results.statusText, { id: tLoading });
     }
-    toast.success(results.statusText);
+    toast.success(results.statusText, { id: tLoading });
     getProfileHandler();
   };
 
@@ -58,16 +63,22 @@ const Company = () => {
   }, [user]);
 
   return (
-    <FormCard title={"Mi perfil"}>
-      <RegisterForm
-        handleSubmit={handleSubmit}
-        company={company}
-        onEditing={onEditing}
-        onChangePassword={onChangePassword}
-        handleChange={handleChange}
-        toggleChangePassword={toggleChangePassword}
-      />
-    </FormCard>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FormCard title={"Mi perfil"}>
+          <RegisterForm
+            handleSubmit={handleSubmit}
+            company={company}
+            onEditing={onEditing}
+            onChangePassword={onChangePassword}
+            handleChange={handleChange}
+            toggleChangePassword={toggleChangePassword}
+          />
+        </FormCard>
+      )}
+    </>
   );
 };
 

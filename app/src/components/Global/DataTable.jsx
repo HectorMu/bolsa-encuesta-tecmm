@@ -127,7 +127,6 @@ const DataTable = ({
     setInitialData(data);
   }, [data]);
 
-  console.log(initialData);
   return (
     <div className="card shadow-lg mb-4 border-none ">
       <div className="card-header py-3 d-flex justify-content-between d-sm-flex flex-column flex-lg-row flex-md-row flex-xl-row">

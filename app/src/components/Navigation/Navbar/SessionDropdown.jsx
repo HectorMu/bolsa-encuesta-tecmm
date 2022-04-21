@@ -25,7 +25,9 @@ const SessionDropdown = ({ user, setUser }) => {
           aria-expanded="false"
         >
           <span className="mr-2 d-none d-lg-inline text-white small">
-            {user.correo}
+            {user.correo.length > 10
+              ? user.correo.substring(0, 10) + "..."
+              : user.correo}
           </span>
           <img
             className="img-profile rounded-circle"

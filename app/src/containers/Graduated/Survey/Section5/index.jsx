@@ -37,12 +37,14 @@ const index = () => {
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
 
   const saveAndSkipToNextSection = async () => {
+    const tLoading = toast.loading("Guardando...");
     const results = await verifySession(() =>
       surveyService.saveSection5(answers)
     );
     if (!results.status) {
-      return toast.error(results.statusText);
+      return toast.error(results.statusText, { id: tLoading });
     }
+    toast.dismiss(tLoading);
     navigate("/graduated/survey/section/6");
   };
 

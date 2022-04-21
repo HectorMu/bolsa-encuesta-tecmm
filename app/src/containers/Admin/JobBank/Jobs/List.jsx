@@ -19,7 +19,7 @@ const List = () => {
   const { navigate } = useRouterHooks();
 
   const redirectToPostulationsPage = (vacancie) => {
-    navigate(`/jobbank/postulations/${vacancie.folio}`);
+    navigate(`/jobbank/postulations/${vacancie.folio}`, { state: vacancie });
   };
 
   return (

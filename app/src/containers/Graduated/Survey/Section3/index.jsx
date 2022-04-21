@@ -42,12 +42,14 @@ const index = () => {
   const { verifySession } = useSession();
 
   const saveAndSkipToNextSection = async () => {
+    const tLoading = toast.loading("Guardando...");
     const results = await verifySession(() =>
       surveyService.saveSection3(answers)
     );
     if (!results.status) {
-      return toast.error(results.statusText);
+      return toast.error(results.statusText, { id: tLoading });
     }
+    toast.dismiss(tLoading);
     navigate("/graduated/survey/section/4");
   };
 

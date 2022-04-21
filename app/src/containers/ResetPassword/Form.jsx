@@ -17,18 +17,19 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const tLoading = toast.loading("Guardando...");
     const results = await Auth.resetPasswordAccount(
       { password, confirm },
       params.token
     );
 
     if (!results.status) {
-      toast.error(results.statusText);
+      toast.error(results.statusText, { id: tLoading });
       navigate("/login");
       return;
     }
 
-    toast.success(results.statusText);
+    toast.success(results.statusText, { id: tLoading });
     navigate("/login");
   };
   return (

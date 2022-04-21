@@ -16,12 +16,12 @@ import vacanciesCompanyService from "@/services/Company/vacancies.service";
 import vacanciesAdminService from "@/services/Admin/jobs.service";
 
 const VacantDetails = () => {
-  const [isLoading, setIsLoading] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const [vacant, setVacant] = useState({});
   const [relativeTime, setRelativeTime] = useState(true);
 
   const { verifySession, user } = useSession();
-  const { params, navigate } = useRouterHooks();
+  const { params, navigate, location } = useRouterHooks();
 
   const handleBackPage = () =>
     user.fk_rol === 1 ? navigate("/jobbank") : navigate("/company/jobbank");
@@ -38,6 +38,7 @@ const VacantDetails = () => {
       if (!fetchedVacant.folio) {
         toast.error("Esta vacante no existe.");
         navigate("/company/jobbank");
+        setIsLoading(false);
         return;
       }
       setVacant(fetchedVacant);
@@ -52,6 +53,7 @@ const VacantDetails = () => {
     if (!fetchedVacant.folio) {
       toast.error("Esta vacante no existe.");
       navigate("/company/jobbank");
+      setIsLoading(false);
       return;
     }
     setVacant(fetchedVacant);
@@ -59,15 +61,22 @@ const VacantDetails = () => {
   }, [params.job_id]);
 
   useEffect(() => {
+    if (location.state !== null) {
+      setVacant(location.state);
+      return;
+    }
     getVacantDetailsHandler();
   }, [getVacantDetailsHandler]);
 
   return (
-    <div data-aos="flip-right" className="col-lg-8 mx-auto mb-4">
+    <div
+      data-aos="flip-right"
+      className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 mx-auto mb-3"
+    >
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="card p-3 shadow-lg">
+        <div className="card p-3 shadow">
           <div className="row">
             <div className="col-12 h-100">
               <div className="d-flex justify-content-between align-items-center">
@@ -80,9 +89,9 @@ const VacantDetails = () => {
                     {vacant?.nombre_comercial}
                   </h6>
                 )}
-                <h6 className="text-primary font-weight-bold">
+                <h5 className="text-primary font-weight-bold">
                   Folio: {vacant?.folio}
-                </h6>
+                </h5>
                 {user.fk_rol !== 1 && (
                   <ListButtons
                     object={vacant}

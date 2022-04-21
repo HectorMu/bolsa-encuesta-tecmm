@@ -42,14 +42,14 @@ const Template = {
   },
   async List(companyid) {
     const data = await connection.query(
-      `SELECT pb.*,(SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio) AS solicitudes,(SELECT COUNT(*) FROM vistas_publicaciones WHERE fk_publicacion = pb.folio) AS visitas  from publicacion_bolsa pb where fk_empresa = ?`,
+      `SELECT pb.folio, pb.vacante, pe.nombre_comercial,  pb.descripcion, pb.ubicacion,pb.fecha_creacion, pb.fecha_expira, pb.status,  (SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio) AS solicitudes,(SELECT COUNT(*) FROM vistas_publicaciones WHERE fk_publicacion = pb.folio) AS visitas  from publicacion_bolsa pb, perfil_empresa pe WHERE pb.fk_empresa =  pe.fk_usuario && pb.fk_empresa = ?`,
       [companyid]
     );
     return data;
   },
   async FindOne(id, company_id) {
     const data = await connection.query(
-      `SELECT pb.*,(SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio) AS solicitudes,(SELECT COUNT(*) FROM vistas_publicaciones WHERE fk_publicacion = pb.folio) AS visitas  from publicacion_bolsa pb where fk_empresa = ? && folio = ?`,
+      `SELECT pb.folio, pb.vacante, pe.nombre_comercial,  pb.descripcion, pb.ubicacion,pb.fecha_creacion, pb.fecha_expira, pb.status,  (SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio) AS solicitudes,(SELECT COUNT(*) FROM vistas_publicaciones WHERE fk_publicacion = pb.folio) AS visitas  from publicacion_bolsa pb, perfil_empresa pe WHERE pb.fk_empresa =  pe.fk_usuario && pb.fk_empresa = ? && pb.folio = ?`,
       [company_id, id]
     );
     if (!data.length > 0) {
