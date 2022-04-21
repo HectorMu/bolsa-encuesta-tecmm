@@ -1,3 +1,4 @@
+//Importando los componentes
 import OptionsContainer from "@/components/Survey/OptionsContainer";
 
 const OPTIONS = ["Excelente", "Bueno", "Regular", "Malo", "Pésimo"];

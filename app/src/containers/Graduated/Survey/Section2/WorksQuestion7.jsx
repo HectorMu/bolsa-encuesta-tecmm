@@ -1,4 +1,6 @@
 import React from "react";
+
+//Importando los componentes
 import OptionsContainer from "@/components/Survey/OptionsContainer";
 
 const OPTIONS = ["Menos de 5", "Entre 5 y 7", "Entre 8 y 10", "Mas de 10"];

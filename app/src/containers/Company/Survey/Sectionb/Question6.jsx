@@ -1,9 +1,14 @@
-import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
+
+//Importando los componentes
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import useSession from "@/hooks/useSession";
 
+//Importando los servicios
 import surveyService from "@/services/Company/survey.service";
 
+//Carreras para llenar options del select
 const careers = [
   "Ing. en Gestión Empresarial",
   "Ing. Industrial",
@@ -21,6 +26,7 @@ const ENTRIES = {
   otros_p6: "Otros",
 };
 
+//Entradas del formulario (objeto con los datos a capturar en el formulario)
 const SectionP6Answers = {
   carrera: "",
   mando_superior: "",
@@ -49,6 +55,7 @@ const Question6 = ({ questions }) => {
     const results = await verifySession(() =>
       surveyService.saveP6DetailsSectionb(newAnswerP6)
     );
+    toast.success("Respuesta guardada correctamente");
     getP6DetailsHandler();
   };
 

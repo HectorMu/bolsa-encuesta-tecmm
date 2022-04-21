@@ -8,7 +8,6 @@ import Loading from "@/components/Global/Loading";
 
 //importando hooks
 import useServiceFetch from "@/hooks/useServiceFetchV2";
-
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
 
@@ -51,7 +50,7 @@ const List = () => {
   };
 
   const redirectToEditPage = (graduated) => {
-    navigate(`/graduated/edit/${graduated.id}`);
+    navigate(`/graduated/edit/${graduated.id}`, { state: graduated });
   };
 
   const redirectToDetailsPage = (graduated) => {

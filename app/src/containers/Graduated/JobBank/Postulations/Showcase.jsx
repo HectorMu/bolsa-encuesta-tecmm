@@ -1,13 +1,21 @@
 import { useEffect, useState, useCallback, useRef } from "react";
-import Modal from "@/components/Global/Modal";
-import useRouterHooks from "@/hooks/useRouterHooks";
-import useSession from "@/hooks/useSession";
-import jobsService from "@/services/Graduated/jobs.service";
 import moment from "moment/min/moment-with-locales";
-import helpers from "@/helpers/helpers";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+
+//Importando componentes
+import Modal from "@/components/Global/Modal";
 import Loading from "@/components/Global/Loading";
+
+//Importando hooks
+import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
+
+//Importando helpers
+import helpers from "@/helpers/helpers";
+
+//Importando servicios
+import jobsService from "@/services/Graduated/jobs.service";
 import Auth from "@/services/Auth";
 
 const Showcase = ({ refreshData }) => {

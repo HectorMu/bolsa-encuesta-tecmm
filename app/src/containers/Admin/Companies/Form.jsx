@@ -1,16 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
 //importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useForm from "@/hooks/useForm";
 import useSession from "@/hooks/useSession";
 
+//Importando componentes
 import FormCard from "@/components/Global/FormCard";
 import { Entries } from "@/components/Company/RegisterForm";
 import RegisterForm from "@/components/Company/RegisterForm";
 
 //Importando servicios
 import companiesService from "@/services/Admin/companies.service";
-import toast from "react-hot-toast";
 
 const Form = () => {
   const { form: company, setForm: setCompany, handleChange } = useForm(Entries);

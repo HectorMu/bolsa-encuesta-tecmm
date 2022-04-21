@@ -1,4 +1,6 @@
 import { Fragment } from "react";
+
+//Importando componentes
 import OptionsContainer from "@/components/Survey/OptionsContainer";
 
 const OPTIONS = ["No requerido", "Requerido"];
@@ -53,7 +55,7 @@ const Question8 = ({ handleChange, answers, questions }) => {
             other={true}
             answers={answers}
             handleChange={handleChange}
-            otherText="Requerido"
+            otherText="Requerido (especifique)"
           />
         </div>
       </div>

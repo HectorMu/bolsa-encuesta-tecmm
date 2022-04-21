@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
-import useSession from "@/hooks/useSession";
-import useRouterHooks from "@/hooks/useRouterHooks";
 import useForm from "@/hooks/useForm";
 import toast from "react-hot-toast";
+
+//Importando hooks
+import useSession from "@/hooks/useSession";
+import useRouterHooks from "@/hooks/useRouterHooks";
 
 //Componentes personalizados para agilizar la construccion al reutilizarlos
 import FormCard from "@/components/Global/FormCard";
 import RegisterForm from "@/components/Graduated/RegisterForm";
+
 //Entradas del formulario, es un objeto con los datos a capturar el en formulario
 import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
 
@@ -113,6 +116,9 @@ const Form = () => {
   //necesitamos verificar si el usuario esta en la vista de editar, para cambiar el estado
   //a editar
   useEffect(() => {
+    if (location.state !== null) {
+      setGraduated(location.state);
+    }
     if (location.pathname.includes("edit")) {
       //Si estamos editando, ejecutamos el metodo siguiente para obtener un
       //egresado desde la aPI
@@ -126,7 +132,7 @@ const Form = () => {
     toggleChangePassword(true);
     //y ponemos el editar en falso ya que estamos guardando
     toggleEditing(false);
-  }, [location.pathname, getGraduatedFromFetch]);
+  }, [location.pathname, getGraduatedFromFetch, location.state]);
 
   return (
     <FormCard title={onEditing ? "Editar egresado" : "Datos del egresado"}>

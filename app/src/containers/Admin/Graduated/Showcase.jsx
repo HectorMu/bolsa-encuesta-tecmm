@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
+
 //Alerts
 import toast from "react-hot-toast";
+
 //custom hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
+
 //componentes para el reutilizar el show case en multiples vistas de detalle
 import ShowcaseContainer from "@/components/Global/ShowcaseContainer";
 import ShowcaseHeader from "@/components/Global/ShowcaseHeader";

@@ -1,4 +1,6 @@
 import { Fragment } from "react";
+
+//Importando los componentes
 import OptionsContainer from "@/components/Survey/OptionsContainer";
 
 const OPTIONS = [1, 2, 3, 4, 5];

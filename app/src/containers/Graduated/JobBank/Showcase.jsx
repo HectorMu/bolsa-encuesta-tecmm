@@ -1,14 +1,22 @@
 import { useEffect, useState, useCallback } from "react";
-import Modal from "@/components/Global/Modal";
-import useRouterHooks from "@/hooks/useRouterHooks";
-import useSession from "@/hooks/useSession";
-import jobsService from "@/services/Graduated/jobs.service";
 import moment from "moment/min/moment-with-locales";
-import helpers from "@/helpers/helpers";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+
+//Importando componentes
+import Modal from "@/components/Global/Modal";
 import Loading from "@/components/Global/Loading";
+
+//Importando los hooks
+import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
+
+//Importando los servicios
+import jobsService from "@/services/Graduated/jobs.service";
 import Auth from "@/services/Auth";
+
+//Importando helpers
+import helpers from "@/helpers/helpers";
 
 const Showcase = () => {
   const [selectedJob, setSelectedJob] = useState({});

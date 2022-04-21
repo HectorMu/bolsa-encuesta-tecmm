@@ -1,7 +1,11 @@
 import { useState } from "react";
-import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
-import Auth from "@/services/Auth";
 import toast from "react-hot-toast";
+
+//Importando componentes
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
+
+//Importando servicios
+import Auth from "@/services/Auth";
 
 const Form = () => {
   const [email, setEmail] = useState("");

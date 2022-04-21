@@ -1,8 +1,14 @@
 import { useState } from "react";
-import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
-import Auth from "@/services/Auth";
-import useRouterHooks from "@/hooks/useRouterHooks";
 import toast from "react-hot-toast";
+
+//Importando componentes
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
+
+//Importando servicios
+import Auth from "@/services/Auth";
+
+//Importando hooks
+import useRouterHooks from "@/hooks/useRouterHooks";
 
 const Form = () => {
   const [password, setPassword] = useState("");

@@ -1,4 +1,6 @@
 import { Fragment } from "react";
+
+//Importando los componentes
 import OptionsContainer from "@/components/Survey/OptionsContainer";
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 
@@ -50,7 +52,7 @@ const Question10 = ({ handleChange, answers, questions }) => {
         <div className="col-12 col-xl-4">
           <div className="d-flex align-items-center h-100">
             <FloatingLabelInput
-              placeholder="Otras competencias (Especifique)"
+              placeholder="Otras competencias (especifique)"
               inputId="txtOtrosDetalle"
               type="text"
               setValue={(e) => handleChange("otros_detalle", e.target.value)}

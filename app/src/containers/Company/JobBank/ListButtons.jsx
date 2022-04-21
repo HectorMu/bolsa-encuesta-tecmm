@@ -1,9 +1,16 @@
-import vacanciesService from "@/services/Company/vacancies.service";
-import useRouterHooks from "@/hooks/useRouterHooks";
-import useSession from "@/hooks/useSession";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+
+//Importando hooks
+import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
+
+//Importando helpers
 import helpers from "@/helpers/helpers";
+
+//Importando servicios
+import vacanciesService from "@/services/Company/vacancies.service";
+
 const ListButtons = ({ object: vacancie, refreshCallback: refreshData }) => {
   const { navigate } = useRouterHooks();
   const { verifySession } = useSession();
@@ -37,7 +44,7 @@ const ListButtons = ({ object: vacancie, refreshCallback: refreshData }) => {
   };
 
   const handleRedirectToEdit = () => {
-    navigate(`/company/jobbank/edit/${vacancie.folio}`);
+    navigate(`/company/jobbank/edit/${vacancie.folio}`, { state: vacancie });
   };
 
   const handleDelete = () => {

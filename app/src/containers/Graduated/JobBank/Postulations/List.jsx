@@ -1,7 +1,9 @@
 import React from "react";
+import moment from "moment/min/moment-with-locales";
+
+//Implementando hooks
 import Loading from "@/components/Global/Loading";
 import useRouterHooks from "@/hooks/useRouterHooks";
-import moment from "moment/min/moment-with-locales";
 
 const List = ({ searchTerm, postulations, isLoading }) => {
   const { params, navigate } = useRouterHooks();

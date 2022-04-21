@@ -1,3 +1,4 @@
+//Importando los componentes
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 
 const ENTRIES = {

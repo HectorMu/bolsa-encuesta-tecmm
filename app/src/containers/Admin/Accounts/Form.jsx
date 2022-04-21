@@ -1,17 +1,22 @@
 import { useCallback, useEffect, useState } from "react";
-import useRouterHooks from "@/hooks/useRouterHooks";
-import useForm from "@/hooks/useForm";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+
+//Importando hooks
+import useRouterHooks from "@/hooks/useRouterHooks";
+import useForm from "@/hooks/useForm";
 import useSession from "@/hooks/useSession";
 
+//Importando componentes
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import Accordion from "@/components/Global/Accordion";
 import Collapsable from "@/components/Global/Collapsable";
 import FormCard from "@/components/Global/FormCard";
 
+//Entradas del formulario (objeto con los datos a capturar en el formulario)
 import { Entries } from "./FormEntries";
 
+//Importando servicios
 import usersService from "@/services/Admin/users.service";
 
 const Form = () => {
@@ -57,6 +62,9 @@ const Form = () => {
   };
 
   useEffect(() => {
+    if (location.state !== null) {
+      setUser(location.state);
+    }
     if (location.pathname.includes("edit")) {
       getUserFromFetch();
       toggleEditing(true);
@@ -64,7 +72,7 @@ const Form = () => {
     }
     toggleChangePassword(true);
     toggleEditing(false);
-  }, [location.pathname, getUserFromFetch]);
+  }, [location.pathname, getUserFromFetch, location.state]);
 
   return (
     <FormCard title={onEditing ? "Editar usuario" : "Datos del usuario"}>

@@ -1,12 +1,20 @@
 import { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+
+//Importando los componentes personalizados
 import FormCard from "@/components/Global/FormCard";
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
-import { Link } from "react-router-dom";
+
+//Importando servicios
 import vacanciesService from "@/services/Company/vacancies.service";
-import toast from "react-hot-toast";
+
+//Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
+import useForm from "@/hooks/useForm";
 
+//Entradas del formulario (objeto con los datos a capturar en el formulario)
 const Entries = {
   folio: "",
   vacante: "",
@@ -17,11 +25,10 @@ const Entries = {
 };
 
 const Form = () => {
-  const [vacant, setVacant] = useState(Entries);
+  const { form: vacant, setForm: setVacant, handleChange } = useForm(Entries);
   const { verifySession } = useSession();
   const [onEditing, setOnEditing] = useState(false);
 
-  const handleChange = (key, value) => setVacant({ ...vacant, [key]: value });
   const { navigate, params, location } = useRouterHooks();
 
   const handleSubmit = async (e) => {
@@ -73,11 +80,15 @@ const Form = () => {
   }, [params.id]);
 
   useEffect(() => {
+    if (location.state !== null) {
+      setVacant(location.state);
+    }
     if (location.pathname.includes("edit")) {
       getVacantFromFetch();
       setOnEditing(true);
     }
-  }, [getVacantFromFetch]);
+  }, [getVacantFromFetch, location.state]);
+
   return (
     <FormCard title={onEditing ? "Editar vacante" : "Nueva vacante"}>
       <form onSubmit={handleSubmit}>
@@ -85,13 +96,10 @@ const Form = () => {
           <FloatingLabelInput
             inputId="txtFolio"
             placeholder="Folio"
+            type={"number"}
             disabled={onEditing}
-            setValue={(e) =>
-              handleChange(
-                "folio",
-                Number(e.target.value) ? parseInt(e.target.value) : 0
-              )
-            }
+            setValue={handleChange}
+            name={"folio"}
             value={vacant.folio}
           />
         </div>
@@ -99,7 +107,8 @@ const Form = () => {
           <FloatingLabelInput
             inputId="txtTitulo"
             placeholder="Vacante"
-            setValue={(e) => handleChange("vacante", e.target.value)}
+            setValue={handleChange}
+            name={"vacante"}
             value={vacant.vacante}
           />
         </div>
@@ -108,7 +117,8 @@ const Form = () => {
             placeholder="Requerimientos"
             className="form-control"
             rows="10"
-            onChange={(e) => handleChange("descripcion", e.target.value)}
+            onChange={handleChange}
+            name={"descripcion"}
             value={vacant.descripcion}
           ></textarea>
 
@@ -117,7 +127,8 @@ const Form = () => {
               <FloatingLabelInput
                 inputId="txtUbicacion"
                 placeholder="Ubicacion"
-                setValue={(e) => handleChange("ubicacion", e.target.value)}
+                setValue={handleChange}
+                name={"ubicacion"}
                 value={vacant.ubicacion}
               />
             </div>
@@ -126,7 +137,8 @@ const Form = () => {
                 inputId="txtExpiracion"
                 placeholder="Fecha de expiracion"
                 type="date"
-                setValue={(e) => handleChange("fecha_expira", e.target.value)}
+                setValue={handleChange}
+                name={"fecha_expira"}
                 value={vacant.fecha_expira}
               />
             </div>
@@ -136,7 +148,8 @@ const Form = () => {
           <select
             className="form-control form-select mb-3"
             style={{ height: "47px" }}
-            onChange={(e) => handleChange("status", e.target.value)}
+            onChange={handleChange}
+            name={"status"}
             value={vacant.status}
           >
             <option value={""}>Estatus (Seleccione una opción)</option>

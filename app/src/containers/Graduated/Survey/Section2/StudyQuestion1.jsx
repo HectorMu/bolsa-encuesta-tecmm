@@ -1,4 +1,6 @@
 import React from "react";
+
+//Importando los componentes
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import OptionsContainer from "@/components/Survey/OptionsContainer";
 

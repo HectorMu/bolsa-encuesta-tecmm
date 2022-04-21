@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import useSession from "@/hooks/useSession";
 
 //importing custom components
 import Loading from "@/components/Global/Loading";
+
 //Graduated survey hook to get the current section data based on url param section_id
 import useGraduatedSurvey from "@/hooks/useGraduatedSurvey";
+import useSession from "@/hooks/useSession";
+
 //importing services
 import surveyService from "@/services/Graduated/survey.service";
+
 //Importing section questions
 import Question1 from "./Question1";
 import Question2 from "./Question2";
@@ -17,6 +20,7 @@ import Question4 from "./Question4";
 import Question5 from "./Question5";
 import Question6 from "./Question6";
 
+//Entradas del formulario (objeto con los datos a capturar en el formulario)
 const SectionAnswers = {
   respuesta1: "",
   respuesta2: "",

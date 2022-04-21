@@ -1,5 +1,9 @@
+//Importando componentes
 import Loading from "@/components/Global/Loading";
+
+//Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
+
 const List = ({ postulations, isLoading }) => {
   const { navigate, params } = useRouterHooks();
 

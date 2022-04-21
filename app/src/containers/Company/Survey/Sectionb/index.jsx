@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import Loading from "@/components/Global/Loading";
 
+//Importando los hooks
 import useCompanySurvey from "@/hooks/useCompanySurvey";
+import Loading from "@/components/Global/Loading";
 import useSession from "@/hooks/useSession";
 
+//Importando los servicios
 import surveyService from "@/services/Company/survey.service";
 
+//Importando las preguntas
 import Question5 from "./Question5";
 import Question6 from "./Question6";
 import Question7 from "./Question7";
 import Question8 from "./Question8";
 import Question9 from "./Question9";
 
+//Entradas del formulario (objeto con los datos a capturar en el formulario)
 const SectionAnswers = {
   respuesta5: "",
   completamente: "",

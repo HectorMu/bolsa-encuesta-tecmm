@@ -1,12 +1,20 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+
+//Importando helpers
+import helpers from "@/helpers/helpers";
+
+//Importando componentes
 import Modal from "@/components/Global/Modal";
+import Loading from "@/components/Global/Loading";
+
+//Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
+
+//Importando servicios
 import vacanciesService from "@/services/Company/vacancies.service";
-import toast from "react-hot-toast";
-import Loading from "@/components/Global/Loading";
-import Swal from "sweetalert2";
-import helpers from "@/helpers/helpers";
 import Auth from "@/services/Auth";
 
 const ShowCase = ({ refreshData: refreshPostulations }) => {

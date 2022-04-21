@@ -1,14 +1,19 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+
+//Importing hooks
 import useSession from "@/hooks/useSession";
+
 //importing custom components
 import Loading from "@/components/Global/Loading";
 
 //Importing services
 import surveyService from "@/services/Graduated/survey.service";
+
 //Importing first section question
 import Question1 from "./Question1";
+
 //importing question sections
 import Study from "./Study";
 import Works from "./Works";

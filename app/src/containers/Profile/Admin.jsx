@@ -97,9 +97,7 @@ const Admin = () => {
                   placeholder="Correo"
                   type="email"
                   name={"correo"}
-                  setValue={(e) =>
-                    handleEntriesChange("correo", e.target.value)
-                  }
+                  setValue={handleEntriesChange}
                   value={admin.correo}
                 />
               </div>
@@ -115,9 +113,7 @@ const Admin = () => {
                       placeholder="Clave"
                       type="password"
                       name={"clave"}
-                      setValue={(e) =>
-                        handleEntriesChange("clave", e.target.value)
-                      }
+                      setValue={handleEntriesChange}
                     />
                   </div>
                   <div
@@ -129,9 +125,7 @@ const Admin = () => {
                       placeholder="Confirmar"
                       type="password"
                       name={"confirmar"}
-                      setValue={(e) =>
-                        handleEntriesChange("confirmar", e.target.value)
-                      }
+                      setValue={handleEntriesChange}
                     />
                   </div>
                 </>

@@ -1,15 +1,14 @@
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
-import useRouterHooks from "@/hooks/useRouterHooks";
-import useSession from "@/hooks/useSession";
-
 //importando componentes personalizados
 import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
 
 //importando hooks
 import useServiceFetch from "@/hooks/useServiceFetchV2";
+import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
 
 //Importando servicios
 import usersService from "@/services/Admin/users.service";
@@ -46,7 +45,7 @@ const List = () => {
   };
 
   const redirectToEditPage = (user) => {
-    navigate(`/accounts/edit/${user.id}`);
+    navigate(`/accounts/edit/${user.id}`, { state: user });
   };
 
   const redirectToDetailsPage = (user) => {

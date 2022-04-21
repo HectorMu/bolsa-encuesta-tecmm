@@ -2,17 +2,24 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
+//Importando los componentes
 import Loading from "@/components/Global/Loading";
 
+//Importando los hooks
 import useCompanySurvey from "@/hooks/useCompanySurvey";
+import useSession from "@/hooks/useSession";
+import useForm from "@/hooks/useForm";
 
+//Importando los servicios
 import surveyService from "@/services/Company/survey.service";
 
+//Importando las preguntas
 import Question10 from "./Question10";
 import Question11 from "./Question11";
 import Question12 from "./Question12";
 import Question13 from "./Question13";
 
+//Entradas del formulario (objeto con los datos a capturar en el formulario)
 const SectionAnswers = {
   habilidad_resolver_conflictos: "",
   ortografia_redaccion: "",
@@ -45,13 +52,15 @@ const index = () => {
   const [answers, setAnswers] = useState(SectionAnswers);
   const { section, questions, isLoading, userSectionAnswers } =
     useCompanySurvey();
+  const { verifySession } = useSession();
   const navigate = useNavigate();
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
-  console.log(userSectionAnswers);
 
   const saveAndSkipToNextSection = async () => {
-    const results = await surveyService.saveSectionc(answers);
+    const results = await verifySession(() =>
+      surveyService.saveSectionc(answers)
+    );
     if (!results.status) {
       return toast.error(results.statusText);
     }

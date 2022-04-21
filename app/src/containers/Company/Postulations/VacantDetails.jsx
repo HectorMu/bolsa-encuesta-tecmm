@@ -1,11 +1,18 @@
 import { useEffect, useState, useCallback } from "react";
-import vacanciesService from "@/services/Company/vacancies.service";
-import useRouterHooks from "@/hooks/useRouterHooks";
-import useSession from "@/hooks/useSession";
 import toast from "react-hot-toast";
 import moment from "moment/min/moment-with-locales";
+
 import ListButtons from "../JobBank/ListButtons";
+
+//Importando hooks
+import useRouterHooks from "@/hooks/useRouterHooks";
+import useSession from "@/hooks/useSession";
+
+//Importando componentes
 import Loading from "@/components/Global/Loading";
+
+//Importando servicios
+import vacanciesService from "@/services/Company/vacancies.service";
 
 const VacantDetails = () => {
   const [isLoading, setIsLoading] = useState({});

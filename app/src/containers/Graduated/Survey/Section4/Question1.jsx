@@ -1,6 +1,8 @@
+//Importando componentes
 import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput";
 
 const OPTIONS = ["Si", "No"];
+
 const Question1 = ({ handleChange, answers, questions }) => {
   return (
     <div className="pb-4">

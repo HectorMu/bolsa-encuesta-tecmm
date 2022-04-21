@@ -1,12 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+
+//Importando componentes
 import FormCard from "@/components/Global/FormCard";
 import RegisterForm from "@/components/Company/RegisterForm";
+import { Entries } from "@/components/Company/RegisterForm";
+
+//Importando hooks
 import useSession from "@/hooks/useSession";
 import useForm from "@/hooks/useForm";
 
-import { Entries } from "@/components/Company/RegisterForm";
-
+//Importando servicios
 import profileService from "@/services/Company/profile.service";
 
 const Company = () => {

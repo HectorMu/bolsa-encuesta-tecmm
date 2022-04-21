@@ -1,5 +1,9 @@
+//Importando los componentes
 import Loading from "@/components/Global/Loading";
+
+//Importando los hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
+
 import moment from "moment/min/moment-with-locales";
 
 const List = ({ searchTerm, jobs, isLoading }) => {
