@@ -17,38 +17,41 @@ const useGraduatedSurvey = () => {
     async (isCanceled) => {
       if (!isCanceled) {
         setIsLoading(true);
-        const fetchedSection = await verifySession(() =>
-          surveyService.getSurveySection(params.section_id)
+        const fetchedSection = await verifySession(
+          () => surveyService.getSurveySection(params.section_id),
+          getSectionHandler
         );
         setSection(fetchedSection);
       }
     },
-    [params.section_id]
+    [params.section_id, verifySession]
   );
 
   const getQuestionsHandler = useCallback(
     async (isCanceled) => {
       if (!isCanceled) {
-        const fetchedQuestions = await verifySession(() =>
-          surveyService.getSectionQuestions(params.section_id)
+        const fetchedQuestions = await verifySession(
+          () => surveyService.getSectionQuestions(params.section_id),
+          getQuestionsHandler
         );
         setQuestions(fetchedQuestions);
       }
     },
-    [params.section_id]
+    [params.section_id, verifySession]
   );
 
   const getUserAnswersHandler = useCallback(
     async (isCanceled) => {
       if (!isCanceled) {
-        const fetchedAnswers = await verifySession(() =>
-          surveyService.getAnswersBySection(params.section_id)
+        const fetchedAnswers = await verifySession(
+          () => surveyService.getAnswersBySection(params.section_id),
+          getUserAnswersHandler
         );
         setUserSectionAnswers(fetchedAnswers);
         setIsLoading(false);
       }
     },
-    [params.section_id]
+    [params.section_id, verifySession]
   );
   const checkIfHasProfileHandler = useCallback(async () => {
     const results = await verifySession(() => profileService.getProfile());

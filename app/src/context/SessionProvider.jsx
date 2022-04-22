@@ -12,7 +12,7 @@ function SessionProvider({ children }) {
   const [user, setUser] = useState(userData);
   const navigate = useNavigate();
 
-  const verifySession = async (serviceCall, onEffectCall) => {
+  const verifySession = async (serviceCall, continueTask = null) => {
     const response = await serviceCall();
 
     if ("authorized" in response) {
@@ -41,7 +41,7 @@ function SessionProvider({ children }) {
           const loginResults = await Auth.Login(credentials);
           if (!loginResults.status) {
             toast.error(loginResults.statusText);
-            await verifySession(serviceCall, onEffectCall);
+            await verifySession(serviceCall, continueTask);
             return;
           }
           const sessionData = loginResults.SessionData;
@@ -52,8 +52,13 @@ function SessionProvider({ children }) {
 
           setUser(JSON.parse(window.localStorage.getItem("BETECMMSession")));
 
-          toast.success("Sesión revalidada.");
-          onEffectCall && onEffectCall();
+          if (continueTask !== null) {
+            toast.success("Sesión revalidada, reanudando...");
+            continueTask();
+            return;
+          }
+          toast.dismiss();
+          toast.success("Sesión revalidada, intentalo de nuevo...");
         }
         return;
       }
@@ -80,11 +85,12 @@ function SessionProvider({ children }) {
 
   useEffect(() => {
     window.addEventListener("storage", () => {
-      //Seteamos el usuario con el json parseado, y mostramos al usuario un mensaje de bienvenida
+      //Seteamos el usuario con el json parseado,
       setUser(JSON.parse(window.localStorage.getItem("BETECMMSession")));
     });
     return () => {
-      window.removeEventListener("storage", console.log("Xd 2"));
+      //Removemos el listener en la funcion limpiadora y seteamos el usuario a nulo
+      window.removeEventListener("storage", setUser(null));
     };
   }, []);
 

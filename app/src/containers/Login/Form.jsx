@@ -35,8 +35,6 @@ const Form = () => {
       });
     }
 
-    console.log(results);
-
     //si el usuario existe, seteamos los datos de la session en el local storage
     window.localStorage.setItem(
       "BETECMMSession",
@@ -53,11 +51,12 @@ const Form = () => {
 
   useEffect(() => {
     window.addEventListener("storage", () => {
-      //Seteamos el usuario con el json parseado, y mostramos al usuario un mensaje de bienvenida
+      //Seteamos el usuario con el json parseado
       setUser(JSON.parse(window.localStorage.getItem("BETECMMSession")));
     });
     return () => {
-      window.removeEventListener("storage", console.log("Xd 2"));
+      //Removemos el listener en la funcion limpiadora y seteamos el usuario a nulo
+      window.removeEventListener("storage", () => setUser(null));
     };
   }, []);
   return (

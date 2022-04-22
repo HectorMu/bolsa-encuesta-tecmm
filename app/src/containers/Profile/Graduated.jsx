@@ -65,6 +65,7 @@ const Graduated = () => {
     const results = await verifySession(() =>
       profileService.saveOrUpdateProfile(profile)
     );
+
     if (!results.status) {
       return toast.error(results.statusText, { id: tLoading });
     }
