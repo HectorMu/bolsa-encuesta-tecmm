@@ -4,9 +4,9 @@ const verifyToken = require("../middlewares/verifyToken");
 
 const controller = require("../controllers/users.profile.controller");
 const uploadCVMiddleware = require("../middlewares/uploadCV");
-const validations = require("../middlewares/validations/users.validations");
-const companiesValidations = require("../middlewares/validations/company.validations");
-const graduatesValidations = require("../middlewares/validations/graduates.validations");
+const validations = require("../middlewares/validations/admin.users.validations");
+const companiesValidations = require("../middlewares/validations/admin.company.validations");
+const graduatesValidations = require("../middlewares/validations/admin.graduates.validations");
 
 router.get("/user/profile", verifyToken, controller.getUserProfile);
 router.post(

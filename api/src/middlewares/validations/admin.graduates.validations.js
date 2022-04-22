@@ -1,9 +1,12 @@
+const helpers = require("../../helpers/helpers");
+
 const careers = [
   "Ing. en Gestión Empresarial",
   "Ing. Industrial",
   "Ing. en Sistemas Computacionales",
   "Ing. Electromecánica",
   "Ing. Civil",
+  "Ing. en Sistemas Automotrices",
 ];
 
 const curpRegex =
@@ -41,42 +44,43 @@ const validations = (req, res, next) => {
   ) {
     return res.status(400).json({
       status: false,
-      statusText: "Los numeros de telefono deben tener maximo 10 digitos.",
+      statusText: "Los números de teléfono deben tener maximo 10 dígitos.",
     });
   }
 
-  if (typeof req.body.cp !== "number") {
-    if (isNaN(req.body.cp)) {
-      return res.status(400).json({
-        status: false,
-        statusText: "El codigo postal no es valido.",
-      });
-    }
+  if (!helpers.isNumber(req.body.cp)) {
+    return res.status(400).json({
+      status: false,
+      statusText: "El código postal no es válido.",
+    });
   }
 
-  if (typeof req.body.numero_casa !== "number") {
-    if (isNaN(req.body.numero_casa)) {
-      return res.status(400).json({
-        status: false,
-        statusText: "El numero de casa no es valido.",
-      });
-    }
+  if (!helpers.isNumber(req.body.numero_casa)) {
+    return res.status(400).json({
+      status: false,
+      statusText: "El número de casa no es válido.",
+    });
   }
-  if (typeof req.body.tel_casa !== "number") {
-    if (isNaN(req.body.tel_casa)) {
-      return res.status(400).json({
-        status: false,
-        statusText: "El telefono de casa debe ser un numero valido.",
-      });
-    }
+
+  if (!helpers.isNumber(req.body.tel_casa)) {
+    return res.status(400).json({
+      status: false,
+      statusText: "El número de teléfono de casa no es válido.",
+    });
   }
-  if (typeof req.body.telefono !== "number") {
-    if (isNaN(req.body.telefono)) {
-      return res.status(400).json({
-        status: false,
-        statusText: "El telefono de debe ser un numero valido.",
-      });
-    }
+
+  if (!helpers.isNumber(req.body.telefono)) {
+    return res.status(400).json({
+      status: false,
+      statusText: "El número de teléfono no es válido.",
+    });
+  }
+
+  if (helpers.getAge(req.body.fechaNacimiento) < 18) {
+    return res.status(400).json({
+      status: false,
+      statusText: "Ingresa una fecha de nacimiento con sentido...",
+    });
   }
 
   next();

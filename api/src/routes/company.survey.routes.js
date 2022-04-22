@@ -4,7 +4,7 @@ const verifyToken = require("../middlewares/verifyToken");
 const isCompany = require("../middlewares/isCompany");
 
 const companySurveyController = require("../controllers/company.survey.controller");
-const surveyValidations = require("../middlewares/validations/surveyCompany.validations");
+const surveyValidations = require("../middlewares/validations/company.survey.validations");
 
 router.get(
   "/company/survey/seccionb/getp6answers",

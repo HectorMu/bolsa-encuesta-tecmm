@@ -184,7 +184,7 @@ const Showcase = () => {
                     Postularme
                   </button>
                   <p className="mt-4">
-                    Nota: El curriculum debe estar en formato PDF
+                    Nota: Debes subir un curriculum en tu perfil en formato PDF.
                   </p>
                 </div>
               )}

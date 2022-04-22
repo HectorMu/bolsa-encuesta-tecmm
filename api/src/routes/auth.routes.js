@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const controller = require("../controllers/auth.controller");
+const validations = require("../middlewares/validations/auth.validations.js");
 
-router.post("/login", controller.Login);
+router.post("/login", validations, controller.Login);
 
-router.post("/recover-password/", controller.sendRecoverEmail);
+router.post("/recover-password/", validations, controller.sendRecoverEmail);
 
 router.get(
   "/verify-reset-token/:ResetToken",

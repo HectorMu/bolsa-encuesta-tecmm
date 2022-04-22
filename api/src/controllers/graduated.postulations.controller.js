@@ -1,5 +1,6 @@
 const GraduatedPostulations = require("../models/GraduatedPostulations");
 const GraduatedProfile = require("../models/GraduatedProfile");
+const CompanyJobs = require("../models/CompanyJobs");
 const controller = {};
 
 controller.GetAll = async (req, res) => {
@@ -43,6 +44,22 @@ controller.Save = async (req, res) => {
   };
 
   try {
+    const openVacants = await CompanyJobs.ListAllFreeOfCompanyAndActive();
+
+    const isVacantOpen = openVacants.filter(
+      (vacant) =>
+        vacant.status === "Abierta" &&
+        parseInt(vacant.folio) === parseInt(job_id)
+    );
+
+    console.log(isVacantOpen);
+
+    if (!isVacantOpen.length > 0) {
+      return res.json({
+        status: false,
+        statusText: "Esta vacante ya ha cerrado.",
+      });
+    }
     const { curriculum: hasCurriculum } = await GraduatedProfile.FindOne(
       req.user.id
     );

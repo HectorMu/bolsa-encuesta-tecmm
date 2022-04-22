@@ -6,7 +6,7 @@ const IDENTIFIER_NAME = "id";
 const Template = {
   async List(userid) {
     const data = await connection.query(
-      ` select * from v_getGraduatedJobsAndCompanyDetails  where fk_egresado = ${userid}`
+      ` select * from v_getGraduatedJobsAndCompanyDetails where fk_egresado = ${userid}`
     );
     return data;
   },
@@ -45,8 +45,6 @@ const Template = {
       "select * from vistas_publicaciones where fk_publicacion = ? && fk_usuario = ?",
       [fk_post, user_id]
     );
-
-    console.log(results);
     if (results.length > 0) return;
 
     const newView = {

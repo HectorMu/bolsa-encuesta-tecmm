@@ -2,7 +2,7 @@
   "name": "bolsa-encuesta-tecmm",
   "version": "1.0.0",
   "description": "Proyecto para el TECMM Lagos de Moreno, en donde se requiere un control de encuesta para egresados y una bolsa de trabajo local.",
-  "private":true,
+  "private": true,
   "workspaces": [
     "app",
     "api"

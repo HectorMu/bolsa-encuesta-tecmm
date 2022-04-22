@@ -4,8 +4,8 @@ const router = express.Router();
 //middlewares
 const verifyToken = require("../middlewares/verifyToken");
 const isAdmin = require("../middlewares/isAdmin");
-const validations = require("../middlewares/validations/users.validations");
-const graduatesValidations = require("../middlewares/validations/graduates.validations");
+const validations = require("../middlewares/validations/admin.users.validations");
+const graduatesValidations = require("../middlewares/validations/admin.graduates.validations");
 
 //controller import
 const controller = require("../controllers/admin.graduated.controller");

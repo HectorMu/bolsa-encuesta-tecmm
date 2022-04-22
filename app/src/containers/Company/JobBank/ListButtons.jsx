@@ -18,6 +18,7 @@ const ListButtons = ({ object: vacancie, refreshCallback: refreshData }) => {
   const handleOpenOrCloseVacancie = async () => {
     delete vacancie.solicitudes;
     delete vacancie.visitas;
+    delete vacancie.nombre_comercial;
     if (vacancie.status === "Cerrada") {
       vacancie.status = "Abierta";
       const results = await verifySession(() =>

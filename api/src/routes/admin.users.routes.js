@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const isAdmin = require("../middlewares/isAdmin");
 const verifyToken = require("../middlewares/verifyToken");
-const validations = require("../middlewares/validations/users.validations");
+const validations = require("../middlewares/validations/admin.users.validations");
 
 const controller = require("../controllers/admin.users.controller");
 

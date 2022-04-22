@@ -69,7 +69,7 @@ helpers.hasEmptyPropierty = (object) => {
     if (object[key] === "" || object[key] === null || object[key] === undefined)
       return {
         result: true,
-        expected: `Se esperaba un valor para '${key}'`,
+        expected: `El parametro ${key} es requerido`,
       };
   }
   return {
@@ -127,5 +127,25 @@ helpers.checkFileType = (file, cb) => {
   } else {
     return cb(new Error("Error: PDFS Only!"));
   }
+};
+
+helpers.isNumber = (prop) => {
+  if (typeof prop !== "number") {
+    if (isNaN(prop)) {
+      return false;
+    }
+  }
+  return true;
+};
+
+helpers.getAge = (dateString) => {
+  let today = new Date();
+  let birthDate = new Date(dateString);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  let m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
 };
 module.exports = helpers;

@@ -5,7 +5,7 @@ const validations = (req, res, next) => {
   ) {
     return res.status(400).json({
       status: false,
-      statusText: "Los numeros de telefono deben tener maximo 10 digitos.",
+      statusText: "Los numeros de teléfono deben tener máximo 10 dígitos.",
     });
   }
 
@@ -13,7 +13,7 @@ const validations = (req, res, next) => {
     if (isNaN(req.body.cp)) {
       return res.status(400).json({
         status: false,
-        statusText: "El codigo postal no es valido.",
+        statusText: "El código postal no es válido.",
       });
     }
   }
@@ -22,7 +22,7 @@ const validations = (req, res, next) => {
     if (isNaN(req.body.numero_empresa)) {
       return res.status(400).json({
         status: false,
-        statusText: "El numero de casa no es valido.",
+        statusText: "El número de casa no es válido.",
       });
     }
   }
@@ -31,7 +31,7 @@ const validations = (req, res, next) => {
     if (isNaN(req.body.telefono)) {
       return res.status(400).json({
         status: false,
-        statusText: "El telefono de debe ser un numero valido.",
+        statusText: "El teléfono de debe ser un número válido.",
       });
     }
   }

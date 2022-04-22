@@ -169,7 +169,7 @@ const Showcase = ({ refreshData }) => {
                     onClick={deletePostulationHandler}
                     className="btn btn-primary btn-sm mt-5 align-self-end"
                   >
-                    Eliminar postulacion <i className="fas fa-times"></i>
+                    Cancelar postulación <i className="fas fa-times"></i>
                   </button>
                 </div>
               ) : (
@@ -180,16 +180,13 @@ const Showcase = ({ refreshData }) => {
                   >
                     Postularme
                   </button>
-                  <p className="mt-4">
-                    Nota: El curriculum debe estar en formato PDF
-                  </p>
                 </div>
               )}
             </>
           ) : (
-            <div className="d-flex justify-content-center align-items-center h-50 text-black">
+            <div className="d-flex justify-content-center align-content-center h-50 text-black">
               <h3 className="text-primary font-weight-bolder text-center">
-                ¡Selecciona una postulacion!
+                ¡Selecciona una postulación!
               </h3>
             </div>
           )}

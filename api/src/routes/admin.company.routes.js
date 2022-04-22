@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 //middlewares
 const verifyToken = require("../middlewares/verifyToken");
-const validations = require("../middlewares/validations/users.validations");
-const companiesValidations = require("../middlewares/validations/company.validations");
+const validations = require("../middlewares/validations/admin.users.validations");
+const companiesValidations = require("../middlewares/validations/admin.company.validations");
 const isAdmin = require("../middlewares/isAdmin");
 
 //contoller import
