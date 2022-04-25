@@ -34,6 +34,7 @@ function CurriculumProvider({ children }) {
     getCurriculumHandler();
   }, [getCurriculumHandler]);
 
+  console.log(graduatedCurriculum);
   return (
     <Curriculum.Provider
       value={{ graduatedCurriculum, loadingCurriculum, getCurriculumHandler }}

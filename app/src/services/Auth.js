@@ -1,5 +1,6 @@
 import API from "./API";
 import helpers from "../helpers/helpers";
+import host from "./Host";
 
 const Auth = {};
 
@@ -54,10 +55,7 @@ Auth.resetPasswordAccount = async (passwords, token) => {
 
 Auth.getResourcesFromPublicFolder = async (source) => {
   try {
-    const response = await fetch(
-      `http://localhost:4000/${source}`,
-      helpers.authGetConfig()
-    );
+    const response = await fetch(`${host}/${source}`, helpers.authGetConfig());
     const blob = await response.blob();
     return URL.createObjectURL(blob);
   } catch (error) {

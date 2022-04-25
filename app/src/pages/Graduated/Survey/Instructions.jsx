@@ -45,12 +45,26 @@ const Survey = () => {
                       modalClass="modal-dialog modal-xl modal-dialog-scrollable"
                       buttonText="Ver acuse"
                     >
-                      <embed
-                        src={`http://localhost:4000/graduated/acuses/${answeredDetails.acuse}`}
+                      <object
+                        data={`http://192.168.1.77:4000/graduated/acuses/${answeredDetails.acuse}`}
+                        type="application/pdf"
                         frameBorder="0"
                         width="100%"
                         style={{ height: "100vh", width: "100%" }}
-                      />
+                      >
+                        <div className="d-flex flex-column justify-content-center">
+                          <p className="text-center">
+                            El navegador no soporta la visualizacion de PDF.{" "}
+                          </p>
+                          <a
+                            className="btn btn-primary"
+                            href={`http://192.168.1.77:4000/graduated/acuses/${answeredDetails.acuse}`}
+                            download
+                          >
+                            Descargar PDF
+                          </a>
+                        </div>
+                      </object>
                     </Modal>
                   </div>
                   <h5 className="mt-5 text-center">
