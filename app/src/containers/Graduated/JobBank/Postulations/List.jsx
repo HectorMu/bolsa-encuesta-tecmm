@@ -21,7 +21,7 @@ const List = ({ searchTerm, postulations, isLoading }) => {
           .filter((postulation) =>
             postulation.vacante.toLowerCase().includes(searchTerm.toLowerCase())
           )
-          .map((job) => <JobCard job={job} />)
+          .map((job) => <JobCard key={job.fk_vacante} job={job} />)
       ) : (
         <h5 className="text-center">
           Aqui aparecerán los trabajos en los que te has postulado.

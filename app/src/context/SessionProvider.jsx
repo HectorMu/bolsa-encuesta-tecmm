@@ -69,6 +69,8 @@ function SessionProvider({ children }) {
   const verifySessionOnLoad = async () => {
     const response = await profileSevice.getProfile();
 
+    if (response === undefined || response === null) return;
+
     if ("authorized" in response) {
       if (!response.authorized) {
         setUser(null);

@@ -43,23 +43,6 @@ const JobBank = () => {
         data-aos="flip-right"
         className="col-md-12 col-lg-12 col-xl-11 mx-auto"
       >
-        {/* <div className="input-group w-100 mb-3">
-          <input
-            type="text"
-            className="form-control bg-light"
-            placeholder="Buscar trabajos..."
-            aria-label="Search"
-            autoComplete="off"
-            aria-describedby="basic-addon2"
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <div className="input-group-append">
-            <button className="btn btn-primary" type="button">
-              <i className="fas fa-search fa-sm"></i>
-            </button>
-          </div>
-        </div> */}
-
         <div className="card shadow rounded">
           <div className="card-body">
             <div className="row">

@@ -72,6 +72,7 @@ helpers.authDeleteConfig = () => {
 
 helpers.getAndSetAccessToken = () => {
   const user = JSON.parse(window.localStorage.getItem("BETECMMSession"));
+
   return `Bearer ${user.AccessToken}`;
 };
 

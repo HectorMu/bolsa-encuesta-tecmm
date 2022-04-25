@@ -4,28 +4,15 @@ import Auth from "@/services/Auth";
 import toast from "react-hot-toast";
 import Loading from "@/components/Global/Loading";
 import useSession from "@/hooks/useSession";
+import useGraduatedCurriculum from "@/hooks/useGraduatedCurriculum";
 
 const GraduatedCurriculum = () => {
-  const [cvName, setCVName] = useState("");
-  const [curriculumPath, setCurriculumPath] = useState("");
+  const { graduatedCurriculum, loadingCurriculum, getCurriculumHandler } =
+    useGraduatedCurriculum();
 
-  const [loadingCurriculum, setLoadingCurriculum] = useState(false);
   const [cvFile, setCvFile] = useState(null);
   const uploadFileRef = useRef();
   const { verifySession } = useSession();
-
-  const getCurriculumHandler = async () => {
-    setLoadingCurriculum(true);
-    const fetchedCurriculum = await profileService.getCurriculum();
-    setCVName(fetchedCurriculum);
-
-    if (fetchedCurriculum === "Pendiente") return;
-    const CVPath = await Auth.getResourcesFromPublicFolder(
-      `graduated/cvs/${fetchedCurriculum}`
-    );
-    setCurriculumPath(CVPath);
-    setLoadingCurriculum(false);
-  };
 
   const uploadCVHandler = async () => {
     if (cvFile === null) {
@@ -53,12 +40,9 @@ const GraduatedCurriculum = () => {
     getCurriculumHandler();
   };
 
-  useEffect(() => {
-    getCurriculumHandler();
-  }, []);
   return (
     <div className="col-md-12 col-lg-10 mx-auto">
-      {cvName === "Pendiente" ? (
+      {graduatedCurriculum === "Pendiente" ? (
         <div className="d-flex mt-5 flex-column justify-content-center h-100 align-items-center">
           <h2 className="font-weight-bolder text-primary">
             Aun no tienes un curriculum
@@ -143,7 +127,7 @@ const GraduatedCurriculum = () => {
                 <Loading />
               ) : (
                 <embed
-                  src={curriculumPath}
+                  src={graduatedCurriculum}
                   frameBorder="0"
                   width="100%"
                   style={{ height: "100vh", width: "100%" }}

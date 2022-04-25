@@ -11,6 +11,18 @@
   --danger-dark: #961f2b;
 }
 
+body::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+body::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--purple);
+}
+
 /* Animated label input */
 .formgroup__animated {
   position: relative;

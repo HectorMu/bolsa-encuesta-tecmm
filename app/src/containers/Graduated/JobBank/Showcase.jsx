@@ -10,6 +10,7 @@ import Loading from "@/components/Global/Loading";
 //Importando los hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
+import useGraduatedCurriculum from "@/hooks/useGraduatedCurriculum";
 
 //Importando los servicios
 import jobsService from "@/services/Graduated/jobs.service";
@@ -19,6 +20,7 @@ import Auth from "@/services/Auth";
 import helpers from "@/helpers/helpers";
 
 const Showcase = () => {
+  const { graduatedCurriculum } = useGraduatedCurriculum();
   const [selectedJob, setSelectedJob] = useState({});
   const [curriculumPath, setCurriculumPath] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -70,11 +72,7 @@ const Showcase = () => {
       return;
     }
 
-    const CV = await Auth.getResourcesFromPublicFolder(
-      `graduated/cvs/${postulationFetched.curriculum}`
-    );
-
-    setCurriculumPath(CV);
+    setCurriculumPath(graduatedCurriculum);
 
     setCurrentPostulation(postulationFetched);
     setLoadingPostulation(false);

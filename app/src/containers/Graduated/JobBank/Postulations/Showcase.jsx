@@ -10,6 +10,7 @@ import Loading from "@/components/Global/Loading";
 //Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
+import useGraduatedCurriculum from "@/hooks/useGraduatedCurriculum";
 
 //Importando helpers
 import helpers from "@/helpers/helpers";
@@ -25,6 +26,7 @@ const Showcase = ({ refreshData }) => {
   const [loadingPostulation, setLoadingPostulation] = useState(false);
   const [currentPostulation, setCurrentPostulation] = useState({});
   const { params, location, navigate } = useRouterHooks();
+  const { graduatedCurriculum } = useGraduatedCurriculum();
   const { verifySession } = useSession();
 
   const postulationRegisterHandler = async () => {
@@ -73,12 +75,7 @@ const Showcase = ({ refreshData }) => {
       return;
     }
 
-    const CV = await Auth.getResourcesFromPublicFolder(
-      `graduated/cvs/${postulationFetched.curriculum}`
-    );
-
-    setCurriculumPath(CV);
-
+    setCurriculumPath(graduatedCurriculum);
     setCurrentPostulation(postulationFetched);
     setLoadingPostulation(false);
   }, [params.id]);

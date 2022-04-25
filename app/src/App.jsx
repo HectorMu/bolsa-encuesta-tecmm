@@ -27,6 +27,7 @@ import AppRoutes from "./routes";
 
 //importing session context
 import SessionProvider from "./context/SessionProvider";
+import CurriculumProvider from "./context/CurriculumProvider";
 
 function App() {
   //Initializing AOS for animations
@@ -35,19 +36,21 @@ function App() {
   }, []);
   return (
     <SessionProvider>
-      <Layout>
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            {AppRoutes?.map((route) => (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.element}
-              />
-            ))}
-          </Routes>
-        </Suspense>
-      </Layout>
+      <CurriculumProvider>
+        <Layout>
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              {AppRoutes?.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={route.element}
+                />
+              ))}
+            </Routes>
+          </Suspense>
+        </Layout>
+      </CurriculumProvider>
       <Toaster />
     </SessionProvider>
   );

@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 //Importando hooks
 import useForm from "@/hooks/useForm";
 import useSession from "@/hooks/useSession";
+import useGraduatedCurriculum from "@/hooks/useGraduatedCurriculum";
 
 //Entradas del formulario, es un objeto con los datos a capturar el en formulario
 import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
@@ -17,6 +18,7 @@ import GraduatedCurriculum from "./GraduatedCurriculum";
 import Loading from "@/components/Global/Loading";
 
 const Graduated = () => {
+  const { getCurriculumHandler } = useGraduatedCurriculum();
   const {
     form: graduated,
     setForm: setGraduated,
@@ -73,6 +75,7 @@ const Graduated = () => {
 
     getProfileHandler();
     if (results.statusText === "Perfil creado correctamente.") {
+      getCurriculumHandler();
       setCurrentSelection("Curriculum");
       toast("Puedes subir tu curriculum ahora para poder postularte.");
     }

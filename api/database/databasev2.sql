@@ -405,6 +405,15 @@ DELIMITER //
 CREATE TRIGGER `usuarios_BorrarDatosExistentesEgresado` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
 	DELETE FROM perfil_egresado WHERE fk_usuario = OLD.id;
 	DELETE FROM solicitud_bolsa WHERE fk_egresado = OLD.id;
+    DELETE FROM respuestas WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion2_trabaja WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion2_estudia WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion3_p4_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion4_p1_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion4_p2_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion5_p1_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion5_p2_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM encuesta_egresado_contestada WHERE fk_egresado = OLD.id;
 END//
 DELIMITER ;
 
