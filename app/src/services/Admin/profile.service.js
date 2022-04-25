@@ -10,6 +10,7 @@ const getProfile = async () => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -22,6 +23,7 @@ const saveOrUpdateProfile = async (profileData) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 

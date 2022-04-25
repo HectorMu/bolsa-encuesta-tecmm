@@ -9,6 +9,7 @@ const verifyQRToken = async (token) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -20,7 +21,8 @@ const checkIfSurveyIsAnswered = async () => {
     );
     return await response.json();
   } catch (error) {
-    return { status: false, error };
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -33,6 +35,7 @@ const getSurveySections = async () => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -45,6 +48,7 @@ const getSurveySection = async (section_id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -57,6 +61,7 @@ const getSectionQuestions = async (section_id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -69,6 +74,7 @@ const getAnswersBySection = async (section_id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -81,6 +87,7 @@ const saveSection1 = async (answers) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -93,6 +100,7 @@ const saveSection2 = async (answers) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 const saveSection3 = async (answers) => {
@@ -103,7 +111,7 @@ const saveSection3 = async (answers) => {
     );
     return await response.json();
   } catch (error) {
-    console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 const saveSection4 = async (answers) => {
@@ -115,6 +123,7 @@ const saveSection4 = async (answers) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -127,6 +136,7 @@ const saveSection5 = async (answers) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 const saveSection6 = async (answers) => {
@@ -138,6 +148,7 @@ const saveSection6 = async (answers) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 export default {

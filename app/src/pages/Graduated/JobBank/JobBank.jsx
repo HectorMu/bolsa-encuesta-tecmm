@@ -8,11 +8,13 @@ import profileService from "@/services/Graduated/profile.service";
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
 import toast from "react-hot-toast";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 const JobBank = () => {
   const { verifySession } = useSession();
   const animatedRef = useCleanAosAnimations();
   const { navigate } = useRouterHooks();
+  const [error, setError] = useState({ error: false, statusText: "" });
   const { hookData, isLoading, refreshData } = useServiceFetch(
     () => verifySession(jobsService.getJobs, refreshData),
     []
@@ -24,6 +26,11 @@ const JobBank = () => {
       () => profileService.getProfile(),
       verifyUserProfileHandler
     );
+    console.log(fetchedProfile);
+    if (fetchedProfile.error) {
+      setError(fetchedProfile);
+      return;
+    }
     if (!fetchedProfile.id) {
       navigate("/profile");
       return toast(
@@ -36,6 +43,9 @@ const JobBank = () => {
     verifyUserProfileHandler();
   }, []);
 
+  if (error.error) {
+    return <ErrorDisplayer message={error?.statusText} />;
+  }
   return (
     <div className="mb-3">
       <div

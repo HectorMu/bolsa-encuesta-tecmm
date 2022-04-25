@@ -21,7 +21,7 @@ import Auth from "@/services/Auth";
 
 const Showcase = ({ refreshData }) => {
   const [selectedJob, setSelectedJob] = useState({});
-  const [curriculumPath, setCurriculumPath] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
   const [loadingPostulation, setLoadingPostulation] = useState(false);
   const [currentPostulation, setCurrentPostulation] = useState({});
@@ -43,7 +43,7 @@ const Showcase = ({ refreshData }) => {
 
   const deletePostulationHandler = async () => {
     Swal.fire({
-      text: `¿Desea cancelar su postulacion?`,
+      text: `¿Desea cancelar su postulación?`,
       icon: "info",
       ...helpers.alertConfig,
     }).then(async (result) => {
@@ -74,8 +74,6 @@ const Showcase = ({ refreshData }) => {
       setLoadingPostulation(false);
       return;
     }
-
-    setCurriculumPath(graduatedCurriculum);
     setCurrentPostulation(postulationFetched);
     setLoadingPostulation(false);
   }, [params.id]);

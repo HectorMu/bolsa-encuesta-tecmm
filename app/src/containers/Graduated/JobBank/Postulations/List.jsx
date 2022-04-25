@@ -5,9 +5,10 @@ import JobCard from "@/components/Graduated/Postulations/JobCard";
 const List = ({ searchTerm, postulations, isLoading }) => {
   return (
     <div>
-      {!postulations.filter((job) =>
-        job.vacante.toLowerCase().includes(searchTerm.toLowerCase())
-      ).length > 0 &&
+      {postulations.length &&
+        !postulations.filter((job) =>
+          job.vacante.toLowerCase().includes(searchTerm.toLowerCase())
+        ).length > 0 &&
         searchTerm.length > 0 && (
           <h5 className="text-center text-primary">
             No se encontraron resultados para: '{searchTerm}''

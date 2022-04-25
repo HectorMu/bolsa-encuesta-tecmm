@@ -10,6 +10,7 @@ const List = async () => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -22,6 +23,7 @@ const GetOne = async (id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -34,6 +36,7 @@ const Save = async (vacant) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -46,6 +49,7 @@ const Update = async (vacant, id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -58,6 +62,7 @@ const Delete = async (id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -70,6 +75,7 @@ const GetPostulations = async (job_id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 const GetOnePostulation = async (postulation_id) => {
@@ -81,6 +87,7 @@ const GetOnePostulation = async (postulation_id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -94,6 +101,7 @@ const FlagPostulationAsReviewed = async (postulation_id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 

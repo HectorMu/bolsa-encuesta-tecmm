@@ -4,6 +4,7 @@ import List from "@/containers/Graduated/JobBank/Postulations/List";
 import Showcase from "@/containers/Graduated/JobBank/Postulations/Showcase";
 import useServiceFetchV2 from "@/hooks/useServiceFetchV2";
 import jobsService from "@/services/Graduated/jobs.service";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 const Postulations = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +15,10 @@ const Postulations = () => {
   } = useServiceFetchV2(jobsService.getGraduatedPostulations, []);
 
   const animatedRef = useCleanAosAnimations();
+
+  if (postulations?.error) {
+    return <ErrorDisplayer message={postulations.statusText} />;
+  }
   return (
     <div className="mb-3">
       <div

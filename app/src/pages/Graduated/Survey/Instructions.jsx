@@ -4,6 +4,7 @@ import surveyService from "@/services/Graduated/survey.service";
 import { Link } from "react-router-dom";
 import Loading from "@/components/Global/Loading";
 import Modal from "@/components/Global/Modal";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 const Survey = () => {
   const { verifySession } = useSession();
@@ -16,6 +17,8 @@ const Survey = () => {
     []
   );
 
+  if (answeredDetails?.error)
+    return <ErrorDisplayer message={answeredDetails?.statusText} />;
   return (
     <div className="container-fluid text-black">
       <div className="d-sm-flex align-items-center justify-content-center mb-4">

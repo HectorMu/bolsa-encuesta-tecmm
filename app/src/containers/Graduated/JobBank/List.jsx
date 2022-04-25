@@ -14,9 +14,10 @@ const List = ({ searchTerm, jobs, isLoading }) => {
 
   return (
     <div>
-      {!jobs.filter((job) =>
-        job.vacante.toLowerCase().includes(searchTerm.toLowerCase())
-      ).length > 0 &&
+      {jobs.length > 0 &&
+        !jobs.filter((job) =>
+          job.vacante.toLowerCase().includes(searchTerm.toLowerCase())
+        ).length > 0 &&
         searchTerm.length > 0 && (
           <h5 className="text-center text-primary">
             No se encontraron resultados para: '{searchTerm}''

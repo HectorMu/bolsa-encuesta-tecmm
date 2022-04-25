@@ -7,6 +7,7 @@ const getJobs = async () => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -16,6 +17,7 @@ const getOneJob = async (id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -28,6 +30,7 @@ const registerJobVisit = async (job_id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -40,6 +43,7 @@ const getGraduatedPostulations = async () => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -53,6 +57,7 @@ const registerPostulation = async (job_id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -65,6 +70,7 @@ const deletePostulation = async (job_id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -77,6 +83,7 @@ const getPostulation = async (job_id) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 

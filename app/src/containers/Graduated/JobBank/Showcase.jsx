@@ -18,15 +18,16 @@ import Auth from "@/services/Auth";
 
 //Importando helpers
 import helpers from "@/helpers/helpers";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 const Showcase = () => {
   const { graduatedCurriculum } = useGraduatedCurriculum();
   const [selectedJob, setSelectedJob] = useState({});
-  const [curriculumPath, setCurriculumPath] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingPostulation, setLoadingPostulation] = useState(false);
   const [currentPostulation, setCurrentPostulation] = useState({});
   const { params, location } = useRouterHooks();
+  const [error, setError] = useState({});
   const { verifySession } = useSession();
 
   const postulationRegisterHandler = async () => {
@@ -66,13 +67,16 @@ const Showcase = () => {
     const postulationFetched = await verifySession(() =>
       jobsService.getPostulation(params.id)
     );
+    if (postulationFetched?.error) {
+      setError(postulationFetched);
+      setLoadingPostulation(false);
+      return;
+    }
     if (!postulationFetched.id) {
       setCurrentPostulation({});
       setLoadingPostulation(false);
       return;
     }
-
-    setCurriculumPath(graduatedCurriculum);
 
     setCurrentPostulation(postulationFetched);
     setLoadingPostulation(false);
@@ -103,6 +107,12 @@ const Showcase = () => {
     getPostulationHandler();
     registerPostVisit();
   }, [handleGetJobFromFetch, registerPostVisit, getPostulationHandler]);
+
+  console.log(currentPostulation);
+
+  if (error?.error) {
+    return <ErrorDisplayer message={error.statusText} />;
+  }
 
   return (
     <div className="p-2">

@@ -13,6 +13,7 @@ Auth.Login = async (credentials) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -29,6 +30,7 @@ Auth.sendRecoverEmail = async (email) => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -38,6 +40,7 @@ Auth.validateRecoverPasswordToken = async (token) => {
     return await results.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -50,6 +53,7 @@ Auth.resetPasswordAccount = async (passwords, token) => {
     return await results.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 
@@ -60,6 +64,7 @@ Auth.getResourcesFromPublicFolder = async (source) => {
     return URL.createObjectURL(blob);
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 

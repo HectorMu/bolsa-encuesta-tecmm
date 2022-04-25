@@ -76,6 +76,32 @@ helpers.getAndSetAccessToken = () => {
   return `Bearer ${user.AccessToken}`;
 };
 
+helpers.ApiFetchError = (errorMessage, customText) => {
+  if (errorMessage === "Failed to fetch") {
+    return {
+      status: false,
+      error: true,
+      statusText: `Conexión con el servidor perdida`,
+    };
+  }
+  if (!window.navigator.onLine) {
+    return {
+      status: false,
+      error: true,
+      statusText: `Revisa tu conexión a internet`,
+    };
+  }
+  return {
+    status: false,
+    error: true,
+    statusText: `${
+      customText !== undefined && customText.length > 0
+        ? customText
+        : `Algo pasó, contácta al área de sistemas`
+    }`,
+  };
+};
+
 helpers.alertConfig = {
   showCancelButton: true,
   confirmButtonColor: "#0d6efd",
