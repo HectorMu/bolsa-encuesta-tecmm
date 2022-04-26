@@ -19,6 +19,7 @@ const Template = {
     const results = await connection.query(`insert into ${TABLE_NAME} set ?`, [
       data,
     ]);
+    await this.SurveyAnswered(data.fk_usuario, new Date().toLocaleString());
     return results;
   },
   async CreateOrUpdateIfExists(data) {
@@ -49,6 +50,13 @@ const Template = {
     const results = await connection.query(
       `delete from ${TABLE_NAME} where ${IDENTIFIER_NAME} = ? && fk_usuario = ?`,
       [id, fk_usuario]
+    );
+    return results;
+  },
+  async SurveyAnswered(fk_empresa, fecha) {
+    const results = await connection.query(
+      "insert into encuesta_empresa_contestada set ? ",
+      [{ fk_empresa, fecha }]
     );
     return results;
   },

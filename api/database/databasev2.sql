@@ -77,6 +77,12 @@ create table encuesta_egresado_contestada(
     foreign key (fk_egresado) references usuarios (id)
 );
 
+create table encuesta_empresa_contestada(
+    fk_empresa int PRIMARY key AUTO_INCREMENT,
+    fecha varchar(50),
+    foreign key (fk_empresa) references usuarios (id)
+);
+
 CREATE TABLE seccion(
 id INT PRIMARY KEY AUTO_INCREMENT,
 descripcion VARCHAR (250)
