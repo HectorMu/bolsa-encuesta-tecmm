@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import FloatingLabelInput from "../Global/FloatingLabelInput";
 
 const OptionsContainer = ({
@@ -11,6 +11,26 @@ const OptionsContainer = ({
   otherText = "Other",
   cols = "col-12 col-lg-3 col-md-3 col-xl-3",
 }) => {
+  const [otherOption, setOtherOption] = useState(false);
+
+  const removeOtherSelection = (answer, option) => {
+    setOtherOption(false);
+    handleChange(ANSWER, option);
+  };
+
+  const toggleOtherOption = (answer) => {
+    setOtherOption(true);
+    handleChange(answer, "");
+  };
+  useEffect(() => {
+    if (
+      answers[ANSWER] !== "" &&
+      answers[ANSWER] !== null &&
+      !Object.values(OPTIONS).includes(answers[ANSWER])
+    ) {
+      setOtherOption(true);
+    }
+  }, []);
   return (
     <div className="row">
       {OPTIONS.map((option) => (
@@ -21,7 +41,7 @@ const OptionsContainer = ({
               type="radio"
               checked={answers[ANSWER] === option}
               name={ID}
-              onChange={() => handleChange(ANSWER, option)}
+              onChange={() => removeOtherSelection(ANSWER, option)}
               value={answers[ANSWER]}
               id={`${ID}${option}`}
             />
@@ -43,25 +63,21 @@ const OptionsContainer = ({
                   answers[ANSWER] !== null &&
                   !Object.values(OPTIONS).includes(answers[ANSWER])
                 }
-                onChange={() => handleChange(ANSWER, "Otra")}
-                value={answers.tipo_estudio}
+                onChange={() => toggleOtherOption(ANSWER)}
+                value={answers[ANSWER]}
                 name={ID}
                 id={`${ID}O`}
               />
-              {Object.values(OPTIONS).includes(answers[ANSWER]) ? (
-                <label className="form-check-label" htmlFor={`${ID}O`}>
-                  {otherText}
-                </label>
-              ) : answers[ANSWER] === "" ? (
-                <label className="form-check-label" htmlFor={`${ID}O`}>
-                  {otherText}
-                </label>
-              ) : (
-                <FloatingLabelInput
-                  placeholder={otherText}
-                  inputId={`txtOtra${ID}`}
+              <label className="form-check-label" htmlFor={`${ID}O`}>
+                {otherText}
+              </label>
+              {otherOption && (
+                <input
+                  className="form form-control"
+                  id={`txtOtra${ID}`}
                   type="text"
-                  setValue={(e) => handleChange(ANSWER, e.target.value)}
+                  placeholder="Escriba aquí..."
+                  onChange={(e) => handleChange(ANSWER, e.target.value)}
                   value={answers[ANSWER]}
                 />
               )}

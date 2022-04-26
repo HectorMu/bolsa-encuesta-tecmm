@@ -26,13 +26,14 @@ const Question8 = ({ handleChange, answers, questions }) => {
       <div className="row mt-4">
         {Object.entries(subQuestions).map(([key, value], i) => (
           <Fragment key={key}>
-            <div className="col-12 col-xl-3">
+            <div className="col-12 col-xl-5">
               <div className="d-flex align-items-center h-100">
                 <h6>{value}</h6>
               </div>
             </div>
-            <div className="col-12 col-xl-9 mb-4">
+            <div className="col-12 col-xl-7 mb-4">
               <OptionsContainer
+                cols="col-6"
                 SECTIONID={`Q8SBS${i}`}
                 handleChange={handleChange}
                 OPTIONS={OPTIONS}
@@ -42,20 +43,21 @@ const Question8 = ({ handleChange, answers, questions }) => {
             </div>
           </Fragment>
         ))}
-        <div className="col-12 col-xl-3">
+        <div className="col-12 col-xl-5">
           <div className="d-flex align-items-center h-100">
             <h6>Otros</h6>
           </div>
         </div>
-        <div className="col-12 col-xl-9 mb-4">
+        <div className="col-12 col-xl-12 mb-4">
           <OptionsContainer
+            cols="col-6"
             ANSWER={"otros_p8"}
             OPTIONS={["No requerido"]}
             SECTIONID={"Q8SBOther"}
             other={true}
             answers={answers}
             handleChange={handleChange}
-            otherText="Requerido (especifique)"
+            otherText="Requerido"
           />
         </div>
       </div>
