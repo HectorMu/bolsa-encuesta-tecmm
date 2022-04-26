@@ -15,6 +15,7 @@ import usersService from "@/services/Admin/users.service";
 
 //Importando helpers
 import helpers from "@/helpers/helpers";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 const List = () => {
   const { verifySession } = useSession();
@@ -22,6 +23,7 @@ const List = () => {
     isLoading,
     hookData: users,
     refreshData,
+    error,
   } = useServiceFetch(() => verifySession(usersService.List, refreshData), []);
   const { navigate } = useRouterHooks();
 
@@ -79,6 +81,14 @@ const List = () => {
       },
     ],
   };
+
+  if (error.error) {
+    return (
+      <>
+        {isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />}
+      </>
+    );
+  }
 
   return (
     <div className="mt-2">

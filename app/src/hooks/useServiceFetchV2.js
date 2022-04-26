@@ -3,10 +3,18 @@ import { useState, useEffect, useCallback } from "react";
 const useServiceFetchV2 = (service, dependencies) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hookData, setHookData] = useState([]);
+  const [error, setError] = useState({ error: false, message: "No error." });
 
   const fetchService = useCallback(async () => {
     setIsLoading(true);
+
     const data = await service();
+    if (data?.error) {
+      setError(data);
+      setIsLoading(false);
+      return;
+    }
+
     setHookData(data);
     setIsLoading(false);
   }, dependencies);
@@ -23,6 +31,7 @@ const useServiceFetchV2 = (service, dependencies) => {
     isLoading,
     hookData,
     refreshData,
+    error,
   };
 };
 

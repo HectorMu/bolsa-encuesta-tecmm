@@ -28,6 +28,13 @@ const Form = () => {
     const tLoading = toast.loading("Autenticando...");
     //Verificamos que el usuario exista pasandole las credenciales
     const results = await Auth.Login(credentials);
+    console.log(results);
+    //si hay un error externo a las validaciones del backend
+    if (results?.error) {
+      return toast.error(results.message, {
+        id: tLoading,
+      });
+    }
     //si el usuario no existe, reemplazamos la toast de autenticando por una toast de error y salimos de la funcion
     if (!results.status) {
       return toast.error(results.statusText, {

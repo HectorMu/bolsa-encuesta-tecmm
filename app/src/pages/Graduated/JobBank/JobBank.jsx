@@ -44,7 +44,7 @@ const JobBank = () => {
   }, []);
 
   if (error.error) {
-    return <ErrorDisplayer message={error?.statusText} />;
+    return <ErrorDisplayer message={error.message} />;
   }
   return (
     <div className="mb-3">

@@ -111,7 +111,7 @@ const Showcase = () => {
   console.log(currentPostulation);
 
   if (error?.error) {
-    return <ErrorDisplayer message={error.statusText} />;
+    return <ErrorDisplayer message={error.message} />;
   }
 
   return (

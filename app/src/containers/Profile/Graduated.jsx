@@ -16,6 +16,7 @@ import profileService from "@/services/Graduated/profile.service";
 
 import GraduatedCurriculum from "./GraduatedCurriculum";
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 const Graduated = () => {
   const { getCurriculumHandler } = useGraduatedCurriculum();
@@ -37,9 +38,16 @@ const Graduated = () => {
 
   const getProfileHandler = useCallback(async () => {
     setIsLoading(true);
+
     const graduatedFetched = await verifySession(() =>
       profileService.getProfile()
     );
+    if (graduatedFetched.error) {
+      setGraduated(graduatedFetched);
+      setIsLoading(false);
+      return;
+    }
+    console.log(graduatedFetched);
     if (!graduatedFetched.id) {
       setIsLoading(false);
       return;
@@ -89,6 +97,9 @@ const Graduated = () => {
     setGraduated({ ...graduated, ["correo"]: user.correo });
   }, [user]);
 
+  if (graduated.error) {
+    return <ErrorDisplayer message={graduated.message} />;
+  }
   return (
     <div>
       <div className="d-flex justify-content-center mb-3">

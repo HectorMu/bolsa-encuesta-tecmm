@@ -17,7 +17,7 @@ const Postulations = () => {
   const animatedRef = useCleanAosAnimations();
 
   if (postulations?.error) {
-    return <ErrorDisplayer message={postulations.statusText} />;
+    return <ErrorDisplayer message={postulations.message} />;
   }
   return (
     <div className="mb-3">

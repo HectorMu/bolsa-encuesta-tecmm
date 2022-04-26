@@ -77,24 +77,25 @@ helpers.getAndSetAccessToken = () => {
 };
 
 helpers.ApiFetchError = (errorMessage, customText) => {
-  if (errorMessage === "Failed to fetch") {
-    return {
-      status: false,
-      error: true,
-      statusText: `Conexión con el servidor perdida`,
-    };
-  }
   if (!window.navigator.onLine) {
     return {
       status: false,
       error: true,
-      statusText: `Revisa tu conexión a internet`,
+      message: `Revisa tu conexión a internet`,
     };
   }
+  if (errorMessage === "Failed to fetch") {
+    return {
+      status: false,
+      error: true,
+      message: `Conexión con el servidor perdida`,
+    };
+  }
+
   return {
     status: false,
     error: true,
-    statusText: `${
+    message: `${
       customText !== undefined && customText.length > 0
         ? customText
         : `Algo pasó, contácta al área de sistemas`
