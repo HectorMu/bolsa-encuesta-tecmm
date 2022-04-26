@@ -47,7 +47,7 @@ const Graduated = () => {
       setIsLoading(false);
       return;
     }
-    console.log(graduatedFetched);
+
     if (!graduatedFetched.id) {
       setIsLoading(false);
       return;
