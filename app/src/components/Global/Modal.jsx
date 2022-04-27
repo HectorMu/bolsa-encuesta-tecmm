@@ -29,7 +29,7 @@ const Modal = ({
       >
         <div className={modalClass}>
           <div className="modal-content">
-            <div className="modal-header">
+            <div className="modal-header" style={{ padding: "5px" }}>
               <h4
                 className="modal-title text-primary font-weight-bold"
                 id={`${id}Label`}
@@ -46,10 +46,10 @@ const Modal = ({
               </button>
             </div>
             <div className="modal-body">{children}</div>
-            <div className="modal-footer">
+            <div className="modal-footer" style={{ padding: "1px" }}>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary btn-sm"
                 data-dismiss="modal"
               >
                 {buttonCloseText}

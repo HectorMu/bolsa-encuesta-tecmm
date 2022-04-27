@@ -49,7 +49,7 @@ const Survey = () => {
                       buttonText="Ver acuse"
                     >
                       <object
-                        data={`http://192.168.1.77:4000/graduated/acuses/${answeredDetails.acuse}`}
+                        data={`http://localhost:4000/graduated/acuses/${answeredDetails.acuse}`}
                         type="application/pdf"
                         frameBorder="0"
                         width="100%"
@@ -61,7 +61,7 @@ const Survey = () => {
                           </p>
                           <a
                             className="btn btn-primary"
-                            href={`http://192.168.1.77:4000/graduated/acuses/${answeredDetails.acuse}`}
+                            href={`http://localhost:4000/graduated/acuses/${answeredDetails.acuse}`}
                             download
                           >
                             Descargar PDF
