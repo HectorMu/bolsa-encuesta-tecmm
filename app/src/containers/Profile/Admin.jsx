@@ -30,7 +30,10 @@ const Admin = () => {
 
   const getProfileHandler = useCallback(async () => {
     setIsLoading(true);
-    const adminFetched = await verifySession(() => profileService.getProfile());
+    const adminFetched = await verifySession(
+      profileService.getProfile,
+      getProfileHandler
+    );
     if (!adminFetched.id) {
       setIsLoading(false);
       return;

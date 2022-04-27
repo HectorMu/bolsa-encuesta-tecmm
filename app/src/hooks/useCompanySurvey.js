@@ -27,39 +27,42 @@ const useCompanySurvey = () => {
   const getUserAnswersHandler = useCallback(
     async (isCanceled) => {
       if (!isCanceled) {
-        const fetchedAnswers = await verifySession(() =>
-          surveyService.getAnswersBySection(params.section_id)
+        const fetchedAnswers = await verifySession(
+          () => surveyService.getAnswersBySection(params.section_id),
+          getUserAnswersHandler
         );
         setUserSectionAnswers(fetchedAnswers);
       }
     },
-    [params.section_id]
+    [params.section_id, verifySession]
   );
 
   const getQuestionsHandler = useCallback(
     async (isCanceled) => {
       if (!isCanceled) {
         setIsLoading(true);
-        const fetchedQuestions = await verifySession(() =>
-          surveyService.getSectionQuestions(params.section_id)
+        const fetchedQuestions = await verifySession(
+          () => surveyService.getSectionQuestions(params.section_id),
+          getQuestionsHandler
         );
         setQuestions(fetchedQuestions);
       }
     },
-    [params.section_id]
+    [params.section_id, verifySession]
   );
 
   const getSectionHandler = useCallback(
     async (isCanceled) => {
       if (!isCanceled) {
-        const fetchedSection = await verifySession(() =>
-          surveyService.getSurveySection(params.section_id)
+        const fetchedSection = await verifySession(
+          () => surveyService.getSurveySection(params.section_id),
+          getSectionHandler
         );
         setSection(fetchedSection);
         setIsLoading(false);
       }
     },
-    [params.section_id]
+    [params.section_id, verifySession]
   );
 
   useEffect(() => {

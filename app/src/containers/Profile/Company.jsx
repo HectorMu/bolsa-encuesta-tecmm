@@ -23,8 +23,9 @@ const Company = () => {
 
   const getProfileHandler = useCallback(async () => {
     setIsLoading(true);
-    const companyFetched = await verifySession(() =>
-      profileService.getProfile()
+    const companyFetched = await verifySession(
+      profileService.getProfile,
+      getProfileHandler
     );
     if (!companyFetched.id) {
       setIsLoading(false);

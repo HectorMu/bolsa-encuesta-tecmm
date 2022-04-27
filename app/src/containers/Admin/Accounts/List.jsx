@@ -51,15 +51,18 @@ const List = () => {
   };
 
   const redirectToDetailsPage = (user) => {
-    console.log(user);
     if (user.rol === "Administrador") {
       return toast.error("Los administradores no cuentan con un perfil");
     }
     if (user.rol === "Egresado") {
-      return navigate(`/graduated/details/${user.id}`);
+      return navigate(`/graduated/details/${user.id}`, {
+        state: { prevLocation: "/accounts/" },
+      });
     }
     if (user.rol === "Empresa") {
-      return navigate(`/companies/details/${user.id}`);
+      return navigate(`/companies/details/${user.id}`, {
+        state: { prevLocation: "/accounts/" },
+      });
     }
   };
 

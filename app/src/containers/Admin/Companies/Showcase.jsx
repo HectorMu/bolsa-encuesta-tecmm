@@ -27,7 +27,7 @@ const Showcase = () => {
   const [company, setCompany] = useState({});
   const { verifySession } = useSession();
   const [isLoading, setIsLoading] = useState(false);
-  const { params, navigate } = useRouterHooks();
+  const { params, navigate, location } = useRouterHooks();
 
   const handleCopyToClipboard = (text) => {
     window.navigator.clipboard.writeText(text);
@@ -60,6 +60,12 @@ const Showcase = () => {
       getCompanyDetails
     );
     if (!fetchedCompany.id) {
+      if (location.state.prevLocation === "/accounts/") {
+        toast.error("Esta empresa aun no cuenta con un perfil");
+        navigate("/accounts");
+        setIsLoading(false);
+        return;
+      }
       toast.error("No existe ese registro");
       navigate("/companies");
       setIsLoading(false);
@@ -73,6 +79,7 @@ const Showcase = () => {
     getCompanyDetails();
   }, [getCompanyDetails]);
 
+  console.log(location.state);
   return (
     <>
       {isLoading ? (

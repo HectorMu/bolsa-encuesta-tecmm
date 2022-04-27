@@ -39,8 +39,9 @@ const Graduated = () => {
   const getProfileHandler = useCallback(async () => {
     setIsLoading(true);
 
-    const graduatedFetched = await verifySession(() =>
-      profileService.getProfile()
+    const graduatedFetched = await verifySession(
+      profileService.getProfile,
+      getProfileHandler
     );
     if (graduatedFetched.error) {
       setGraduated(graduatedFetched);

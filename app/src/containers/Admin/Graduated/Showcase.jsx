@@ -20,7 +20,7 @@ const Showcase = () => {
   const [graduated, setGraduated] = useState({});
   const { verifySession } = useSession();
   const [isLoading, setIsLoading] = useState(false);
-  const { params, navigate } = useRouterHooks();
+  const { params, navigate, location } = useRouterHooks();
 
   const getGradutedHandler = useCallback(async () => {
     setIsLoading(true);
@@ -29,6 +29,12 @@ const Showcase = () => {
       getGradutedHandler
     );
     if (!graduatedFetched.id) {
+      if (location.state.prevLocation === "/accounts/") {
+        toast.error("Este egresado aun no cuenta con un perfil");
+        navigate("/accounts");
+        setIsLoading(false);
+        return;
+      }
       toast.error("Este registro no existe");
       navigate("/graduated");
       setIsLoading(false);

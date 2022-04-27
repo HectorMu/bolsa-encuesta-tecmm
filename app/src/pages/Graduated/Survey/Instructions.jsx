@@ -17,8 +17,11 @@ const Survey = () => {
     []
   );
 
+  console.log(answeredDetails);
+
   if (answeredDetails?.error)
     return <ErrorDisplayer message={answeredDetails?.statusText} />;
+
   return (
     <div className="container-fluid text-black">
       <div className="d-sm-flex align-items-center justify-content-center mb-4">
