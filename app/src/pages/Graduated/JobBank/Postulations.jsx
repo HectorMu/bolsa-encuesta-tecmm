@@ -23,7 +23,8 @@ const Postulations = () => {
     <div className="mb-3">
       <div
         ref={animatedRef}
-        data-aos="flip-right"
+        data-aos="flip-up"
+        data-aos-duration="300"
         className="col-md-12 col-lg-12 col-xl-11 mx-auto"
       >
         <div className="card shadow rounded">
