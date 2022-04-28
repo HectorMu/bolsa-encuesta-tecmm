@@ -7,10 +7,14 @@ const Email = {};
 
 Email.SendRecover = async (req, res) => {
   let transporter = nodeMailer.createTransport({
-    service: "outlook",
+    host: "smtp-mail.outlook.com",
+    port: 587,
     auth: {
       user: process.env.MAILER_EMAIL,
       pass: process.env.MAILER_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
     },
   });
 

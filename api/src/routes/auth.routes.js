@@ -6,7 +6,7 @@ const validations = require("../middlewares/validations/auth.validations.js");
 
 router.post("/login", validations, controller.Login);
 
-router.post("/recover-password/", validations, controller.sendRecoverEmail);
+router.post("/recover-password/", controller.sendRecoverEmail);
 
 router.get(
   "/verify-reset-token/:ResetToken",
