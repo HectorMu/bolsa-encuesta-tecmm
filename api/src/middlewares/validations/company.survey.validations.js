@@ -1,4 +1,17 @@
-const validations = (req, res, next) => {
+const helpers = require("../../helpers/helpers");
+
+const validations = {};
+
+validations.general = (req, res, next) => {
+  if (helpers.hasEmptyPropierty(req.body).result) {
+    return res.status(400).json({
+      status: false,
+      statusText: "Asegurese de contestar todas las preguntas",
+    });
+  }
+  next();
+};
+validations.section1 = (req, res, next) => {
   if (
     parseInt(req.body.completamente) > 100 ||
     parseInt(req.body.medianamente) > 100 ||
