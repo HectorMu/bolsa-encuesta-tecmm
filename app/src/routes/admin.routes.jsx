@@ -36,12 +36,7 @@ const DetailsGraduated = lazy(() => import("../pages/Admin/Graduated/Details"));
 const Jobs = lazy(() => import("../pages/Admin/JobBank/Jobs"));
 const Postulations = lazy(() => import("../pages/Admin/JobBank/Postulations"));
 
-const GraduateSurveys = lazy(() =>
-  import("../pages/Admin/SurveyReports/Graduated/GraduateSurveys")
-);
-const CompanySurveys = lazy(() =>
-  import("../pages/Admin/SurveyReports/Companies/CompaniesSurveys")
-);
+const Reports = lazy(() => import("../pages/Admin/SurveyReports/Reports"));
 
 const Routes = [
   {
@@ -102,12 +97,8 @@ const Routes = [
     element: <IsAdmin view={Postulations} />,
   },
   {
-    path: "/survey/graduates/report",
-    element: <IsAdmin view={GraduateSurveys} />,
-  },
-  {
-    path: "/survey/companies/report",
-    element: <IsAdmin view={CompanySurveys} />,
+    path: "/surveys/reports",
+    element: <IsAdmin view={Reports} />,
   },
 ];
 

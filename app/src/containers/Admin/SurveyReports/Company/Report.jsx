@@ -1,5 +1,6 @@
 //importando componentes personalizados
 import Loading from "@/components/Global/Loading";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 //importando hooks
 import useServiceFetch from "@/hooks/useServiceFetchV2";
@@ -48,184 +49,213 @@ const Report = () => {
   };
 
   return (
-    <div className="mt-2">
+    <div>
       {isLoading ? (
-        <Loading color="purple" />
-      ) : surveys.length > 0 ? (
-        <div className="table-responsive">
-          <table className="table">
-            <thead>
-              <tr>
-                {Object.entries(ENTRIES).map(([key, value]) => (
-                  <th className="celdaAsignado text-center" scope="col">
-                    {value}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(surveys).map(([key, value]) => (
-                <tr>
-                  <td>{value.correo}</td>
-                  <td>{value.nombre_comercial}</td>
-                  <td>{value.calle}</td>
-                  <td>{value.numero_empresa}</td>
-                  <td>{value.colonia}</td>
-                  <td>{value.cp}</td>
-                  <td>{value.municipio}</td>
-                  <td>{value.estado}</td>
-                  <td>{value.telefono}</td>
-                  <td>{value.tipo_empresa}</td>
-                  <td>{value.tamaño}</td>
-                  <td>{value.actividad_economica}</td>
-                  <td>
-                    <table className="table text-center">
-                      <thead>
-                        <tr>
-                          {Object.entries(surveys[key].seccion_b).map(
-                            ([k, v]) => (
-                              <th>{k}</th>
-                            )
-                          )}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="celdaAsignado">
-                            {value.seccion_b.P1}
-                          </td>
-                          <td>
-                            <table>
-                              <thead>
-                                <tr>
-                                  {Object.entries(EntriesP2SB).map(([k, v]) => (
-                                    <th>{v}</th>
-                                  ))}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {Object.entries(surveys[key].seccion_b.P2).map(
+        <Loading />
+      ) : (
+        <>
+          {" "}
+          <div className="d-flex justify-content-center align-items-center">
+            <ReactHTMLTableToExcel
+              id="test-table-xls-button"
+              className="btn btn-outline-primary btn-lg text-primary"
+              table={`table-companies-report`}
+              filename={"reporte-encuesta-empresas"}
+              sheet="tablexls"
+              buttonText={"Descargar reporte"}
+            />
+          </div>
+          <div className="mt-2">
+            {surveys.length > 0 ? (
+              <div className="table-responsive">
+                <table className="table d-none" id="table-companies-report">
+                  <thead>
+                    <tr>
+                      {Object.entries(ENTRIES).map(([key, value]) => (
+                        <th className="celdaAsignado text-center" scope="col">
+                          {value}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(surveys).map(([key, value]) => (
+                      <tr>
+                        <td>{value.correo}</td>
+                        <td>{value.nombre_comercial}</td>
+                        <td>{value.calle}</td>
+                        <td>{value.numero_empresa}</td>
+                        <td>{value.colonia}</td>
+                        <td>{value.cp}</td>
+                        <td>{value.municipio}</td>
+                        <td>{value.estado}</td>
+                        <td>{value.telefono}</td>
+                        <td>{value.tipo_empresa}</td>
+                        <td>{value.tamaño}</td>
+                        <td>{value.actividad_economica}</td>
+                        <td>
+                          <table className="table text-center">
+                            <thead>
+                              <tr>
+                                {Object.entries(surveys[key].seccion_b).map(
                                   ([k, v]) => (
-                                    <tr>
-                                      {Object.entries(v).map(([o, e]) => (
-                                        <td>{e}</td>
-                                      ))}
-                                    </tr>
+                                    <th>{k}</th>
                                   )
                                 )}
-                              </tbody>
-                            </table>
-                          </td>
-                          <td>
-                            <table className="table text-center">
-                              <thead>
-                                <tr>
-                                  {Object.entries(
-                                    surveys[key].seccion_b.P3
-                                  ).map(([k, v]) => (
-                                    <th className="celdaAsignado" scope="col">
-                                      {k.replace(/_/g, " ")}
-                                    </th>
-                                  ))}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  {Object.entries(
-                                    surveys[key].seccion_b.P3
-                                  ).map(([k, v]) => (
-                                    <td>{v}</td>
-                                  ))}
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                          <td>
-                            <table className="table text-center">
-                              <thead>
-                                <tr>
-                                  {Object.entries(
-                                    surveys[key].seccion_b.P4
-                                  ).map(([k, v]) => (
-                                    <th className="celdaAsignado" scope="col">
-                                      {k.replace(/_/g, " ")}
-                                    </th>
-                                  ))}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  {Object.entries(
-                                    surveys[key].seccion_b.P4
-                                  ).map(([k, v]) => (
-                                    <td>{v}</td>
-                                  ))}
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                          <td>{surveys[key].seccion_b.P5}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                  <td>
-                    <table className="table text-center">
-                      <thead>
-                        <tr>
-                          {Object.entries(surveys[key].seccion_c).map(
-                            ([k, v]) => (
-                              <th className="celdaAsignado" scope="col">
-                                {k.replace(/_/g, " ")}
-                              </th>
-                            )
-                          )}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          {Object.entries(surveys[key].seccion_c).map(
-                            ([k, v]) =>
-                              typeof v === "object" &&
-                              Object.entries(v).length > 0 ? (
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td className="celdaAsignado">
+                                  {value.seccion_b.P1}
+                                </td>
+                                <td>
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        {Object.entries(EntriesP2SB).map(
+                                          ([k, v]) => (
+                                            <th>{v}</th>
+                                          )
+                                        )}
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {Object.entries(
+                                        surveys[key].seccion_b.P2
+                                      ).map(([k, v]) => (
+                                        <tr>
+                                          {Object.entries(v).map(([o, e]) => (
+                                            <td>{e}</td>
+                                          ))}
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </td>
                                 <td>
                                   <table className="table text-center">
                                     <thead>
                                       <tr>
-                                        {Object.entries(v).map(([o, e]) => (
+                                        {Object.entries(
+                                          surveys[key].seccion_b.P3
+                                        ).map(([k, v]) => (
                                           <th
                                             className="celdaAsignado"
                                             scope="col"
                                           >
-                                            {o.replace(/_/g, " ")}
+                                            {k.replace(/_/g, " ")}
                                           </th>
                                         ))}
                                       </tr>
                                     </thead>
                                     <tbody>
                                       <tr>
-                                        {Object.entries(v).map(([o, e]) => (
-                                          <td>{e}</td>
+                                        {Object.entries(
+                                          surveys[key].seccion_b.P3
+                                        ).map(([k, v]) => (
+                                          <td>{v}</td>
                                         ))}
                                       </tr>
                                     </tbody>
                                   </table>
                                 </td>
-                              ) : (
-                                <td>{v}</td>
-                              )
-                          )}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                  <td>{value.fecha}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ) : null}
+                                <td>
+                                  <table className="table text-center">
+                                    <thead>
+                                      <tr>
+                                        {Object.entries(
+                                          surveys[key].seccion_b.P4
+                                        ).map(([k, v]) => (
+                                          <th
+                                            className="celdaAsignado"
+                                            scope="col"
+                                          >
+                                            {k.replace(/_/g, " ")}
+                                          </th>
+                                        ))}
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        {Object.entries(
+                                          surveys[key].seccion_b.P4
+                                        ).map(([k, v]) => (
+                                          <td>{v}</td>
+                                        ))}
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                                <td>{surveys[key].seccion_b.P5}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td>
+                          <table className="table text-center">
+                            <thead>
+                              <tr>
+                                {Object.entries(surveys[key].seccion_c).map(
+                                  ([k, v]) => (
+                                    <th className="celdaAsignado" scope="col">
+                                      {k.replace(/_/g, " ")}
+                                    </th>
+                                  )
+                                )}
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                {Object.entries(surveys[key].seccion_c).map(
+                                  ([k, v]) =>
+                                    typeof v === "object" &&
+                                    Object.entries(v).length > 0 ? (
+                                      <td>
+                                        <table className="table text-center">
+                                          <thead>
+                                            <tr>
+                                              {Object.entries(v).map(
+                                                ([o, e]) => (
+                                                  <th
+                                                    className="celdaAsignado"
+                                                    scope="col"
+                                                  >
+                                                    {o.replace(/_/g, " ")}
+                                                  </th>
+                                                )
+                                              )}
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              {Object.entries(v).map(
+                                                ([o, e]) => (
+                                                  <td>{e}</td>
+                                                )
+                                              )}
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    ) : (
+                                      <td>{v}</td>
+                                    )
+                                )}
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td>{value.fecha}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
+          </div>
+        </>
+      )}
     </div>
   );
 };
