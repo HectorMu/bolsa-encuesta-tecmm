@@ -65,11 +65,18 @@ const CustomSidebar = ({
               <p>Encuesta</p>
             </div>
             <NavLink
-              to="/survey/report"
+              to="/survey/graduates/report"
               className="menu-item"
               onClick={() => handleSidebarToggle(!sidebarToggled)}
             >
-              <i className="fas fa-print"></i> Reporte
+              <i className="fas fa-print"></i> Reporte encuesta egresados
+            </NavLink>
+            <NavLink
+              to="/survey/companies/report"
+              className="menu-item"
+              onClick={() => handleSidebarToggle(!sidebarToggled)}
+            >
+              <i className="fas fa-print"></i> Reporte encuesta empresas
             </NavLink>
             <NavLink
               to="/survey/contested"

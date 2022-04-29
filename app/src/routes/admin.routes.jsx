@@ -39,6 +39,9 @@ const Postulations = lazy(() => import("../pages/Admin/JobBank/Postulations"));
 const GraduateSurveys = lazy(() =>
   import("../pages/Admin/SurveyReports/Graduated/GraduateSurveys")
 );
+const CompanySurveys = lazy(() =>
+  import("../pages/Admin/SurveyReports/Companies/CompaniesSurveys")
+);
 
 const Routes = [
   {
@@ -99,8 +102,12 @@ const Routes = [
     element: <IsAdmin view={Postulations} />,
   },
   {
-    path: "/survey/report",
+    path: "/survey/graduates/report",
     element: <IsAdmin view={GraduateSurveys} />,
+  },
+  {
+    path: "/survey/companies/report",
+    element: <IsAdmin view={CompanySurveys} />,
   },
 ];
 

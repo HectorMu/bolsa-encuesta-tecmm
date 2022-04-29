@@ -286,6 +286,16 @@ controller.SaveSectionCAnswers = async (req, res) => {
   };
 
   try {
+    const alreadyContested = await CompanySurveyAnswers.getUserSurveyStatus(
+      req.user.id
+    );
+
+    if (!alreadyContested.fk_empresa) {
+      await CompanySurveyAnswers.SurveyAnswered(
+        req.user.id,
+        new Date().toLocaleString()
+      );
+    }
     await SurveyScP10Details.CreateOrUpdateIfExists({
       fk_usuario: req.user.id,
       fk_pregunta_empresa: QUESTIONS.COMPETENCIAS_EGRESADOS,

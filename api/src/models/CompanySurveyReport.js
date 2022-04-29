@@ -9,6 +9,7 @@ const Template = {
       delete c.clave,
         delete c.fk_rol,
         delete c.fk_usuario,
+        delete c.fk_empresa,
         delete c.creadoEn,
         delete c.actualizadoEn;
 
@@ -131,7 +132,7 @@ const Template = {
         Malo: " ",
       },
       P3: " ",
-      P4: " ",
+      Comentarios_sugerencias: " ",
     };
     const answers = await connection.query(
       `SELECT r.respuesta FROM respuestas_empresa r WHERE r.fk_usuario = ? && r.fk_seccion_empresa = 2`,
@@ -139,7 +140,7 @@ const Template = {
     );
     if (answers.length > 0) {
       survey.P3 = answers[0].respuesta;
-      survey.P4 = answers[1].respuesta;
+      survey.Comentarios_sugerencias = answers[1].respuesta;
     }
 
     const p2Details = await connection.query(

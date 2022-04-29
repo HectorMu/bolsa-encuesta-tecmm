@@ -19,7 +19,6 @@ const Template = {
     const results = await connection.query(`insert into ${TABLE_NAME} set ?`, [
       data,
     ]);
-    await this.SurveyAnswered(data.fk_usuario, new Date().toLocaleString());
     return results;
   },
   async CreateOrUpdateIfExists(data) {
@@ -52,6 +51,16 @@ const Template = {
       [id, fk_usuario]
     );
     return results;
+  },
+  async getUserSurveyStatus(fk_empresa) {
+    const data = await connection.query(
+      "select * from encuesta_empresa_contestada where fk_empresa = ?",
+      [fk_empresa]
+    );
+    if (!data.length > 0) {
+      return {};
+    }
+    return data[0];
   },
   async SurveyAnswered(fk_empresa, fecha) {
     const results = await connection.query(

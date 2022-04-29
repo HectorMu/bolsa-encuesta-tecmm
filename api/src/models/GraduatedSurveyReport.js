@@ -9,6 +9,8 @@ const Template = {
       delete g.clave,
         delete g.fk_rol,
         delete g.fk_usuario,
+        delete g.fk_egresado,
+        delete g.acuse,
         delete g.creadoEn,
         delete g.actualizadoEn,
         delete g.curriculum;
@@ -233,11 +235,11 @@ const Template = {
     const survey = {
       P1: {
         Organizaciones_sociales: " ",
-        Organizaciones_detalle: " ",
+        Organizaciones_sociales_detalle: " ",
       },
       P2: {
         Organismos_profesionistas: " ",
-        Organismos_detalle: " ",
+        Organismos_profesionistas_detalle: " ",
       },
       P3: " ",
     };
@@ -257,7 +259,8 @@ const Template = {
       [fk_user]
     );
     if (p1Details.length > 0) {
-      survey.P1.Organizaciones_detalle = p1Details[0].organizaciones_sociales;
+      survey.P1.Organizaciones_sociales_detalle =
+        p1Details[0].organizaciones_sociales;
     }
 
     const p2Details = await connection.query(
@@ -265,7 +268,8 @@ const Template = {
       [fk_user]
     );
     if (p2Details.length > 0) {
-      survey.P2.Organismos_detalle = p2Details[0].organismos_profesionistas;
+      survey.P2.Organismos_profesionistas_detalle =
+        p2Details[0].organismos_profesionistas;
     }
 
     var GraduatedAnswersS6 = JSON.stringify(survey);
