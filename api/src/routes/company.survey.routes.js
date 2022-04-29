@@ -51,6 +51,7 @@ router.post(
   "/company/survey/sectionb",
   verifyToken,
   isCompany,
+  surveyValidations.general,
   surveyValidations.section1,
   companySurveyController.SaveSectionBAnswers
 );
@@ -67,6 +68,7 @@ router.post(
   verifyToken,
   isCompany,
   surveyValidations.general,
+  surveyValidations.section2,
   companySurveyController.SaveSectionCAnswers
 );
 
