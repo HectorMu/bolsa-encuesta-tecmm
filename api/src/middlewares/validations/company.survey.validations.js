@@ -35,7 +35,7 @@ validations.section1 = (req, res, next) => {
     parseInt(req.body.ligeramente) +
     parseInt(req.body.ninguna_relacion);
 
-  if (congruenciaPorcentajes > 100) {
+  if (congruenciaPorcentajes > 100 || congruenciaPorcentajes < 100) {
     return res.status(400).json({
       status: false,
       statusText:
@@ -69,7 +69,7 @@ validations.section1 = (req, res, next) => {
     parseInt(req.body.regular) +
     parseInt(req.body.malo);
 
-  if (desempeñoPorcentajes > 100) {
+  if (desempeñoPorcentajes > 100 || desempeñoPorcentajes < 100) {
     return res.status(400).json({
       status: false,
       statusText:
