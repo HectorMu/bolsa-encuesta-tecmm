@@ -82,7 +82,7 @@ const index = () => {
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
 
   const setFetchedAnswers = useCallback(() => {
-    if (!userSectionAnswers) return;
+    if (!userSectionAnswers?.respuesta1) return;
     setAnswers(userSectionAnswers);
     if (
       userSectionAnswers.tiempo_primer_empleo?.length > 0 &&

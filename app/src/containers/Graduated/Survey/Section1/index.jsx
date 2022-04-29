@@ -52,7 +52,7 @@ const index = () => {
   };
 
   useEffect(() => {
-    if (userSectionAnswers) {
+    if (userSectionAnswers?.respuesta1) {
       setAnswers(userSectionAnswers);
     }
   }, [userSectionAnswers]);

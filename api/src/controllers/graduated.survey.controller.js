@@ -18,6 +18,7 @@ const pdf = require("pdf-creator-node");
 const fs = require("fs");
 const qrCode = require("qrcode");
 const jwt = require("jsonwebtoken");
+const helpers = require("../helpers/helpers");
 
 const controller = {};
 
@@ -92,6 +93,10 @@ controller.getAllUserAnswersBySection = async (req, res) => {
         answer.fk_seccion === parseInt(req.params.id) &&
         answer.fk_usuario === parseInt(req.user.id)
     );
+
+    if (!sectionUserAnswers.length > 0) {
+      return res.json({});
+    }
 
     if (parseInt(req.params.id) === 1) {
       const answers = {
@@ -291,9 +296,59 @@ controller.saveSection2Answers = async (req, res) => {
   } = req.body;
   const { tipo_estudio, especialidad_institucion } = req.body;
 
+  const worksObj = {
+    fk_usuario: req.user.id,
+    fk_pregunta: QUESTIONS.ACTIVIDAD_ACTUAL,
+    tiempo_primer_empleo,
+    medio_obtener_empleo,
+    requisitos_contratacion,
+    idioma_utilizado,
+    idioma_hablar,
+    idioma_escribir,
+    idioma_leer,
+    idioma_escuchar,
+    antiguedad_empleo,
+    año_ingreso,
+    salario,
+    nivel_jerarquico,
+    condicion_trabajo,
+    relacion_trabajo_formacion,
+    organismo_empresa,
+    actividad_principal_empresa,
+    razon_social,
+    calle,
+    numero,
+    colonia,
+    cp,
+    ciudad,
+    municipio,
+    estado,
+    telefono_empresa,
+    telefono_ext_empresa,
+    fax_empresa,
+    email_empresa,
+    pagina_web,
+    jefe_inmediato,
+    sector_empresa,
+    tamaño_empresa,
+  };
+
+  const studyObj = {
+    fk_usuario: req.user.id,
+    fk_pregunta: QUESTIONS.ACTIVIDAD_ACTUAL,
+    tipo_estudio,
+    especialidad_institucion,
+  };
+
   try {
     //Para la primera pregunta de la seccion 2
     //Si no hay una respuesta se crea, y si hay se actualiza
+    if (!ANSWERS.respuesta1) {
+      return res.json({
+        status: false,
+        statusText: "Elija una opción",
+      });
+    }
     await GraduatedSurveyAnswers.CreateOrUpdateIfExists({
       fk_pregunta: QUESTIONS.ACTIVIDAD_ACTUAL,
       fk_seccion: SECTION,
@@ -307,114 +362,53 @@ controller.saveSection2Answers = async (req, res) => {
       await GraduatedSurveyWorking.Delete(req.user.id);
       return res.json({
         status: true,
-        statusText: "Respuestas guardadas correctamente.",
+        statusText: "Respuestas guardadas correctamente",
       });
     }
 
     //si solo trabaja, borramos sus estudios de los registros
     //Y guardamos los datos del trabajo
     if (ANSWERS.respuesta1 === "Trabaja") {
+      if (helpers.hasEmptyPropierty(worksObj).result) {
+        return res.status(400).json({
+          status: false,
+          statusText: "Asegurese de contestar todas las preguntas",
+        });
+      }
       await GraduatedSurveyStudy.Delete(req.user.id);
-      await GraduatedSurveyWorking.CreateOrUpdateIfExists({
-        fk_usuario: req.user.id,
-        fk_pregunta: QUESTIONS.ACTIVIDAD_ACTUAL,
-        tiempo_primer_empleo,
-        medio_obtener_empleo,
-        requisitos_contratacion,
-        idioma_utilizado,
-        idioma_hablar,
-        idioma_escribir,
-        idioma_leer,
-        idioma_escuchar,
-        antiguedad_empleo,
-        año_ingreso,
-        salario,
-        nivel_jerarquico,
-        condicion_trabajo,
-        relacion_trabajo_formacion,
-        organismo_empresa,
-        actividad_principal_empresa,
-        razon_social,
-        calle,
-        numero,
-        colonia,
-        cp,
-        ciudad,
-        municipio,
-        estado,
-        telefono_empresa,
-        telefono_ext_empresa,
-        fax_empresa,
-        email_empresa,
-        pagina_web,
-        jefe_inmediato,
-        sector_empresa,
-        tamaño_empresa,
-      });
+      await GraduatedSurveyWorking.CreateOrUpdateIfExists(worksObj);
       return res.json({
         status: true,
-        statusText: "Respuestas guardadas correctamente.",
+        statusText: "Respuestas guardadas correctamente",
       });
     }
     //si solo estudia, borramos sus datos de trabajo y guardamos los de estudio
     if (ANSWERS.respuesta1 === "Estudia") {
+      if (helpers.hasEmptyPropierty(studyObj).result) {
+        return res.status(400).json({
+          status: false,
+          statusText: "Asegurese de contestar todas las preguntas",
+        });
+      }
       await GraduatedSurveyWorking.Delete(req.user.id);
-      await GraduatedSurveyStudy.CreateOrUpdateIfExists({
-        fk_usuario: req.user.id,
-        fk_pregunta: QUESTIONS.ACTIVIDAD_ACTUAL,
-        tipo_estudio,
-        especialidad_institucion,
-      });
+      await GraduatedSurveyStudy.CreateOrUpdateIfExists(studyObj);
       return res.json({
         status: true,
-        statusText: "Respuestas guardadas correctamente.",
+        statusText: "Respuestas guardadas correctamente",
       });
     }
 
-    //si estudia y trabaja no entrada en ninguna de las opciones anteriores
+    if (helpers.hasEmptyPropierty({ ...studyObj, ...worksObj }).result) {
+      return res.status(400).json({
+        status: false,
+        statusText: "Asegurese de contestar todas las preguntas",
+      });
+    }
+
+    //si estudia y trabaja no entrara en ninguna de las opciones anteriores
     //entonces guardamos sus datos de estudio y de trabajo
-    await GraduatedSurveyStudy.CreateOrUpdateIfExists({
-      fk_usuario: req.user.id,
-      fk_pregunta: QUESTIONS.ACTIVIDAD_ACTUAL,
-      tipo_estudio,
-      especialidad_institucion,
-    });
-    await GraduatedSurveyWorking.CreateOrUpdateIfExists({
-      fk_usuario: req.user.id,
-      fk_pregunta: QUESTIONS.ACTIVIDAD_ACTUAL,
-      tiempo_primer_empleo,
-      medio_obtener_empleo,
-      requisitos_contratacion,
-      idioma_utilizado,
-      idioma_hablar,
-      idioma_escribir,
-      idioma_leer,
-      idioma_escuchar,
-      antiguedad_empleo,
-      año_ingreso,
-      salario,
-      nivel_jerarquico,
-      condicion_trabajo,
-      relacion_trabajo_formacion,
-      organismo_empresa,
-      actividad_principal_empresa,
-      razon_social,
-      calle,
-      numero,
-      colonia,
-      cp,
-      ciudad,
-      municipio,
-      estado,
-      telefono_empresa,
-      telefono_ext_empresa,
-      fax_empresa,
-      email_empresa,
-      pagina_web,
-      jefe_inmediato,
-      sector_empresa,
-      tamaño_empresa,
-    });
+    await GraduatedSurveyStudy.CreateOrUpdateIfExists(studyObj);
+    await GraduatedSurveyWorking.CreateOrUpdateIfExists(worksObj);
     res.json({
       status: true,
       statusText: "Respuestas guardadas correctamente.",
