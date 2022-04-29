@@ -43,6 +43,10 @@ validations.section1 = (req, res, next) => {
     });
   }
 
+  next();
+};
+
+validations.section2 = (req, res, next) => {
   if (
     parseInt(req.body.excelente) > 100 ||
     parseInt(req.body.muy_bueno) > 100 ||
