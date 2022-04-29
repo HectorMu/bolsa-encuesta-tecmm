@@ -48,9 +48,8 @@ const index = () => {
     navigate("/graduated/survey/section/6");
   };
 
-  console.log(userSectionAnswers);
   useEffect(() => {
-    if (userSectionAnswers) {
+    if (userSectionAnswers?.respuesta1) {
       setAnswers(userSectionAnswers);
     }
   }, [userSectionAnswers]);

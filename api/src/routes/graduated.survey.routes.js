@@ -63,6 +63,7 @@ router.post(
   "/graduated/survey/section3",
   verifyToken,
   isGraduated,
+  validations,
   graduatedSurveyController.saveSection3Answers
 );
 
@@ -70,6 +71,7 @@ router.post(
   "/graduated/survey/section4",
   verifyToken,
   isGraduated,
+  validations,
   graduatedSurveyController.saveSection4Answers
 );
 
@@ -77,6 +79,7 @@ router.post(
   "/graduated/survey/section5",
   verifyToken,
   isGraduated,
+
   graduatedSurveyController.saveSection5Answers
 );
 

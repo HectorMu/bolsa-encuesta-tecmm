@@ -568,6 +568,18 @@ controller.saveSection5Answers = async (req, res) => {
     PERTENECE_ORG_EGRESADOS: 16,
   };
   try {
+    const answersObj = {
+      res1: ANSWERS.respuesta1,
+      res2: ANSWERS.respuesta2,
+      res3: ANSWERS.respuesta3,
+    };
+
+    if (helpers.hasEmptyPropierty(answersObj).result) {
+      return res.status(400).json({
+        status: false,
+        statusText: "Asegurese de contestar todas las preguntas",
+      });
+    }
     await GraduatedSurveyAnswers.CreateOrUpdateIfExists({
       fk_pregunta: QUESTIONS.PERTENECE_ORG_SOCIALES,
       fk_seccion: SECTION,
@@ -576,6 +588,12 @@ controller.saveSection5Answers = async (req, res) => {
     });
 
     if (ANSWERS.respuesta1 === "Si") {
+      if (!req.body.organizaciones_sociales) {
+        return res.status(400).json({
+          status: false,
+          statusText: "Escriba las organizaciones sociales a las que pertnece",
+        });
+      }
       await SurveyS5P1Details.CreateOrUpdateIfExists({
         fk_usuario: req.user.id,
         fk_pregunta: QUESTIONS.PERTENECE_ORG_SOCIALES,
@@ -594,6 +612,13 @@ controller.saveSection5Answers = async (req, res) => {
     });
 
     if (ANSWERS.respuesta2 === "Si") {
+      if (!req.body.organismos_profesionistas) {
+        return res.status(400).json({
+          status: false,
+          statusText:
+            "Escriba los organismos profesionistas a los que pertenece",
+        });
+      }
       await SurveyS5P2Details.CreateOrUpdateIfExists({
         fk_usuario: req.user.id,
         fk_pregunta: QUESTIONS.PERTENECE_ORG_PROFESIONISTAS,
@@ -630,6 +655,12 @@ controller.saveSection6Answers = async (req, res) => {
   const QUESTIONS = { OPINION_RECOMENDACION: 17 };
 
   try {
+    if (!ANSWERS.respuesta1) {
+      return res.status(400).json({
+        status: false,
+        statusText: "Escribe una opinión o recomendación",
+      });
+    }
     const alreadyContested = await GraduatedSurveyAnswers.getUserSurveyStatus(
       req.user.id
     );
