@@ -6,7 +6,7 @@ import IsAlreadyLogged from "../components/Authentication/IsAlreadyLogged";
 const Routes = [
   {
     path: "/login",
-    element: <IsAlreadyLogged view={Login} />,
+    element: <Login />,
   },
   {
     path: "/forgot",
