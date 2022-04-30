@@ -71,7 +71,6 @@ router.post(
   "/graduated/survey/section4",
   verifyToken,
   isGraduated,
-  validations,
   graduatedSurveyController.saveSection4Answers
 );
 

@@ -506,6 +506,16 @@ controller.saveSection4Answers = async (req, res) => {
   const SECTION = 4;
   const QUESTIONS = { TOMAR_CURSOS: 12, TOMAR_POSGRADO: 13 };
   try {
+    const answersObj = {
+      res1: ANSWERS.respuesta1,
+      res2: ANSWERS.respuesta2,
+    };
+    if (helpers.hasEmptyPropierty(answersObj).result) {
+      return res.status(400).json({
+        status: false,
+        statusText: "Asegurese de contestar todas las preguntas",
+      });
+    }
     //Creamos o actualizamos la respuesta: Variara entre Si y No
     await GraduatedSurveyAnswers.CreateOrUpdateIfExists({
       fk_pregunta: QUESTIONS.TOMAR_CURSOS,
@@ -515,6 +525,12 @@ controller.saveSection4Answers = async (req, res) => {
     });
     //Si si quiere estudiar un curso adicional creamos o actualizamos el que ya existe
     if (ANSWERS.respuesta1 === "Si") {
+      if (!ANSWERS.cursos) {
+        return res.status(400).json({
+          status: false,
+          statusText: "Asegurese de contestar todas las preguntas",
+        });
+      }
       await SurveyS4P1Details.CreateOrUpdateIfExists({
         fk_usuario: req.user.id,
         fk_pregunta: QUESTIONS.TOMAR_CURSOS,
@@ -534,6 +550,12 @@ controller.saveSection4Answers = async (req, res) => {
     });
     //si quiere estudiar un posgrado creamos o actulizamos el que ya existe
     if (ANSWERS.respuesta2 === "Si") {
+      if (!ANSWERS.posgrado) {
+        return res.status(400).json({
+          status: false,
+          statusText: "Asegurese de contestar todas las preguntas",
+        });
+      }
       await SurveyS4P2Details.CreateOrUpdateIfExists({
         fk_usuario: req.user.id,
         fk_pregunta: QUESTIONS.TOMAR_CURSOS,
