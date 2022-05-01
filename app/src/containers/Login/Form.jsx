@@ -18,9 +18,9 @@ const initialState = {
 };
 
 const Form = () => {
-  const { setUser } = useSession();
+  const { user, setUser } = useSession();
   const [credentials, setCredentials] = useState(initialState);
-  const { navigate } = useRouterHooks();
+  const { navigate, location } = useRouterHooks();
 
   //Funcion para el manejo de el cambio de los input
   const handleCredentialsChange = (key, value) =>
@@ -70,8 +70,7 @@ const Form = () => {
     };
   }, []);
 
-  usePrevLocationRedirect();
-
+  usePrevLocationRedirect(user);
   return (
     <>
       <form className="user" onSubmit={handleSubmit} autoComplete="off">

@@ -2,12 +2,9 @@ import { useEffect } from "react";
 import AdminRoutes from "@/routes/admin.routes";
 import GraduatedRoutes from "@/routes/graduated.routes";
 import CompanyRoutes from "@/routes/company.routes";
-import useSession from "./useSession";
 import useRouterHooks from "./useRouterHooks";
 
-const usePrevLocationRedirect = () => {
-  const { user } = useSession();
-
+const usePrevLocationRedirect = (user) => {
   const { navigate, location } = useRouterHooks();
 
   useEffect(() => {
@@ -16,17 +13,17 @@ const usePrevLocationRedirect = () => {
     }
     return () => {
       const prevLocation = location.state?.prevLocation;
+
       if (prevLocation) {
         if (user?.fk_rol === 1) {
           const hasAccess = AdminRoutes.filter((route) =>
             route.path.includes(
               prevLocation.includes("edit") ||
-                prevLocation.includes("/jobbank/postulations") ||
+                prevLocation.includes("postulations") ||
                 prevLocation.includes("details")
                 ? prevLocation.substring(
                     0,
                     prevLocation.length -
-                      prevLocation.length -
                       prevLocation.split("/")[
                         prevLocation.split("/").length - 1
                       ].length
@@ -35,8 +32,7 @@ const usePrevLocationRedirect = () => {
             )
           );
           if (hasAccess.length > 0) {
-            navigate(prevLocation);
-            setNewLocation(prevLocation);
+            return navigate(prevLocation);
           }
         }
         if (user?.fk_rol === 2) {
@@ -56,7 +52,7 @@ const usePrevLocationRedirect = () => {
             )
           );
           if (hasAccess.length > 0) {
-            navigate(prevLocation);
+            return navigate(prevLocation);
           }
         }
         if (user?.fk_rol === 3) {
@@ -64,7 +60,7 @@ const usePrevLocationRedirect = () => {
             route.path.includes(
               prevLocation.includes("edit") ||
                 prevLocation.includes("section") ||
-                prevLocation.includes("postulations")
+                prevLocation.includes("company/jobbank/postulations")
                 ? prevLocation.substring(
                     0,
                     prevLocation.length -
@@ -76,7 +72,7 @@ const usePrevLocationRedirect = () => {
             )
           );
           if (hasAccess.length > 0) {
-            navigate(prevLocation);
+            return navigate(prevLocation);
           }
         }
       }
