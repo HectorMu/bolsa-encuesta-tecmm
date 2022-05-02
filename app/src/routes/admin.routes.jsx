@@ -1,42 +1,28 @@
-import { lazy } from "react";
 import IsAdmin from "../components/Authentication/IsAdmin";
 
 //Rutas para el control de cuentas (Agregar las que falten/se necesiten)
 
-//import Accounts from "../pages/Admin/Accounts/Accounts";
-// import AddAccount from "../pages/Admin/Accounts/Add";
-// import EditAccount from "../pages/Admin/Accounts/Edit";
-
-const Accounts = lazy(() => import("../pages/Admin/Accounts/Accounts"));
-const AddAccount = lazy(() => import("../pages/Admin/Accounts/Add"));
-const EditAccount = lazy(() => import("../pages/Admin/Accounts/Edit"));
+import Accounts from "../pages/Admin/Accounts/Accounts";
+import AddAccount from "../pages/Admin/Accounts/Add";
+import EditAccount from "../pages/Admin/Accounts/Edit";
 
 //Paginas para el control de empresas
-// import Companies from "../pages/Admin/Companies/Companies";
-// import AddCompany from "../pages/Admin/Companies/Add";
-// import EditCompany from "../pages/Admin/Companies/Edit";
-// import DetailsCompany from "../pages/Admin/Companies/Details";
-
-const Companies = lazy(() => import("../pages/Admin/Companies/Companies"));
-const AddCompany = lazy(() => import("../pages/Admin/Companies/Add"));
-const EditCompany = lazy(() => import("../pages/Admin/Companies/Edit"));
-const DetailsCompany = lazy(() => import("../pages/Admin/Companies/Details"));
+import Companies from "../pages/Admin/Companies/Companies";
+import AddCompany from "../pages/Admin/Companies/Add";
+import EditCompany from "../pages/Admin/Companies/Edit";
+import DetailsCompany from "../pages/Admin/Companies/Details";
 
 //Paginas para el control de egresados
-// import Graduated from "../pages/Admin/Graduated/Graduated";
-// import AddGraduated from "../pages/Admin/Graduated/Add";
-// import EditGraduated from "../pages/Admin/Graduated/Edit";
-// import DetailsGraduated from "../pages/Admin/Graduated/Details";
+import Graduated from "../pages/Admin/Graduates/Graduates";
+import AddGraduated from "../pages/Admin/Graduates/Add";
+import EditGraduated from "../pages/Admin/Graduates/Edit";
+import DetailsGraduated from "../pages/Admin/Graduates/Details";
 
-const Graduated = lazy(() => import("../pages/Admin/Graduated/Graduated"));
-const AddGraduated = lazy(() => import("../pages/Admin/Graduated/Add"));
-const EditGraduated = lazy(() => import("../pages/Admin/Graduated/Edit"));
-const DetailsGraduated = lazy(() => import("../pages/Admin/Graduated/Details"));
+import Jobs from "../pages/Admin/JobBank/Jobs";
+import Postulations from "../pages/Admin/JobBank/Postulations";
+import Reports from "../pages/Admin/Survey/Reports";
 
-const Jobs = lazy(() => import("../pages/Admin/JobBank/Jobs"));
-const Postulations = lazy(() => import("../pages/Admin/JobBank/Postulations"));
-
-const Reports = lazy(() => import("../pages/Admin/SurveyReports/Reports"));
+import VerifyQR from "@/pages/Admin/Survey/VerifyQR";
 
 const Routes = [
   {
@@ -69,19 +55,19 @@ const Routes = [
     element: <IsAdmin view={DetailsCompany} />,
   },
   {
-    path: "/graduated",
+    path: "/graduates",
     element: <IsAdmin view={Graduated} />,
   },
   {
-    path: "/graduated/add",
+    path: "/graduates/add",
     element: <IsAdmin view={AddGraduated} />,
   },
   {
-    path: "/graduated/edit/:id",
+    path: "/graduates/edit/:id",
     element: <IsAdmin view={EditGraduated} />,
   },
   {
-    path: "/graduated/details/:id",
+    path: "/graduates/details/:id",
     element: <IsAdmin view={DetailsGraduated} />,
   },
   {
@@ -99,6 +85,10 @@ const Routes = [
   {
     path: "/surveys/reports",
     element: <IsAdmin view={Reports} />,
+  },
+  {
+    path: "/survey/verify/:token",
+    element: <IsAdmin view={VerifyQR} />,
   },
 ];
 

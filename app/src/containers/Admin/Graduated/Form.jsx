@@ -59,7 +59,7 @@ const Form = () => {
       return;
     }
     if (!graduatedFetched.id) {
-      navigate("/graduated");
+      navigate("/graduates");
       toast.error("Este registro no existe.");
       setIsLoading(false);
       return;

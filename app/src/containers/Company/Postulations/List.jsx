@@ -11,7 +11,6 @@ const List = ({ postulations, isLoading, error }) => {
   const { user } = useSession();
 
   const handleGoToPostulation = (postulation) => {
-    console.log(user);
     if (user.fk_rol === 1) {
       navigate(`/jobbank/postulations/${params.job_id}/${postulation.id}`, {
         state: postulation,
@@ -24,7 +23,7 @@ const List = ({ postulations, isLoading, error }) => {
     );
   };
 
-  if (error.error) {
+  if (error?.error) {
     return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
   }
 

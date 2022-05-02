@@ -52,11 +52,11 @@ const List = () => {
   };
 
   const redirectToEditPage = (graduated) => {
-    navigate(`/graduated/edit/${graduated.id}`, { state: graduated });
+    navigate(`/graduates/edit/${graduated.id}`, { state: graduated });
   };
 
   const redirectToDetailsPage = (graduated) => {
-    navigate(`/graduated/details/${graduated.id}`);
+    navigate(`/graduates/details/${graduated.id}`);
   };
 
   const tableConfig = {
