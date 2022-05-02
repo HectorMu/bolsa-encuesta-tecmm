@@ -1,6 +1,7 @@
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 //importando componentes personalizados
 import Loading from "@/components/Global/Loading";
-import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //importando hooks
 import useServiceFetch from "@/hooks/useServiceFetchV2";
@@ -16,6 +17,7 @@ const Report = () => {
     isLoading,
     refreshData,
     hookData: surveys,
+    error,
   } = useServiceFetch(
     () => verifySession(surveyCompaniesService.List, refreshData),
     []
@@ -47,6 +49,10 @@ const Report = () => {
     tecnico_auxiliar: "Tecnico o auxiliar",
     otros: "Otros",
   };
+
+  if (error.error) {
+    return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
+  }
 
   return (
     <div>

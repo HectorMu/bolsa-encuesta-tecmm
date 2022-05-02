@@ -12,12 +12,13 @@ const Postulations = () => {
     hookData: postulations,
     isLoading,
     refreshData,
+    error,
   } = useServiceFetchV2(jobsService.getGraduatedPostulations, []);
 
   const animatedRef = useCleanAosAnimations();
 
-  if (postulations?.error) {
-    return <ErrorDisplayer message={postulations.message} />;
+  if (error?.error) {
+    return <ErrorDisplayer message={error.message} />;
   }
   return (
     <div className="mb-3">

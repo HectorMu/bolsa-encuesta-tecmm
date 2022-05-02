@@ -88,7 +88,11 @@ const List = () => {
   if (error.error) {
     return (
       <>
-        {isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <ErrorDisplayer message={error.message} tryAgain={refreshData} />
+        )}
       </>
     );
   }

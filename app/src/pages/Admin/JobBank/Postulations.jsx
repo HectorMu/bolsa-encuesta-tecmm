@@ -8,6 +8,9 @@ import List from "@/containers/Company/Postulations/List";
 import Showcase from "@/containers/Company/Postulations/Showcase";
 import VacantDetails from "@/containers/Company/Postulations/VacantDetails";
 
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
+import Loading from "@/components/Global/Loading";
+
 const Postulations = () => {
   const { params } = useRouterHooks();
   const { verifySession } = useSession();
@@ -15,6 +18,7 @@ const Postulations = () => {
     hookData: postulations,
     refreshData,
     isLoading,
+    error,
   } = useServiceFetchV2(
     () =>
       verifySession(
@@ -38,7 +42,11 @@ const Postulations = () => {
               <div className="col-md-5 col-lg-5 col-xl-5">
                 <div style={{ height: "65vh" }}>
                   <div style={{ overflowY: "scroll", height: "100%" }}>
-                    <List isLoading={isLoading} postulations={postulations} />
+                    <List
+                      isLoading={isLoading}
+                      postulations={postulations}
+                      error={error}
+                    />
                   </div>
                 </div>
               </div>

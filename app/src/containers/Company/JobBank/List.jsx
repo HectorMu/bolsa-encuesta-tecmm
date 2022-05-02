@@ -1,6 +1,7 @@
 //Custom components
 import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 //Custom hooks
 import useServiceFetch from "@/hooks/useServiceFetchV2";
 import useRouterHooks from "@/hooks/useRouterHooks";
@@ -16,6 +17,7 @@ const List = () => {
     isLoading,
     refreshData,
     hookData: vacancies,
+    error,
   } = useServiceFetch(
     () => verifySession(vacanciesService.List, refreshData),
     []
@@ -28,6 +30,9 @@ const List = () => {
     });
   };
 
+  if (error.error) {
+    return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
+  }
   return (
     <div>
       {isLoading ? (

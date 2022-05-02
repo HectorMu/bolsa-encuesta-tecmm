@@ -7,6 +7,7 @@ import useSession from "@/hooks/useSession";
 
 //Importing components
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Graduated survey hook to get the current section data based on url param section_id
 import useGraduatedSurvey from "@/hooks/useGraduatedSurvey";
@@ -20,7 +21,7 @@ const sectionAnswers = {
 
 const index = () => {
   const [answers, setAnswers] = useState(sectionAnswers);
-  const { section, questions, isLoading, userSectionAnswers } =
+  const { section, questions, isLoading, userSectionAnswers, error } =
     useGraduatedSurvey();
   const navigate = useNavigate();
   const { verifySession } = useSession();
@@ -44,6 +45,10 @@ const index = () => {
       setAnswers(userSectionAnswers);
     }
   }, [userSectionAnswers]);
+
+  if (error.error) {
+    return <ErrorDisplayer message={error.message} />;
+  }
 
   return (
     <>

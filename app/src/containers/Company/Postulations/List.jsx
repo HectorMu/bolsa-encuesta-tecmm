@@ -1,11 +1,12 @@
 //Importando componentes
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 import Loading from "@/components/Global/Loading";
 
 //Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
 
-const List = ({ postulations, isLoading }) => {
+const List = ({ postulations, isLoading, error }) => {
   const { navigate, params } = useRouterHooks();
   const { user } = useSession();
 
@@ -22,6 +23,10 @@ const List = ({ postulations, isLoading }) => {
       { state: postulation }
     );
   };
+
+  if (error.error) {
+    return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
+  }
 
   return (
     <div>

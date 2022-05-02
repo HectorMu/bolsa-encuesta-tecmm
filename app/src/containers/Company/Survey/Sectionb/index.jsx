@@ -4,8 +4,11 @@ import toast from "react-hot-toast";
 
 //Importando los hooks
 import useCompanySurvey from "@/hooks/useCompanySurvey";
-import Loading from "@/components/Global/Loading";
 import useSession from "@/hooks/useSession";
+
+//importando componentes
+import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Importando los servicios
 import surveyService from "@/services/Company/survey.service";
@@ -39,7 +42,7 @@ const SectionAnswers = {
 
 const index = () => {
   const [answers, setAnswers] = useState(SectionAnswers);
-  const { section, questions, isLoading, userSectionAnswers } =
+  const { section, questions, isLoading, userSectionAnswers, error } =
     useCompanySurvey();
   const { verifySession } = useSession();
   const navigate = useNavigate();
@@ -62,6 +65,9 @@ const index = () => {
     }
   }, [userSectionAnswers]);
 
+  if (error.error) {
+    return <ErrorDisplayer message={error.message} />;
+  }
   return (
     <>
       {isLoading ? (

@@ -10,6 +10,7 @@ const List = async () => {
     return await response.json();
   } catch (error) {
     console.log(error);
+    return helpers.ApiFetchError(error.message);
   }
 };
 export default { List };

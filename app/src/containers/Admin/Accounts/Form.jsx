@@ -13,6 +13,8 @@ import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import Accordion from "@/components/Global/Accordion";
 import Collapsable from "@/components/Global/Collapsable";
 import FormCard from "@/components/Global/FormCard";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
+import Loading from "@/components/Global/Loading";
 
 //Entradas del formulario (objeto con los datos a capturar en el formulario)
 import { Entries } from "./FormEntries";
@@ -30,20 +32,29 @@ const Form = () => {
   const { form: user, setForm: setUser, handleChange } = useForm(Entries);
   const { verifySession } = useSession();
   const [onEditing, toggleEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const { navigate, location, params } = useRouterHooks();
 
   const getUserFromFetch = useCallback(async () => {
+    setIsLoading(true);
     const userFetched = await verifySession(
       () => usersService.GetOne(params.id),
       getUserFromFetch
     );
+    if (userFetched?.error) {
+      setUser(userFetched);
+      setIsLoading(false);
+      return;
+    }
     if (!userFetched.id) {
       navigate("/accounts");
       toast.error("Este registro no existe.");
+      setIsLoading(false);
       return;
     }
     setUser(userFetched);
+    setIsLoading(false);
   }, [params.id, navigate]);
 
   const handleSubmit = async (e) => {
@@ -91,7 +102,15 @@ const Form = () => {
     toggleEditing(false);
   }, [location.pathname, getUserFromFetch, location.state]);
 
-  return (
+  if (user?.error) {
+    return (
+      <>{isLoading ? <Loading /> : <ErrorDisplayer message={user.message} />}</>
+    );
+  }
+
+  return isLoading ? (
+    <Loading />
+  ) : (
     <FormCard title={onEditing ? "Editar usuario" : "Datos del usuario"}>
       <form onSubmit={handleSubmit}>
         <Accordion>
