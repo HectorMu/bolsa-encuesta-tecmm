@@ -4,7 +4,7 @@ import List from "../../../containers/Admin/Companies/List";
 const Companies = () => {
   return (
     <div className="container-fluid">
-      <div className="d-flex flex-column flex-lg-row flex-md-row flex-xl-row align-items-center justify-content-between mb-2">
+      <div className="d-flex flex-column flex-lg-row flex-md-row flex-xl-row align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Empresas</h1>
         <Link
           to={"/companies/add"}

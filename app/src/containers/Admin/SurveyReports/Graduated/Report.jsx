@@ -64,16 +64,26 @@ const Report = () => {
         <Loading />
       ) : (
         <>
-          <div className="d-flex justify-content-center align-items-center">
-            <ReactHTMLTableToExcel
-              id="test-table-xls-button"
-              className="btn btn-outline-primary btn-lg text-primary"
-              table={`table-graduated-report`}
-              filename={"reporte-encuesta-egresados"}
-              sheet="tablexls"
-              buttonText={"Descargar reporte"}
-            />
-          </div>
+          {surveys.length > 0 ? (
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <ReactHTMLTableToExcel
+                id="test-table-xls-button"
+                className="btn btn-outline-primary btn-lg text-primary"
+                table={`table-graduated-report`}
+                filename={"reporte-encuesta-egresados"}
+                sheet="tablexls"
+                buttonText={"Descargar reporte"}
+              />
+              <div className="mt-4  text-primary">
+                <h4 className="font-weight-bolder">{surveys.length}</h4>
+                <h5 className=""> Egresados contestaron la encuesta</h5>
+              </div>
+            </div>
+          ) : (
+            <h3 className="text-center font-weight-bold text-primary">
+              Ningun egresado ha contestado la encuesta
+            </h3>
+          )}
 
           <div className="table-responsive">
             <table id="table-graduated-report" className="table d-none">

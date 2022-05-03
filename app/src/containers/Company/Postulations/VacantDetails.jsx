@@ -67,10 +67,6 @@ const VacantDetails = () => {
   }, [params.job_id]);
 
   useEffect(() => {
-    if (location.state !== null) {
-      setVacant(location.state);
-      return;
-    }
     getVacantDetailsHandler();
   }, [getVacantDetailsHandler]);
 

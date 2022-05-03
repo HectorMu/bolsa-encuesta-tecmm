@@ -53,3 +53,6 @@ Content-Type: application/json
 ### Get all postulations from a job
 GET http://localhost:4000/api/company/jobs/postulations/345  <- job_id
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29ycmVvIjoiYWRtaW5AZ21haWwuY29tIiwiZmtfcm9sIjoxLCJpYXQiOjE2NTA1NTg5MTcsImV4cCI6MTY1MDU1OTUxN30.tnbalPFSiKoXmf5OGrxBYse727nbcMPEiW1Up6GNIxE
+
+### to flag a postulation as reviewed
+PUT http://localhost:4000/api/company/jobs/postulations/reviewed/:postulation_id
