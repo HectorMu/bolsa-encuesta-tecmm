@@ -17,8 +17,6 @@ const Survey = () => {
     []
   );
 
-  console.log(answeredDetails);
-
   if (answeredDetails?.error)
     return <ErrorDisplayer message={answeredDetails?.statusText} />;
 

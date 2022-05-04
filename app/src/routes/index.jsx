@@ -5,8 +5,7 @@ import AdminRoutes from "./admin.routes";
 import CompanyRoutes from "./company.routes";
 import GraduatedRoutes from "./graduated.routes";
 import Profile from "@/pages/Profile";
-import IsLoggedIn from "../components/Authentication/IsLoggedIn";
-import VerifyQR from "@/pages/Graduated/Survey/VerifyQR";
+import IsLoggedIn from "@/components/Authentication/IsLoggedIn";
 
 const Routes = [
   //Index route
@@ -18,10 +17,7 @@ const Routes = [
     path: "/profile",
     element: <IsLoggedIn view={Profile} />,
   },
-  {
-    path: "/survey/verify/:token",
-    element: <VerifyQR />,
-  },
+
   //Aqui van todas las rutas
   ...AuthRoutes,
   ...AdminRoutes,

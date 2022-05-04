@@ -14,7 +14,6 @@ import useGraduatedCurriculum from "@/hooks/useGraduatedCurriculum";
 
 //Importando los servicios
 import jobsService from "@/services/Graduated/jobs.service";
-import Auth from "@/services/Auth";
 
 //Importando helpers
 import helpers from "@/helpers/helpers";
@@ -98,6 +97,11 @@ const Showcase = () => {
     const fetchedJob = await verifySession(() =>
       jobsService.getOneJob(params.id)
     );
+    if (fetchedJob?.error) {
+      setSelectedJob(fetchedJob);
+      setIsLoading(false);
+      return;
+    }
     setSelectedJob(fetchedJob);
     setIsLoading(false);
   }, [params.id, location.state]);
@@ -107,8 +111,6 @@ const Showcase = () => {
     getPostulationHandler();
     registerPostVisit();
   }, [handleGetJobFromFetch, registerPostVisit, getPostulationHandler]);
-
-  console.log(currentPostulation);
 
   if (error?.error) {
     return <ErrorDisplayer message={error.message} />;

@@ -12,6 +12,7 @@ const useGraduatedSurvey = () => {
   const [questions, setQuestions] = useState([]);
   const { params, navigate } = useRouterHooks();
   const { verifySession } = useSession();
+  const [error, setError] = useState({ error: false, message: "No error" });
 
   const getSectionHandler = useCallback(
     async (isCanceled) => {
@@ -21,6 +22,11 @@ const useGraduatedSurvey = () => {
           () => surveyService.getSurveySection(params.section_id),
           getSectionHandler
         );
+        if (fetchedSection?.error) {
+          setError(fetchedSection);
+          setIsLoading(false);
+          return;
+        }
         setSection(fetchedSection);
       }
     },
@@ -34,6 +40,11 @@ const useGraduatedSurvey = () => {
           () => surveyService.getSectionQuestions(params.section_id),
           getQuestionsHandler
         );
+        if (fetchedQuestions?.error) {
+          setError(fetchedQuestions);
+          setIsLoading(false);
+          return;
+        }
         setQuestions(fetchedQuestions);
       }
     },
@@ -47,6 +58,11 @@ const useGraduatedSurvey = () => {
           () => surveyService.getAnswersBySection(params.section_id),
           getUserAnswersHandler
         );
+        if (fetchedAnswers?.error) {
+          setError(fetchedAnswers);
+          setIsLoading(false);
+          return;
+        }
         setUserSectionAnswers(fetchedAnswers);
         setIsLoading(false);
       }
@@ -55,6 +71,10 @@ const useGraduatedSurvey = () => {
   );
   const checkIfHasProfileHandler = useCallback(async () => {
     const results = await verifySession(() => profileService.getProfile());
+    if (results?.error) {
+      setError(results);
+      return;
+    }
     if (!results.id) {
       navigate("/profile");
       toast(
@@ -85,6 +105,7 @@ const useGraduatedSurvey = () => {
     userSectionAnswers,
     questions,
     isLoading,
+    error,
   };
 };
 

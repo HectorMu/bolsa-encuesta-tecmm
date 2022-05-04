@@ -1,6 +1,7 @@
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 //importando componentes personalizados
 import Loading from "@/components/Global/Loading";
-import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //importando hooks
 import useServiceFetch from "@/hooks/useServiceFetchV2";
@@ -16,6 +17,7 @@ const Report = () => {
     isLoading,
     refreshData,
     hookData: surveys,
+    error,
   } = useServiceFetch(
     () => verifySession(surveyCompaniesService.List, refreshData),
     []
@@ -48,23 +50,38 @@ const Report = () => {
     otros: "Otros",
   };
 
+  if (error.error) {
+    return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
+  }
+
+  console.log(surveys);
   return (
     <div>
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          {" "}
-          <div className="d-flex justify-content-center align-items-center">
-            <ReactHTMLTableToExcel
-              id="test-table-xls-button"
-              className="btn btn-outline-primary btn-lg text-primary"
-              table={`table-companies-report`}
-              filename={"reporte-encuesta-empresas"}
-              sheet="tablexls"
-              buttonText={"Descargar reporte"}
-            />
-          </div>
+          {surveys.length > 0 ? (
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <ReactHTMLTableToExcel
+                id="test-table-xls-button"
+                className="btn btn-outline-primary btn-lg text-primary"
+                table={`table-companies-report`}
+                filename={"reporte-encuesta-empresas"}
+                sheet="tablexls"
+                buttonText={"Descargar reporte"}
+              />
+              <div className="mt-4  text-primary">
+                <h4 className="font-weight-bolder">{surveys.length}</h4>
+                <h5 className=""> Empresas contestaron la encuesta</h5>
+              </div>
+            </div>
+          ) : (
+            <h3 className="text-center font-weight-bold text-primary">
+              Ninguna empresa ha contestado la encuesta
+            </h3>
+          )}
+
           <div className="mt-2">
             {surveys.length > 0 ? (
               <div className="table-responsive">

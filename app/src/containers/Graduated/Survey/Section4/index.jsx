@@ -6,13 +6,14 @@ import toast from "react-hot-toast";
 import useSession from "@/hooks/useSession";
 
 //Importing components
-import Loading from "../../../../components/Global/Loading";
+import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Graduated survey hook to get the current section data based on url param section_id
-import useGraduatedSurvey from "../../../../hooks/useGraduatedSurvey";
+import useGraduatedSurvey from "@/hooks/useGraduatedSurvey";
 
 //Importing services
-import surveyService from "../../../../services/Graduated/survey.service";
+import surveyService from "@/services/Graduated/survey.service";
 
 //importing questions
 import Question1 from "./Question1";
@@ -26,7 +27,7 @@ const sectionAnswers = {
 
 const index = () => {
   const [answers, setAnswers] = useState(sectionAnswers);
-  const { section, questions, isLoading, userSectionAnswers } =
+  const { section, questions, isLoading, userSectionAnswers, error } =
     useGraduatedSurvey();
   const navigate = useNavigate();
   const { verifySession } = useSession();
@@ -51,6 +52,9 @@ const index = () => {
     }
   }, [userSectionAnswers]);
 
+  if (error.error) {
+    return <ErrorDisplayer message={error.message} />;
+  }
   return (
     <>
       {isLoading ? (

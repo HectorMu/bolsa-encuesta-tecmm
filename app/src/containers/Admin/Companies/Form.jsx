@@ -10,6 +10,8 @@ import useSession from "@/hooks/useSession";
 import FormCard from "@/components/Global/FormCard";
 import { Entries } from "@/components/Company/RegisterForm";
 import RegisterForm from "@/components/Company/RegisterForm";
+import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Importando servicios
 import companiesService from "@/services/Admin/companies.service";
@@ -19,20 +21,29 @@ const Form = () => {
   const { verifySession } = useSession();
   const [onEditing, toggleEditing] = useState(false);
   const [onChangePassword, toggleChangePassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { location, navigate, params } = useRouterHooks();
 
   const getCompanyFromFetch = useCallback(async () => {
+    setIsLoading(true);
     const companyFetched = await verifySession(
       () => companiesService.GetOne(params.id),
       getCompanyFromFetch
     );
+    if (companyFetched?.error) {
+      setCompany(companyFetched);
+      setIsLoading(false);
+      return;
+    }
 
     if (!companyFetched.id) {
       navigate("/companies");
       toast.error("Este registro no existe.");
+      setIsLoading(false);
       return;
     }
     setCompany(companyFetched);
+    setIsLoading(false);
   }, [params.id, navigate]);
 
   const handleSubmit = async (e) => {
@@ -73,7 +84,17 @@ const Form = () => {
     toggleEditing(false);
   }, [location.pathname, getCompanyFromFetch, location.state]);
 
-  return (
+  if (company?.error) {
+    return (
+      <>
+        {isLoading ? <Loading /> : <ErrorDisplayer message={company.message} />}
+      </>
+    );
+  }
+
+  return isLoading ? (
+    <Loading />
+  ) : (
     <FormCard title={onEditing ? "Editar empresa" : "Registrar empresa"}>
       <RegisterForm
         handleSubmit={handleSubmit}

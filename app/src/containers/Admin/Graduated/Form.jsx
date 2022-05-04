@@ -9,6 +9,8 @@ import useRouterHooks from "@/hooks/useRouterHooks";
 //Componentes personalizados para agilizar la construccion al reutilizarlos
 import FormCard from "@/components/Global/FormCard";
 import RegisterForm from "@/components/Graduated/RegisterForm";
+import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Entradas del formulario, es un objeto con los datos a capturar el en formulario
 import { Entries, NestedEntries } from "@/components/Graduated/RegisterForm";
@@ -18,6 +20,7 @@ import graduatesService from "@/services/Admin/graduates.service";
 
 const Form = () => {
   const { verifySession } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     form: graduated,
     setForm: setGraduated,
@@ -45,13 +48,20 @@ const Form = () => {
 
   //Para obtener un graduado basandonos en el id y filtrando los usuarios desde ahi
   const getGraduatedFromFetch = useCallback(async () => {
+    setIsLoading(true);
     const graduatedFetched = await verifySession(
       () => graduatesService.GetOne(params.id),
       getGraduatedFromFetch
     );
+    if (graduatedFetched?.error) {
+      setGraduated(graduatedFetched);
+      setIsLoading(false);
+      return;
+    }
     if (!graduatedFetched.id) {
-      navigate("/graduated");
+      navigate("/graduates");
       toast.error("Este registro no existe.");
+      setIsLoading(false);
       return;
     }
     //sacamos el objeto del idioma extranjero para guardarlo en su estado
@@ -61,6 +71,7 @@ const Form = () => {
     //seteamos lo anterior dicho en el estado
     setGraduated(rest);
     setIdiomaExtranjero(idioma_extranjero);
+    setIsLoading(false);
   }, [params.id, navigate]);
 
   const handleSubmit = async (e) => {
@@ -94,7 +105,7 @@ const Form = () => {
         return toast.error(results.statusText, { id: tLoading });
       }
       toast.success("Egresado editado correctamente.", { id: tLoading });
-      navigate("/graduated");
+      navigate("/graduates");
     }
     //Si no estamos editando
     else {
@@ -107,7 +118,7 @@ const Form = () => {
         return toast.error(results.statusText, { id: tLoading });
       }
       toast.success("Egresado guardado correctamente.", { id: tLoading });
-      navigate("/graduated");
+      navigate("/graduates");
     }
   };
 
@@ -117,6 +128,7 @@ const Form = () => {
   useEffect(() => {
     if (location.state !== null) {
       setGraduated(location.state);
+      setIdiomaExtranjero(location.state.idioma_extranjero);
       toggleEditing(true);
       return;
     }
@@ -135,7 +147,17 @@ const Form = () => {
     toggleEditing(false);
   }, [location.pathname, getGraduatedFromFetch, location.state]);
 
-  return (
+  if (graduated?.error) {
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <ErrorDisplayer message={graduated.message} />
+    );
+  }
+
+  return isLoading ? (
+    <Loading />
+  ) : (
     <FormCard title={onEditing ? "Editar egresado" : "Datos del egresado"}>
       <RegisterForm
         handleSubmit={handleSubmit}

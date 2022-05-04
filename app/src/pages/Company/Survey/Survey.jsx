@@ -1,6 +1,7 @@
 import useRouterHooks from "@/hooks/useRouterHooks";
 import SectionB from "@/containers/Company/Survey/Sectionb";
 import SectionC from "@/containers/Company/Survey/Sectionc";
+import { Navigate } from "react-router-dom";
 
 const Section = () => {
   const { params } = useRouterHooks();
@@ -12,6 +13,10 @@ const Section = () => {
           <div className="card-body">
             {parseInt(params.section_id) === 1 ? <SectionB /> : null}
             {parseInt(params.section_id) === 2 ? <SectionC /> : null}
+            {parseInt(params.section_id) < 1 ||
+            parseInt(params.section_id) > 2 ? (
+              <Navigate to={"/company/survey"} replace={true} />
+            ) : null}
           </div>
         </div>
       </div>

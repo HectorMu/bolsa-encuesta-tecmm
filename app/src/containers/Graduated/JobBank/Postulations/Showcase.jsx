@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 //Importando componentes
 import Modal from "@/components/Global/Modal";
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
@@ -17,7 +18,6 @@ import helpers from "@/helpers/helpers";
 
 //Importando servicios
 import jobsService from "@/services/Graduated/jobs.service";
-import Auth from "@/services/Auth";
 
 const Showcase = ({ refreshData }) => {
   const [selectedJob, setSelectedJob] = useState({});
@@ -89,6 +89,12 @@ const Showcase = ({ refreshData }) => {
     const fetchedJob = await verifySession(() =>
       jobsService.getOneJob(params.id)
     );
+
+    if (fetchedJob?.error) {
+      setSelectedJob(fetchedJob);
+      setIsLoading(false);
+      return;
+    }
     setSelectedJob(fetchedJob);
     setIsLoading(false);
   }, [params.id, location.state]);
@@ -97,6 +103,14 @@ const Showcase = ({ refreshData }) => {
     handleGetJobFromFetch();
     getPostulationHandler();
   }, [handleGetJobFromFetch, getPostulationHandler]);
+
+  if (selectedJob?.error) {
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <ErrorDisplayer message={selectedJob.message} />
+    );
+  }
 
   return (
     <div className="p-2">

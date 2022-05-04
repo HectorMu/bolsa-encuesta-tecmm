@@ -43,7 +43,7 @@ const CustomSidebar = ({
               <i className="fas fa-building"></i> Empresas
             </NavLink>
             <NavLink
-              to="/graduated"
+              to="/graduates"
               className="menu-item"
               onClick={() => handleSidebarToggle(!sidebarToggled)}
             >
@@ -70,13 +70,6 @@ const CustomSidebar = ({
               onClick={() => handleSidebarToggle(!sidebarToggled)}
             >
               <i className="fas fa-print"></i> Reportes
-            </NavLink>
-            <NavLink
-              to="/survey/contested"
-              className="menu-item"
-              onClick={() => handleSidebarToggle(!sidebarToggled)}
-            >
-              <i className="fas fa-check"></i> Contestaciones
             </NavLink>
             <hr className="c-sidebar-divider" />
           </nav>

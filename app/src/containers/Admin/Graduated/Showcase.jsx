@@ -12,6 +12,7 @@ import ShowcaseContainer from "@/components/Global/ShowcaseContainer";
 import ShowcaseHeader from "@/components/Global/ShowcaseHeader";
 import ShowcaseCard from "@/components/Global/ShowcaseCard";
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Servicios
 import graduatesService from "@/services/Admin/graduates.service";
@@ -28,6 +29,11 @@ const Showcase = () => {
       () => graduatesService.GetOne(params.id),
       getGradutedHandler
     );
+    if (graduatedFetched?.error) {
+      setGraduated(graduatedFetched);
+      setIsLoading(false);
+      return;
+    }
     if (!graduatedFetched.id) {
       if (location.state.prevLocation === "/accounts/") {
         toast.error("Este egresado aun no cuenta con un perfil");
@@ -47,6 +53,14 @@ const Showcase = () => {
   useEffect(() => {
     getGradutedHandler();
   }, [getGradutedHandler]);
+
+  if (graduated?.error) {
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <ErrorDisplayer message={graduated.message} />
+    );
+  }
 
   return (
     <>

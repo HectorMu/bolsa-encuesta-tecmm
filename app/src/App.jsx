@@ -1,6 +1,5 @@
 // Importing suspense and hooks
-import { Suspense, useEffect } from "react";
-import Loading from "./components/Global/Loading";
+import { useEffect } from "react";
 
 // Importing app styles
 import "./css/sb-admin-2.css";
@@ -38,17 +37,15 @@ function App() {
     <SessionProvider>
       <CurriculumProvider>
         <Layout>
-          <Suspense fallback={<Loading />}>
-            <Routes>
-              {AppRoutes?.map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={route.element}
-                />
-              ))}
-            </Routes>
-          </Suspense>
+          <Routes>
+            {AppRoutes?.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={route.element}
+              />
+            ))}
+          </Routes>
         </Layout>
       </CurriculumProvider>
       <Toaster />

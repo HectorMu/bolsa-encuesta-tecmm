@@ -8,6 +8,7 @@ const validations = require("../middlewares/validations/admin.users.validations"
 const companiesValidations = require("../middlewares/validations/admin.company.validations");
 const graduatesValidations = require("../middlewares/validations/admin.graduates.validations");
 
+//AAdmin
 router.get("/user/profile", verifyToken, controller.getUserProfile);
 router.post(
   "/user/profile/save",
@@ -16,6 +17,7 @@ router.post(
   controller.saveOrUpdateUserProfile
 );
 
+//graduated
 router.get("/graduated/profile", verifyToken, controller.getGraduatedProfile);
 router.post(
   "/graduated/profile/save",
@@ -33,6 +35,7 @@ router.put(
 );
 router.get("/graduated/curriculum", verifyToken, controller.getGraduatedCV);
 
+//company
 router.get("/company/profile", verifyToken, controller.getCompanyProfile);
 router.post(
   "/company/profile/save",

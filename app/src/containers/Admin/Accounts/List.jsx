@@ -55,7 +55,7 @@ const List = () => {
       return toast.error("Los administradores no cuentan con un perfil");
     }
     if (user.rol === "Egresado") {
-      return navigate(`/graduated/details/${user.id}`, {
+      return navigate(`/graduates/details/${user.id}`, {
         state: { prevLocation: "/accounts/" },
       });
     }
@@ -88,7 +88,11 @@ const List = () => {
   if (error.error) {
     return (
       <>
-        {isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <ErrorDisplayer message={error.message} tryAgain={refreshData} />
+        )}
       </>
     );
   }

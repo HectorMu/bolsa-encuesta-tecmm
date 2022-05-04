@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 //importando componentes personalizados
 import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //importando hooks
 import useServiceFetch from "@/hooks/useServiceFetchV2";
@@ -24,6 +25,7 @@ const List = () => {
     isLoading,
     refreshData,
     hookData: graduates,
+    error,
   } = useServiceFetch(
     () => verifySession(graduatesService.List, refreshData),
     []
@@ -50,11 +52,11 @@ const List = () => {
   };
 
   const redirectToEditPage = (graduated) => {
-    navigate(`/graduated/edit/${graduated.id}`, { state: graduated });
+    navigate(`/graduates/edit/${graduated.id}`, { state: graduated });
   };
 
   const redirectToDetailsPage = (graduated) => {
-    navigate(`/graduated/details/${graduated.id}`);
+    navigate(`/graduates/details/${graduated.id}`);
   };
 
   const tableConfig = {
@@ -75,6 +77,10 @@ const List = () => {
       },
     ],
   };
+
+  if (error.error) {
+    return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
+  }
   return (
     <div className="mt-2">
       {isLoading ? (

@@ -16,6 +16,7 @@ import ShowcaseHeader from "@/components/Global/ShowcaseHeader";
 import ShowcaseCard from "@/components/Global/ShowcaseCard";
 import ShowcaseContainer from "@/components/Global/ShowcaseContainer";
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Servicios
 import companiesService from "@/services/Admin/companies.service";
@@ -59,6 +60,12 @@ const Showcase = () => {
       () => companiesService.GetOne(params.id),
       getCompanyDetails
     );
+
+    if (fetchedCompany?.error) {
+      setCompany(fetchedCompany);
+      setIsLoading(false);
+      return;
+    }
     if (!fetchedCompany.id) {
       if (location.state.prevLocation === "/accounts/") {
         toast.error("Esta empresa aun no cuenta con un perfil");
@@ -79,7 +86,14 @@ const Showcase = () => {
     getCompanyDetails();
   }, [getCompanyDetails]);
 
-  console.log(location.state);
+  if (company?.error) {
+    return (
+      <>
+        {isLoading ? <Loading /> : <ErrorDisplayer message={company.message} />}
+      </>
+    );
+  }
+
   return (
     <>
       {isLoading ? (

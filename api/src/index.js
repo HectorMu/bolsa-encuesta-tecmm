@@ -7,10 +7,13 @@ const app = express();
 const User = require("./models/User");
 const verifyToken = require("./middlewares/verifyToken");
 
+//Getting server tasks
+require("./tasks/jobbank.closevacants");
+
 const publicRouter = express.Router();
 
 //Initialazing database connection
-const initDatabase = require("./database");
+require("./database");
 
 //Using middlewares
 app.use(cors());

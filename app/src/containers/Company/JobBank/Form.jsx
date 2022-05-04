@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import FormCard from "@/components/Global/FormCard";
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Importando servicios
 import vacanciesService from "@/services/Company/vacancies.service";
@@ -79,6 +80,12 @@ const Form = () => {
       () => vacanciesService.GetOne(params.id),
       getVacantFromFetch
     );
+
+    if (fetchedVacant?.error) {
+      setVacant(fetchedVacant);
+      setIsLoading(false);
+      return;
+    }
     if (!fetchedVacant.folio) {
       toast.error("Este registro no existe");
       setIsLoading(false);
@@ -101,6 +108,14 @@ const Form = () => {
       setOnEditing(true);
     }
   }, [getVacantFromFetch, location.state]);
+
+  if (vacant?.error) {
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <ErrorDisplayer message={vacant.message} />
+    );
+  }
 
   return (
     <>

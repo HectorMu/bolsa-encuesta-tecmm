@@ -10,6 +10,7 @@ import useSession from "@/hooks/useSession";
 
 //Importando componentes
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Importando servicios
 import vacanciesCompanyService from "@/services/Company/vacancies.service";
@@ -35,6 +36,11 @@ const VacantDetails = () => {
         () => vacanciesAdminService.GetOne(params.job_id),
         getVacantDetailsHandler
       );
+      if (fetchedVacant?.error) {
+        setVacant(fetchedVacant);
+        setIsLoading(false);
+        return;
+      }
       if (!fetchedVacant.folio) {
         toast.error("Esta vacante no existe.");
         navigate("/company/jobbank");
@@ -61,12 +67,16 @@ const VacantDetails = () => {
   }, [params.job_id]);
 
   useEffect(() => {
-    if (location.state !== null) {
-      setVacant(location.state);
-      return;
-    }
     getVacantDetailsHandler();
   }, [getVacantDetailsHandler]);
+
+  if (vacant?.error) {
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <ErrorDisplayer message={vacant.message} />
+    );
+  }
 
   return (
     <div

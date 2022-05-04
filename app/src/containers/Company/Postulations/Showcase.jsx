@@ -68,7 +68,7 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
     const CV = await Auth.getResourcesFromPublicFolder(
       `graduated/cvs/${postulation.curriculum}`
     );
-    console.log(CV);
+
     curriculumRef.current.src = CV;
   };
 

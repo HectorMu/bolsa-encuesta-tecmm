@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 //importando componentes personalizados
 import DataTable from "@/components/Global/DataTable";
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //importando hooks
 import useServiceFetch from "@/hooks/useServiceFetchV2";
@@ -23,6 +24,7 @@ const List = () => {
     isLoading,
     hookData: companies,
     refreshData,
+    error,
   } = useServiceFetch(
     () => verifySession(companyService.List, refreshData),
     []
@@ -72,6 +74,10 @@ const List = () => {
       },
     ],
   };
+
+  if (error.error) {
+    return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
+  }
 
   return (
     <div>

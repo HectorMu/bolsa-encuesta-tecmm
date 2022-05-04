@@ -7,6 +7,7 @@ import useSession from "@/hooks/useSession";
 
 //importing custom components
 import Loading from "@/components/Global/Loading";
+import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Importing services
 import surveyService from "@/services/Graduated/survey.service";
@@ -59,7 +60,7 @@ const sectionAnswers = {
   tamaño_empresa: "",
 };
 const index = () => {
-  const { section, questions, isLoading, userSectionAnswers } =
+  const { section, questions, isLoading, userSectionAnswers, error } =
     useGraduatedSurvey();
   const [onceQuestionsAnswered, setOnceQuestionsAnswered] = useState(false);
   const [answers, setAnswers] = useState(sectionAnswers);
@@ -96,6 +97,9 @@ const index = () => {
     setFetchedAnswers();
   }, [setFetchedAnswers]);
 
+  if (error.error) {
+    return <ErrorDisplayer message={error.message} />;
+  }
   return (
     <>
       {isLoading ? (
