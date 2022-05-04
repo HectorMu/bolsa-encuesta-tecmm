@@ -709,7 +709,7 @@ controller.saveSection6Answers = async (req, res) => {
       );
       const graduatedData = await GraduatedProfile.FindOne(req.user.id);
       const QR = await qrCode.toDataURL(
-        `http://192.168.1.77:3000/survey/verify/${token}/`
+        `http://137.184.185.237:4000/survey/verify/${token}/`
       );
 
       const document = {
