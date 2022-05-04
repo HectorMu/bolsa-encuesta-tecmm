@@ -128,6 +128,7 @@ const Form = () => {
   useEffect(() => {
     if (location.state !== null) {
       setGraduated(location.state);
+      setIdiomaExtranjero(location.state.idioma_extranjero);
       toggleEditing(true);
       return;
     }
