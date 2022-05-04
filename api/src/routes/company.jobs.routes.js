@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middlewares/verifyToken");
-const isCompany = require("../middlewares/isCompany");
+const isCompany = require("../middlewares/IsCompany");
 const isCompanyOrAdmin = require("../middlewares/isCompanyOrAdmin");
 
 const controller = require("../controllers/company.jobs.controller");
