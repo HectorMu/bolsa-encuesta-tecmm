@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middlewares/verifyToken");
-const isGraduated = require("../middlewares/isGraduated");
+const isGraduated = require("../middlewares/IsGraduated");
 
 const controller = require("../controllers/graduated.postulations.controller");
 
