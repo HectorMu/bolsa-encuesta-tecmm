@@ -3,6 +3,7 @@ const keys = {
     host: "localhost",
     user: "root",
     password: "",
+    port: "'/var/run/mysqld/mysqld.sock'",
     database: "control_egresados",
   },
   production: {
