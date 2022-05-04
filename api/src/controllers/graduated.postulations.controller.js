@@ -52,8 +52,6 @@ controller.Save = async (req, res) => {
         parseInt(vacant.folio) === parseInt(job_id)
     );
 
-    console.log(isVacantOpen);
-
     if (!isVacantOpen.length > 0) {
       return res.json({
         status: false,
