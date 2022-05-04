@@ -1,1 +1,0 @@
-import"./vendor.e127be96.js";import{F as l}from"./Form.a0d14587.js";import{j as o}from"./index.cbff710e.js";import"./users.service.736df7f8.js";const t=()=>o("div",{className:"w-100",children:o("div",{className:"col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 mx-auto",children:o(l,{})})});export{t as default};
