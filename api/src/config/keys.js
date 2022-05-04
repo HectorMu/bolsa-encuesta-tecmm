@@ -1,9 +1,8 @@
 const keys = {
   dev: {
     host: "localhost",
-    user: "super",
-    password: "12345678",
-    port: 3306,
+    user: "root",
+    password: "",
     database: "control_egresados",
   },
   production: {
