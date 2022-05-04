@@ -105,7 +105,7 @@ const Form = () => {
         return toast.error(results.statusText, { id: tLoading });
       }
       toast.success("Egresado editado correctamente.", { id: tLoading });
-      navigate("/graduated");
+      navigate("/graduates");
     }
     //Si no estamos editando
     else {
@@ -118,7 +118,7 @@ const Form = () => {
         return toast.error(results.statusText, { id: tLoading });
       }
       toast.success("Egresado guardado correctamente.", { id: tLoading });
-      navigate("/graduated");
+      navigate("/graduates");
     }
   };
 
