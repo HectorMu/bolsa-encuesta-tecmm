@@ -1,5 +1,6 @@
 // Importing suspense and hooks
 import { useEffect } from "react";
+import useDocTitleRename from "./hooks/useDocTitleRename";
 
 // Importing app styles
 import "./css/sb-admin-2.css";
@@ -33,6 +34,7 @@ function App() {
   useEffect(() => {
     Aos.init();
   }, []);
+  useDocTitleRename();
   return (
     <SessionProvider>
       <CurriculumProvider>

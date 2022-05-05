@@ -1,10 +1,6 @@
-import { useEffect } from "react";
 import Form from "../../containers/Login/Form";
 
 const Login = () => {
-  useEffect(() => {
-    document.title = "Control de Egresados | Login";
-  }, []);
   return (
     <div className="container">
       <div className="row justify-content-center">
