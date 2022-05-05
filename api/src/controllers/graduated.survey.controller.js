@@ -19,6 +19,7 @@ const fs = require("fs");
 const qrCode = require("qrcode");
 const jwt = require("jsonwebtoken");
 const helpers = require("../helpers/helpers");
+const path = require("path");
 
 const controller = {};
 
@@ -732,7 +733,10 @@ controller.saveSection6Answers = async (req, res) => {
           }),
           QR,
         },
-        path: `./src/public/graduated/acuses/acuse_${req.user.id}-${graduatedData.no_control}.pdf`,
+        path: path.join(
+          __dirname,
+          `../public/graduated/acuses/acuse_${req.user.id}-${graduatedData.no_control}.pdf`
+        ),
         type: "",
       };
 
