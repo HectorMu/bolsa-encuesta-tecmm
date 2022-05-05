@@ -1,4 +1,4 @@
-import API from "../API";
+import { API } from "../API";
 import helpers from "@/helpers/helpers";
 
 const getProfile = async () => {

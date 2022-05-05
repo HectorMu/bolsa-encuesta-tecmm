@@ -33,10 +33,7 @@ Email.SendRecover = async (req, res) => {
   const token = jwt.sign(payload, process.env.EMAIL_TOKEN_SECRET, {
     expiresIn: "15m",
   });
-  //production
-  //const link = `https://reactnodenotesv2.herokuapp.com/reset/${token}`;
-  //dev
-  const link = `http://137.184.185.237:4000/reset/${token}/`;
+  const link = `${process.env.Host}/reset/${token}/`;
 
   let emailOptions = {
     from: process.env.MAILER_EMAIL,
