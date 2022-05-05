@@ -688,11 +688,13 @@ controller.saveSection6Answers = async (req, res) => {
     );
     if (!alreadyContested.fk_egresado) {
       let html = fs.readFileSync("./src/assets/template.html", "utf8");
+      let format = "Letter";
       if (process.env.OS === "unix") {
         html = fs.readFileSync("./src/assets/template.unix.html", "utf8");
+        format = "A3";
       }
       const options = {
-        format: "Letter",
+        format,
         orientation: "portrait",
         border: "0mm",
         header: {
