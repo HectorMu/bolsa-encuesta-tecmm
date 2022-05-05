@@ -87,7 +87,7 @@ const Survey = () => {
                             </p>
                             <a
                               className="btn btn-primary"
-                              href={`${Host}/graduated/acuses/${answeredDetails.acuse}`}
+                              href={acuse}
                               download
                             >
                               Descargar PDF
