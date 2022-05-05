@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body style="padding: 0; margin: 0; font-family: Arial">
+    <div
+      style="
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      "
+    >
+      <img
+        width="100%"
+        height="150px"
+        src="http:localhost:4000/images/Superior.png"
+        alt=""
+      />
+      <h3 style="text-align: end; margin-right: 120px; font-weight: lighter">
+        {{municipality}}, {{state}}, el {{date}}
+      </h3>
+
+      <div style="text-align: center">
+        <h2 style="font-weight: bold">CONSTANCIA DE ENCUESTA DE EGRESO</h1>
+        <h3 style="font-weight: lighter">
+          Por medio de esta constancia hago constatar que el alumno
+        </h3>
+        <h3>{{alumn_name}}</h3>
+        <h3 style="font-weight: lighter">Numero de control</h3>
+        <h3>{{no_control}}</h3>
+        <h3 style="font-weight: lighter">CURP</h3>
+        <h3>{{curp}}</h3>
+        <h3 style="font-weight: lighter">
+          Realizó la encuesta de seguimiento de alumnos
+        </h3>
+        <img height="200px" src="{{QR}}" alt="" style="padding-bottom: 92px" />
+      </div>
+      <img
+        width="100%"
+        height="120px"
+        style="border: 1px solid white"
+        src="http:localhost:4000/images/Inferior.png"
+        alt=""
+      />
+    </div>
+  </body>
+</html>

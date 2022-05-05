@@ -687,7 +687,10 @@ controller.saveSection6Answers = async (req, res) => {
       req.user.id
     );
     if (!alreadyContested.fk_egresado) {
-      const html = fs.readFileSync("./src/assets/template.html", "utf8");
+      let html = fs.readFileSync("./src/assets/template.html", "utf8");
+      if (process.env.OS === "unix") {
+        html = fs.readFileSync("./src/assets/template.unix.html", "utf8");
+      }
       const options = {
         format: "Letter",
         orientation: "portrait",
