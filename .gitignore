@@ -2,6 +2,6 @@
 /app/node_modules/
 .env
 /app/.env
-/app/src/services/API.js
+/app/src/services/API.js/
 /api/.env/
 /api/src/public/graduated
