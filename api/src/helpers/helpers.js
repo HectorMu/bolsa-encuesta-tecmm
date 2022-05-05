@@ -105,7 +105,7 @@ helpers.convertFieldsToJson = (array, keysArr = null) => {
 
 helpers.multerStorageConfig = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "/graduated/cvs/"));
+    cb(null, path.join(__dirname, "../public/graduated/cvs"));
   },
   filename: async function (req, file, cb) {
     const graduated = await GraduatedProfile.FindOne(req.user.id);
