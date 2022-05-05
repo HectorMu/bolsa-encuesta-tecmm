@@ -741,7 +741,7 @@ controller.saveSection6Answers = async (req, res) => {
         },
         path: path.join(
           __dirname,
-          `../public/graduated/acuses/acuse_${req.user.id}-${graduatedData.no_control}.pdf`
+          `../public/graduated/files/acuses/acuse_${req.user.id}-${graduatedData.no_control}.pdf`
         ),
         type: "",
       };

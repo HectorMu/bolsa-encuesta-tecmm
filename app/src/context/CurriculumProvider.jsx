@@ -23,7 +23,7 @@ function CurriculumProvider({ children }) {
     }
 
     const CVpath = await Auth.getResourcesFromPublicFolder(
-      `graduated/cvs/${fetchedCurriculum}`
+      `graduated/files/cvs/${fetchedCurriculum}`
     );
 
     setGraduatedCurriculum(CVpath);

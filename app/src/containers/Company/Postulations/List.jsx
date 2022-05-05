@@ -35,6 +35,10 @@ const List = ({ postulations, isLoading, error, searchTerm, filter }) => {
   }, [postulations]);
   useEffect(() => {
     if (postulations.length > 0) {
+      if (filter === "Todas") {
+        setLocalPostulations(postulations);
+        return;
+      }
       if (filter === "Mas recientes") {
         setLocalPostulations(
           postulations.sort((fe, se) => se["id"] - fe["id"])

@@ -9,10 +9,10 @@ import List from "@/containers/Company/Postulations/List";
 import Showcase from "@/containers/Company/Postulations/Showcase";
 import VacantDetails from "@/containers/Company/Postulations/VacantDetails";
 
-const FILTER_OPTIONS = ["Sin revisar", "Revisado", "Mas recientes"];
+const FILTER_OPTIONS = ["Todas", "Sin revisar", "Revisado", "Mas recientes"];
 const Postulations = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filter, setFilter] = useState("Sin revisar");
+  const [filter, setFilter] = useState("Todas");
   const { params } = useRouterHooks();
   const { verifySession } = useSession();
   const {

@@ -66,7 +66,7 @@ const ShowCase = ({ refreshData: refreshPostulations }) => {
     if (!postulation.id) return;
 
     const CV = await Auth.getResourcesFromPublicFolder(
-      `graduated/cvs/${postulation.curriculum}`
+      `graduated/files/cvs/${postulation.curriculum}`
     );
 
     curriculumRef.current.src = CV;

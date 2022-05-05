@@ -8,14 +8,14 @@ const controller = require("../controllers/admin.reports.surveys.controller");
 
 router.get(
   "/report/graduates",
-  // verifyToken,
-  // isAdmin,
+  verifyToken,
+  isAdmin,
   controller.GetAnswersGraduated
 );
 router.get(
   "/report/companies",
-  // verifyToken,
-  // isAdmin,
+  verifyToken,
+  isAdmin,
   controller.GetAnswersCompany
 );
 

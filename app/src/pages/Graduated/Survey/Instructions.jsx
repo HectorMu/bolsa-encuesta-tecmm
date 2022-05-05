@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import useServiceFetchV2 from "@/hooks/useServiceFetchV2";
 import useSession from "@/hooks/useSession";
 import surveyService from "@/services/Graduated/survey.service";
+import Auth from "@/services/Auth";
 import { Link } from "react-router-dom";
 import Loading from "@/components/Global/Loading";
 import Modal from "@/components/Global/Modal";
@@ -8,6 +10,8 @@ import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 import { Host } from "@/services/API";
 
 const Survey = () => {
+  const [acuse, setAcuse] = useState("");
+  const [loadingAcuse, setLoadingAcuse] = useState(false);
   const { verifySession } = useSession();
   const {
     hookData: answeredDetails,
@@ -17,6 +21,23 @@ const Survey = () => {
     () => verifySession(surveyService.checkIfSurveyIsAnswered, refreshData),
     []
   );
+
+  const getAcuseWithAuth = async () => {
+    setLoadingAcuse(true);
+    const fetchedAcuse = await Auth.getResourcesFromPublicFolder(
+      `graduated/files/acuses/${answeredDetails.acuse}`
+    );
+    if (fetchedAcuse.length > 0) {
+      setAcuse(fetchedAcuse);
+      setLoadingAcuse(false);
+      return;
+    }
+    setLoadingAcuse(false);
+  };
+
+  useEffect(() => {
+    getAcuseWithAuth();
+  }, [answeredDetails.acuse]);
 
   if (answeredDetails?.error)
     return <ErrorDisplayer message={answeredDetails?.statusText} />;
@@ -42,35 +63,39 @@ const Survey = () => {
                   </h5>
 
                   <div className="d-flex justify-content-center">
-                    <Modal
-                      buttonClass="btn btn-primary btn-lg"
-                      buttonCloseText="Cerrar"
-                      id="acuse"
-                      title="Mi acuse"
-                      modalClass="modal-dialog modal-xl modal-dialog-scrollable"
-                      buttonText="Ver acuse"
-                    >
-                      <object
-                        data={`${Host}/graduated/acuses/${answeredDetails.acuse}`}
-                        type="application/pdf"
-                        frameBorder="0"
-                        width="100%"
-                        style={{ height: "100vh", width: "100%" }}
+                    {loadingAcuse ? (
+                      <Loading />
+                    ) : (
+                      <Modal
+                        buttonClass="btn btn-primary btn-lg"
+                        buttonCloseText="Cerrar"
+                        id="acuse"
+                        title="Mi acuse"
+                        modalClass="modal-dialog modal-xl modal-dialog-scrollable"
+                        buttonText="Ver acuse"
                       >
-                        <div className="d-flex flex-column justify-content-center">
-                          <p className="text-center">
-                            El navegador no soporta la visualizacion de PDF.{" "}
-                          </p>
-                          <a
-                            className="btn btn-primary"
-                            href={`${Host}/graduated/acuses/${answeredDetails.acuse}`}
-                            download
-                          >
-                            Descargar PDF
-                          </a>
-                        </div>
-                      </object>
-                    </Modal>
+                        <object
+                          data={acuse}
+                          type="application/pdf"
+                          frameBorder="0"
+                          width="100%"
+                          style={{ height: "100vh", width: "100%" }}
+                        >
+                          <div className="d-flex flex-column justify-content-center">
+                            <p className="text-center">
+                              El navegador no soporta la visualizacion de PDF.{" "}
+                            </p>
+                            <a
+                              className="btn btn-primary"
+                              href={`${Host}/graduated/acuses/${answeredDetails.acuse}`}
+                              download
+                            >
+                              Descargar PDF
+                            </a>
+                          </div>
+                        </object>
+                      </Modal>
+                    )}
                   </div>
                   <h5 className="mt-5 text-center">
                     Si te pidieron actualizar tus respuestas puedes{" "}

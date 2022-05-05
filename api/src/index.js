@@ -12,7 +12,8 @@ const verifyToken = require("./middlewares/verifyToken");
 //Getting server tasks
 require("./tasks/jobbank.closevacants");
 
-const publicRouter = express.Router();
+const cvsRouter = express.Router();
+const acusesRouter = express.Router();
 
 //Initialazing database connection
 require("./database");
@@ -26,8 +27,11 @@ app.use(express.json());
 User.InitialState();
 
 //To protect the public folder from not authorized users
-app.use(publicRouter.all("/graduated/cvs/*", verifyToken));
+app.use(cvsRouter.all("/graduated/files/*", verifyToken));
 app.use(express.static(path.join(__dirname, "public")));
+
+// app.use(acusesRouter.all("/graduated/acuses/*", verifyToken));
+// app.use(express.static(path.join(__dirname, "public")));
 
 //Using the routes
 app.use("/api", require("./routes/template.routes"));

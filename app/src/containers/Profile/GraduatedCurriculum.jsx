@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import profileService from "@/services/Graduated/profile.service";
-import Auth from "@/services/Auth";
 import toast from "react-hot-toast";
 import Loading from "@/components/Global/Loading";
 import useSession from "@/hooks/useSession";
