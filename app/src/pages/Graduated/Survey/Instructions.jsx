@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Loading from "@/components/Global/Loading";
 import Modal from "@/components/Global/Modal";
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
+import { Host } from "@/services/API";
 
 const Survey = () => {
   const { verifySession } = useSession();
@@ -50,7 +51,7 @@ const Survey = () => {
                       buttonText="Ver acuse"
                     >
                       <object
-                        data={`http://localhost:4000/graduated/acuses/${answeredDetails.acuse}`}
+                        data={`${Host}/graduated/acuses/${answeredDetails.acuse}`}
                         type="application/pdf"
                         frameBorder="0"
                         width="100%"
