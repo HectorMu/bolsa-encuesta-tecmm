@@ -33,7 +33,7 @@ Email.SendRecover = async (req, res) => {
   const token = jwt.sign(payload, process.env.EMAIL_TOKEN_SECRET, {
     expiresIn: "15m",
   });
-  const link = `${process.env.Host}/reset/${token}/`;
+  const link = `${process.env.HOST}/reset/${token}/`;
 
   let emailOptions = {
     from: process.env.MAILER_EMAIL,
