@@ -223,7 +223,7 @@ controller.saveOrUpdateCompanyProfile = async (req, res) => {
   try {
     const profileExists = await Company.FindOne(req.user.id);
 
-    if (!profileExists.nombre_comercial) {
+    if (!profileExists.id) {
       //Verificamos duplicidad de campos
       const correoExists = await helpers.isDuplicatedOnUpdate(
         "usuarios",
@@ -241,7 +241,9 @@ controller.saveOrUpdateCompanyProfile = async (req, res) => {
 
       //Si recibimos una clave, significa que se quiere editar, entonces la hasheamos
       if (basicData.clave !== null && basicData.clave !== undefined) {
-        basicData.clave = await helpers.encryptPassword(basicData.clave);
+        basicData.clave = await helpers.encryptPassword(
+          basicData.clave.toString()
+        );
       } else {
         //Si no recibimos una clave, entonces eliminamos la propiedad del objeto
         //Para no mutar la clave actual guardada en la base de datos
@@ -276,7 +278,9 @@ controller.saveOrUpdateCompanyProfile = async (req, res) => {
 
     //Si recibimos una clave, significa que se quiere editar, entonces la hasheamos
     if (basicData.clave !== null && basicData.clave !== undefined) {
-      basicData.clave = await helpers.encryptPassword(basicData.clave);
+      basicData.clave = await helpers.encryptPassword(
+        basicData.clave.toString()
+      );
     } else {
       //Si no recibimos una clave, entonces eliminamos la propiedad del objeto
       //Para no mutar la clave actual guardada en la base de datos
@@ -339,7 +343,9 @@ controller.saveOrUpdateUserProfile = async (req, res) => {
 
     //Si recibimos una clave, significa que se quiere editar, entonces la hasheamos
     if (basicData.clave !== null && basicData.clave !== undefined) {
-      basicData.clave = await helpers.encryptPassword(basicData.clave);
+      basicData.clave = await helpers.encryptPassword(
+        basicData.clave.toString()
+      );
     } else {
       //Si no recibimos una clave, entonces eliminamos la propiedad del objeto
       //Para no mutar la clave actual guardada en la base de datos

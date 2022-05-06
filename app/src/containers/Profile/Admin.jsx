@@ -1,14 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+
+//Importando componentes
 import FormCard from "@/components/Global/FormCard";
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import Accordion from "@/components/Global/Accordion";
 import Collapsable from "@/components/Global/Collapsable";
-import useSession from "@/hooks/useSession";
-import useForm from "@/hooks/useForm";
 import Loading from "@/components/Global/Loading";
 
+//Importando hooks
+import useSession from "@/hooks/useSession";
+import useForm from "@/hooks/useForm";
+
+//Importando servicios
 import profileService from "@/services/Admin/profile.service";
 
 const Entries = {
@@ -18,22 +23,19 @@ const Entries = {
 };
 
 const Admin = () => {
-  const {
-    form: admin,
-    setForm: setAdmin,
-    handleEntriesChange,
-  } = useForm(Entries);
+  const { form: admin, setForm: setAdmin, handleChange } = useForm(Entries);
   const [onEditing] = useState(true);
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const { user, verifySession } = useSession();
 
   const getProfileHandler = useCallback(async () => {
     setIsLoading(true);
     const adminFetched = await verifySession(
-      profileService.getProfile,
+      () => profileService.getProfile,
       getProfileHandler
     );
+
     if (!adminFetched.id) {
       setIsLoading(false);
       return;
@@ -45,13 +47,13 @@ const Admin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!onChangePassword) {
       delete admin.clave;
       delete admin.confirmar;
     }
 
     const tLoading = toast.loading("Guardando...");
+
     const results = await verifySession(() =>
       profileService.saveOrUpdateProfile(admin)
     );
@@ -111,7 +113,7 @@ const Admin = () => {
                       placeholder="Correo"
                       type="email"
                       name={"correo"}
-                      setValue={handleEntriesChange}
+                      setValue={handleChange}
                       value={admin.correo}
                     />
                   </div>
@@ -126,8 +128,9 @@ const Admin = () => {
                           inputId="txtClave"
                           placeholder="Clave"
                           type="password"
+                          setValue={handleChange}
                           name={"clave"}
-                          setValue={handleEntriesChange}
+                          value={admin.clave}
                         />
                       </div>
                       <div
@@ -138,8 +141,9 @@ const Admin = () => {
                           inputId="txtClaveCon"
                           placeholder="Confirmar"
                           type="password"
+                          setValue={handleChange}
                           name={"confirmar"}
-                          setValue={handleEntriesChange}
+                          value={admin.confirmar}
                         />
                       </div>
                     </>
