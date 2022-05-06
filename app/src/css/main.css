@@ -576,3 +576,14 @@ input[type="radio"]:checked:after {
   white-space: nowrap !important;
   width: 150px !important;
 }
+
+.jobbank-item {
+  background-color: white;
+  transition: all ease-in 200ms;
+}
+.jobbank-item:hover {
+  background-color: #faf5f5;
+}
+.jobbank-item.active {
+  background-color: var(--green-light);
+}

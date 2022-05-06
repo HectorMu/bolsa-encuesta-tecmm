@@ -18,8 +18,8 @@ const JobCard = ({ job }) => {
       onClick={() => handleSelection(job)}
       key={job.fk_vacante}
       style={{ cursor: "pointer" }}
-      className={`card rounded-0 pt-3 px-3 border-left-0 border-right-0   ${
-        parseInt(params.id) === job.fk_vacante ? "bg-green-light shadow " : ""
+      className={`card jobbank-item rounded-0 pt-3 px-3 border-left-0 border-right-0   ${
+        parseInt(params.id) === job.fk_vacante ? "active " : ""
       }`}
     >
       <h5 className="text-primary font-weight-bolder">{job.vacante}</h5>

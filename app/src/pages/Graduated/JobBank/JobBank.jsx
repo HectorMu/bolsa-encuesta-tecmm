@@ -95,7 +95,7 @@ const JobBank = () => {
                   className="purple-scroll"
                   style={{
                     overflowY: "scroll",
-                    maxHeight: "55vh",
+                    maxHeight: "65vh",
                   }}
                 >
                   <Showcase />

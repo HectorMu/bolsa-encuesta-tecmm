@@ -124,16 +124,16 @@ const Showcase = () => {
         <>
           {selectedJob.folio ? (
             <>
-              <h3 className="text-primary btn-link text-left font-weight-bolder">
+              <h4 className="text-primary btn-link text-left font-weight-bolder">
                 {selectedJob.vacante}
-              </h3>
+              </h4>
               <div className="d-flex flex-column flex-lg-row flex-xl-row mt-3">
-                <h5 className="font-weight-bold">
+                <p className="font-weight-bold">
                   {selectedJob.nombre_comercial}
-                </h5>
+                </p>
                 <ul className="custom-list">
                   <li>
-                    <h6>{selectedJob.ubicacion}</h6>
+                    <p>{selectedJob.ubicacion}</p>
                   </li>
                   <li>
                     <span className="badge p-2 badge-primary">

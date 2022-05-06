@@ -36,11 +36,11 @@ const List = ({ searchTerm, jobs, isLoading }) => {
               onClick={() => handleJobSelection(e)}
               key={e.folio}
               style={{ cursor: "pointer" }}
-              className={`card rounded-0 pt-3 px-3 border-left-0 border-right-0   ${
-                parseInt(params.id) === e.folio ? "bg-green-light shadow " : ""
+              className={`card jobbank-item rounded-0 pt-3 px-3 border-left-0 border-right-0   ${
+                parseInt(params.id) === e.folio ? "active" : ""
               }`}
             >
-              <h5 className="text-primary font-weight-bolder">{e.vacante}</h5>
+              <h5 className="text-primary  font-weight-bolder">{e.vacante}</h5>
               <div className="d-flex flex-column">
                 <span className="text-truncate ">{e.nombre_comercial}</span>
                 <span className="text-truncate ">{e.ubicacion}</span>
