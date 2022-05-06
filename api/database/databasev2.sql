@@ -405,8 +405,6 @@ CREATE TRIGGER `publicacion_bolsa_FechaInserccion` BEFORE INSERT ON `publicacion
 END//
 DELIMITER ;
 
-
-
 DELIMITER //
 CREATE TRIGGER `usuarios_BorrarDatosExistentesEgresado` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
 	DELETE FROM perfil_egresado WHERE fk_usuario = OLD.id;
@@ -420,6 +418,7 @@ CREATE TRIGGER `usuarios_BorrarDatosExistentesEgresado` BEFORE DELETE ON `usuari
     DELETE FROM seccion5_p1_detalle WHERE fk_usuario = OLD.id;
     DELETE FROM seccion5_p2_detalle WHERE fk_usuario = OLD.id;
     DELETE FROM encuesta_egresado_contestada WHERE fk_egresado = OLD.id;
+    DELETE FROM vistas_publicaciones WHERE fk_usuario = OLD.id;
 END//
 DELIMITER ;
 
@@ -427,6 +426,14 @@ DELIMITER //
 CREATE TRIGGER `usuarios_BorrarDatosExistentesEmpresa` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
 	DELETE FROM perfil_empresa WHERE fk_usuario = OLD.id;
 	DELETE FROM publicacion_bolsa WHERE fk_empresa = OLD.id;
+    DELETE FROM respuestas_empresa WHERE fk_usuario = OLD.id;
+    DELETE FROM seccionb_p6_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccionb_p7_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccionb_p8_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccionc_p10_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccionc_p11_detalle WHERE fk_usuario = OLD.id;
+    DELETE from encuesta_empresa_contestada WHERE fk_empresa = OLD.id;
+    DELETE FROM vistas_publicaciones WHERE fk_usuario = OLD.id;
 END//
 DELIMITER ;
 
