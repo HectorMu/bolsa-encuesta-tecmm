@@ -12,11 +12,17 @@ const List = ({ searchTerm, jobs, isLoading }) => {
     navigate(`/graduated/jobbank/jobs/${job.folio}`, { state: job });
   };
 
+  console.log(jobs);
+
   return (
     <div>
       {jobs.length > 0 &&
-        !jobs.filter((job) =>
-          job.vacante.toLowerCase().includes(searchTerm.toLowerCase())
+        !jobs.filter(
+          (job) =>
+            job.vacante.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            job.nombre_comercial
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
         ).length > 0 &&
         searchTerm.length > 0 && (
           <h5 className="text-center text-primary">
@@ -28,8 +34,12 @@ const List = ({ searchTerm, jobs, isLoading }) => {
         <Loading />
       ) : jobs.length > 0 ? (
         jobs
-          .filter((job) =>
-            job.vacante.toLowerCase().includes(searchTerm.toLowerCase())
+          .filter(
+            (job) =>
+              job.vacante.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              job.nombre_comercial
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
           )
           .map((e) => (
             <div

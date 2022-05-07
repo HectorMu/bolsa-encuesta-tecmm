@@ -6,8 +6,12 @@ const List = ({ searchTerm, postulations, isLoading }) => {
   return (
     <div>
       {postulations.length &&
-        !postulations.filter((job) =>
-          job.vacante.toLowerCase().includes(searchTerm.toLowerCase())
+        !postulations.filter(
+          (job) =>
+            job.vacante.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            job.nombre_comercial
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
         ).length > 0 &&
         searchTerm.length > 0 && (
           <h5 className="text-center text-primary">
@@ -19,8 +23,14 @@ const List = ({ searchTerm, postulations, isLoading }) => {
         <Loading />
       ) : postulations.length > 0 ? (
         postulations
-          .filter((postulation) =>
-            postulation.vacante.toLowerCase().includes(searchTerm.toLowerCase())
+          .filter(
+            (postulation) =>
+              postulation.vacante
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()) ||
+              postulation.nombre_comercial
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
           )
           .map((job) => <JobCard key={job.fk_vacante} job={job} />)
       ) : (

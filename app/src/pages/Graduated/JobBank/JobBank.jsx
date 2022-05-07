@@ -67,6 +67,7 @@ const JobBank = () => {
                       aria-label="Search"
                       autoComplete="off"
                       aria-describedby="basic-addon2"
+                      value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <div className="input-group-append">
@@ -98,7 +99,7 @@ const JobBank = () => {
                     maxHeight: "65vh",
                   }}
                 >
-                  <Showcase />
+                  <Showcase setSearchTerm={setSearchTerm} />
                 </div>
               </div>
             </div>

@@ -19,7 +19,7 @@ import jobsService from "@/services/Graduated/jobs.service";
 import helpers from "@/helpers/helpers";
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
-const Showcase = () => {
+const Showcase = ({ setSearchTerm }) => {
   const { graduatedCurriculum } = useGraduatedCurriculum();
   const [selectedJob, setSelectedJob] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -128,7 +128,11 @@ const Showcase = () => {
                 {selectedJob.vacante}
               </h4>
               <div className="d-flex flex-column flex-lg-row flex-xl-row mt-3">
-                <p className="font-weight-bold">
+                <p
+                  onClick={() => setSearchTerm(selectedJob.nombre_comercial)}
+                  className="font-weight-bold text-primary"
+                  style={{ cursor: "pointer" }}
+                >
                   {selectedJob.nombre_comercial}
                 </p>
                 <ul className="custom-list">
