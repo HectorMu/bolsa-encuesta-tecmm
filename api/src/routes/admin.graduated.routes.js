@@ -44,4 +44,18 @@ router.delete(
   controller.Delete
 );
 
+router.get(
+  "/users/graduated/check-survey/:id",
+  verifyToken,
+  isAdmin,
+  controller.CheckSurveyAnswered
+);
+
+router.post(
+  "/users/graduated/notify-survey/",
+  verifyToken,
+  isAdmin,
+  controller.NotifyGraduatedAnswerSurvey
+);
+
 module.exports = router;

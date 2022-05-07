@@ -65,4 +65,46 @@ const Delete = async (id) => {
   }
 };
 
-export default { List, GetOne, Save, Update, Delete };
+const checkIfAnsweredSurvey = async (id) => {
+  try {
+    const response = await fetch(
+      `${API}/users/graduated/check-survey/${id}`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
+  }
+};
+
+const notifyAnswerSurvey = async (email) => {
+  try {
+    const response = await fetch(
+      `${API}/users/graduated/notify-survey`,
+      helpers.authPostConfig({ email })
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
+  }
+};
+
+const getPostulations = (id) => {
+  try {
+  } catch (error) {
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
+  }
+};
+
+export default {
+  List,
+  GetOne,
+  Save,
+  Update,
+  Delete,
+  checkIfAnsweredSurvey,
+  notifyAnswerSurvey,
+};

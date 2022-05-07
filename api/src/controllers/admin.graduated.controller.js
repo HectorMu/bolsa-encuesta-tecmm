@@ -1,7 +1,9 @@
 const User = require("../models/User");
 const Graduated = require("../models/GraduatedProfile");
+const GraduatedSurveyAnswers = require("../models/GraduatedSurveyAnswers");
 const CompanyJobs = require("../models/CompanyJobs.js");
 const helpers = require("../helpers/helpers");
+const nodeMailer = require("../lib/nodemailer");
 
 const controller = {};
 
@@ -237,6 +239,36 @@ controller.Delete = async (req, res) => {
       status: true,
       statusText: "Usuario eliminado correctamente.",
     });
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.CheckSurveyAnswered = async (req, res) => {
+  try {
+    const surveyStatus = await GraduatedSurveyAnswers.getUserSurveyStatus(
+      req.params.id
+    );
+
+    return res.json(surveyStatus);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.NotifyGraduatedAnswerSurvey = async (req, res) => {
+  try {
+    nodeMailer.NotifyGraduatedAnswerSurvey(req, res);
   } catch (error) {
     console.log("Error" + error);
     res.json({

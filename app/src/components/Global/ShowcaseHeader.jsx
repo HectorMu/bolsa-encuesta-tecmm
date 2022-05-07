@@ -7,9 +7,9 @@ const ShowcaseHeader = ({ title, children }) => (
       <Link to={-1} className="btn " style={{ zIndex: "20" }}>
         <i className="fas fa-arrow-left text-primary fa-2x"></i>
       </Link>
-      <h2 className="position-absolute w-100 text-center text-purple font-weight-bolder responsive-text-header ">
+      <h3 className="position-absolute w-100 text-center text-purple font-weight-bolder responsive-text-header ">
         {title}
-      </h2>
+      </h3>
 
       {children}
     </div>
