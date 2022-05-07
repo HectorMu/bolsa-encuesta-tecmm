@@ -2,11 +2,9 @@ const CronJob = require("cron").CronJob;
 const connection = require("../database");
 
 const job = new CronJob(
-  "30 30 2 * * *",
+  "0 0 2 * * *",
   async function () {
     let today = new Date();
-
-    today.setDate(today.getDate() - 1);
 
     const dateLikeSQL = today.toISOString().split("T")[0];
 
