@@ -2,6 +2,7 @@ const User = require("../models/User");
 const Graduated = require("../models/GraduatedProfile");
 const GraduatedSurveyAnswers = require("../models/GraduatedSurveyAnswers");
 const CompanyJobs = require("../models/CompanyJobs.js");
+const GraduatedPostulations = require("../models/GraduatedPostulations");
 const helpers = require("../helpers/helpers");
 const nodeMailer = require("../lib/nodemailer");
 
@@ -269,6 +270,20 @@ controller.CheckSurveyAnswered = async (req, res) => {
 controller.NotifyGraduatedAnswerSurvey = async (req, res) => {
   try {
     nodeMailer.NotifyGraduatedAnswerSurvey(req, res);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.GetGraduatedPostulations = async (req, res) => {
+  try {
+    const data = await GraduatedPostulations.List(req.params.id);
+    res.json(data);
   } catch (error) {
     console.log("Error" + error);
     res.json({

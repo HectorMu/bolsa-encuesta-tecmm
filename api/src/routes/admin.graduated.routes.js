@@ -51,6 +51,13 @@ router.get(
   controller.CheckSurveyAnswered
 );
 
+router.get(
+  "/users/graduated/get-postulations/:id",
+  verifyToken,
+  isAdmin,
+  controller.GetGraduatedPostulations
+);
+
 router.post(
   "/users/graduated/notify-survey/",
   verifyToken,

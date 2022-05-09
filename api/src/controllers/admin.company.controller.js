@@ -1,6 +1,8 @@
 const User = require("../models/User");
 const Company = require("../models/CompanyProfile");
-
+const CompanySurveyAnswers = require("../models/CompanySurveyAnswers");
+const CompanyJobs = require("../models/CompanyJobs");
+const nodeMailer = require("../lib/nodemailer");
 const helpers = require("../helpers/helpers");
 
 const controller = {};
@@ -181,7 +183,7 @@ controller.Delete = async (req, res) => {
     }
     //Despues eliminamos la cuenta del usuario
     const deleteUser = await User.Delete(id);
-    console.log(deleteUser);
+
     if (deleteUser.affectedRows === 0) {
       return res.status(400).json({
         status: false,
@@ -201,4 +203,48 @@ controller.Delete = async (req, res) => {
     });
   }
 };
+
+controller.CheckSurveyAnswered = async (req, res) => {
+  try {
+    const surveyStatus = await CompanySurveyAnswers.getUserSurveyStatus(
+      req.params.id
+    );
+    return res.json(surveyStatus);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.NotifyCompanyAnswerSurvey = async (req, res) => {
+  try {
+    nodeMailer.NotifyCompanyAnswerSurvey(req, res);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.GetCompanyJobs = async (req, res) => {
+  try {
+    const data = await CompanyJobs.List(req.params.id);
+    res.json(data);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
 module.exports = controller;

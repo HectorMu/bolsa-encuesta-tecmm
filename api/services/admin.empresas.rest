@@ -48,3 +48,12 @@ Content-Type: application/json
 DELETE http://localhost:4000/api/users/company/delete/33
 Content-Type: application/json
 
+### Get company survey status
+GET http://localhost:4000/api/users/company/check-survey/2
+
+### Get company postulations
+GET http://localhost:4000/api/users/company/get-jobs/2
+
+### Notify company
+POST http://localhost:4000/api/users/company/notify-survey/
+Content-Type: application/json

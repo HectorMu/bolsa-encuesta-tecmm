@@ -39,4 +39,25 @@ router.delete(
   controller.Delete
 );
 
+router.get(
+  "/users/company/check-survey/:id",
+  verifyToken,
+  isAdmin,
+  controller.CheckSurveyAnswered
+);
+
+router.get(
+  "/users/company/get-jobs/:id",
+  verifyToken,
+  isAdmin,
+  controller.GetCompanyJobs
+);
+
+router.post(
+  "/users/company/notify-survey/",
+  verifyToken,
+  isAdmin,
+  controller.NotifyCompanyAnswerSurvey
+);
+
 module.exports = router;

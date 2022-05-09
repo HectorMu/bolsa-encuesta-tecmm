@@ -28,7 +28,7 @@ module.exports = (link) => {
                                            <br>
                                            <br>
                                                <p style="font-size: 20px;">
-                                                  Instituto Tecnológico Superior José Mario Molina Pasquel y Henríquez
+                                                  Instituto Tecnológico José Mario Molina Pasquel y Henríquez
                                                </p>
                                         </p>  
                                    </div>

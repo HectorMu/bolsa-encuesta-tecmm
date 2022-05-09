@@ -30,7 +30,7 @@ module.exports = (link) => {
                                              <p style="font-size: 20px;">
                                              Si tu no solicitaste un cambio de contraseña puedes ignorar este correo electrónico                                       
                                                  <br>
-                                                Instituto Tecnológico Superior José Mario Molina Pasquel y Henríquez
+                                                Instituto Tecnológico José Mario Molina Pasquel y Henríquez
                                              </p>
                                       </p>  
                                  </div>

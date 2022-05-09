@@ -105,3 +105,12 @@ Content-Type: application/json
 DELETE http://localhost:4000/api/users/graduated/delete/28
 Content-Type: application/json
 
+### Get graduated survey status
+GET http://localhost:4000/api/users/graduated/check-survey/2
+
+### Get graduate postulations
+GET http://localhost:4000/api/users/graduated/get-postulations/2
+
+### Notify graduate
+POST http://localhost:4000/api/users/graduated/notify-survey/
+Content-Type: application/json
