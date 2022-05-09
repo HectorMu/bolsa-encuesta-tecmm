@@ -64,5 +64,11 @@ router.post(
   isAdmin,
   controller.NotifyGraduatedAnswerSurvey
 );
+router.post(
+  "/users/graduated/notify-cv/",
+  verifyToken,
+  isAdmin,
+  controller.NotifyGraduatedCheckCV
+);
 
 module.exports = router;

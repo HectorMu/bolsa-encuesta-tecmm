@@ -10,12 +10,17 @@ import Auth from "@/services/Auth";
 import toast from "react-hot-toast";
 import Loading from "@/components/Global/Loading";
 
-const SurveyStatus = ({ graduated, isLoading }) => {
+const SurveyStatus = ({ graduated }) => {
   const [acuse, setAcuse] = useState("");
   const { params } = useRouterHooks();
   const { verifySession } = useSession();
 
-  const { hookData: surveyStatus, refreshData } = useServiceFetch(
+  const {
+    hookData: surveyStatus,
+    refreshData,
+    isLoading,
+    error,
+  } = useServiceFetch(
     () =>
       verifySession(
         () => graduatesService.checkIfAnsweredSurvey(params.id),
@@ -47,13 +52,9 @@ const SurveyStatus = ({ graduated, isLoading }) => {
     getAcuseHandler();
   }, [surveyStatus?.fk_egresado]);
 
-  console.log(acuse);
+  if (error.error) return null;
 
-  return isLoading ? (
-    <div className="mt-5">
-      <Loading />
-    </div>
-  ) : (
+  return isLoading ? null : (
     <ShowcaseContainer>
       <ShowcaseCard>
         <h3 className="text-center text-primary font-weight-bolder">
@@ -61,18 +62,20 @@ const SurveyStatus = ({ graduated, isLoading }) => {
         </h3>
         {surveyStatus?.fk_egresado ? (
           <div className="d-flex justify-content-center flex-column ">
-            <h4 className="text-center">
+            <h5 className="text-center">
               {graduated?.nombre_completo} contestó la encuesta el dia:{" "}
               <span className="font-weight-bold text-primary">
                 {surveyStatus.fecha.split(" ")[0]}{" "}
                 <span className="text-black font-weight-normal">a las </span>
                 {surveyStatus.fecha.split(" ")[1]}
               </span>
-            </h4>
+            </h5>
             <div className="d-flex justify-content-center mt-3">
               <Modal
-                buttonClass="btn btn-primary btn-lg"
+                buttonClass="btn btn-outline-primary"
                 buttonCloseText="Cerrar"
+                faIcon={<i className="fas fa-eye"></i>}
+                faIconPos="right"
                 id="acuse"
                 title={`Acuse de ${graduated?.nombre_completo}`}
                 modalClass="modal-dialog modal-xl modal-dialog-scrollable"

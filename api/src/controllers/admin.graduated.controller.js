@@ -280,6 +280,19 @@ controller.NotifyGraduatedAnswerSurvey = async (req, res) => {
   }
 };
 
+controller.NotifyGraduatedCheckCV = async (req, res) => {
+  try {
+    nodeMailer.NotifyGraduatedCheckCV(req, res);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
 controller.GetGraduatedPostulations = async (req, res) => {
   try {
     const data = await GraduatedPostulations.List(req.params.id);

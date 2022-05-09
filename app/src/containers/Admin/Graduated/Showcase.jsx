@@ -25,76 +25,76 @@ const Showcase = ({ graduated, isLoading }) => {
           <ShowcaseCard>
             <div className="row">
               <div className="col-12 col-lg-6 col-xl-4 mb-5 mb-lg-0 mb-xl-0">
-                <h3 className="text-left font-weight-bold text-primary">
+                <h4 className="text-left font-weight-bold text-primary">
                   Datos generales
-                </h3>
+                </h4>
                 <div className="d-flex flex-column align-items-start">
-                  <h5>
+                  <p>
                     <span className="font-weight-bolder">Correo:</span>{" "}
                     {graduated.correo}
-                  </h5>
+                  </p>
 
-                  <h5>
+                  <p>
                     <span className="font-weight-bolder">Nombre:</span>{" "}
                     {graduated.nombre_completo}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">No. Control:</span>{" "}
                     {graduated.no_control}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Curp:</span>{" "}
                     {graduated.curp}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Sexo:</span>{" "}
                     {graduated.sexo}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Estado civil:</span>{" "}
                     {graduated.estado_civil}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder"> Nacimiento:</span>{" "}
                     {graduated.fechaNacimiento}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Teléfono:</span>{" "}
                     {graduated.telefono}
-                  </h5>
+                  </p>
 
-                  <h5>
+                  <p>
                     <span className="font-weight-bolder">Teléfono Hogar:</span>{" "}
                     {graduated.tel_casa}
-                  </h5>
+                  </p>
                 </div>
               </div>
               <div className="col-12 col-lg-6 col-xl-4 mb-5 mb-lg-0 mb-xl-0">
-                <h3 className="text-left font-weight-bold text-primary">
+                <h4 className="text-left font-weight-bold text-primary">
                   Dirección <i className="fas fa-map-marker-alt"></i>
-                </h3>
+                </h4>
                 <div className="d-flex flex-column align-items-start">
-                  <h5>
+                  <p>
                     <span className="font-weight-bolder">Estado:</span>{" "}
                     {graduated.estado}
-                  </h5>
+                  </p>
 
-                  <h5>
+                  <p>
                     <span className="font-weight-bolder">Municipio:</span>{" "}
                     {graduated.municipio}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Colonia:</span>{" "}
                     {graduated.colonia}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Calle:</span>{" "}
                     {graduated.calle} #{graduated.numero_casa}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">C.P:</span>{" "}
                     {graduated.cp}
-                  </h5>
+                  </p>
                 </div>
               </div>
 
@@ -103,37 +103,37 @@ const Showcase = ({ graduated, isLoading }) => {
                   Información académica
                 </h4>
                 <div className="d-flex flex-column align-items-start">
-                  <h5>
+                  <p>
                     <span className="font-weight-bolder">Carrera:</span>{" "}
                     {graduated.carrera}
-                  </h5>
+                  </p>
 
-                  <h5>
+                  <p>
                     <span className="font-weight-bolder">Fecha de egreso:</span>{" "}
                     {graduated.fecha_egreso}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">
                       Dominio idioma inglés:
                     </span>{" "}
                     {graduated.idioma_extranjero?.Ingles}%
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">
                       Dominio de otro idioma:
                     </span>{" "}
                     {graduated.idioma_extranjero?.Otro}%
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Titulado:</span>{" "}
                     {graduated.titulado}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">
                       Paquetes computacionales:
                     </span>{" "}
                     {graduated.paquetes_computacionales}
-                  </h5>
+                  </p>
                 </div>
               </div>
             </div>

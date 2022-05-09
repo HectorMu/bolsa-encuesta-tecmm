@@ -91,8 +91,26 @@ const notifyAnswerSurvey = async (email) => {
   }
 };
 
-const getPostulations = (id) => {
+const notifyCheckCV = async (payload) => {
   try {
+    const response = await fetch(
+      `${API}/users/graduated/notify-cv`,
+      helpers.authPostConfig(payload)
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
+  }
+};
+
+const getPostulations = async (id) => {
+  try {
+    const response = await fetch(
+      `${API}/users/graduated/get-postulations/${id}`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
   } catch (error) {
     console.log(error);
     return helpers.ApiFetchError(error.message);
@@ -107,4 +125,6 @@ export default {
   Delete,
   checkIfAnsweredSurvey,
   notifyAnswerSurvey,
+  notifyCheckCV,
+  getPostulations,
 };

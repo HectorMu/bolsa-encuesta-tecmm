@@ -111,6 +111,10 @@ GET http://localhost:4000/api/users/graduated/check-survey/2
 ### Get graduate postulations
 GET http://localhost:4000/api/users/graduated/get-postulations/2
 
-### Notify graduate
+### Notify graduate to answer survey
 POST http://localhost:4000/api/users/graduated/notify-survey/
+Content-Type: application/json
+
+### Notify graduate to check his CV
+POST http://localhost:4000/api/users/graduated/notify-cv/
 Content-Type: application/json

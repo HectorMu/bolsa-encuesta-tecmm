@@ -3,6 +3,7 @@ const connection = require("../database");
 const jwt = require("jsonwebtoken");
 const emailFormat = require("./emailFormat");
 const emailFormatGraduated = require("./emailFormatGradutedSurvey");
+const emailFormatFixCV = require("./emailFormatFixCV");
 const emailFormatCompany = require("./emailFormatCompanySurvey");
 
 const Email = {};
@@ -54,6 +55,44 @@ Email.SendRecover = async (req, res) => {
       res.json({
         status: true,
         statusText: "Un email con instrucciones ha sido enviado.",
+      });
+    }
+  });
+};
+
+Email.NotifyGraduatedCheckCV = async (req, res) => {
+  let transporter = nodeMailer.createTransport({
+    host: "smtp-mail.outlook.com",
+    port: 587,
+    auth: {
+      user: process.env.MAILER_EMAIL,
+      pass: process.env.MAILER_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+  const { email, description } = req.body;
+
+  const link = `${process.env.HOST}/profile/`;
+
+  let emailOptions = {
+    from: process.env.MAILER_EMAIL,
+    to: email,
+    subject: "Error encontrado en curriculum | Bolsa de trabajo TECMM",
+    html: emailFormatFixCV(link, description),
+  };
+  transporter.sendMail(emailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+      return res.json({
+        status: false,
+        statusText: "Algo fue mal, contácta al area de sistemas.",
+      });
+    } else {
+      res.json({
+        status: true,
+        statusText: "Email enviado correctamente.",
       });
     }
   });

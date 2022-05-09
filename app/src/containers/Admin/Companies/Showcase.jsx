@@ -100,43 +100,16 @@ const Showcase = () => {
         <Loading />
       ) : (
         <ShowcaseContainer>
-          <ShowcaseHeader title={company.nombre_comercial}>
-            <div className="dropdown">
-              <button
-                className="btn "
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i className="fas fa-cog text-purple fa-2x"> </i>
-              </button>
-              <div
-                className="dropdown-menu animated--fade-in shadow-lg"
-                aria-labelledby="dropdownMenuButton"
-                style={{ fontSize: "17px" }}
-              >
-                <Link
-                  to={`/companies/edit/${company.id}`}
-                  className="dropdown-item "
-                  href="#"
-                >
-                  Editar <i className="fas fa-edit text-info"></i>
-                </Link>
-                <button onClick={handleDeletion} className="dropdown-item">
-                  Eliminar <i className="fas fa-trash text-danger"></i>
-                </button>
-              </div>
-            </div>
-          </ShowcaseHeader>
+          <ShowcaseHeader title={company.nombre_comercial} />
+
           <ShowcaseCard>
             <div className="row">
               <div className="col-12 col-lg-6 col-xl-6 mb-5 mb-lg-0 mb-xl-0">
-                <h3 className="text-left font-weight-bold text-primary">
+                <h4 className="text-left font-weight-bold text-primary">
                   Datos generales
-                </h3>
+                </h4>
                 <div className="d-flex flex-column align-items-start">
-                  <h5
+                  <p
                     style={{ cursor: "pointer" }}
                     onClick={() => handleCopyToClipboard(company.correo)}
                   >
@@ -144,56 +117,56 @@ const Showcase = () => {
                       Correo electrónico:
                     </span>{" "}
                     {company.correo}
-                  </h5>
+                  </p>
 
-                  <h5>
+                  <p>
                     <span className="font-weight-bolder">Tamaño:</span>{" "}
                     {company.tamaño}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Tipo:</span>{" "}
                     {company.tipo_empresa}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">
                       Actividad economica:
                     </span>{" "}
                     {company.actividad_economica}
-                  </h5>
-                  <h5
+                  </p>
+                  <p
                     style={{ cursor: "pointer" }}
                     onClick={() => handleCopyToClipboard(company.telefono)}
                   >
                     <span className="font-weight-bolder"> Telefono:</span>{" "}
                     {company.telefono}{" "}
-                  </h5>
+                  </p>
                 </div>
               </div>
               <div className="col-12 col-lg-6 col-xl-6">
-                <h3 className="text-left font-weight-bold text-primary">
+                <h4 className="text-left font-weight-bold text-primary">
                   Dirección <i className="fas fa-map-marker-alt"></i>
-                </h3>
+                </h4>
                 <div className="d-flex flex-column align-items-start">
-                  <h5>
+                  <p>
                     <span className="font-weight-bolder">Estado:</span>{" "}
                     {company.estado}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Municipio:</span>{" "}
                     {company.municipio}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Colonia:</span>{" "}
                     {company.colonia}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">Calle:</span>{" "}
                     {company.calle} #{company.numero_empresa}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <span className="font-weight-bolder">C.P:</span>{" "}
                     {company.cp}
-                  </h5>
+                  </p>
                 </div>
               </div>
             </div>

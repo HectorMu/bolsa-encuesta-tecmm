@@ -7,6 +7,9 @@ const Modal = ({
   modalClass = "modal-dialog",
   title = "Modal title",
   buttonCloseText = "Close",
+  faIcon = null,
+  faIconPos = "left",
+  closeRef = null,
   children,
 }) => {
   return (
@@ -17,7 +20,8 @@ const Modal = ({
         data-toggle="modal"
         data-target={`#${id}`}
       >
-        {buttonText}
+        {faIcon && faIconPos === "left" && faIcon} {buttonText}{" "}
+        {faIcon && faIconPos === "right" && faIcon}
       </button>
       {/* Modal */}
       <div
@@ -51,6 +55,7 @@ const Modal = ({
                 type="button"
                 className="btn btn-primary btn-sm"
                 data-dismiss="modal"
+                ref={closeRef}
               >
                 {buttonCloseText}
               </button>

@@ -7,7 +7,7 @@ module.exports = (link) => {
                                         <h1><Strong>¡Hola!</Strong></h1> 
                                         <p style="font-size: 20px;">
                                             Parece que no has contestado la encuesta de seguimiento de egresados, requerimos de tus respuestas
-                                            para mejorar la preparación de nuestros futuros profesionales. Puedes contestarla dando click al siguiente boton.
+                                            para mejorar la preparación de nuestros futuros profesionales. Puedes contestarla dando click al siguiente botón.
                                         
                                            <br>
                                            <br>

@@ -587,3 +587,19 @@ input[type="radio"]:checked:after {
 .jobbank-item.active {
   background-color: var(--green-light);
 }
+
+.border-bottom-purple {
+  border-bottom: 1px solid var(--purple);
+}
+.border-top-purple {
+  border-top: 1px solid var(--purple);
+}
+.border-left-purple {
+  border-left: 1px solid var(--purple);
+}
+.border-right-purple {
+  border-right: 1px solid var(--purple);
+}
+.border-purple {
+  border: 1px solid var(--purple);
+}

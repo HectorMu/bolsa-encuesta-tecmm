@@ -1,6 +1,7 @@
+import { useEffect, useState, useCallback } from "react";
 import SurveyStatus from "@/containers/Admin/Graduated/SurveyStatus";
-import Showcase from "../../../containers/Admin/Graduated/Showcase";
-import React, { useEffect, useState, useCallback } from "react";
+import CurrentPostulations from "@/containers/Admin/Graduated/CurrentPostulations";
+import Showcase from "@/containers/Admin/Graduated/Showcase";
 
 //Alerts
 import toast from "react-hot-toast";
@@ -11,6 +12,7 @@ import useSession from "@/hooks/useSession";
 
 //Servicios
 import graduatesService from "@/services/Admin/graduates.service";
+import Curriculum from "@/containers/Admin/Graduated/Curriculum";
 
 const Details = () => {
   const [graduated, setGraduated] = useState({});
@@ -48,10 +50,13 @@ const Details = () => {
   useEffect(() => {
     getGraduatedHandler();
   }, [getGraduatedHandler]);
+
   return (
     <>
       <Showcase graduated={graduated} isLoading={isLoading} />
-      <SurveyStatus graduated={graduated} isLoading={isLoading} />
+      <SurveyStatus graduated={graduated} />
+      <Curriculum graduated={graduated} isLoading={isLoading} />
+      <CurrentPostulations graduated={graduated} />
     </>
   );
 };

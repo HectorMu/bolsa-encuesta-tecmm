@@ -2,18 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ShowcaseHeader = ({ title, children }) => (
-  <div className="card py-3 px-2 shadow-lg rounded-0 animated--grow-in">
-    <div className="d-flex justify-content-between">
-      <Link to={-1} className="btn " style={{ zIndex: "20" }}>
-        <i className="fas fa-arrow-left text-primary fa-2x"></i>
-      </Link>
-      <h3 className="position-absolute w-100 text-center text-purple font-weight-bolder responsive-text-header ">
-        {title}
-      </h3>
+  <>
+    <Link
+      to={-1}
+      className="btn btn-outline-primary font-weight-bold btn-sm mb-1"
+    >
+      <i className="fas fa-arrow-left text-left "></i> <span>Volver</span>
+    </Link>
+    <div className="card py-3 shadow-lg rounded-0 ">
+      <h5 className="text-primary  font-weight-bolder responsive-text-header">
+        <div className="row">
+          <div className="col-12"></div>
+          <div className="col-12 text-center">
+            <span className="mx-auto">{title}</span>
+          </div>
+        </div>
+      </h5>
 
       {children}
     </div>
-  </div>
+  </>
 );
 
 export default ShowcaseHeader;
