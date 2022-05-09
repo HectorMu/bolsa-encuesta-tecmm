@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 
 //hooks
 import useForm from "@/hooks/useForm";
+import useSession from "@/hooks/useSession";
 //components
 import Modal from "@/components/Global/Modal";
 import ShowcaseContainer from "@/components/Global/ShowcaseContainer";
@@ -15,6 +16,7 @@ import graduatesService from "@/services/Admin/graduates.service";
 import toast from "react-hot-toast";
 
 const Curriculum = ({ graduated, isLoading }) => {
+  const { verifySession } = useSession();
   const closeModalRef = useRef();
   const { form, setForm, handleChange, reset } = useForm({
     email: "",
@@ -27,7 +29,9 @@ const Curriculum = ({ graduated, isLoading }) => {
     e.preventDefault();
 
     const tLoading = toast.loading("Enviando correo...");
-    const results = await graduatesService.notifyCheckCV(form);
+    const results = await verifySession(() =>
+      graduatesService.notifyCheckCV(form)
+    );
     if (!results.status) {
       return toast.error(results.statusText, { id: tLoading });
     }

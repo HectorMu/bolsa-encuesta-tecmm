@@ -1,8 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
 
-//React router dom components
-import { Link } from "react-router-dom";
-
 //custom hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
