@@ -65,5 +65,52 @@ const Delete = async (id) => {
     return helpers.ApiFetchError(error.message);
   }
 };
+const checkIfAnsweredSurvey = async (id) => {
+  try {
+    const response = await fetch(
+      `${API}/users/company/check-survey/${id}`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
+  }
+};
 
-export default { List, GetOne, Save, Update, Delete };
+const notifyAnswerSurvey = async (email) => {
+  try {
+    const response = await fetch(
+      `${API}/users/company/notify-survey`,
+      helpers.authPostConfig({ email })
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
+  }
+};
+
+const getCurrentPublicatedJobs = async (id) => {
+  try {
+    const response = await fetch(
+      `${API}/users/company/get-jobs/${id}`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
+  }
+};
+
+export default {
+  List,
+  GetOne,
+  Save,
+  Update,
+  Delete,
+  checkIfAnsweredSurvey,
+  notifyAnswerSurvey,
+  getCurrentPublicatedJobs,
+};

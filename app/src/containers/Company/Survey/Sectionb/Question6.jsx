@@ -89,7 +89,10 @@ const Question6 = ({ questions }) => {
           </select>
         </div>
         {Object.entries(ENTRIES).map(([key, value]) => (
-          <div key={key + value} className="col-6 col-lg-3 col-md-3 col-xl-3">
+          <div
+            key={key + value}
+            className="col-12 col-sm-12 col-lg-4 col-md-6 col-xl-4"
+          >
             <FloatingLabelInput
               ranges={{ min: 0, max: 100 }}
               placeholder={value}

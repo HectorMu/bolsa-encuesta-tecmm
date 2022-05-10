@@ -39,12 +39,7 @@ const List = ({ postulations, isLoading, error, searchTerm, filter }) => {
         setLocalPostulations(postulations);
         return;
       }
-      if (filter === "Mas recientes") {
-        setLocalPostulations(
-          postulations.sort((fe, se) => se["id"] - fe["id"])
-        );
-        return;
-      }
+
       setLocalPostulations(
         postulations.filter((postulation) => postulation.status === filter)
       );
@@ -90,11 +85,11 @@ const List = ({ postulations, isLoading, error, searchTerm, filter }) => {
             </div>
           ))
       ) : filter === "Revisado" || filter === "Sin revisar" ? (
-        <h5 className="text-center">
+        <h5 className="text-center text-primary">
           No hay postulaciones en estado: {filter}
         </h5>
       ) : (
-        <h5 className="text-center">
+        <h5 className="text-center text-primary">
           Aqui apareceran las postulaciones recientes
         </h5>
       )}

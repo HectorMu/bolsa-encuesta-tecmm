@@ -49,10 +49,10 @@ const Question10 = ({ handleChange, answers, questions }) => {
             </div>
           </Fragment>
         ))}
-        <div className="col-12 col-xl-4">
+        <div className="col-12 col-xl-5">
           <div className="d-flex align-items-center h-100">
             <FloatingLabelInput
-              placeholder="Otras competencias (especifique)"
+              placeholder="Otras competencias (especificar)"
               inputId="txtOtrosDetalle"
               type="text"
               setValue={(e) => handleChange("otros_detalle", e.target.value)}
@@ -60,7 +60,7 @@ const Question10 = ({ handleChange, answers, questions }) => {
             />
           </div>
         </div>
-        <div className="col-12 col-xl-8 mb-4">
+        <div className="col-12 col-xl-6 mb-4 mx-auto">
           <OptionsContainer
             cols="col-2 col-md-2 col-xl-1 mx-auto"
             SECTIONID={"Q10SCOther"}

@@ -2,7 +2,7 @@ const CronJob = require("cron").CronJob;
 const connection = require("../database");
 
 const job = new CronJob(
-  "0 0 2 * * *",
+  "0 0 0 * * *",
   async function () {
     let today = new Date();
 

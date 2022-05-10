@@ -9,7 +9,7 @@ import List from "@/containers/Company/Postulations/List";
 import Showcase from "@/containers/Company/Postulations/Showcase";
 import VacantDetails from "@/containers/Company/Postulations/VacantDetails";
 
-const FILTER_OPTIONS = ["Todas", "Sin revisar", "Revisado", "Mas recientes"];
+const FILTER_OPTIONS = ["Todas", "Sin revisar", "Revisado"];
 
 const Postulations = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,19 +32,21 @@ const Postulations = () => {
   return (
     <div className="container-fluid mb-3">
       <VacantDetails />
-      <div className="d-flex justify-content-center mb-3">
-        <div className="btn-group" role="group" aria-label="Basic example">
-          {FILTER_OPTIONS.map((option) => (
-            <button
-              type="button"
-              onClick={() => setFilter(option)}
-              className={`btn btn-outline-primary ${
-                filter === option ? "active" : ""
-              } `}
-            >
-              {option}
-            </button>
-          ))}
+      <div data-aos="fade-down" className="col-xl-10 mx-auto">
+        <div className="d-flex justify-content-start mb-3">
+          <div className="btn-group" role="group" aria-label="Basic example">
+            {FILTER_OPTIONS.map((option) => (
+              <button
+                type="button"
+                onClick={() => setFilter(option)}
+                className={`btn btn-outline-primary btn-sm ${
+                  filter === option ? "active" : ""
+                } `}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

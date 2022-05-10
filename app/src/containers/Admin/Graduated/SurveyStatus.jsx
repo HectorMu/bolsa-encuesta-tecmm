@@ -8,7 +8,6 @@ import Modal from "@/components/Global/Modal";
 import graduatesService from "@/services/Admin/graduates.service";
 import Auth from "@/services/Auth";
 import toast from "react-hot-toast";
-import Loading from "@/components/Global/Loading";
 
 const SurveyStatus = ({ graduated }) => {
   const [acuse, setAcuse] = useState("");

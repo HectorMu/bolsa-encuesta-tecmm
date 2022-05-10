@@ -22,7 +22,7 @@ const VacantDetails = () => {
   const [relativeTime, setRelativeTime] = useState(true);
 
   const { verifySession, user } = useSession();
-  const { params, navigate, location } = useRouterHooks();
+  const { params, navigate } = useRouterHooks();
 
   const handleBackPage = () =>
     user.fk_rol === 1 ? navigate("/jobbank") : navigate("/company/jobbank");
@@ -80,7 +80,7 @@ const VacantDetails = () => {
 
   return (
     <div
-      data-aos="flip-right"
+      data-aos="flip-down"
       className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 mx-auto mb-3"
     >
       {isLoading ? (
@@ -99,7 +99,7 @@ const VacantDetails = () => {
                     {vacant?.nombre_comercial}
                   </h6>
                 )}
-                <h5 className="text-primary font-weight-bold">
+                <h5 className="text-black font-weight-bold">
                   Folio: {vacant?.folio}
                 </h5>
                 {user.fk_rol !== 1 && (
@@ -111,10 +111,12 @@ const VacantDetails = () => {
               </div>
             </div>
             <div className="col-6">
-              <h5 className="text-primary font-weight-bold">
+              <h5 className=" font-weight-bolder text-black">
                 {vacant?.vacante}
               </h5>
-              <p className="text-primary ">{vacant?.ubicacion}</p>
+              <p className=" text-gray-800 font-weight-bold">
+                {vacant?.ubicacion}
+              </p>
             </div>
             <div className="col-6"></div>
           </div>
