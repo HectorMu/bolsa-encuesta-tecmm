@@ -21,6 +21,7 @@ import { Routes, Route } from "react-router-dom";
 
 //Importing main container layout
 import Layout from "./containers/Layout/Layout";
+import ReloadPrompt from "./components/Global/ReloadPrompt";
 
 //Importing all routes
 import AppRoutes from "./routes";
@@ -51,6 +52,7 @@ function App() {
         </Layout>
       </CurriculumProvider>
       <Toaster />
+      <ReloadPrompt />
     </SessionProvider>
   );
 }
