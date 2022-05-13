@@ -22,6 +22,7 @@ import { Routes, Route } from "react-router-dom";
 //Importing main container layout
 import Layout from "./containers/Layout/Layout";
 import ReloadPrompt from "./components/Global/ReloadPrompt";
+import useRouterHooks from "./hooks/useRouterHooks";
 
 //Importing all routes
 import AppRoutes from "./routes";
@@ -31,10 +32,28 @@ import SessionProvider from "./context/SessionProvider";
 import CurriculumProvider from "./context/CurriculumProvider";
 
 function App() {
+  const { location } = useRouterHooks();
   //Initializing AOS for animations
   useEffect(() => {
     Aos.init();
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", () => {
+      window.localStorage.setItem(
+        "TECBE_beforeCloseLocation",
+        location.pathname
+      );
+    });
+    return () => {
+      window.removeEventListener("beforeunload", () => {
+        window.localStorage.setItem(
+          "TECBE_beforeCloseLocation",
+          location.pathname
+        );
+      });
+    };
+  }, [location.pathname]);
   useDocTitleRename();
   return (
     <SessionProvider>
