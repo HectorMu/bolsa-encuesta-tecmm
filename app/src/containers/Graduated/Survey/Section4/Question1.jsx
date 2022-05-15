@@ -9,7 +9,7 @@ const Question1 = ({ handleChange, answers, questions }) => {
       <h5>¿{questions[0]?.descripcion}?</h5>
       <div className="row align-items-center">
         {OPTIONS.map((option) => (
-          <div key={option} className="col-1">
+          <div key={option} className="col-6 col-md-1 col-lg-1 col-xl-1">
             <div className="form-check">
               <input
                 className="form-check-input"

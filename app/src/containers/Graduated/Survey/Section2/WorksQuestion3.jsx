@@ -49,7 +49,6 @@ const WorksQuestion3 = ({ handleChange, answers }) => {
         const extractedElement = requirementsList.substring(index, endIndex);
 
         setRequirements((old) => [...old, extractedElement]);
-        console.log(requirements);
       }
     }
   };
