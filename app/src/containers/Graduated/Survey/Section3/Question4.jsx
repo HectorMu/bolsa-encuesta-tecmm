@@ -6,13 +6,13 @@ import OptionsContainer from "@/components/Survey/OptionsContainer";
 const OPTIONS = [1, 2, 3, 4, 5];
 
 const subQuestions = {
-  area_estudio: "Area o campo de estudio",
-  titulacion: "Titulacion",
-  experiencia_laboral: "Experiencia Laboral/Practica (Antes de egresar)",
+  area_estudio: "Área o campo de estudio",
+  titulacion: "Titulación",
+  experiencia_laboral: "Experiencia Laboral/Práctica (Antes de egresar)",
   competencia_laboral:
-    "Competencia Laboral: Habilidad para resolver problemas, capacidad de analisis, habilidad para el aprendizaje, creatividad, administracion del tiempo, capacidad de negociacion, habilidades manuales, trabajo en equipo, iniciativa, honestidad, persistencia, etc.",
+    "Competencia Laboral: Habilidad para resolver problemas, capacidad de analisis, habilidad para el aprendizaje, creatividad, administración del tiempo, capacidad de negociación, habilidades manuales, trabajo en equipo, iniciativa, honestidad, persistencia, etc.",
   posicionamiento_institucion_egreso:
-    "Posicionamiento de la Institucion de Egreso",
+    "Posicionamiento de la Institución de Egreso",
   conocimiento_idiomas_extranjeros: "Conocimiento de Idiomas Extranjeros",
   recomendaciones: "Recomendaciones/Referencias",
   personalidad: "Personalidad/Actitudes",

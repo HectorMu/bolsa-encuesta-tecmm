@@ -8,9 +8,14 @@ import useCleanAosAnimations from "@/hooks/useCleanAosAnimations";
 import List from "@/containers/Company/Postulations/List";
 import Showcase from "@/containers/Company/Postulations/Showcase";
 import VacantDetails from "@/containers/Company/Postulations/VacantDetails";
+import useWindowSize from "@/hooks/useWindowResize";
 
 const FILTER_OPTIONS = ["Todas", "Sin revisar", "Revisado"];
 const Postulations = () => {
+  const { width } = useWindowSize();
+
+  const removeOnRezise = width < 800 ? "" : "col-xl-10 mx-auto";
+
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("Todas");
   const { params } = useRouterHooks();
@@ -31,8 +36,8 @@ const Postulations = () => {
 
   return (
     <div className="container-fluid mb-3">
-      <VacantDetails />
-      <div data-aos="fade-down" className="col-xl-10 mx-auto">
+      <VacantDetails removeOnRezise={removeOnRezise} />
+      <div data-aos="fade-down" className={`${removeOnRezise} mt-3`}>
         <div className="d-flex justify-content-start mb-3">
           <div className="btn-group" role="group" aria-label="Basic example">
             {FILTER_OPTIONS.map((option) => (
@@ -52,8 +57,8 @@ const Postulations = () => {
 
       <div
         ref={useCleanAosAnimations()}
-        data-aos="flip-up"
-        className="col-xl-10 mx-auto"
+        data-aos="fade-down"
+        className={removeOnRezise}
       >
         <div className="card shadow rounded">
           <div className="card-body">

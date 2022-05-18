@@ -1,10 +1,18 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 //Importando servicios
-import Auth from "../../../services/Auth";
+import Auth from "@/services/Auth";
+
+//importando hookss
+import useAvatarImage from "@/hooks/useAvatarImage";
+
+//importando componentes
+import Loading from "@/components/Global/Loading";
 
 const SessionDropdown = ({ user, setUser }) => {
   const navigate = useNavigate();
+  const { isLoading } = useAvatarImage([user], user?.correo);
 
   const handleLogout = () => {
     setUser(null);
@@ -29,10 +37,14 @@ const SessionDropdown = ({ user, setUser }) => {
               ? user.correo.substring(0, 10) + "..."
               : user.correo}
           </span>
-          <img
-            className="img-profile rounded-circle"
-            src={`https://ui-avatars.com/api/?name=${user.correo}`}
-          />
+          {isLoading ? (
+            <Loading small />
+          ) : (
+            <img
+              className="img-profile rounded-circle"
+              src={`https://ui-avatars.com/api/?name=${user.correo}`}
+            />
+          )}
         </a>
         <div
           className="dropdown-menu dropdown-menu-right shadow animated--grow-in"

@@ -105,7 +105,7 @@ const Graduated = () => {
     <div>
       <div className="d-flex justify-content-center mb-3">
         {graduated?.id && (
-          <div className="btn-group" role="group" aria-label="Basic example">
+          <div className="btn-group" role="group">
             <button
               onClick={({ target }) => setCurrentSelection(target.value)}
               value={"Profile"}
@@ -122,7 +122,7 @@ const Graduated = () => {
                 currentSelection === "Curriculum" && "active"
               }`}
             >
-              Curriculum
+              Currículum
             </button>
           </div>
         )}

@@ -6,8 +6,8 @@ import OptionsContainer from "@/components/Survey/OptionsContainer";
 const OPTIONS = [
   "Bolsa de trabajo del plantel",
   "Contactos personales",
-  "Residencia Profesional",
-  "Medios masivos de comunicacion",
+  "Residencia profesional",
+  "Medios masivos de comunicación",
 ];
 const WorksQuestion2 = ({ handleChange, answers }) => {
   const ID = "WQ1S2";

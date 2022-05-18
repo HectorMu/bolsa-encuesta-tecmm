@@ -134,7 +134,7 @@ fk_usuario INT PRIMARY key,
 fk_pregunta INT,
 tiempo_primer_empleo VARCHAR (100),
 medio_obtener_empleo VARCHAR (100),
-requisitos_contratacion VARCHAR (500),
+requisitos_contratacion TEXT,
 idioma_utilizado VARCHAR(100),
 idioma_hablar INT,
 idioma_escribir INT,
@@ -252,7 +252,7 @@ INSERT INTO preguntas_empresa VALUES
 (NULL, 2,'De acuerdo con las necesidades de su empresa u organismo, ¿Qué sugiere para mejorar la formación de los egresados del Instituto Tecnológico?'),
 (NULL, 2,'Comentarios y sugerencias');
 
-CREATE TABLE seccionB_p6_detalle(
+CREATE TABLE seccionb_p6_detalle(
 id INT PRIMARY KEY AUTO_INCREMENT,
 fk_usuario INT,
 fk_pregunta_empresa INT,
@@ -266,7 +266,7 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
-CREATE TABLE seccionB_p7_detalle(
+CREATE TABLE seccionb_p7_detalle(
 fk_usuario INT PRIMARY key,
 fk_pregunta_empresa INT,
 completamente INT,
@@ -277,7 +277,7 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
-CREATE TABLE seccionB_p8_detalle(
+CREATE TABLE seccionb_p8_detalle(
 fk_usuario INT PRIMARY key,
 fk_pregunta_empresa INT,
 area_estudio VARCHAR(20),
@@ -294,7 +294,7 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
-CREATE TABLE seccionC_p10_detalle(
+CREATE TABLE seccionc_p10_detalle(
 fk_usuario INT PRIMARY key,
 fk_pregunta_empresa INT,
 habilidad_resolver_conflictos INT,
@@ -319,7 +319,7 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
-CREATE TABLE seccionC_p11_detalle(
+CREATE TABLE seccionc_p11_detalle(
 fk_usuario INT PRIMARY key,
 fk_pregunta_empresa INT,
 excelente INT,

@@ -25,7 +25,7 @@ const Form = () => {
       <FloatingLabelInput
         inputId="txtCorreo"
         type="email"
-        placeholder="Correo Electronico"
+        placeholder="Correo electrónico"
         setClass="rounded-pill"
         setValue={(e) => setEmail(e.target.value)}
         value={email}

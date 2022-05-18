@@ -12,7 +12,7 @@ const Section = () => {
 
   return (
     <div className="container-fluid text-black">
-      <div className="col-12 col-sm-12 col-md-12 col-lg-12  col-xl-9 mx-auto">
+      <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-9 mx-auto">
         <div className="card shadow rounded-0 border-0">
           <div className="card-body">
             {parseInt(params.section_id) === 1 ? <Section1 /> : null}

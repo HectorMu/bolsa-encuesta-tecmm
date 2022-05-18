@@ -3,7 +3,7 @@ import React from "react";
 //Importando los componentes
 import OptionsContainer from "@/components/Survey/OptionsContainer";
 
-const OPTIONS = ["Ingles", "Frances", "Aleman", "Japones"];
+const OPTIONS = ["Inglés", "Francés", "Alemán", "Japonés"];
 const WorksQuestion4 = ({ handleChange, answers }) => {
   const ID = "WQ4S2";
   return (

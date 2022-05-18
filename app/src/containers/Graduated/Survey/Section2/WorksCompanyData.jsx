@@ -12,7 +12,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
         <h6>Organismo: </h6>
         <OptionsContainer
           SECTIONID={"WCMS2OPT1"}
-          OPTIONS={["Publico", "Privado", "Social"]}
+          OPTIONS={["Público", "Privado", "Social"]}
           ANSWER={"organismo_empresa"}
           answers={answers}
           handleChange={handleChange}
@@ -45,7 +45,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
         <div className="col-12 col-xl-2">
           <FloatingLabelInput
             inputId="txtNumero"
-            placeholder="Numero"
+            placeholder="Número"
             type="number"
             setValue={(e) =>
               handleChange("numero", Number(e.target.value) || 0)
@@ -100,7 +100,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
         <div className="col-12 col-xl-4">
           <FloatingLabelInput
             inputId="txtTelefono"
-            placeholder="Telefono"
+            placeholder="Teléfono"
             type="number"
             setValue={(e) =>
               handleChange("telefono_empresa", Number(e.target.value) || 0)
@@ -111,7 +111,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
         <div className="col-12 col-xl-4">
           <FloatingLabelInput
             inputId="txtTelefonoExt"
-            placeholder="Telefeno Ext."
+            placeholder="Teléfono Ext."
             type="number"
             setValue={(e) =>
               handleChange("telefono_ext_empresa", Number(e.target.value) || 0)
@@ -157,7 +157,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
         </div>
       </div>
       <div className="pb-3">
-        <h6>Sector económico de la empresa u organización</h6>
+        <h6>Sector económico de la empresa u organización:</h6>
         <OptionsContainer
           SECTIONID={"WCMS2OPT2"}
           OPTIONS={[
@@ -165,7 +165,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
             "Pesquero",
             "Minero",
             "Industrial",
-            "Construccion",
+            "Construcción",
             "Petrolero",
             "Educativo",
             "Turismo",
@@ -180,7 +180,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
         />
       </div>
       <div className="pb-3">
-        <h6>Tamaño de la empresa u organización</h6>
+        <h6>Tamaño de la empresa u organización:</h6>
         <OptionsContainer
           SECTIONID={"WCMS2OPT3"}
           OPTIONS={[

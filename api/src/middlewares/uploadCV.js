@@ -12,7 +12,7 @@ const uploadMiddleware = (req, res, next) => {
       console.log(error);
       return res.json({
         status: false,
-        statusText: "Solo se aceptan curriculums en formato PDF",
+        statusText: "El currículum debe ser formato PDF.",
       });
     }
     return next();

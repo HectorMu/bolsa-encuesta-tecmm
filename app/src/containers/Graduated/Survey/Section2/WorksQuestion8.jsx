@@ -4,9 +4,9 @@ import React from "react";
 import OptionsContainer from "@/components/Survey/OptionsContainer";
 
 const OPTIONS = [
-  "Tecnico",
+  "Técnico",
   "Supervisor",
-  "Jefe de area",
+  "Jéfe de area",
   "Funcionario",
   "Directivo",
   "Empresario",

@@ -15,7 +15,11 @@ const JobBank = () => {
   const animatedRef = useCleanAosAnimations();
   const { navigate } = useRouterHooks();
   const [error, setError] = useState({ error: false, statusText: "" });
-  const { hookData, isLoading, refreshData } = useServiceFetch(
+  const {
+    hookData: jobs,
+    isLoading,
+    refreshData,
+  } = useServiceFetch(
     () => verifySession(jobsService.getJobs, refreshData),
     []
   );
@@ -26,7 +30,7 @@ const JobBank = () => {
       () => profileService.getProfile(),
       verifyUserProfileHandler
     );
-    console.log(fetchedProfile);
+
     if (fetchedProfile.error) {
       setError(fetchedProfile);
       return;
@@ -50,9 +54,9 @@ const JobBank = () => {
     <div className="mb-3">
       <div
         ref={animatedRef}
-        data-aos="flip-down"
-        data-aos-duration="300"
-        className="col-md-12 col-lg-12 col-xl-11 mx-auto"
+        data-aos="fade-up"
+        data-aos-duration="200"
+        className="container-fluid"
       >
         <div className="card shadow rounded">
           <div className="card-body">
@@ -86,7 +90,7 @@ const JobBank = () => {
                     <List
                       isLoading={isLoading}
                       searchTerm={searchTerm}
-                      jobs={hookData}
+                      jobs={jobs}
                     />
                   </div>
                 </div>
@@ -99,7 +103,7 @@ const JobBank = () => {
                     maxHeight: "65vh",
                   }}
                 >
-                  <Showcase setSearchTerm={setSearchTerm} />
+                  <Showcase setSearchTerm={setSearchTerm} jobs={jobs} />
                 </div>
               </div>
             </div>

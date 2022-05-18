@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import useForm from "@/hooks/useForm";
 import toast from "react-hot-toast";
 
 //Importando los componentes
@@ -37,7 +38,8 @@ const SectionP6Answers = {
 };
 
 const Question6 = ({ questions }) => {
-  const [newAnswerP6, setnewAnswerP6] = useState(SectionP6Answers);
+  const { form: newAnswerP6, handleChange, reset } = useForm(SectionP6Answers);
+
   const [detailsP6, setDetailsP6] = useState([]);
   const { verifySession } = useSession();
 
@@ -48,21 +50,25 @@ const Question6 = ({ questions }) => {
     setDetailsP6(fetchedDetails);
   };
 
-  const handleP6DetailsChange = (key, value) =>
-    setnewAnswerP6({ ...newAnswerP6, [key]: value });
-
   const saveAnswerP6 = async () => {
     const results = await verifySession(() =>
       surveyService.saveP6DetailsSectionb(newAnswerP6)
     );
-    toast.success("Respuesta guardada correctamente");
+    if (!results.status) {
+      return toast.error(results.statusText);
+    }
+    toast.success("Agregado", { position: "bottom-center" });
     getP6DetailsHandler();
+    reset();
   };
 
   const deleteAnswerP6 = async (detail) => {
     const results = await verifySession(() =>
       surveyService.deleteP6Answer(detail.id)
     );
+    if (!results.status) {
+      return toast.error(results.statusText);
+    }
     getP6DetailsHandler();
   };
 
@@ -78,7 +84,9 @@ const Question6 = ({ questions }) => {
           <select
             className="form-control form-select mb-3"
             style={{ height: "47px" }}
-            onChange={(e) => handleP6DetailsChange("carrera", e.target.value)}
+            value={newAnswerP6.carrera}
+            name={"carrera"}
+            onChange={handleChange}
           >
             <option>Carrera (Seleccione una opcion)</option>
             {careers.map((c) => (
@@ -98,14 +106,22 @@ const Question6 = ({ questions }) => {
               placeholder={value}
               inputId={`input${key}`}
               type="number"
-              setValue={(e) => handleP6DetailsChange(key, e.target.value)}
+              name={key}
+              setValue={handleChange}
               value={newAnswerP6[key]}
             />
           </div>
         ))}
       </div>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end pb-5">
-        <button onClick={saveAnswerP6} className="btn btn-primary">
+        <button
+          disabled={
+            Object.values(newAnswerP6).filter((value) => value === "").length >
+            0
+          }
+          onClick={saveAnswerP6}
+          className="btn btn-primary"
+        >
           <i className="fas fa-plus"></i> Agregar dato
         </button>
       </div>

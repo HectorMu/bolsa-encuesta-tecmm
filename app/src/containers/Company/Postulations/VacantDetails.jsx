@@ -7,6 +7,7 @@ import ListButtons from "../JobBank/ListButtons";
 //Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
+import useCleanAosAnimations from "@/hooks/useCleanAosAnimations";
 
 //Importando componentes
 import Loading from "@/components/Global/Loading";
@@ -16,7 +17,7 @@ import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 import vacanciesCompanyService from "@/services/Company/vacancies.service";
 import vacanciesAdminService from "@/services/Admin/jobs.service";
 
-const VacantDetails = () => {
+const VacantDetails = ({ removeOnRezise }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [vacant, setVacant] = useState({});
   const [relativeTime, setRelativeTime] = useState(true);
@@ -80,8 +81,9 @@ const VacantDetails = () => {
 
   return (
     <div
-      data-aos="flip-down"
-      className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 mx-auto mb-3"
+      ref={useCleanAosAnimations()}
+      data-aos="fade-up"
+      className={removeOnRezise}
     >
       {isLoading ? (
         <Loading />

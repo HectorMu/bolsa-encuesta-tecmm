@@ -1,19 +1,32 @@
+import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import { useState, useEffect } from "react";
 //import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput";
 
 const OPTIONS = [
   "Competencias laborales",
   "Titulo profesional",
-  "Examen de seleccion",
+  "Examen de selección",
   "Idioma extranjero",
   "Actitudes y habilidades socio-comunicativas (principios y valores)",
 ];
 
 const WorksQuestion3 = ({ handleChange, answers }) => {
-  //const ID = "WQ3S2";
   const [requirements, setRequirements] = useState([]);
+  const [otherOption, setOtherOption] = useState("");
+  const [options, setOptions] = useState(OPTIONS);
 
-  const listFormatter = new Intl.ListFormat("es");
+  const addOtherOption = (e) => {
+    e.preventDefault();
+
+    if (!options.includes(otherOption)) {
+      setOptions((old) => [...old, otherOption]);
+      setOtherOption(" ");
+
+      if (!requirements.includes(otherOption)) {
+        setRequirements((old) => [...old, otherOption]);
+      }
+    }
+  };
 
   const setRequirementsHandler = (requirement) => {
     if (requirement === "Ninguno") {
@@ -40,8 +53,8 @@ const WorksQuestion3 = ({ handleChange, answers }) => {
   const checkForRequirementsInList = () => {
     if (!answers.requisitos_contratacion) return;
     const requirementsList = answers.requisitos_contratacion;
-    for (let i = 0; i < OPTIONS.length; i++) {
-      const currentElement = OPTIONS[i];
+    for (let i = 0; i < requirementsList.split(", ").length; i++) {
+      const currentElement = requirementsList.split(", ")[i];
 
       const index = requirementsList.indexOf(currentElement);
       if (index !== -1) {
@@ -49,12 +62,17 @@ const WorksQuestion3 = ({ handleChange, answers }) => {
         const extractedElement = requirementsList.substring(index, endIndex);
 
         setRequirements((old) => [...old, extractedElement]);
+
+        if (extractedElement === "Ninguno") return;
+        if (!options.includes(extractedElement)) {
+          setOptions((old) => [...old, extractedElement]);
+        }
       }
     }
   };
 
   useEffect(() => {
-    handleChange("requisitos_contratacion", listFormatter.format(requirements));
+    handleChange("requisitos_contratacion", requirements.join(", "));
   }, [requirements]);
 
   useEffect(() => {
@@ -66,69 +84,49 @@ const WorksQuestion3 = ({ handleChange, answers }) => {
       <div className="pb-3">
         <h5>Requisitos de contratación:</h5>
         <div className="row">
-          {OPTIONS.map((option, i) => (
+          {options.map((option, i) => (
             <div key={option} className="col">
               <div className="form-group form-check">
                 <input
                   type="checkbox"
                   className="form-check-input"
-                  id={`exampleCheck${i}`}
+                  id={`optionCheck${i}`}
                   checked={requirements.includes(option)}
                   value={option}
                   onChange={(e) => setRequirementsHandler(e.target.value)}
                 />
-                <label
-                  className="form-check-label"
-                  htmlFor={`exampleCheck${i}`}
-                >
+                <label className="form-check-label" htmlFor={`optionCheck${i}`}>
                   {option}
                 </label>
               </div>
             </div>
           ))}
-          {/* //? TODO: The OTHER option */}
-          {/* <div className="col-12 col-lg-4 col-md-3 col-xl-6 mt-1 mt-xl-2 mt-lg-2 mt-md-2">
-            <div className="d-flex  justify-content-start align-items-center ">
-              <div className="form-group form-check w-100">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck6"
-                  checked={requirements.includes("Otro")}
-                  value={"Otro"}
-                  onChange={(e) => setRequirementsHandler(e.target.value)}
-                />
-                {!requirements.includes("Otro") ? (
-                  <label className="form-check-label" htmlFor={"exampleCheck6"}>
-                    Otro
-                  </label>
-                ) : (
-                  <FloatingLabelInput
-                    placeholder={"Otro"}
-                    inputId={`txtOtra${ID}`}
-                    type="text"
-                    setValue={(e) => setOther(e.target.value)}
-                  />
-                )}
-              </div>
-            </div>
-          </div> */}
           <div className="col">
             <div className="form-group form-check">
               <input
                 type="checkbox"
                 className="form-check-input"
-                id="exampleCheck7"
+                id="noneCheck"
                 checked={
                   requirements.includes("Ninguno") && requirements.length === 1
                 }
                 value={"Ninguno"}
-                onChange={(e) => setRequirementsHandler(e.target.value)}
+                onChange={(e) => setRequirementsHandler("Ninguno")}
               />
-              <label className="form-check-label" htmlFor="exampleCheck7">
+              <label className="form-check-label" htmlFor="noneCheck">
                 Ninguno
               </label>
             </div>
+          </div>
+          <div className="col-12 col-lg-12">
+            <form onSubmit={addOtherOption}>
+              <FloatingLabelInput
+                placeholder="Otro..."
+                inputId="other"
+                setValue={(e) => setOtherOption(e.target.value)}
+                value={otherOption}
+              />
+            </form>
           </div>
         </div>
       </div>

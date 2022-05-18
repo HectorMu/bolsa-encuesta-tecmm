@@ -4,29 +4,27 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
 //Importando componentes
-import Modal from "@/components/Global/Modal";
 import Loading from "@/components/Global/Loading";
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
-import useGraduatedCurriculum from "@/hooks/useGraduatedCurriculum";
 
 //Importando helpers
 import helpers from "@/helpers/helpers";
 
 //Importando servicios
 import jobsService from "@/services/Graduated/jobs.service";
+import CurriculumModal from "@/components/Graduated/CurriculumModal";
 
-const Showcase = ({ refreshData }) => {
+const Showcase = ({ refreshData, postulations, isLoading: loadingItems }) => {
   const [selectedJob, setSelectedJob] = useState({});
 
   const [isLoading, setIsLoading] = useState(false);
   const [loadingPostulation, setLoadingPostulation] = useState(false);
   const [currentPostulation, setCurrentPostulation] = useState({});
   const { params, location, navigate } = useRouterHooks();
-  const { graduatedCurriculum } = useGraduatedCurriculum();
   const { verifySession } = useSession();
 
   const postulationRegisterHandler = async () => {
@@ -159,41 +157,16 @@ const Showcase = ({ refreshData }) => {
                       {currentPostulation.status}
                     </span>{" "}
                   </h6>
-                  <Modal
-                    title="Mi curriculum"
-                    buttonText="Ver mi curriculum"
-                    buttonClass="btn btn-primary btn-lg mt-3"
-                    modalClass="modal-dialog modal-xl modal-dialog-scrollable"
-                    buttonCloseText="Cerrar"
-                  >
-                    <object
-                      data={graduatedCurriculum}
-                      type="application/pdf"
-                      frameBorder="0"
-                      width="100%"
-                      style={{ height: "100vh", width: "100%" }}
-                    >
-                      <div className="d-flex flex-column justify-content-center">
-                        <p className="text-center">
-                          El navegador no soporta la visualizacion de PDF.{" "}
-                        </p>
-                        <a
-                          className="btn btn-primary"
-                          href={graduatedCurriculum}
-                          download
-                        >
-                          Descargar PDF
-                        </a>
-                      </div>
-                    </object>
-                  </Modal>
 
-                  <button
-                    onClick={deletePostulationHandler}
-                    className="btn btn-primary btn-sm mt-5 align-self-end"
-                  >
-                    Cancelar postulación <i className="fas fa-times"></i>
-                  </button>
+                  <div className="d-flex flex-column flex-md-row flex-lg-rowflex-xl-row justify-content-center align-content-center mt-3">
+                    <CurriculumModal />
+                    <button
+                      onClick={deletePostulationHandler}
+                      className="btn btn-outline-primary btn-sm ml-0 ml-md-2 ml-lg-2 ml-xl-2 mt-2 mt-md-0 mt-lg-0 mt-xl-0"
+                    >
+                      Cancelar postulación <i className="fas fa-times"></i>
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <div className="d-flex flex-column align-items-center justify-content-center mt-5">
@@ -208,9 +181,16 @@ const Showcase = ({ refreshData }) => {
             </>
           ) : (
             <div className="d-flex justify-content-center align-content-center h-50 text-black">
-              <h3 className="text-primary font-weight-bolder text-center">
-                ¡Selecciona una postulación!
-              </h3>
+              {!postulations.length > 0 && !loadingItems ? (
+                <h3 className="text-primary font-weight-bolder text-center">
+                  Cuando te hayas postulado a un trabajo puedes dar clic sobre
+                  el para ver los detalles.
+                </h3>
+              ) : (
+                <h3 className="text-primary font-weight-bolder text-center">
+                  ¡Selecciona una postulación de tu lista de postulaciones!
+                </h3>
+              )}
             </div>
           )}
         </>

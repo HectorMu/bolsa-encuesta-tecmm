@@ -4,7 +4,6 @@ import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 const OPTIONS = ["Si", "No"];
 
 const Question2 = ({ handleChange, answers, questions }) => {
-  console.log(answers);
   return (
     <div className="pb-4">
       <h5>¿{questions[1]?.descripcion}?</h5>

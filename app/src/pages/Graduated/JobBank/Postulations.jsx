@@ -24,9 +24,9 @@ const Postulations = () => {
     <div className="mb-3">
       <div
         ref={animatedRef}
-        data-aos="flip-up"
-        data-aos-duration="300"
-        className="col-md-12 col-lg-12 col-xl-11 mx-auto"
+        data-aos="fade-down"
+        data-aos-duration="200"
+        className="container-fluid"
       >
         <div className="card shadow rounded">
           <div className="card-body">
@@ -73,7 +73,11 @@ const Postulations = () => {
                     maxHeight: "65vh",
                   }}
                 >
-                  <Showcase refreshData={refreshData} />
+                  <Showcase
+                    refreshData={refreshData}
+                    isLoading={isLoading}
+                    postulations={postulations}
+                  />
                 </div>
               </div>
             </div>

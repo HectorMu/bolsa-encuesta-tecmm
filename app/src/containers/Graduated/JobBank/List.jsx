@@ -12,8 +12,6 @@ const List = ({ searchTerm, jobs, isLoading }) => {
     navigate(`/graduated/jobbank/jobs/${job.folio}`, { state: job });
   };
 
-  console.log(jobs);
-
   return (
     <div>
       {jobs.length > 0 &&
@@ -69,7 +67,6 @@ const List = ({ searchTerm, jobs, isLoading }) => {
                 </p>
 
                 <p>
-                  {/* {e.fecha_creacion} */}
                   <span className="badge badge-primary ">
                     {moment(e.fecha_creacion).locale("es").fromNow()}
                   </span>

@@ -216,6 +216,10 @@ input:-webkit-autofill:active {
   background-color: var(--purple-dark) !important;
   border-color: var(--purple-dark) !important;
 }
+.btn-primary:disabled {
+  background-color: var(--purple-light) !important;
+  border-color: var(--purple-light) !important;
+}
 
 .btn-green {
   background-color: var(--green);
@@ -386,11 +390,17 @@ input:-webkit-autofill:active {
 
 .c-sidebar .floating-btn {
   position: fixed;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
   top: 50%;
   z-index: 10;
   left: 200px;
+  padding-right: 2px !important;
+  padding-left: 4px !important;
   opacity: 0.3;
-  transition: all ease-in-out 200ms;
+
+  transition: all linear 190ms;
+  transition-delay: 0ms;
 }
 .c-sidebar.active .floating-btn {
   left: 0px;

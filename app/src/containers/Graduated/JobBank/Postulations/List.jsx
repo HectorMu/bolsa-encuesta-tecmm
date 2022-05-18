@@ -5,7 +5,7 @@ import JobCard from "@/components/Graduated/Postulations/JobCard";
 const List = ({ searchTerm, postulations, isLoading }) => {
   return (
     <div>
-      {postulations.length &&
+      {postulations.length > 0 &&
         !postulations.filter(
           (job) =>
             job.vacante.toLowerCase().includes(searchTerm.toLowerCase()) ||

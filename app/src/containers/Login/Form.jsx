@@ -77,7 +77,7 @@ const Form = () => {
         <FloatingLabelInput
           inputId="txtCorreo"
           type="text"
-          placeholder="Correo Electronico"
+          placeholder="Correo electrónico"
           setClass="rounded-pill"
           setValue={(e) => handleCredentialsChange("correo", e.target.value)}
           value={credentials.correo}

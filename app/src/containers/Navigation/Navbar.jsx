@@ -12,20 +12,19 @@ const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
       <Link className="navbar-brand text-white font-weight-bolder" to="/">
         <img src={navLogo} className="ml-2 navbar-responsive-size" alt="" />
       </Link>
-
-      <ul className="navbar-nav ml-auto">
-        {user !== null ? (
-          <>
+      {user !== null ? (
+        <>
+          <ul className="navbar-nav ml-auto">
             <SessionDropdown user={user} setUser={setUser} />
-          </>
-        ) : null}
-      </ul>
-      <button
-        className="btn btn-primary  btn-sm "
-        onClick={handleSidebarToggle}
-      >
-        <i className="fa fa-bars"></i>
-      </button>
+          </ul>
+          <button
+            className="btn btn-primary  btn-sm "
+            onClick={handleSidebarToggle}
+          >
+            <i className="fa fa-bars"></i>
+          </button>
+        </>
+      ) : null}
     </nav>
   );
 };

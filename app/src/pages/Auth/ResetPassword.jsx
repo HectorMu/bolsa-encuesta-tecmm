@@ -24,7 +24,6 @@ const ResetPassword = () => {
     }
   }, [tokenValidation.statusText]);
 
-  console.log(tokenValidation);
   return (
     <div className="container">
       {isLoading ? (
