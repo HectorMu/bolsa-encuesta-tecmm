@@ -33,7 +33,7 @@ controller.GetAnswersGraduated = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -59,7 +59,7 @@ controller.GetAnswersCompany = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }

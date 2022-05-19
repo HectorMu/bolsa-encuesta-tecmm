@@ -9,7 +9,7 @@ controller.GetAll = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -22,7 +22,7 @@ controller.GetOne = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }

@@ -44,8 +44,9 @@ const Postulations = () => {
         <div className={`${removeOnRezise} mt-3`}>
           <div className="d-flex justify-content-start mb-3">
             <div className="btn-group" role="group" aria-label="Basic example">
-              {FILTER_OPTIONS.map((option) => (
+              {FILTER_OPTIONS.map((option, i) => (
                 <button
+                  key={i}
                   type="button"
                   onClick={() => setFilter(option)}
                   className={`btn btn-outline-primary btn-sm ${

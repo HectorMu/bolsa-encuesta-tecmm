@@ -5,6 +5,14 @@ const validations = {};
 validations.emptyProp = (req, res, next) => {
   const surveyAnswers = req.body;
 
+  console.log(surveyAnswers);
+  if (!surveyAnswers) {
+    return res.status(400).json({
+      status: false,
+      statusText: "El cuerpo de la solicitud esta malformado",
+    });
+  }
+
   if (helpers.hasEmptyPropierty(surveyAnswers).result) {
     return res.status(400).json({
       status: false,

@@ -14,7 +14,7 @@ controller.Login = async (req, res) => {
     if (!results.length > 0)
       return res.status(400).json({
         status: false,
-        statusText: "Revisa tus credenciales.",
+        statusText: "Revisa tus credenciales",
       });
 
     const user = results[0];
@@ -26,7 +26,7 @@ controller.Login = async (req, res) => {
     if (!passwordComparationResult)
       return res.status(400).json({
         status: false,
-        statusText: "Revisa tus credenciales.",
+        statusText: "Revisa tus credenciales",
       });
 
     const serializedUser = {
@@ -48,14 +48,14 @@ controller.Login = async (req, res) => {
 
     res.status(200).json({
       status: true,
-      statusText: "Usuario identificado.",
+      statusText: "Usuario identificado",
       SessionData,
     });
   } catch (error) {
     console.log(error);
     res
       .status(200)
-      .json({ status: false, statusText: "Something wen't wrong." });
+      .json({ status: false, statusText: "Algo pasó, intentalo de nuevo" });
   }
 };
 
@@ -70,8 +70,7 @@ controller.sendRecoverEmail = async (req, res) => {
   } else {
     res.status(200).json({
       status: false,
-      statusText:
-        "No existe una cuenta con este correo electrónico registrado.",
+      statusText: "No existe una cuenta con este correo electrónico registrado",
     });
   }
 };
@@ -86,13 +85,13 @@ controller.VerifyRecoverEmailToken = (req, res) => {
         if (err.name === "TokenExpiredError") {
           return res.json({
             status: false,
-            statusText: "El enlace ha expirado.",
+            statusText: "El enlace ha expirado",
           });
         }
         if (err) {
           return res.json({
             status: false,
-            statusText: "Enlace malformado.",
+            statusText: "Enlace malformado",
           });
         }
       } else {
@@ -112,13 +111,13 @@ controller.ResetPassword = async (req, res) => {
   if (!password.length > 8) {
     return res.json({
       status: false,
-      statusText: "La contraseña debe tener minimo 8 caracteres de largo.",
+      statusText: "La contraseña debe tener minimo 8 caracteres de largo",
     });
   }
   if (password !== confirm) {
     return res.json({
       status: false,
-      statusText: "Las contraseñas no coinciden.",
+      statusText: "Las contraseñas no coinciden",
     });
   }
 
@@ -131,13 +130,13 @@ controller.ResetPassword = async (req, res) => {
           if (err.name === "TokenExpiredError") {
             return res.json({
               status: false,
-              statusText: "El enlace ha expirado.",
+              statusText: "El enlace ha expirado",
             });
           }
           if (err) {
             return res.json({
               status: false,
-              statusText: "Enlace malformado.",
+              statusText: "Enlace malformado",
             });
           }
         }
@@ -156,11 +155,11 @@ controller.ResetPassword = async (req, res) => {
 
     res
       .status(200)
-      .json({ status: true, statusText: "Contraseña cambiada correctamente." });
+      .json({ status: true, statusText: "Contraseña cambiada correctamente" });
   } catch (error) {
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }

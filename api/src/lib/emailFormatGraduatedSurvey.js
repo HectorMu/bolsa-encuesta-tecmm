@@ -1,4 +1,4 @@
-module.exports = (link) => {
+module.exports = (message, link) => {
   return `
       <div style="font-family: arial;font-family:arial;border: 1px solid #0006;">
           <div class="container" style="font-family: arial;">
@@ -6,8 +6,7 @@ module.exports = (link) => {
                                    <div class="box" style="border: 1px solid #9317c2;padding: 5px;">
                                         <h1><Strong>¡Hola!</Strong></h1> 
                                         <p style="font-size: 20px;">
-                                            Parece que no has contestado la encuesta de seguimiento de egresados, requerimos de tus respuestas
-                                            para mejorar la preparación de nuestros futuros profesionales. Puedes contestarla dando click al siguiente botón.
+                                            ${message}
                                         
                                            <br>
                                            <br>

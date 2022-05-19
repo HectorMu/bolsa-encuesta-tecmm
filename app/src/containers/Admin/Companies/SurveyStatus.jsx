@@ -24,10 +24,10 @@ const SurveyStatus = ({ company }) => {
     [params.id]
   );
 
-  const handleNotifyCompany = async () => {
+  const handleNotifyCompany = async (notification_type) => {
     const tLoading = toast.loading("Enviando correo...");
     const results = await verifySession(() =>
-      companiesService.notifyAnswerSurvey(company?.correo)
+      companiesService.notifyAnswerSurvey(company?.correo, notification_type)
     );
     if (!results.status)
       return toast.error(results.statusText, { id: tLoading });
@@ -53,7 +53,14 @@ const SurveyStatus = ({ company }) => {
                 {surveyStatus.fecha.split(" ")[1]}
               </span>
             </h5>
-            <div className="d-flex justify-content-center mt-3"></div>
+            <div className="d-flex justify-content-center mt-3">
+              <button
+                onClick={() => handleNotifyCompany("update_answers")}
+                className="btn btn-outline-primary"
+              >
+                Solicitar actualización <i className="fas fa-paper-plane"></i>
+              </button>
+            </div>
           </div>
         ) : (
           <div className="d-flex justify-content-center flex-column align-content-center">
@@ -66,7 +73,7 @@ const SurveyStatus = ({ company }) => {
             </p>
             <div className="align-self-center">
               <button
-                onClick={handleNotifyCompany}
+                onClick={() => handleNotifyCompany("answer")}
                 className="btn btn-outline-primary"
               >
                 Enviar correo <i className="fas fa-paper-plane"></i>

@@ -3,7 +3,7 @@ const connection = require("../database");
 const TABLE_NAME = "publicacion_bolsa";
 const IDENTIFIER_NAME = "folio";
 
-const Template = {
+const CompanyJobs = {
   async ListAllFreeOfCompanyAndActive() {
     const data = await connection.query(
       `SELECT * FROM view_getJobsAndCompanyDetails WHERE STATUS = 'Abierta';`
@@ -120,4 +120,4 @@ const Template = {
   },
 };
 
-module.exports = Template;
+module.exports = CompanyJobs;

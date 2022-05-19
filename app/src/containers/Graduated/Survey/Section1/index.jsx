@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 //importing custom components
@@ -102,9 +102,15 @@ const index = () => {
             questions={questions}
           />
           <div className="d-flex justify-content-center mt-5">
+            <Link
+              to={"/graduated/survey"}
+              className="btn btn-outline-primary mr-2"
+            >
+              <i className="fas fa-arrow-left"></i> Volver
+            </Link>
             <button
               onClick={saveAndSkipToNextSection}
-              className="btn btn-primary"
+              className="btn btn-outline-primary"
             >
               Siguiente <i className="fas fa-arrow-right"></i>
             </button>

@@ -36,10 +36,10 @@ const SurveyStatus = ({ graduated }) => {
     setAcuse(fetchedAcuse);
   };
 
-  const handleNotifyGraduated = async () => {
+  const handleNotifyGraduated = async (notification_type) => {
     const tLoading = toast.loading("Enviando correo...");
     const results = await verifySession(() =>
-      graduatesService.notifyAnswerSurvey(graduated?.correo)
+      graduatesService.notifyAnswerSurvey(graduated?.correo, notification_type)
     );
     if (!results.status)
       return toast.error(results.statusText, { id: tLoading });
@@ -97,6 +97,14 @@ const SurveyStatus = ({ graduated }) => {
                   </div>
                 </object>
               </Modal>
+              <div className="align-self-center">
+                <button
+                  onClick={() => handleNotifyGraduated("update_answers")}
+                  className="btn btn-outline-primary ml-2"
+                >
+                  Solicitar actualizacion <i className="fas fa-paper-plane"></i>
+                </button>
+              </div>
             </div>
           </div>
         ) : (
@@ -110,7 +118,7 @@ const SurveyStatus = ({ graduated }) => {
             </p>
             <div className="align-self-center">
               <button
-                onClick={handleNotifyGraduated}
+                onClick={() => handleNotifyGraduated("answer")}
                 className="btn btn-outline-primary"
               >
                 Enviar correo <i className="fas fa-paper-plane"></i>

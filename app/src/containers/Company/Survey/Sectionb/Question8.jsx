@@ -21,7 +21,9 @@ const subQuestions = {
 const Question8 = ({ handleChange, answers, questions }) => {
   return (
     <div className="pb-4">
-      <h5>{questions[3]?.descripcion}:</h5>
+      <h5 className="mb-3 text-justify text-md-left">
+        {questions[3]?.descripcion}:
+      </h5>
 
       <div className="row mt-4">
         {Object.entries(subQuestions).map(([key, value], i) => (

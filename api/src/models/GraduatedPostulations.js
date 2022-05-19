@@ -3,7 +3,7 @@ const connection = require("../database");
 const TABLE_NAME = "solicitud_bolsa";
 const IDENTIFIER_NAME = "id";
 
-const Template = {
+const GraduatedPostulations = {
   async List(userid) {
     const data = await connection.query(
       ` select * from v_getGraduatedJobsAndCompanyDetails where fk_egresado = ${userid}`
@@ -56,4 +56,4 @@ const Template = {
   },
 };
 
-module.exports = Template;
+module.exports = GraduatedPostulations;

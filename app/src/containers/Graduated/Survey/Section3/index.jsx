@@ -32,7 +32,6 @@ const sectionAnswers = {
   recomendaciones: "",
   personalidad: "",
   capacidad_liderazgo: "",
-  otros: "",
 };
 const index = () => {
   const [answers, setAnswers] = useState(sectionAnswers);
@@ -57,7 +56,7 @@ const index = () => {
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
 
   useEffect(() => {
-    if (userSectionAnswers) {
+    if (userSectionAnswers?.respuesta1) {
       if (userSectionAnswers?.respuesta3?.length > 0) {
         setQuestion3Answered(true);
       }
@@ -65,6 +64,7 @@ const index = () => {
     }
   }, [userSectionAnswers]);
 
+  console.log(answers);
   if (error.error) {
     return <ErrorDisplayer message={error.message} />;
   }
@@ -103,13 +103,13 @@ const index = () => {
           <div className="d-flex justify-content-center mt-5">
             <Link
               to={"/graduated/survey/section/2"}
-              className="btn btn-primary mr-2"
+              className="btn btn-outline-primary mr-2"
             >
               <i className="fas fa-arrow-left"></i> Anterior
             </Link>
             <button
               onClick={saveAndSkipToNextSection}
-              className="btn btn-primary"
+              className="btn btn-outline-primary"
             >
               Siguiente <i className="fas fa-arrow-right"></i>
             </button>

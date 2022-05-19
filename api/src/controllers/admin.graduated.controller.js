@@ -16,7 +16,7 @@ controller.GetAllActiveJobs = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -29,7 +29,7 @@ controller.GetOneJob = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -46,7 +46,7 @@ controller.GetAll = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -60,7 +60,7 @@ controller.GetOne = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -88,7 +88,7 @@ controller.Save = async (req, res) => {
     if (correoExists) {
       return res.json({
         status: false,
-        statusText: "Este correo electronico ya esta registrado.",
+        statusText: "Este correo electronico ya esta registrado",
       });
     }
     const nControlExists = await helpers.isDuplicated(
@@ -99,7 +99,7 @@ controller.Save = async (req, res) => {
     if (nControlExists) {
       return res.json({
         status: false,
-        statusText: "Este numero de control ya esta registrado.",
+        statusText: "Este numero de control ya esta registrado",
       });
     }
 
@@ -111,7 +111,7 @@ controller.Save = async (req, res) => {
     if (curpExists) {
       return res.json({
         status: false,
-        statusText: "Esta curp ya esta registrada.",
+        statusText: "Esta curp ya esta registrada",
       });
     }
     //Si no hubo ningun error, insertamos el perfil y el usuario
@@ -133,13 +133,13 @@ controller.Save = async (req, res) => {
     await Graduated.Create(profileData);
     res.json({
       status: true,
-      statusText: "Egresado guardado correctamente.",
+      statusText: "Egresado guardado correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -167,7 +167,7 @@ controller.Update = async (req, res) => {
     if (correoExists) {
       return res.json({
         status: false,
-        statusText: "Este correo electronico ya esta registrado.",
+        statusText: "Este correo electronico ya esta registrado",
       });
     }
     const nControlExists = await helpers.isDuplicatedOnUpdate(
@@ -180,7 +180,7 @@ controller.Update = async (req, res) => {
     if (nControlExists) {
       return res.json({
         status: false,
-        statusText: "Este numero de control ya esta registrado.",
+        statusText: "Este numero de control ya esta registrado",
       });
     }
 
@@ -193,7 +193,7 @@ controller.Update = async (req, res) => {
     if (curpExists) {
       return res.json({
         status: false,
-        statusText: "Esta curp ya esta registrada.",
+        statusText: "Esta curp ya esta registrada",
       });
     }
 
@@ -213,13 +213,13 @@ controller.Update = async (req, res) => {
     await Graduated.Update(rest, id);
     res.json({
       status: true,
-      statusText: "Egresado editado correctamente.",
+      statusText: "Egresado editado correctamente",
     });
   } catch (error) {
     console.log("Error " + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -233,18 +233,18 @@ controller.Delete = async (req, res) => {
     if (deleteUser.affectedRows === 0) {
       return res.status(400).json({
         status: false,
-        statusText: "No existe ese usuario.",
+        statusText: "No existe ese usuario",
       });
     }
     res.status(200).json({
       status: true,
-      statusText: "Usuario eliminado correctamente.",
+      statusText: "Usuario eliminado correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -261,7 +261,7 @@ controller.CheckSurveyAnswered = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -274,7 +274,7 @@ controller.NotifyGraduatedAnswerSurvey = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -287,7 +287,7 @@ controller.NotifyGraduatedCheckCV = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -301,7 +301,7 @@ controller.GetGraduatedPostulations = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }

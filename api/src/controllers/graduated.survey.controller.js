@@ -32,7 +32,7 @@ controller.checkIfSurveyIsAnswered = async (req, res) => {
     console.log(error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -46,7 +46,7 @@ controller.getAllSections = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -60,7 +60,7 @@ controller.getOneSection = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -81,7 +81,7 @@ controller.getAllQuestionsOrBySection = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -182,7 +182,7 @@ controller.getAllUserAnswersBySection = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -245,13 +245,13 @@ controller.SaveSection1Answers = async (req, res) => {
     });
     res.json({
       status: true,
-      statusText: "Respuestas guardadas correctamente.",
+      statusText: "Respuestas guardadas correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -408,13 +408,13 @@ controller.saveSection2Answers = async (req, res) => {
     await GraduatedSurveyWorking.CreateOrUpdateIfExists(worksObj);
     res.json({
       status: true,
-      statusText: "Respuestas guardadas correctamente.",
+      statusText: "Respuestas guardadas correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -485,13 +485,13 @@ controller.saveSection3Answers = async (req, res) => {
 
     res.json({
       status: true,
-      statusText: "Respuestas guardadas correctamente.",
+      statusText: "Respuestas guardadas correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -505,7 +505,7 @@ controller.getSection3Others = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -519,13 +519,13 @@ controller.saveSection3Other = async (req, res) => {
   if (otherAspect.valoracion > 5) {
     return res.status(400).json({
       status: false,
-      statusText: "La valoración acepta máximo 5 puntos.",
+      statusText: "La valoración acepta máximo 5 puntos",
     });
   }
   if (otherAspect.valoracion < 1) {
     return res.status(400).json({
       status: false,
-      statusText: "La valoración acepta mínimo 1 punto.",
+      statusText: "La valoración acepta mínimo 1 punto",
     });
   }
 
@@ -544,7 +544,7 @@ controller.saveSection3Other = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -557,7 +557,7 @@ controller.deleteSection3Other = async (req, res) => {
     if (results.affectedRows === 0) {
       return res.status(400).json({
         status: false,
-        statusText: "No existe ese registro.",
+        statusText: "No existe ese registro",
       });
     }
 
@@ -569,7 +569,7 @@ controller.deleteSection3Other = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -643,13 +643,13 @@ controller.saveSection4Answers = async (req, res) => {
 
     res.json({
       status: true,
-      statusText: "Respuestas guardadas correctamente.",
+      statusText: "Respuestas guardadas correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -687,7 +687,7 @@ controller.saveSection5Answers = async (req, res) => {
       if (!req.body.organizaciones_sociales) {
         return res.status(400).json({
           status: false,
-          statusText: "Escriba las organizaciones sociales a las que pertnece",
+          statusText: "Escriba las organizaciones sociales a las que pertenéce",
         });
       }
       await SurveyS5P1Details.CreateOrUpdateIfExists({
@@ -712,7 +712,7 @@ controller.saveSection5Answers = async (req, res) => {
         return res.status(400).json({
           status: false,
           statusText:
-            "Escriba los organismos profesionistas a los que pertenece",
+            "Escriba los organismos profesionistas a los que pertenéce",
         });
       }
       await SurveyS5P2Details.CreateOrUpdateIfExists({
@@ -733,13 +733,13 @@ controller.saveSection5Answers = async (req, res) => {
     });
     res.json({
       status: true,
-      statusText: "Respuestas guardadas correctamente.",
+      statusText: "Respuestas guardadas correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -850,13 +850,13 @@ controller.saveSection6Answers = async (req, res) => {
     });
     res.json({
       status: true,
-      statusText: "Respuestas guardadas correctamente.",
+      statusText: "Respuestas guardadas correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -873,7 +873,7 @@ controller.verifySurveyAnsweredToken = async (req, res) => {
         if (err) {
           return res.json({
             status: false,
-            statusText: "Enlace malformado.",
+            statusText: "Enlace malformado",
           });
         }
       }
@@ -885,7 +885,7 @@ controller.verifySurveyAnsweredToken = async (req, res) => {
         if (!nombre_completo) {
           return res.json({
             status: false,
-            statusText: "El egresado no tiene un perfil en el sistema.",
+            statusText: "El egresado no tiene un perfil en el sistema",
           });
         }
 
@@ -914,7 +914,7 @@ controller.verifySurveyAnsweredToken = async (req, res) => {
         console.log("Error" + error);
         res.json({
           status: false,
-          statusText: "Algo fue mal, contácta al area de sistemas.",
+          statusText: "Algo fue mal, contácta al area de sistemas",
           error,
         });
       }

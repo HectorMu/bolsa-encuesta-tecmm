@@ -54,7 +54,7 @@ router.get(
 );
 
 router.post(
-  "/users/company/notify-survey/",
+  "/users/company/notify-survey/:notification_type",
   verifyToken,
   isAdmin,
   controller.NotifyCompanyAnswerSurvey

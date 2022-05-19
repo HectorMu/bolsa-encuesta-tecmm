@@ -11,7 +11,7 @@ controller.GetAll = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -28,7 +28,7 @@ controller.GetOne = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -55,7 +55,7 @@ controller.Save = async (req, res) => {
     if (!isVacantOpen.length > 0) {
       return res.json({
         status: false,
-        statusText: "Esta vacante ya ha cerrado.",
+        statusText: "Esta vacante ya ha cerrado",
       });
     }
     const { curriculum: hasCurriculum } = await GraduatedProfile.FindOne(
@@ -65,7 +65,7 @@ controller.Save = async (req, res) => {
     if (hasCurriculum === "Pendiente") {
       return res.json({
         status: false,
-        statusText: "No tienes un curriculum... puedes subirlo en tu pérfil.",
+        statusText: "No tienes un curriculum... puedes subirlo en tu pérfil",
       });
     }
     const results = await GraduatedPostulations.Create(newPostulation);
@@ -79,7 +79,7 @@ controller.Save = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -98,19 +98,19 @@ controller.Update = async (req, res) => {
     if (results.affectedRows === 0) {
       return res.status(400).json({
         status: false,
-        statusText: "No existe ese elemento.",
+        statusText: "No existe ese elemento",
       });
     }
     res.status(200).json({
       status: true,
-      statusText: "Elemento editado correctamente.",
+      statusText: "Elemento editado correctamente",
       dbresponse: results,
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -127,19 +127,19 @@ controller.Delete = async (req, res) => {
     if (results.affectedRows === 0) {
       return res.status(400).json({
         status: false,
-        statusText: "No existe ese elemento.",
+        statusText: "No existe ese elemento",
       });
     }
     res.json({
       status: true,
-      statusText: "Elemento eliminado correctamente.",
+      statusText: "Elemento eliminado correctamente",
       dbresponse: results,
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -159,7 +159,7 @@ controller.RegisterPostJobVisit = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }

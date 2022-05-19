@@ -1,6 +1,6 @@
 const connection = require("../database");
 
-const Template = {
+const CompanySurveyReport = {
   async ListCompanies() {
     const data = await connection.query(
       `SELECT * FROM usuarios u, perfil_empresa pe, encuesta_empresa_contestada ec WHERE u.id = pe.fk_usuario && ec.fk_empresa = u.id`
@@ -190,4 +190,4 @@ const Template = {
   },
 };
 
-module.exports = Template;
+module.exports = CompanySurveyReport;

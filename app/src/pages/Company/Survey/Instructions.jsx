@@ -41,7 +41,7 @@ const Survey = () => {
       <div className="d-flex justify-content-center h-100 mt-4">
         <Link
           to={"/company/survey/section/1"}
-          className={"btn btn-primary btn-lg"}
+          className={"btn btn-outline-primary btn-lg"}
         >
           Comenzar <i className="fas fa-arrow-right"></i>
         </Link>

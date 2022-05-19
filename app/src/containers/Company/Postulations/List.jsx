@@ -33,6 +33,7 @@ const List = ({ postulations, isLoading, error, searchTerm, filter }) => {
   useEffect(() => {
     setLocalPostulations(postulations);
   }, [postulations]);
+
   useEffect(() => {
     if (postulations.length > 0) {
       if (filter === "Todas") {
@@ -45,6 +46,7 @@ const List = ({ postulations, isLoading, error, searchTerm, filter }) => {
       );
     }
   }, [filter, postulations]);
+
   return (
     <div>
       {isLoading ? (
@@ -60,8 +62,8 @@ const List = ({ postulations, isLoading, error, searchTerm, filter }) => {
           )
           .map((postulation) => (
             <div
-              onClick={() => handleGoToPostulation(postulation)}
               key={postulation.id}
+              onClick={() => handleGoToPostulation(postulation)}
               style={{ cursor: "pointer" }}
               className={`card rounded-0 pt-3 px-3 border-left-0 border-right-0   ${
                 parseInt(params.postulation_id) === postulation.id

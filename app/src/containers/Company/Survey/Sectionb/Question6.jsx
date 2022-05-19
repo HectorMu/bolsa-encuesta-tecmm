@@ -50,13 +50,15 @@ const Question6 = ({ questions }) => {
     setDetailsP6(fetchedDetails);
   };
 
-  const saveAnswerP6 = async () => {
+  const saveAnswerP6 = async (e) => {
+    e.preventDefault();
     const results = await verifySession(() =>
       surveyService.saveP6DetailsSectionb(newAnswerP6)
     );
     if (!results.status) {
       return toast.error(results.statusText);
     }
+
     toast.success("Agregado", { position: "bottom-center" });
     getP6DetailsHandler();
     reset();
@@ -79,52 +81,54 @@ const Question6 = ({ questions }) => {
   return (
     <div>
       <h5>{questions[1]?.descripcion}:</h5>
-      <div className="row">
-        <div className="col-12 col-lg-12 col-md-12 col-xl-12">
-          <select
-            className="form-control form-select mb-3"
-            style={{ height: "47px" }}
-            value={newAnswerP6.carrera}
-            name={"carrera"}
-            onChange={handleChange}
-          >
-            <option>Carrera (Seleccione una opcion)</option>
-            {careers.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-        </div>
-        {Object.entries(ENTRIES).map(([key, value]) => (
-          <div
-            key={key + value}
-            className="col-12 col-sm-12 col-lg-4 col-md-6 col-xl-4"
-          >
-            <FloatingLabelInput
-              ranges={{ min: 0, max: 100 }}
-              placeholder={value}
-              inputId={`input${key}`}
-              type="number"
-              name={key}
-              setValue={handleChange}
-              value={newAnswerP6[key]}
-            />
+      <form onSubmit={saveAnswerP6}>
+        <div className="row">
+          <div className="col-12 col-lg-12 col-md-12 col-xl-12">
+            <select
+              className="form-control form-select mb-3"
+              style={{ height: "47px" }}
+              value={newAnswerP6.carrera}
+              name={"carrera"}
+              onChange={handleChange}
+            >
+              <option>Carrera (Seleccione una opcion)</option>
+              {careers.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
           </div>
-        ))}
-      </div>
-      <div className="d-grid gap-2 d-md-flex justify-content-md-end pb-5">
-        <button
-          disabled={
-            Object.values(newAnswerP6).filter((value) => value === "").length >
-            0
-          }
-          onClick={saveAnswerP6}
-          className="btn btn-primary"
-        >
-          <i className="fas fa-plus"></i> Agregar dato
-        </button>
-      </div>
+
+          {Object.entries(ENTRIES).map(([key, value]) => (
+            <div
+              key={key + value}
+              className="col-12 col-sm-12 col-lg-4 col-md-6 col-xl-4"
+            >
+              <FloatingLabelInput
+                ranges={{ min: 0, max: 100 }}
+                placeholder={value}
+                inputId={`input${key}`}
+                type="number"
+                name={key}
+                setValue={handleChange}
+                value={newAnswerP6[key]}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end pb-5">
+          <button
+            disabled={
+              Object.values(newAnswerP6).filter((value) => value === "")
+                .length > 0
+            }
+            className="btn btn-primary btn-sm"
+          >
+            <i className="fas fa-plus"></i> Agregar dato
+          </button>
+        </div>
+      </form>
       {detailsP6.length > 0 ? (
         <div className="table-responsive">
           <table className="table">
@@ -150,10 +154,10 @@ const Question6 = ({ questions }) => {
                   <td>{detail.otros_p6}</td>
                   <td>
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-outline-danger btn-sm"
                       onClick={() => deleteAnswerP6(detail)}
                     >
-                      <i className="fas fa-times"></i> Eliminar
+                      <i className="fas fa-trash"></i>
                     </button>
                   </td>
                 </tr>

@@ -17,6 +17,7 @@ const Survey = () => {
     hookData: answeredDetails,
     isLoading,
     refreshData,
+    error,
   } = useServiceFetchV2(
     () => verifySession(surveyService.checkIfSurveyIsAnswered, refreshData),
     []
@@ -39,8 +40,7 @@ const Survey = () => {
     getAcuseWithAuth();
   }, [answeredDetails.acuse]);
 
-  if (answeredDetails?.error)
-    return <ErrorDisplayer message={answeredDetails?.statusText} />;
+  if (error.error) return <ErrorDisplayer message={error.message} />;
 
   return (
     <div className="container-fluid text-black">
@@ -59,7 +59,7 @@ const Survey = () => {
               <div className="card shadow-lg border-0 animated--grow-in">
                 <div className="card-body">
                   <h5 className="text-center mb-4">
-                    Ya has contestado la encuesta, puedes ver tu acuse aquí
+                    Ya has contestado la encuesta, puedes ver tu acuse aquí:
                   </h5>
 
                   <div className="d-flex justify-content-center">
@@ -67,12 +67,13 @@ const Survey = () => {
                       <Loading />
                     ) : (
                       <Modal
-                        buttonClass="btn btn-primary btn-lg"
+                        buttonClass="btn btn-outline-primary btn-lg"
                         buttonCloseText="Cerrar"
                         id="acuse"
                         title="Mi acuse"
                         modalClass="modal-dialog modal-xl modal-dialog-scrollable"
                         buttonText="Ver acuse"
+                        faIcon={<i className="fas fa-eye"></i>}
                       >
                         <object
                           data={acuse}
@@ -97,6 +98,10 @@ const Survey = () => {
                       </Modal>
                     )}
                   </div>
+                  <p className="text-muted text-center mt-3">
+                    Nota: Si tu acuse no aparece, puedes probar refrescando la
+                    página
+                  </p>
                   <h5 className="mt-5 text-center">
                     Si te pidieron actualizar tus respuestas puedes{" "}
                     <Link
@@ -147,7 +152,7 @@ const Survey = () => {
               <div className="d-flex justify-content-center h-100 mt-4">
                 <Link
                   to={"/graduated/survey/section/1"}
-                  className={"btn btn-primary btn-lg"}
+                  className={"btn btn-outline-primary btn-lg"}
                 >
                   Comenzar <i className="fas fa-arrow-right"></i>
                 </Link>

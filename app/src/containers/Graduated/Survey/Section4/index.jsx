@@ -79,13 +79,13 @@ const index = () => {
           <div className="d-flex justify-content-center mt-5">
             <Link
               to={"/graduated/survey/section/3"}
-              className="btn btn-primary mr-2"
+              className="btn btn-outline-primary mr-2"
             >
               <i className="fas fa-arrow-left"></i> Anterior
             </Link>
             <button
               onClick={saveAndSkipToNextSection}
-              className="btn btn-primary"
+              className="btn btn-outline-primary"
             >
               Siguiente <i className="fas fa-arrow-right"></i>
             </button>

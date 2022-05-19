@@ -3,7 +3,7 @@ const connection = require("../database");
 const TABLE_NAME = "perfil_egresado";
 const IDENTIFIER_NAME = "fk_usuario";
 
-const Template = {
+const GraduatedProfile = {
   async List() {
     const data = await connection.query(
       `SELECT * FROM usuarios u, perfil_egresado pe WHERE u.id = pe.fk_usuario;`
@@ -78,4 +78,4 @@ const Template = {
   },
 };
 
-module.exports = Template;
+module.exports = GraduatedProfile;

@@ -69,7 +69,7 @@ const index = () => {
   };
 
   useEffect(() => {
-    if (userSectionAnswers) {
+    if (userSectionAnswers?.respuesta12 && userSectionAnswers?.respuesta12) {
       setAnswers(userSectionAnswers);
     }
   }, [userSectionAnswers]);
@@ -110,13 +110,13 @@ const index = () => {
           <div className="d-flex justify-content-center mt-5">
             <Link
               to={"/company/survey/section/1"}
-              className="btn btn-primary mr-2"
+              className="btn btn-outline-primary mr-2"
             >
               <i className="fas fa-arrow-left"></i> Anterior
             </Link>
             <button
               onClick={saveAndSkipToNextSection}
-              className="btn btn-primary"
+              className="btn btn-outline-primary"
             >
               Finalizar <i className="fas fa-check"></i>
             </button>

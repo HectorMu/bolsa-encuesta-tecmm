@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 //Importando los hooks
@@ -60,7 +60,7 @@ const index = () => {
   };
 
   useEffect(() => {
-    if (userSectionAnswers) {
+    if (userSectionAnswers?.respuesta5) {
       setAnswers(userSectionAnswers);
     }
   }, [userSectionAnswers]);
@@ -99,9 +99,15 @@ const index = () => {
             questions={questions}
           />
           <div className="d-flex justify-content-center mt-5">
+            <Link
+              to={"/company/survey"}
+              className="btn btn-outline-primary mr-2"
+            >
+              <i className="fas fa-arrow-left "></i> Volver
+            </Link>
             <button
               onClick={saveAndSkipToNextSection}
-              className="btn btn-primary"
+              className="btn btn-outline-primary"
             >
               Siguiente <i className="fas fa-arrow-right"></i>
             </button>

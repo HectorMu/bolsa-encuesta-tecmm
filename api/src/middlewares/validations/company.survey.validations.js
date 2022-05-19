@@ -47,6 +47,12 @@ validations.section1 = (req, res, next) => {
 };
 
 validations.section2 = (req, res, next) => {
+  if (helpers.hasEmptyPropierty(req.body).result) {
+    return res.status(400).json({
+      status: false,
+      statusText: "Asegurese de contestar todas las preguntas",
+    });
+  }
   if (
     parseInt(req.body.excelente) > 100 ||
     parseInt(req.body.muy_bueno) > 100 ||

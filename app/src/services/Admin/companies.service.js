@@ -78,10 +78,10 @@ const checkIfAnsweredSurvey = async (id) => {
   }
 };
 
-const notifyAnswerSurvey = async (email) => {
+const notifyAnswerSurvey = async (email, notification_type) => {
   try {
     const response = await fetch(
-      `${API}/users/company/notify-survey`,
+      `${API}/users/company/notify-survey/${notification_type}`,
       helpers.authPostConfig({ email })
     );
     return await response.json();

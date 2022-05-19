@@ -13,7 +13,7 @@ controller.getGraduatedProfile = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -28,13 +28,13 @@ controller.uploadGraduatedCV = async (req, res) => {
 
     res.json({
       status: true,
-      statusText: "Curriculum subido correctamente.",
+      statusText: "Curriculum subido correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -48,7 +48,7 @@ controller.getGraduatedCV = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -76,7 +76,7 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
       if (correoExists) {
         return res.json({
           status: false,
-          statusText: "Este correo electronico ya esta registrado.",
+          statusText: "Este correo electrónico ya esta registrado",
         });
       }
       const nControlExists = await helpers.isDuplicated(
@@ -87,7 +87,7 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
       if (nControlExists) {
         return res.json({
           status: false,
-          statusText: "Este numero de control ya esta registrado.",
+          statusText: "Este número de control ya esta registrado",
         });
       }
 
@@ -99,7 +99,7 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
       if (curpExists) {
         return res.json({
           status: false,
-          statusText: "Esta curp ya esta registrada.",
+          statusText: "Esta CURP ya esta registrada",
         });
       }
       //Si no hubo ningun error, insertamos el perfil y el usuario
@@ -126,7 +126,7 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
       await Graduated.Create(profileData);
       return res.json({
         status: true,
-        statusText: "Perfil creado correctamente.",
+        statusText: "Perfil creado correctamente",
       });
     }
 
@@ -141,7 +141,7 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
     if (correoExists) {
       return res.json({
         status: false,
-        statusText: "Este correo electronico ya esta registrado.",
+        statusText: "Este correo electrónico ya esta registrado",
       });
     }
     const nControlExists = await helpers.isDuplicatedOnUpdate(
@@ -154,7 +154,7 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
     if (nControlExists) {
       return res.json({
         status: false,
-        statusText: "Este numero de control ya esta registrado.",
+        statusText: "Este número de control ya esta registrado",
       });
     }
 
@@ -167,7 +167,7 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
     if (curpExists) {
       return res.json({
         status: false,
-        statusText: "Esta curp ya esta registrada.",
+        statusText: "Esta CURP ya esta registrada",
       });
     }
 
@@ -186,13 +186,13 @@ controller.saveOrUpdateGraduatedProfile = async (req, res) => {
     await Graduated.Update(rest, req.user.id);
     return res.json({
       status: true,
-      statusText: "Perfil editado correctamente.",
+      statusText: "Perfil editado correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -206,7 +206,7 @@ controller.getCompanyProfile = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -235,7 +235,7 @@ controller.saveOrUpdateCompanyProfile = async (req, res) => {
       if (correoExists) {
         return res.json({
           status: false,
-          statusText: "Este correo electronico ya esta registrado.",
+          statusText: "Este correo electrónico ya esta registrado",
         });
       }
 
@@ -257,7 +257,7 @@ controller.saveOrUpdateCompanyProfile = async (req, res) => {
       await Company.Create(profileData);
       return res.json({
         status: true,
-        statusText: "Perfil creado correctamente.",
+        statusText: "Perfil creado correctamente",
       });
     }
 
@@ -272,7 +272,7 @@ controller.saveOrUpdateCompanyProfile = async (req, res) => {
     if (correoExists) {
       return res.json({
         status: false,
-        statusText: "Este correo electronico ya esta registrado.",
+        statusText: "Este correo electrónico ya esta registrado",
       });
     }
 
@@ -291,13 +291,13 @@ controller.saveOrUpdateCompanyProfile = async (req, res) => {
     await Company.Update(rest, req.user.id);
     return res.json({
       status: true,
-      statusText: "Perfil editado correctamente.",
+      statusText: "Perfil editado correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -311,7 +311,7 @@ controller.getUserProfile = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -337,7 +337,7 @@ controller.saveOrUpdateUserProfile = async (req, res) => {
     if (correoExists) {
       return res.json({
         status: false,
-        statusText: "Este correo electronico ya esta registrado.",
+        statusText: "Este correo electrónico ya esta registrado",
       });
     }
 
@@ -355,13 +355,13 @@ controller.saveOrUpdateUserProfile = async (req, res) => {
     await User.Update(basicData, req.user.id);
     return res.json({
       status: true,
-      statusText: "Perfil editado correctamente.",
+      statusText: "Perfil editado correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }

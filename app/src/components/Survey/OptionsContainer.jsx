@@ -10,11 +10,10 @@ const OptionsContainer = ({
   otherText = "Other",
   cols = "col-12 col-lg-3 col-md-3 col-xl-3",
 }) => {
-  const [otherOption, setOtherOption] = useState(false);
+  const [otherOption, setOtherOption] = useState(true);
 
   const removeOtherSelection = (answer, option) => {
-    setOtherOption(false);
-    handleChange(answer, option);
+    handleChange(ANSWER, option);
   };
 
   const toggleOtherOption = (answer) => {

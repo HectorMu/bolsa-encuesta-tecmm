@@ -10,10 +10,12 @@ const ENTRIES = {
 const Question7 = ({ answers, handleChange, questions }) => {
   return (
     <div className="pb-4">
-      <h5>{questions[2]?.descripcion}:</h5>
+      <h5 className="text-justify text-md-left mb-3">
+        {questions[2]?.descripcion}:
+      </h5>
       <div className="row">
         {Object.entries(ENTRIES).map(([key, value]) => (
-          <div key={key} className="col-6 col-lg-3 col-md-3 col-xl-3">
+          <div key={key} className="col-12 col-lg-3 col-md-3 col-xl-3">
             <FloatingLabelInput
               placeholder={value}
               inputId={`input${key}`}

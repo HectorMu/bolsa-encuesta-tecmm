@@ -3,7 +3,7 @@ const connection = require("../database");
 const TABLE_NAME = "seccion5_p2_detalle";
 const IDENTIFIER_NAME = "fk_usuario";
 
-const Template = {
+const GraduatedSurveyS5P2Details = {
   async List() {
     const data = await connection.query(`select * from ${TABLE_NAME}`);
     return data;
@@ -46,4 +46,4 @@ const Template = {
   },
 };
 
-module.exports = Template;
+module.exports = GraduatedSurveyS5P2Details;

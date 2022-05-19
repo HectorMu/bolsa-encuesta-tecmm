@@ -4,7 +4,7 @@ const { ListQuestionsPerSection } = require("./GraduatedSurveyQuestions");
 const TABLE_NAME = "preguntas_empresa";
 const IDENTIFIER_NAME = "id";
 
-const Template = {
+const CompanySurveyQuestions = {
   async List() {
     const data = await connection.query(`select * from ${TABLE_NAME}`);
     return data;
@@ -25,4 +25,4 @@ const Template = {
   },
 };
 
-module.exports = Template;
+module.exports = CompanySurveyQuestions;

@@ -59,7 +59,7 @@ router.get(
 );
 
 router.post(
-  "/users/graduated/notify-survey/",
+  "/users/graduated/notify-survey/:notification_type",
   verifyToken,
   isAdmin,
   controller.NotifyGraduatedAnswerSurvey

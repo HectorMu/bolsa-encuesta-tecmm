@@ -15,7 +15,7 @@ controller.GetAll = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -29,7 +29,7 @@ controller.GetOne = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -56,7 +56,7 @@ controller.Save = async (req, res) => {
     if (correoExists) {
       return res.json({
         status: false,
-        statusText: "Este correo electronico ya esta registrado.",
+        statusText: "Este correo electrónico ya esta registrado",
       });
     }
 
@@ -68,7 +68,7 @@ controller.Save = async (req, res) => {
     if (nameExists) {
       return res.json({
         status: false,
-        statusText: "Este nombre comercial ya esta registrado en otra cuenta.",
+        statusText: "Este nombre comercial ya esta registrado en otra cuenta",
       });
     }
 
@@ -89,14 +89,14 @@ controller.Save = async (req, res) => {
     const results = await Company.Create(profileData);
     res.status(200).json({
       status: true,
-      statusText: "Empresa guardada correctamente.",
+      statusText: "Empresa guardada correctamente",
       dbresponse: results,
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -124,7 +124,7 @@ controller.Update = async (req, res) => {
     if (correoExists) {
       return res.json({
         status: false,
-        statusText: "Este correo electronico ya esta registrado.",
+        statusText: "Este correo electronico ya esta registrado",
       });
     }
 
@@ -137,7 +137,7 @@ controller.Update = async (req, res) => {
     if (nameExists) {
       return res.json({
         status: false,
-        statusText: "Este nombre comercial ya esta registrado en otra cuenta.",
+        statusText: "Este nombre comercial ya esta registrado en otra cuenta",
       });
     }
 
@@ -157,13 +157,13 @@ controller.Update = async (req, res) => {
     await Company.Update(rest, id);
     res.json({
       status: true,
-      statusText: "Usuario editado correctamente.",
+      statusText: "Usuario editado correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -178,7 +178,7 @@ controller.Delete = async (req, res) => {
     if (deleteProfile.affectedRows === 0) {
       return res.status(400).json({
         status: false,
-        statusText: "No existe ese usuario.",
+        statusText: "No existe ese usuario",
       });
     }
     //Despues eliminamos la cuenta del usuario
@@ -187,18 +187,18 @@ controller.Delete = async (req, res) => {
     if (deleteUser.affectedRows === 0) {
       return res.status(400).json({
         status: false,
-        statusText: "No existe ese usuario.",
+        statusText: "No existe ese usuario",
       });
     }
     res.status(200).json({
       status: true,
-      statusText: "Usuario eliminado correctamente.",
+      statusText: "Usuario eliminado correctamente",
     });
   } catch (error) {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -214,7 +214,7 @@ controller.CheckSurveyAnswered = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -227,7 +227,7 @@ controller.NotifyCompanyAnswerSurvey = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
@@ -241,7 +241,7 @@ controller.GetCompanyJobs = async (req, res) => {
     console.log("Error" + error);
     res.json({
       status: false,
-      statusText: "Algo fue mal, contácta al area de sistemas.",
+      statusText: "Algo fue mal, contácta al area de sistemas",
       error,
     });
   }
