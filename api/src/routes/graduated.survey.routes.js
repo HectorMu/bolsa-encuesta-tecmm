@@ -48,7 +48,7 @@ router.post(
   "/graduated/survey/section1",
   verifyToken,
   isGraduated,
-  validations,
+  validations.emptyProp,
   graduatedSurveyController.SaveSection1Answers
 );
 
@@ -56,6 +56,7 @@ router.post(
   "/graduated/survey/section2",
   verifyToken,
   isGraduated,
+  validations.section2,
   graduatedSurveyController.saveSection2Answers
 );
 
@@ -63,8 +64,28 @@ router.post(
   "/graduated/survey/section3",
   verifyToken,
   isGraduated,
-  validations,
+  validations.emptyProp,
   graduatedSurveyController.saveSection3Answers
+);
+
+router.get(
+  "/graduated/survey/section3/others-aspects/getall",
+  verifyToken,
+  isGraduated,
+  graduatedSurveyController.getSection3Others
+);
+
+router.post(
+  "/graduated/survey/section3/others-aspects/save",
+  verifyToken,
+  isGraduated,
+  graduatedSurveyController.saveSection3Other
+);
+router.delete(
+  "/graduated/survey/section3/others-aspects/delete/:aspect_id",
+  verifyToken,
+  isGraduated,
+  graduatedSurveyController.deleteSection3Other
 );
 
 router.post(

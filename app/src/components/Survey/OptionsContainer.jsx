@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import FloatingLabelInput from "../Global/FloatingLabelInput";
 
 const OptionsContainer = ({
   SECTIONID: ID,
@@ -15,7 +14,7 @@ const OptionsContainer = ({
 
   const removeOtherSelection = (answer, option) => {
     setOtherOption(false);
-    handleChange(ANSWER, option);
+    handleChange(answer, option);
   };
 
   const toggleOtherOption = (answer) => {

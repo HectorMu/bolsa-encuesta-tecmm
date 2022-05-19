@@ -10,6 +10,8 @@ import Showcase from "@/containers/Company/Postulations/Showcase";
 import VacantDetails from "@/containers/Company/Postulations/VacantDetails";
 import useWindowSize from "@/hooks/useWindowResize";
 
+import ScrollToTop from "@/components/Navigation/ScrollToTopOnMount";
+
 const FILTER_OPTIONS = ["Todas", "Sin revisar", "Revisado"];
 const Postulations = () => {
   const { width } = useWindowSize();
@@ -36,24 +38,27 @@ const Postulations = () => {
 
   return (
     <div className="container-fluid mb-3">
+      <ScrollToTop />
       <VacantDetails removeOnRezise={removeOnRezise} />
-      <div data-aos="fade-down" className={`${removeOnRezise} mt-3`}>
-        <div className="d-flex justify-content-start mb-3">
-          <div className="btn-group" role="group" aria-label="Basic example">
-            {FILTER_OPTIONS.map((option) => (
-              <button
-                type="button"
-                onClick={() => setFilter(option)}
-                className={`btn btn-outline-primary btn-sm ${
-                  filter === option ? "active" : ""
-                } `}
-              >
-                {option}
-              </button>
-            ))}
+      {isLoading ? null : (
+        <div className={`${removeOnRezise} mt-3`}>
+          <div className="d-flex justify-content-start mb-3">
+            <div className="btn-group" role="group">
+              {FILTER_OPTIONS.map((option) => (
+                <button
+                  type="button"
+                  onClick={() => setFilter(option)}
+                  className={`btn btn-outline-primary btn-sm ${
+                    filter === option ? "active" : ""
+                  } `}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div
         ref={useCleanAosAnimations()}

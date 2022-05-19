@@ -15,7 +15,7 @@ insert into roles values
 
 
 create table usuarios(
-    id int primary key auto_increment,
+    id BIGINT primary key auto_increment,
     correo varchar(100),
     clave varchar(300),
     fk_rol int,
@@ -25,10 +25,10 @@ create table usuarios(
 );
 
 create table perfil_empresa(
-    fk_usuario int primary key,
+    fk_usuario BIGINT primary key,
     nombre_comercial varchar(100),
     calle varchar(50),
-    numero_empresa int,
+    numero_empresa BIGINT,
     colonia varchar(50),
     cp varchar(50),
     municipio varchar(50),
@@ -43,8 +43,8 @@ create table perfil_empresa(
 );
 
 create table perfil_egresado(
-    fk_usuario int primary key,
-	 no_control int,
+    fk_usuario BIGINT primary key,
+	 no_control BIGINT,
     nombre_completo varchar(100),
     fechaNacimiento varchar(100),
     curp varchar(100),
@@ -71,20 +71,20 @@ create table perfil_egresado(
 
 
 create table encuesta_egresado_contestada(
-    fk_egresado int PRIMARY key AUTO_INCREMENT,
+    fk_egresado BIGINT PRIMARY key AUTO_INCREMENT,
     fecha varchar(50),
     acuse varchar(400),
     foreign key (fk_egresado) references usuarios (id)
 );
 
 create table encuesta_empresa_contestada(
-    fk_empresa int PRIMARY key AUTO_INCREMENT,
+    fk_empresa BIGINT PRIMARY key AUTO_INCREMENT,
     fecha varchar(50),
     foreign key (fk_empresa) references usuarios (id)
 );
 
 CREATE TABLE seccion(
-id INT PRIMARY KEY AUTO_INCREMENT,
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
 descripcion VARCHAR (250)
 );
 
@@ -97,7 +97,7 @@ INSERT INTO seccion VALUES
 (NULL, 'Comentarios y sugerencias');
 
 CREATE TABLE preguntas(
-id INT PRIMARY KEY AUTO_INCREMENT,
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
 fk_seccion INT,
 descripcion VARCHAR (250),
 FOREIGN KEY (fk_seccion) REFERENCES seccion (id)
@@ -121,8 +121,8 @@ INSERT INTO preguntas VALUES (NULL, 1,'Calidad de los docentes'),
 (NULL, 6,'Opinión o recomendación para mejorar la formación profesional de un egresado de su carrera');
 
 CREATE TABLE seccion2_estudia(
-fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
 tipo_estudio VARCHAR(50),
 especialidad_institucion VARCHAR (50),
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
@@ -130,8 +130,8 @@ FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
 );
 
 CREATE TABLE seccion2_trabaja(
-fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
 tiempo_primer_empleo VARCHAR (100),
 medio_obtener_empleo VARCHAR (100),
 requisitos_contratacion TEXT,
@@ -152,7 +152,7 @@ razon_social VARCHAR(100),
 calle VARCHAR (100),
 numero INT,
 colonia VARCHAR (100),
-cp INT,
+cp BIGINT,
 ciudad VARCHAR (100),
 municipio VARCHAR (100),
 estado VARCHAR (100),
@@ -167,8 +167,8 @@ tamaño_empresa VARCHAR (200)
 );
 
 CREATE TABLE seccion3_p4_detalle(
-fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
 area_estudio INT,
 titulacion INT,
 experiencia_laboral INT,
@@ -178,45 +178,51 @@ conocimiento_idiomas_extranjeros INT,
 recomendaciones INT,
 personalidad INT,
 capacidad_liderazgo INT,
-otros INT,
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
 );
 
+create table seccion3_p4_otros(
+    id BIGINT primary key auto_increment,
+    fk_usuario int,
+    aspecto TEXT,
+    valoracion BIGINT
+);
+
 CREATE TABLE seccion4_p1_detalle(
-fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
 cursos VARCHAR (500),
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
 );
 
 CREATE TABLE seccion4_p2_detalle(
-fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
 posgrado VARCHAR (500),
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
 );
 
 CREATE TABLE seccion5_p1_detalle(
-fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
 organizaciones_sociales VARCHAR (500),
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
 );
 
 CREATE TABLE seccion5_p2_detalle(
-fk_usuario INT PRIMARY key,
-fk_pregunta INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
 organismos_profesionistas VARCHAR (500),
 FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
 FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
 );
 
 CREATE TABLE respuestas(
-id INT PRIMARY KEY AUTO_INCREMENT,
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
 fk_pregunta INT,
 fk_seccion INT,
 fk_usuario INT,
@@ -227,7 +233,7 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 CREATE TABLE seccion_empresa(
-id INT PRIMARY KEY AUTO_INCREMENT,
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
 descripcion VARCHAR (250)
 );
 
@@ -236,7 +242,7 @@ INSERT INTO seccion_empresa VALUES
 (NULL, 'Competencias laborales');
 
 CREATE TABLE preguntas_empresa(
-id INT PRIMARY KEY AUTO_INCREMENT,
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
 fk_seccion_empresa INT,
 descripcion VARCHAR (250),
 FOREIGN KEY (fk_seccion_empresa) REFERENCES seccion_empresa(id)
@@ -253,7 +259,7 @@ INSERT INTO preguntas_empresa VALUES
 (NULL, 2,'Comentarios y sugerencias');
 
 CREATE TABLE seccionb_p6_detalle(
-id INT PRIMARY KEY AUTO_INCREMENT,
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
 fk_usuario INT,
 fk_pregunta_empresa INT,
 carrera VARCHAR(50),
@@ -267,8 +273,8 @@ FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
 CREATE TABLE seccionb_p7_detalle(
-fk_usuario INT PRIMARY key,
-fk_pregunta_empresa INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta_empresa BIGINT,
 completamente INT,
 medianamente INT,
 ligeramente INT,
@@ -278,8 +284,8 @@ FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
 CREATE TABLE seccionb_p8_detalle(
-fk_usuario INT PRIMARY key,
-fk_pregunta_empresa INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta_empresa BIGINT,
 area_estudio VARCHAR(20),
 titulacion VARCHAR(20),
 experiencia_laboral VARCHAR(20),
@@ -295,8 +301,8 @@ FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
 CREATE TABLE seccionc_p10_detalle(
-fk_usuario INT PRIMARY key,
-fk_pregunta_empresa INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta_empresa BIGINT,
 habilidad_resolver_conflictos INT,
 ortografia_redaccion INT,
 mejora_procesos INT,
@@ -320,8 +326,8 @@ FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
 CREATE TABLE seccionc_p11_detalle(
-fk_usuario INT PRIMARY key,
-fk_pregunta_empresa INT,
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta_empresa BIGINT,
 excelente INT,
 muy_bueno INT,
 bueno INT,
@@ -332,7 +338,7 @@ FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 );
 
 CREATE TABLE respuestas_empresa(
-id INT PRIMARY KEY AUTO_INCREMENT,
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
 fk_pregunta_empresa INT,
 fk_seccion_empresa INT,
 fk_usuario INT,
@@ -343,7 +349,7 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 create table publicacion_bolsa(
-    folio int primary key,
+    folio BIGINT primary key,
     fk_empresa int,
     vacante varchar(100),
     descripcion TEXT,
@@ -355,7 +361,7 @@ create table publicacion_bolsa(
 );
 
 CREATE TABLE vistas_publicaciones(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     fk_publicacion INT,
     fk_usuario INT,
 	FOREIGN KEY (fk_publicacion) REFERENCES publicacion_bolsa(folio),
@@ -363,7 +369,7 @@ CREATE TABLE vistas_publicaciones(
 );
 
 create table solicitud_bolsa(
-    id int primary key auto_increment,
+    id BIGINT primary key auto_increment,
     fk_vacante int,
     fk_egresado int,
     status varchar(50),

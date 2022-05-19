@@ -7,7 +7,7 @@ const Question1 = ({ handleChange, answers, questions }) => {
   const ID = "Q1S1";
   return (
     <div className="pb-4">
-      <h5>{questions[2]?.descripcion}:</h5>
+      <h5>{questions[0]?.descripcion}:</h5>
       <OptionsContainer
         SECTIONID={ID}
         OPTIONS={OPTIONS}

@@ -28,7 +28,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
       />
       <FloatingLabelInput
         inputId="txtRazonsocial"
-        placeholder="Razon social"
+        placeholder="Razón social"
         setValue={(e) => handleChange("razon_social", e.target.value)}
         value={answers.razon_social}
       />
@@ -47,9 +47,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
             inputId="txtNumero"
             placeholder="Número"
             type="number"
-            setValue={(e) =>
-              handleChange("numero", Number(e.target.value) || 0)
-            }
+            setValue={(e) => handleChange("numero", parseInt(e.target.value))}
             value={answers.numero}
           />
         </div>
@@ -66,7 +64,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
             inputId="txtCP"
             placeholder="C.P"
             type="number"
-            setValue={(e) => handleChange("cp", Number(e.target.value) || 0)}
+            setValue={(e) => handleChange("cp", parseInt(e.target.value))}
             value={answers.cp}
           />
         </div>
@@ -103,7 +101,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
             placeholder="Teléfono"
             type="number"
             setValue={(e) =>
-              handleChange("telefono_empresa", Number(e.target.value) || 0)
+              handleChange("telefono_empresa", parseInt(e.target.value))
             }
             value={answers.telefono_empresa}
           />
@@ -114,7 +112,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
             placeholder="Teléfono Ext."
             type="number"
             setValue={(e) =>
-              handleChange("telefono_ext_empresa", Number(e.target.value) || 0)
+              handleChange("telefono_ext_empresa", parseInt(e.target.value))
             }
             value={answers.telefono_ext_empresa}
           />
@@ -125,7 +123,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
             placeholder="Fax"
             type="number"
             setValue={(e) =>
-              handleChange("fax_empresa", Number(e.target.value)) || 0
+              handleChange("fax_empresa", parseInt(e.target.value))
             }
             value={answers.fax_empresa}
           />

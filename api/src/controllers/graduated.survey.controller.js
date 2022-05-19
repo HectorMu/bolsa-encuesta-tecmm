@@ -2,6 +2,7 @@ const GraduatedSurveySections = require("../models/GraduatedSurveySections");
 const GraduatedSurveyQuestions = require("../models/GraduatedSurveyQuestions");
 const GraduatedSurveyAnswers = require("../models/GraduatedSurveyAnswers");
 const SurveyS3P4Details = require("../models/GraduatedSurveyS3P4Details");
+const GraduatedSurveyS3P4Others = require("../models/GraduatedSurveyS3P4Others");
 
 const SurveyS4P1Details = require("../models/GraduatedSurveyS4P1Details");
 const SurveyS4P2Details = require("../models/GraduatedSurveyS4P2Details");
@@ -344,12 +345,7 @@ controller.saveSection2Answers = async (req, res) => {
   try {
     //Para la primera pregunta de la seccion 2
     //Si no hay una respuesta se crea, y si hay se actualiza
-    if (!ANSWERS.respuesta1) {
-      return res.json({
-        status: false,
-        statusText: "Elija una opción",
-      });
-    }
+
     await GraduatedSurveyAnswers.CreateOrUpdateIfExists({
       fk_pregunta: QUESTIONS.ACTIVIDAD_ACTUAL,
       fk_seccion: SECTION,
@@ -485,12 +481,89 @@ controller.saveSection3Answers = async (req, res) => {
       recomendaciones,
       personalidad,
       capacidad_liderazgo,
-      otros,
     });
 
     res.json({
       status: true,
       statusText: "Respuestas guardadas correctamente.",
+    });
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+
+controller.getSection3Others = async (req, res) => {
+  try {
+    const data = await GraduatedSurveyS3P4Others.List(req.user.id);
+    res.json(data);
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+controller.saveSection3Other = async (req, res) => {
+  const otherAspect = {
+    fk_usuario: req.user.id,
+    ...req.body,
+  };
+
+  if (otherAspect.valoracion > 5) {
+    return res.status(400).json({
+      status: false,
+      statusText: "La valoración acepta máximo 5 puntos.",
+    });
+  }
+  if (otherAspect.valoracion < 1) {
+    return res.status(400).json({
+      status: false,
+      statusText: "La valoración acepta mínimo 1 punto.",
+    });
+  }
+
+  try {
+    const results = await GraduatedSurveyS3P4Others.CreateOrUpdateIfExists(
+      otherAspect,
+      req.user.id
+    );
+
+    res.status(200).json({
+      status: true,
+      statusText: "Aspecto guardado",
+      dbresponse: results,
+    });
+  } catch (error) {
+    console.log("Error" + error);
+    res.json({
+      status: false,
+      statusText: "Algo fue mal, contácta al area de sistemas.",
+      error,
+    });
+  }
+};
+controller.deleteSection3Other = async (req, res) => {
+  const { aspect_id } = req.params;
+  try {
+    const results = await GraduatedSurveyS3P4Others.Delete(aspect_id);
+    console.log(results);
+    if (results.affectedRows === 0) {
+      return res.status(400).json({
+        status: false,
+        statusText: "No existe ese registro.",
+      });
+    }
+
+    res.status(200).json({
+      status: true,
+      statusText: "Aspecto removido.",
     });
   } catch (error) {
     console.log("Error" + error);

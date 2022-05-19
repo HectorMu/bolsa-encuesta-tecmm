@@ -5,6 +5,7 @@ import Section3 from "@/containers/Graduated/Survey/Section3";
 import Section4 from "@/containers/Graduated/Survey/Section4";
 import Section5 from "@/containers/Graduated/Survey/Section5";
 import Section6 from "@/containers/Graduated/Survey/Section6";
+
 import { Navigate } from "react-router-dom";
 
 const Section = () => {

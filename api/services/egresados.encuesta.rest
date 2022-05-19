@@ -190,6 +190,24 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvI
     "respuesta1":"Mejorar las mac para aprender mejor desarrolo mobil ios"
 }
 
+### to list the other aspects that the user believes that are valuable for the company
+GET http://localhost:4000/api/graduated/survey/section3/others-aspects/getall
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+
+### to save or edit other aspects that the user believes that are valuable for the company
+POST http://localhost:4000/api/graduated/survey/section3/others-aspects/save
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29ycmVvIjoianVhbkBnbWFpbC5jb20iLCJma19yb2wiOjIsImlhdCI6MTY0Njg4NTIwOX0.--6_spm8D0PvMpmGxDVCJG1wUR5NMInOn5InkvSx76U
+
+{
+    "aspecto":"Habilidades blandas",
+    "valoracion": 2
+}
+
+
+### to delete other aspects that the user believes that are valuable for the company
+DELETE http://localhost:4000/api/graduated/survey/section3/others-aspects/delete/:aspect_id
 
 
 

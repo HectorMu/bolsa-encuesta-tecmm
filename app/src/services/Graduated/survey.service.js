@@ -114,6 +114,43 @@ const saveSection3 = async (answers) => {
     return helpers.ApiFetchError(error.message);
   }
 };
+
+const getSection3Others = async () => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/section3/others-aspects/getall`,
+      helpers.authGetConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
+  }
+};
+const saveSection3Other = async (aspect) => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/section3/others-aspects/save`,
+      helpers.authPostConfig(aspect)
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
+  }
+};
+const deleteSection3Other = async (aspect_id) => {
+  try {
+    const response = await fetch(
+      `${API}/graduated/survey/section3/others-aspects/delete/${aspect_id}`,
+      helpers.authDeleteConfig()
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return helpers.ApiFetchError(error.message);
+  }
+};
 const saveSection4 = async (answers) => {
   try {
     const response = await fetch(
@@ -160,6 +197,9 @@ export default {
   saveSection1,
   saveSection2,
   saveSection3,
+  saveSection3Other,
+  getSection3Others,
+  deleteSection3Other,
   saveSection4,
   saveSection5,
   saveSection6,

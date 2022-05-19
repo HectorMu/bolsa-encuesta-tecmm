@@ -80,95 +80,93 @@ const VacantDetails = ({ removeOnRezise }) => {
   }
 
   return (
-    <div
-      ref={useCleanAosAnimations()}
-      data-aos="fade-up"
-      className={removeOnRezise}
-    >
+    <div ref={useCleanAosAnimations()} data-aos="fade-up">
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="card p-3 shadow">
-          <div className="row">
-            <div className="col-12 h-100">
-              <div className="d-flex justify-content-between align-items-center">
-                <button onClick={handleBackPage} className="btn ">
-                  {" "}
-                  <i className="fas fa-arrow-left text-primary"></i>
-                </button>
-                {user.fk_rol === 1 && (
-                  <h6 className="text-primary font-weight-bold">
-                    {vacant?.nombre_comercial}
-                  </h6>
-                )}
-                <h5 className="text-black font-weight-bold">
-                  Folio: {vacant?.folio}
-                </h5>
-                {user.fk_rol !== 1 && (
-                  <ListButtons
-                    object={vacant}
-                    refreshCallback={getVacantDetailsHandler}
-                  />
-                )}
+        <div className={removeOnRezise}>
+          <div className="card p-3 shadow">
+            <div className="row">
+              <div className="col-12 h-100">
+                <div className="d-flex justify-content-between align-items-center">
+                  <button onClick={handleBackPage} className="btn ">
+                    {" "}
+                    <i className="fas fa-arrow-left text-primary"></i>
+                  </button>
+                  {user.fk_rol === 1 && (
+                    <h6 className="text-primary font-weight-bold">
+                      {vacant?.nombre_comercial}
+                    </h6>
+                  )}
+                  <h5 className="text-black font-weight-bold">
+                    Folio: {vacant?.folio}
+                  </h5>
+                  {user.fk_rol !== 1 && (
+                    <ListButtons
+                      object={vacant}
+                      refreshCallback={getVacantDetailsHandler}
+                    />
+                  )}
+                </div>
               </div>
+              <div className="col-6">
+                <h5 className=" font-weight-bolder text-black">
+                  {vacant?.vacante}
+                </h5>
+                <p className=" text-gray-800 font-weight-bold">
+                  {vacant?.ubicacion}
+                </p>
+              </div>
+              <div className="col-6"></div>
             </div>
-            <div className="col-6">
-              <h5 className=" font-weight-bolder text-black">
-                {vacant?.vacante}
-              </h5>
-              <p className=" text-gray-800 font-weight-bold">
-                {vacant?.ubicacion}
-              </p>
-            </div>
-            <div className="col-6"></div>
-          </div>
 
-          <div className="d-flex  justify-content-between align-items-end h-100">
-            <div className="d-flex flex-column flex-sm-column flex-md-column flex-lg-column flex-xl-row">
-              <p>
-                <span className="badge badge-pill badge-primary mr-0 mr-xl-2  px-4">
-                  <i className="fas fa-eye"></i> {vacant?.visitas}{" "}
-                  {vacant?.visitas === 1 ? "Visita" : "Visitas"}
-                </span>
-              </p>
-              <p>
-                <span className="badge badge-pill badge-primary  mr-0 mr-xl-2 py-1 px-4">
-                  <i className="fas fa-envelope"></i> {vacant?.solicitudes}{" "}
-                  {vacant?.solicitudes === 1 ? "Solicitud" : "Solicitudes"}
-                </span>
-              </p>
-              <p>
-                <span className="badge badge-pill badge-primary ml-0 ml-xl-2 py-1 px-4">
-                  {vacant?.status === "Abierta" ? (
-                    <i className="fas fa-lock-open"></i>
-                  ) : (
-                    <i className="fas fa-lock"></i>
-                  )}{" "}
-                  {vacant?.status}
-                </span>
-              </p>
-            </div>
-            <div
-              className="d-flex flex-column flex-md-row"
-              onClick={toggleRelativeTime}
-              style={{ cursor: "pointer" }}
-            >
-              <p>
-                <span className="badge badge-pill badge-primary mr-0 mr-md-2  py-1">
-                  Publicado:{" "}
-                  {relativeTime
-                    ? moment(vacant?.fecha_creacion).locale("es").fromNow()
-                    : vacant?.fecha_creacion.replace("T", " ").split(" ")[0]}
-                </span>
-              </p>
-              <p>
-                <span className="badge badge-pill badge-primary  py-1">
-                  Expira:{" "}
-                  {relativeTime
-                    ? moment(vacant?.fecha_expira).locale("es").fromNow()
-                    : vacant?.fecha_expira}
-                </span>
-              </p>
+            <div className="d-flex  justify-content-between align-items-end h-100">
+              <div className="d-flex flex-column flex-sm-column flex-md-column flex-lg-column flex-xl-row">
+                <p>
+                  <span className="badge badge-pill badge-primary mr-0 mr-xl-2  px-4">
+                    <i className="fas fa-eye"></i> {vacant?.visitas}{" "}
+                    {vacant?.visitas === 1 ? "Visita" : "Visitas"}
+                  </span>
+                </p>
+                <p>
+                  <span className="badge badge-pill badge-primary  mr-0 mr-xl-2 py-1 px-4">
+                    <i className="fas fa-envelope"></i> {vacant?.solicitudes}{" "}
+                    {vacant?.solicitudes === 1 ? "Solicitud" : "Solicitudes"}
+                  </span>
+                </p>
+                <p>
+                  <span className="badge badge-pill badge-primary ml-0 ml-xl-2 py-1 px-4">
+                    {vacant?.status === "Abierta" ? (
+                      <i className="fas fa-lock-open"></i>
+                    ) : (
+                      <i className="fas fa-lock"></i>
+                    )}{" "}
+                    {vacant?.status}
+                  </span>
+                </p>
+              </div>
+              <div
+                className="d-flex flex-column flex-md-row"
+                onClick={toggleRelativeTime}
+                style={{ cursor: "pointer" }}
+              >
+                <p>
+                  <span className="badge badge-pill badge-primary mr-0 mr-md-2  py-1">
+                    Publicado:{" "}
+                    {relativeTime
+                      ? moment(vacant?.fecha_creacion).locale("es").fromNow()
+                      : vacant?.fecha_creacion.replace("T", " ").split(" ")[0]}
+                  </span>
+                </p>
+                <p>
+                  <span className="badge badge-pill badge-primary  py-1">
+                    Expira:{" "}
+                    {relativeTime
+                      ? moment(vacant?.fecha_expira).locale("es").fromNow()
+                      : vacant?.fecha_expira}
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
         </div>

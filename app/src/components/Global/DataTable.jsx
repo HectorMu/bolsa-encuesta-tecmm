@@ -47,6 +47,8 @@ const DataTable = ({
   hideColumns = [],
   refreshCallback = null,
   actionElement = null,
+  exportable = true,
+  filters = true,
 }) => {
   const [initialData, setInitialData] = useState([]);
   const [initialFilter, setInitialFilter] = useState(firstColumnKey);
@@ -145,24 +147,28 @@ const DataTable = ({
           ) : null}
 
           <div className="btn-group dropleft">
-            <ReactHTMLTableToExcel
-              id="test-table-xls-button"
-              className="btn btn-sm mr-2 text-primary"
-              table={`dataTable${title.replace(" ", "-")}`}
-              filename={title}
-              sheet="tablexls"
-              buttonText={<i className="far fa-file-excel"></i>}
-            />
+            {exportable && (
+              <ReactHTMLTableToExcel
+                id="test-table-xls-button"
+                className="btn btn-sm mr-2 text-primary"
+                table={`dataTable${title.replace(" ", "-")}`}
+                filename={title}
+                sheet="tablexls"
+                buttonText={<i className="far fa-file-excel"></i>}
+              />
+            )}
 
-            <button
-              type="button"
-              className="btn btn-sm"
-              data-toggle="dropdown"
-              id={`filtersDropdown${title}`}
-              aria-expanded="false"
-            >
-              <i className="fas fa-sliders-h text-primary"></i>
-            </button>
+            {filters && (
+              <button
+                type="button"
+                className="btn btn-sm"
+                data-toggle="dropdown"
+                id={`filtersDropdown${title}`}
+                aria-expanded="false"
+              >
+                <i className="fas fa-sliders-h text-primary"></i>
+              </button>
+            )}
 
             <div
               className="dropdown-menu shadow px-2 animated--fade-in"

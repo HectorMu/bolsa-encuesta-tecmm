@@ -679,3 +679,7 @@ input[type="radio"]:checked:after {
   border-radius: 2px;
   padding: 3px 10px;
 }
+
+.form-control {
+  color: black !important;
+}
