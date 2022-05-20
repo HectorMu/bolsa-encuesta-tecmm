@@ -42,9 +42,6 @@ export default defineConfig({
       },
     }),
   ],
-  server: {
-    host: true,
-  },
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
   },
