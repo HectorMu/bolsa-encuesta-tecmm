@@ -4,8 +4,11 @@ const TABLE_NAME = "seccion3_p4_otros";
 const IDENTIFIER_NAME = "id";
 
 const GraduatedSurveyS3P4Others = {
-  async List() {
-    const data = await connection.query(`select * from ${TABLE_NAME}`);
+  async List(user_id) {
+    const data = await connection.query(
+      `select * from ${TABLE_NAME} where fk_usuario = ?`,
+      [user_id]
+    );
     return data;
   },
   async FindOne(body, user_id) {
