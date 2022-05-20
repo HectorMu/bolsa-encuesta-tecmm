@@ -1,5 +1,6 @@
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 //import FloatingLabelInput from "../../../../components/Global/FloatingLabelInput";
 
 const OPTIONS = [
@@ -17,6 +18,8 @@ const WorksQuestion3 = ({ handleChange, answers }) => {
 
   const addOtherOption = (e) => {
     e.preventDefault();
+    if (otherOption === "")
+      return toast.error("Ingresa una competencia válida");
 
     if (!options.includes(otherOption)) {
       setOptions((old) => [...old, otherOption]);

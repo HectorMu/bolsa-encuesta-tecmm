@@ -683,3 +683,22 @@ input[type="radio"]:checked:after {
 .form-control {
   color: black !important;
 }
+
+.jobbank-card-responsive-heigth {
+  height: 63vh;
+}
+
+.jobbank-section {
+  height: 56vh;
+  overflow-y: scroll;
+}
+
+@media (min-width: 1400px) {
+  .jobbank-card-responsive-heigth {
+    height: 75vh;
+  }
+
+  .jobbank-section {
+    height: 70vh;
+  }
+}

@@ -64,7 +64,6 @@ const index = () => {
     }
   }, [userSectionAnswers]);
 
-  console.log(answers);
   if (error.error) {
     return <ErrorDisplayer message={error.message} />;
   }

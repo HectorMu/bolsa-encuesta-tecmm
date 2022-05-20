@@ -148,7 +148,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
         <div className="col-12">
           <FloatingLabelInput
             inputId="txtJefe"
-            placeholder="Nombre y puesto del jefe inmediato"
+            placeholder="Nombre y puesto jefe inmediato"
             setValue={(e) => handleChange("jefe_inmediato", e.target.value)}
             value={answers.jefe_inmediato}
           />

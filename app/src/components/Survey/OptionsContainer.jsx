@@ -13,7 +13,8 @@ const OptionsContainer = ({
   const [otherOption, setOtherOption] = useState(true);
 
   const removeOtherSelection = (answer, option) => {
-    handleChange(ANSWER, option);
+    handleChange(answer, option);
+    setOtherOption(false);
   };
 
   const toggleOtherOption = (answer) => {
@@ -21,14 +22,10 @@ const OptionsContainer = ({
     handleChange(answer, "");
   };
   useEffect(() => {
-    if (
-      answers[ANSWER] !== "" &&
-      answers[ANSWER] !== null &&
-      !Object.values(OPTIONS).includes(answers[ANSWER])
-    ) {
-      setOtherOption(true);
+    if (Object.values(OPTIONS).includes(answers[ANSWER])) {
+      setOtherOption(false);
     }
-  }, []);
+  }, [ANSWER, OPTIONS]);
   return (
     <div className="row">
       {OPTIONS.map((option) => (

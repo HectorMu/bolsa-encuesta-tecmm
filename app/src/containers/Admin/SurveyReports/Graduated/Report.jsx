@@ -63,6 +63,8 @@ const Report = () => {
   if (error.error) {
     return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
   }
+
+  console.log(surveys);
   return (
     <div>
       {isLoading ? (

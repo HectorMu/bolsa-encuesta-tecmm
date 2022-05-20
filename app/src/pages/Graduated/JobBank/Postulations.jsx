@@ -32,7 +32,7 @@ const Postulations = () => {
           <div className="card-body">
             <div className="row">
               <div className="col-md-5 col-lg-5 col-xl-5">
-                <div style={{ height: "63vh" }}>
+                <div className="jobbank-card-responsive-heigth ">
                   <div className="input-group w-100 mb-3">
                     <input
                       type="text"
@@ -50,13 +50,7 @@ const Postulations = () => {
                     </div>
                   </div>
 
-                  <div
-                    className="purple-scroll"
-                    style={{
-                      overflowY: "scroll",
-                      maxHeight: "55vh",
-                    }}
-                  >
+                  <div className="purple-scroll jobbank-section">
                     <List
                       postulations={postulations}
                       isLoading={isLoading}
@@ -66,13 +60,7 @@ const Postulations = () => {
                 </div>
               </div>
               <div className="col-md-7 col-lg-7 col-xl-7">
-                <div
-                  className="purple-scroll"
-                  style={{
-                    overflowY: "scroll",
-                    maxHeight: "65vh",
-                  }}
-                >
+                <div className="purple-scroll jobbank-section">
                   <Showcase
                     refreshData={refreshData}
                     isLoading={isLoading}

@@ -155,7 +155,7 @@ const Form = () => {
               ></textarea>
 
               <div className="row mt-3">
-                <div className="col-6">
+                <div className="col-12 col-md-12 col-lg-6 col-xl-6">
                   <FloatingLabelInput
                     inputId="txtUbicacion"
                     placeholder="Ubicacion"
@@ -164,7 +164,7 @@ const Form = () => {
                     value={vacant.ubicacion}
                   />
                 </div>
-                <div className="col-6">
+                <div className="col-12 col-md-12 col-lg-6 col-xl-6">
                   <FloatingLabelInput
                     inputId="txtExpiracion"
                     placeholder="Fecha de expiracion"
@@ -176,7 +176,7 @@ const Form = () => {
                 </div>
               </div>
             </div>
-            <div className="col-6 mx-auto">
+            <div className="col-12 col-md-12 col-lg-6 col-xl-6 mx-auto">
               <select
                 className="form-control form-select mb-3"
                 style={{ height: "47px" }}
