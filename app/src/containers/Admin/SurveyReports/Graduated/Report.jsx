@@ -55,6 +55,11 @@ const Report = () => {
     fecha: "FECHA REALIZACIÓN",
   };
 
+  const EntriesP10S4 = {
+    aspecto: "Aspecto",
+    valoracion: "Valoracion",
+  };
+
   if (error.error) {
     return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
   }
@@ -285,9 +290,74 @@ const Report = () => {
                                       </thead>
                                       <tbody>
                                         <tr>
-                                          {Object.entries(v).map(([o, e]) => (
-                                            <td>{e}</td>
-                                          ))}
+                                          {Object.entries(v).map(([x, p]) =>
+                                            typeof p === "object" &&
+                                            Object.entries(p).length > 0 ? (
+                                              <td>
+                                                <table className="table text-center">
+                                                  <thead>
+                                                    <tr>
+                                                      {Object.entries(p).map(
+                                                        ([k, v]) => (
+                                                          <th>
+                                                            {"R" +
+                                                              (parseInt(k) +
+                                                                10)}
+                                                          </th>
+                                                        )
+                                                      )}
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      {Object.entries(p).map(
+                                                        ([k, v]) => (
+                                                          <td>
+                                                            <table className="table text-center">
+                                                              <thead>
+                                                                <tr>
+                                                                  {Object.entries(
+                                                                    EntriesP10S4
+                                                                  ).map(
+                                                                    ([
+                                                                      r,
+                                                                      w,
+                                                                    ]) => (
+                                                                      <th>
+                                                                        {w}
+                                                                      </th>
+                                                                    )
+                                                                  )}
+                                                                </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                <tr>
+                                                                  {Object.entries(
+                                                                    p[k]
+                                                                  ).map(
+                                                                    ([
+                                                                      o,
+                                                                      e,
+                                                                    ]) => (
+                                                                      <td>
+                                                                        {e}
+                                                                      </td>
+                                                                    )
+                                                                  )}
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        )
+                                                      )}
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                              </td>
+                                            ) : (
+                                              <td>{p}</td>
+                                            )
+                                          )}
                                         </tr>
                                       </tbody>
                                     </table>

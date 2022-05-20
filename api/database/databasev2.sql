@@ -98,7 +98,7 @@ INSERT INTO seccion VALUES
 
 CREATE TABLE preguntas(
 id BIGINT PRIMARY KEY AUTO_INCREMENT,
-fk_seccion INT,
+fk_seccion BIGINT,
 descripcion VARCHAR (250),
 FOREIGN KEY (fk_seccion) REFERENCES seccion (id)
 );
@@ -223,9 +223,9 @@ FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
 
 CREATE TABLE respuestas(
 id BIGINT PRIMARY KEY AUTO_INCREMENT,
-fk_pregunta INT,
-fk_seccion INT,
-fk_usuario INT,
+fk_pregunta BIGINT,
+fk_seccion BIGINT,
+fk_usuario BIGINT,
 respuesta TEXT,
 FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id),
 FOREIGN KEY (fk_seccion) REFERENCES seccion(id),
@@ -243,7 +243,7 @@ INSERT INTO seccion_empresa VALUES
 
 CREATE TABLE preguntas_empresa(
 id BIGINT PRIMARY KEY AUTO_INCREMENT,
-fk_seccion_empresa INT,
+fk_seccion_empresa BIGINT,
 descripcion VARCHAR (250),
 FOREIGN KEY (fk_seccion_empresa) REFERENCES seccion_empresa(id)
 );
@@ -260,8 +260,8 @@ INSERT INTO preguntas_empresa VALUES
 
 CREATE TABLE seccionb_p6_detalle(
 id BIGINT PRIMARY KEY AUTO_INCREMENT,
-fk_usuario INT,
-fk_pregunta_empresa INT,
+fk_usuario BIGINT,
+fk_pregunta_empresa BIGINT,
 carrera VARCHAR(50),
 mando_superior INT,
 mando_intermedio INT,
@@ -339,9 +339,9 @@ FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
 
 CREATE TABLE respuestas_empresa(
 id BIGINT PRIMARY KEY AUTO_INCREMENT,
-fk_pregunta_empresa INT,
-fk_seccion_empresa INT,
-fk_usuario INT,
+fk_pregunta_empresa BIGINT,
+fk_seccion_empresa BIGINT,
+fk_usuario BIGINT,
 respuesta TEXT,
 FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id),
 FOREIGN KEY (fk_seccion_empresa) REFERENCES seccion_empresa(id),
@@ -350,7 +350,7 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 
 create table publicacion_bolsa(
     folio BIGINT primary key,
-    fk_empresa int,
+    fk_empresa BIGINT,
     vacante varchar(100),
     descripcion TEXT,
     ubicacion varchar(50),
@@ -362,16 +362,16 @@ create table publicacion_bolsa(
 
 CREATE TABLE vistas_publicaciones(
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    fk_publicacion INT,
-    fk_usuario INT,
+    fk_publicacion BIGINT,
+    fk_usuario BIGINT,
 	FOREIGN KEY (fk_publicacion) REFERENCES publicacion_bolsa(folio),
 	FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 create table solicitud_bolsa(
     id BIGINT primary key auto_increment,
-    fk_vacante int,
-    fk_egresado int,
+    fk_vacante BIGINT,
+    fk_egresado BIGINT,
     status varchar(50),
     foreign key(fk_vacante)references publicacion_bolsa(folio),
     foreign key(fk_egresado)references usuarios(id)

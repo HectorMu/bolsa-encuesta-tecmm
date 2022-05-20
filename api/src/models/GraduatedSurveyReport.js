@@ -157,7 +157,10 @@ const GraduatedSurveyReport = {
         R7: " ",
         R8: " ",
         R9: " ",
-        R10: " ",
+        Otros: {
+          Aspecto: "",
+          Valoracion: "",
+        },
       },
     };
 
@@ -185,7 +188,20 @@ const GraduatedSurveyReport = {
       survey.P4.R7 = p4Details[0].recomendaciones;
       survey.P4.R8 = p4Details[0].personalidad;
       survey.P4.R9 = p4Details[0].capacidad_liderazgo;
-      survey.P4.R10 = p4Details[0].otros;
+    }
+
+    let p4Otros = await connection.query(
+      `SELECT * FROM seccion3_p4_otros WHERE fk_usuario = ?`,
+      [fk_user]
+    );
+
+    p4Otros = p4Otros.map((p) => {
+      delete p.id, delete p.fk_usuario;
+
+      return p;
+    });
+    if (p4Otros.length > 0) {
+      survey.P4.Otros = { ...p4Otros };
     }
 
     var GraduatedAnswersS4 = JSON.stringify(survey);

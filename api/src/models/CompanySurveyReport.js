@@ -167,10 +167,10 @@ const CompanySurveyReport = {
       survey.P1.Liderazgo = p2Details[0].liderazgo;
       survey.P1.Adaptacion_cambio = p2Details[0].adaptacion_cambio;
       survey.P1.Otros =
-        "Cal: " +
-        p2Details[0].otros +
-        ", Detalle: " +
-        p2Details[0].otros_detalle;
+        "Detalle: " +
+        p2Details[0].otros_detalle +
+        " Valoración: " +
+        p2Details[0].otros;
     }
 
     const p3Details = await connection.query(
