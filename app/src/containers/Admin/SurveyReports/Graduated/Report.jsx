@@ -302,9 +302,12 @@ const Report = () => {
                                                       {Object.entries(p).map(
                                                         ([k, v]) => (
                                                           <th>
-                                                            {"R" +
-                                                              (parseInt(k) +
-                                                                10)}
+                                                            {parseInt(k) ||
+                                                            parseInt(k) == 0
+                                                              ? "R" +
+                                                                (parseInt(k) +
+                                                                  10)
+                                                              : null}
                                                           </th>
                                                         )
                                                       )}
@@ -313,44 +316,45 @@ const Report = () => {
                                                   <tbody>
                                                     <tr>
                                                       {Object.entries(p).map(
-                                                        ([k, v]) => (
-                                                          <td>
-                                                            <table className="table text-center">
-                                                              <thead>
-                                                                <tr>
-                                                                  {Object.entries(
-                                                                    EntriesP10S4
-                                                                  ).map(
-                                                                    ([
-                                                                      r,
-                                                                      w,
-                                                                    ]) => (
-                                                                      <th>
-                                                                        {w}
-                                                                      </th>
-                                                                    )
-                                                                  )}
-                                                                </tr>
-                                                              </thead>
-                                                              <tbody>
-                                                                <tr>
-                                                                  {Object.entries(
-                                                                    p[k]
-                                                                  ).map(
-                                                                    ([
-                                                                      o,
-                                                                      e,
-                                                                    ]) => (
-                                                                      <td>
-                                                                        {e}
-                                                                      </td>
-                                                                    )
-                                                                  )}
-                                                                </tr>
-                                                              </tbody>
-                                                            </table>
-                                                          </td>
-                                                        )
+                                                        ([k, v]) =>
+                                                          v ? (
+                                                            <td>
+                                                              <table className="table text-center">
+                                                                <thead>
+                                                                  <tr>
+                                                                    {Object.entries(
+                                                                      EntriesP10S4
+                                                                    ).map(
+                                                                      ([
+                                                                        r,
+                                                                        w,
+                                                                      ]) => (
+                                                                        <th>
+                                                                          {w}
+                                                                        </th>
+                                                                      )
+                                                                    )}
+                                                                  </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                  <tr>
+                                                                    {Object.entries(
+                                                                      p[k]
+                                                                    ).map(
+                                                                      ([
+                                                                        o,
+                                                                        e,
+                                                                      ]) => (
+                                                                        <td>
+                                                                          {e}
+                                                                        </td>
+                                                                      )
+                                                                    )}
+                                                                  </tr>
+                                                                </tbody>
+                                                              </table>
+                                                            </td>
+                                                          ) : null
                                                       )}
                                                     </tr>
                                                   </tbody>
