@@ -2,7 +2,7 @@
 import Loading from "@/components/Global/Loading";
 import JobCard from "@/components/Graduated/Postulations/JobCard";
 
-const List = ({ searchTerm, postulations, isLoading }) => {
+const List = ({ searchTerm, postulations, isLoading, setToggleShowcase }) => {
   return (
     <div>
       {postulations.length > 0 &&
@@ -32,7 +32,13 @@ const List = ({ searchTerm, postulations, isLoading }) => {
                 .toLowerCase()
                 .includes(searchTerm.toLowerCase())
           )
-          .map((job) => <JobCard key={job.fk_vacante} job={job} />)
+          .map((job) => (
+            <JobCard
+              key={job.fk_vacante}
+              job={job}
+              setToggleShowcase={setToggleShowcase}
+            />
+          ))
       ) : (
         <h5 className="text-center">
           Aqui aparecerán los trabajos en los que te has postulado.

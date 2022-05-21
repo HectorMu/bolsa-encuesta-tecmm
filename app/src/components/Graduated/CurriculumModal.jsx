@@ -1,16 +1,20 @@
 import React from "react";
 import Modal from "../Global/Modal";
 import useGraduatedCurriculum from "@/hooks/useGraduatedCurriculum";
+import useWindowSize from "@/hooks/useWindowResize";
 
 const CurriculumModal = () => {
   const { graduatedCurriculum } = useGraduatedCurriculum();
+  const size = useWindowSize();
   return (
     <Modal
-      title="Mi curriculum"
-      buttonText="Ver mi curriculum"
+      title="Mi currículum"
+      buttonText="Ver mi currículum"
       buttonClass="btn btn-outline-primary"
       modalClass="modal-dialog modal-xl modal-dialog-scrollable"
       buttonCloseText="Cerrar"
+      disabled={size.width < 700}
+      disabledCause={"El navegador no soporta la visualización de PDF."}
       faIcon={<i className="fas fa-eye"></i>}
     >
       <object

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import moment from "moment/min/moment-with-locales";
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useWindowSize from "@/hooks/useWindowResize";
 
-const JobCard = ({ job }) => {
+const JobCard = ({ job, setToggleShowcase }) => {
+  const size = useWindowSize();
   const [toggleStatusSpan, setToggleStatusSpan] = useState(false);
 
   const toggleStatusSpanOnHover = () => setToggleStatusSpan(!toggleStatusSpan);
@@ -12,6 +14,7 @@ const JobCard = ({ job }) => {
     navigate(`/graduated/jobbank/postulations/${postulation.fk_vacante}`, {
       state: postulation,
     });
+    if (size.width < 800) setToggleShowcase(true);
   };
   return (
     <div

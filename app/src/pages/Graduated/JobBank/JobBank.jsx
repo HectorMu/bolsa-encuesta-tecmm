@@ -9,10 +9,12 @@ import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
 import toast from "react-hot-toast";
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
+import MobileShowcase from "@/components/Graduated/JobBank/MobileShowcase";
 
 const JobBank = () => {
   const { verifySession } = useSession();
   const animatedRef = useCleanAosAnimations();
+  const [toggleShowcase, setToggleShowcase] = useState(false);
   const { navigate } = useRouterHooks();
   const [error, setError] = useState({ error: false, statusText: "" });
   const {
@@ -85,11 +87,19 @@ const JobBank = () => {
                       isLoading={isLoading}
                       searchTerm={searchTerm}
                       jobs={jobs}
+                      toggleShowcase={toggleShowcase}
+                      setToggleShowcase={setToggleShowcase}
                     />
                   </div>
                 </div>
               </div>
-              <div className="col-md-7 col-lg-7 col-xl-7">
+              <MobileShowcase
+                toggleShowcase={toggleShowcase}
+                setToggleShowcase={setToggleShowcase}
+              >
+                <Showcase setSearchTerm={setSearchTerm} jobs={jobs} />
+              </MobileShowcase>
+              <div className="col-md-7 col-lg-7 col-xl-7 d-none d-sm-none d-md-block d-lg-block">
                 <div className="purple-scroll jobbank-section">
                   <Showcase setSearchTerm={setSearchTerm} jobs={jobs} />
                 </div>

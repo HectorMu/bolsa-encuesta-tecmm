@@ -1,15 +1,20 @@
+import { useState } from "react";
 //Importando los componentes
 import Loading from "@/components/Global/Loading";
 
 //Importando los hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
+import useWindowSize from "@/hooks/useWindowResize";
 
 import moment from "moment/min/moment-with-locales";
 
-const List = ({ searchTerm, jobs, isLoading }) => {
+const List = ({ searchTerm, jobs, isLoading, setToggleShowcase }) => {
+  const size = useWindowSize();
   const { navigate, params } = useRouterHooks();
   const handleJobSelection = (job) => {
     navigate(`/graduated/jobbank/jobs/${job.folio}`, { state: job });
+
+    if (size.width < 800) setToggleShowcase(true);
   };
 
   return (

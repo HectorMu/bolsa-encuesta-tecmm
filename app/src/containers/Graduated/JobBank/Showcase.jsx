@@ -17,8 +17,10 @@ import jobsService from "@/services/Graduated/jobs.service";
 //Importando helpers
 import helpers from "@/helpers/helpers";
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
+import useWindowSize from "@/hooks/useWindowResize";
 
 const Showcase = ({ setSearchTerm, jobs }) => {
+  const size = useWindowSize();
   const [selectedJob, setSelectedJob] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [loadingPostulation, setLoadingPostulation] = useState(false);
@@ -35,7 +37,7 @@ const Showcase = ({ setSearchTerm, jobs }) => {
       return toast.error(results.statusText);
     }
 
-    toast.success("Curriculum enviado");
+    toast.success("Currículum enviado");
     getPostulationHandler();
   };
 
@@ -108,7 +110,12 @@ const Showcase = ({ setSearchTerm, jobs }) => {
     handleGetJobFromFetch();
     getPostulationHandler();
     registerPostVisit();
-  }, [handleGetJobFromFetch, registerPostVisit, getPostulationHandler]);
+  }, [
+    handleGetJobFromFetch,
+    registerPostVisit,
+    getPostulationHandler,
+    size.width,
+  ]);
 
   if (error?.error) {
     return <ErrorDisplayer message={error.message} />;
@@ -158,7 +165,7 @@ const Showcase = ({ setSearchTerm, jobs }) => {
                 <Loading />
               ) : currentPostulation?.id ? (
                 <div className="d-flex flex-column align-items-center justify-content-center mt-5">
-                  <h5>Tu curriculum ha sido enviado.</h5>
+                  <h5>Tu currículum ha sido enviado.</h5>
                   <h6>
                     Estado:{" "}
                     <span className="text-primary">

@@ -10,6 +10,8 @@ const Modal = ({
   faIcon = null,
   faIconPos = "left",
   closeRef = null,
+  disabled,
+  disabledCause = null,
   children,
 }) => {
   return (
@@ -19,10 +21,14 @@ const Modal = ({
         className={buttonClass}
         data-toggle="modal"
         data-target={`#${id}`}
+        disabled={disabled}
       >
         {faIcon && faIconPos === "left" && faIcon} {buttonText}{" "}
         {faIcon && faIconPos === "right" && faIcon}
       </button>
+      <span style={{ fontSize: "14px" }} className="text-center pt-1 pb-2">
+        {disabled && disabledCause}
+      </span>
       {/* Modal */}
       <div
         className="modal fade"

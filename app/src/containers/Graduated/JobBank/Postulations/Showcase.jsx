@@ -10,6 +10,7 @@ import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 //Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
+import useWindowSize from "@/hooks/useWindowResize";
 
 //Importando helpers
 import helpers from "@/helpers/helpers";
@@ -21,6 +22,7 @@ import CurriculumModal from "@/components/Graduated/CurriculumModal";
 const Showcase = ({ refreshData, postulations, isLoading: loadingItems }) => {
   const [selectedJob, setSelectedJob] = useState({});
 
+  const size = useWindowSize();
   const [isLoading, setIsLoading] = useState(false);
   const [loadingPostulation, setLoadingPostulation] = useState(false);
   const [currentPostulation, setCurrentPostulation] = useState({});
@@ -100,7 +102,7 @@ const Showcase = ({ refreshData, postulations, isLoading: loadingItems }) => {
   useEffect(() => {
     handleGetJobFromFetch();
     getPostulationHandler();
-  }, [handleGetJobFromFetch, getPostulationHandler]);
+  }, [handleGetJobFromFetch, getPostulationHandler, size.width]);
 
   if (selectedJob?.error) {
     return isLoading ? (

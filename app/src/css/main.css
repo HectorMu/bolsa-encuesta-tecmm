@@ -702,3 +702,19 @@ input[type="radio"]:checked:after {
     height: 70vh;
   }
 }
+.jobbank-showcase-mobile {
+  position: fixed;
+  z-index: 9;
+  right: -100%;
+  width: 100%;
+  bottom: 0;
+  padding: 20px;
+  background-color: white;
+  overflow-y: scroll;
+  height: calc(100vh - 53px);
+  transition: all ease-in-out 250ms;
+}
+
+.jobbank-showcase-mobile.active {
+  right: 0;
+}
