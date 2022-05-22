@@ -16,19 +16,22 @@ const Modal = ({
 }) => {
   return (
     <>
-      <button
-        type="button"
-        className={buttonClass}
-        data-toggle="modal"
-        data-target={`#${id}`}
-        disabled={disabled}
-      >
-        {faIcon && faIconPos === "left" && faIcon} {buttonText}{" "}
-        {faIcon && faIconPos === "right" && faIcon}
-      </button>
-      <span style={{ fontSize: "14px" }} className="text-center pt-1 pb-2">
-        {disabled && disabledCause}
-      </span>
+      <div className="d-flex flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row align-content-center justify-content-center ">
+        <button
+          type="button"
+          className={buttonClass}
+          data-toggle="modal"
+          data-target={`#${id}`}
+          disabled={disabled}
+        >
+          {faIcon && faIconPos === "left" && faIcon} {buttonText}{" "}
+          {faIcon && faIconPos === "right" && faIcon}
+        </button>
+        <span style={{ fontSize: "14px" }} className="text-center pt-1 pb-2">
+          {disabled && disabledCause}
+        </span>
+      </div>
+
       {/* Modal */}
       <div
         className="modal fade"

@@ -11,10 +11,12 @@ import VacantDetails from "@/containers/Company/Postulations/VacantDetails";
 import useWindowSize from "@/hooks/useWindowResize";
 
 import ScrollToTop from "@/components/Navigation/ScrollToTopOnMount";
+import MobileShowcase from "@/components/Graduated/JobBank/MobileShowcase";
 
 const FILTER_OPTIONS = ["Todas", "Sin revisar", "Revisado"];
 const Postulations = () => {
   const { width } = useWindowSize();
+  const [toggleShowcase, setToggleShowcase] = useState(false);
 
   const removeOnRezise = width < 800 ? "" : "col-xl-10 mx-auto";
 
@@ -100,12 +102,13 @@ const Postulations = () => {
                         error={error}
                         searchTerm={searchTerm}
                         filter={filter}
+                        setToggleShowcase={setToggleShowcase}
                       />
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="col-md-7 col-lg-7 col-xl-7">
+              <div className="col-md-7 col-lg-7 col-xl-7  d-none d-sm-none d-md-block d-lg-block">
                 <Showcase
                   postulations={postulations}
                   refreshData={refreshData}
@@ -115,6 +118,12 @@ const Postulations = () => {
           </div>
         </div>
       </div>
+      <MobileShowcase
+        setToggleShowcase={setToggleShowcase}
+        toggleShowcase={toggleShowcase}
+      >
+        <Showcase postulations={postulations} refreshData={refreshData} />
+      </MobileShowcase>
     </div>
   );
 };

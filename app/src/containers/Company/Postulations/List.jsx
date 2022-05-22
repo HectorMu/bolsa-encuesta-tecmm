@@ -7,13 +7,24 @@ import Loading from "@/components/Global/Loading";
 //Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
+import useWindowSize from "@/hooks/useWindowResize";
 
-const List = ({ postulations, isLoading, error, searchTerm, filter }) => {
+const List = ({
+  postulations,
+  isLoading,
+  error,
+  searchTerm,
+  filter,
+  setToggleShowcase,
+}) => {
+  const size = useWindowSize();
   const { navigate, params } = useRouterHooks();
   const [localPostulations, setLocalPostulations] = useState([]);
   const { user } = useSession();
 
   const handleGoToPostulation = (postulation) => {
+    if (size.width < 800) setToggleShowcase(true);
+
     if (user.fk_rol === 1) {
       navigate(`/jobbank/postulations/${params.job_id}/${postulation.id}`, {
         state: postulation,
