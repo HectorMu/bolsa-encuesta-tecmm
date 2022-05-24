@@ -9,6 +9,7 @@ import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 //Graduated survey hook to get the current section data based on url param section_id
 import useGraduatedSurvey from "@/hooks/useGraduatedSurvey";
 import useSession from "@/hooks/useSession";
+import usePreventGraduatedSurveyJumps from "@/hooks/usePreventGraduatedSurveyJumps";
 
 //Importing services
 import surveyService from "@/services/Graduated/survey.service";
@@ -40,6 +41,8 @@ const index = () => {
     useGraduatedSurvey();
   const navigate = useNavigate();
   const { verifySession } = useSession();
+  const { answeredSections, setAnsweredSectionHandler } =
+    usePreventGraduatedSurveyJumps();
 
   const saveAndSkipToNextSection = async () => {
     const tLoading = toast.loading("Guardando...");
@@ -50,10 +53,16 @@ const index = () => {
       return toast.error(results.statusText, { id: tLoading });
     }
     toast.dismiss(tLoading);
+    setAnsweredSectionHandler("s3", true);
     navigate("/graduated/survey/section/4");
   };
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
+  useEffect(() => {
+    if (!answeredSections.s2) {
+      navigate(`/graduated/survey/section/2`);
+    }
+  }, [answeredSections.s2]);
 
   useEffect(() => {
     if (userSectionAnswers?.respuesta1) {

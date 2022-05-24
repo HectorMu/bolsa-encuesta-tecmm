@@ -37,7 +37,7 @@ const Showcase = ({ refreshData, postulations, isLoading: loadingItems }) => {
       return toast.error(results.statusText);
     }
 
-    toast.success("Curriculum enviado");
+    toast.success("Currículum enviado");
     getPostulationHandler();
   };
 
@@ -152,7 +152,7 @@ const Showcase = ({ refreshData, postulations, isLoading: loadingItems }) => {
                 <Loading />
               ) : currentPostulation?.id ? (
                 <div className="d-flex flex-column align-items-center justify-content-center mt-5">
-                  <h5>Tu curriculum ha sido enviado.</h5>
+                  <h5>Tu currículum ha sido enviado.</h5>
                   <h6>
                     Estado:{" "}
                     <span className="text-primary">

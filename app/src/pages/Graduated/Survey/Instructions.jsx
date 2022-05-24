@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import Loading from "@/components/Global/Loading";
 import Modal from "@/components/Global/Modal";
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
-import { Host } from "@/services/API";
 
 const Survey = () => {
   const [acuse, setAcuse] = useState("");
@@ -24,6 +23,7 @@ const Survey = () => {
   );
 
   const getAcuseWithAuth = async () => {
+    if (!answeredDetails.acuse) return;
     setLoadingAcuse(true);
     const fetchedAcuse = await Auth.getResourcesFromPublicFolder(
       `graduated/files/acuses/${answeredDetails.acuse}`

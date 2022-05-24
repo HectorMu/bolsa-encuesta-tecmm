@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { Session } from "@/context/SessionProvider";
 
-const useSession = () => {
-  return useContext(Session);
-};
+const useSession = () => useContext(Session);
 
 export default useSession;
