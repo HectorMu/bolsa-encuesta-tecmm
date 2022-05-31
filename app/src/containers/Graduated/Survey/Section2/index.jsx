@@ -21,6 +21,7 @@ import Works from "./Works";
 
 //Graduated survey hook to get the current section data based on url param section_id
 import useGraduatedSurvey from "@/hooks/useGraduatedSurvey";
+import usePreventGraduatedSurveyJumps from "@/hooks/usePreventGraduatedSurveyJumps";
 
 const sectionAnswers = {
   respuesta1: "",
@@ -65,6 +66,8 @@ const index = () => {
   const [onceQuestionsAnswered, setOnceQuestionsAnswered] = useState(false);
   const [answers, setAnswers] = useState(sectionAnswers);
   const { verifySession } = useSession();
+  const { answeredSections, setAnsweredSectionHandler } =
+    usePreventGraduatedSurveyJumps();
 
   const navigate = useNavigate();
 
@@ -76,6 +79,7 @@ const index = () => {
     if (!results.status) {
       return toast.error(results.statusText, { id: tLoading });
     }
+    setAnsweredSectionHandler("s2", true);
     toast.dismiss(tLoading);
     navigate("/graduated/survey/section/3");
   };
@@ -94,12 +98,19 @@ const index = () => {
   }, [userSectionAnswers]);
 
   useEffect(() => {
+    if (!answeredSections.s1) {
+      navigate(`/graduated/survey/section/1`);
+    }
+  }, [answeredSections.s1]);
+
+  useEffect(() => {
     setFetchedAnswers();
   }, [setFetchedAnswers]);
 
   if (error.error) {
     return <ErrorDisplayer message={error.message} />;
   }
+
   return (
     <>
       {isLoading ? (

@@ -93,12 +93,7 @@ const JobBank = () => {
                   </div>
                 </div>
               </div>
-              <MobileShowcase
-                toggleShowcase={toggleShowcase}
-                setToggleShowcase={setToggleShowcase}
-              >
-                <Showcase setSearchTerm={setSearchTerm} jobs={jobs} />
-              </MobileShowcase>
+
               <div className="col-md-7 col-lg-7 col-xl-7 d-none d-sm-none d-md-block d-lg-block">
                 <div className="purple-scroll jobbank-section">
                   <Showcase setSearchTerm={setSearchTerm} jobs={jobs} />
@@ -108,6 +103,12 @@ const JobBank = () => {
           </div>
         </div>
       </div>
+      <MobileShowcase
+        toggleShowcase={toggleShowcase}
+        setToggleShowcase={setToggleShowcase}
+      >
+        <Showcase setSearchTerm={setSearchTerm} jobs={jobs} />
+      </MobileShowcase>
     </div>
   );
 };

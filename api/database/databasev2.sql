@@ -420,6 +420,7 @@ CREATE TRIGGER `usuarios_BorrarDatosExistentesEgresado` BEFORE DELETE ON `usuari
     DELETE FROM seccion2_trabaja WHERE fk_usuario = OLD.id;
     DELETE FROM seccion2_estudia WHERE fk_usuario = OLD.id;
     DELETE FROM seccion3_p4_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion3_p4_otros WHERE fk_usuario = OLD.id;
     DELETE FROM seccion4_p1_detalle WHERE fk_usuario = OLD.id;
     DELETE FROM seccion4_p2_detalle WHERE fk_usuario = OLD.id;
     DELETE FROM seccion5_p1_detalle WHERE fk_usuario = OLD.id;

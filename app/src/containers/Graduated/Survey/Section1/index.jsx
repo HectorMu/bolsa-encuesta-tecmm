@@ -9,6 +9,7 @@ import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 //Graduated survey hook to get the current section data based on url param section_id
 import useGraduatedSurvey from "@/hooks/useGraduatedSurvey";
 import useSession from "@/hooks/useSession";
+import usePreventGraduatedSurveyJumps from "@/hooks/usePreventGraduatedSurveyJumps";
 
 //importing services
 import surveyService from "@/services/Graduated/survey.service";
@@ -32,6 +33,8 @@ const SectionAnswers = {
 };
 
 const index = () => {
+  const { answeredSections, setAnsweredSectionHandler } =
+    usePreventGraduatedSurveyJumps();
   const [answers, setAnswers] = useState(SectionAnswers);
   const { section, questions, isLoading, userSectionAnswers, error } =
     useGraduatedSurvey();
@@ -48,6 +51,7 @@ const index = () => {
     if (!results.status) {
       return toast.error(results.statusText, { id: tLoading });
     }
+    setAnsweredSectionHandler("s1", true);
     toast.dismiss(tLoading);
     navigate("/graduated/survey/section/2");
   };

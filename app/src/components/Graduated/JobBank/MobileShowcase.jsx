@@ -5,7 +5,7 @@ const MobileShowcase = ({ toggleShowcase, setToggleShowcase, children }) => {
   const size = useWindowSize();
   return (
     <div
-      className={`jobbank-showcase-mobile ${
+      className={`jobbank-showcase-mobile purple-scroll ${
         toggleShowcase && size.width < 768 ? "active" : ""
       }`}
     >

@@ -11,6 +11,7 @@ import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 //Graduated survey hook to get the current section data based on url param section_id
 import useGraduatedSurvey from "@/hooks/useGraduatedSurvey";
+import usePreventGraduatedSurveyJumps from "@/hooks/usePreventGraduatedSurveyJumps";
 
 //Importing services
 import surveyService from "@/services/Graduated/survey.service";
@@ -25,6 +26,7 @@ const index = () => {
     useGraduatedSurvey();
   const navigate = useNavigate();
   const { verifySession } = useSession();
+  const { answeredSections } = usePreventGraduatedSurveyJumps();
 
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
 
@@ -39,6 +41,12 @@ const index = () => {
     navigate("/graduated/survey");
     toast.success("Gracias por contestar la encuesta!", { id: tLoading });
   };
+
+  useEffect(() => {
+    if (!answeredSections.s5) {
+      navigate(`/graduated/survey/section/5`);
+    }
+  }, [answeredSections.s5]);
 
   useEffect(() => {
     if (userSectionAnswers) {

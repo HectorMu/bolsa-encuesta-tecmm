@@ -6,10 +6,11 @@ import Section4 from "@/containers/Graduated/Survey/Section4";
 import Section5 from "@/containers/Graduated/Survey/Section5";
 import Section6 from "@/containers/Graduated/Survey/Section6";
 import useWindowSize from "@/hooks/useWindowResize";
+import PreventGraduatedSurveyJumpsProvider from "@/context/PreventGraduatedSurveyJumpsProvider";
 
 import { Navigate } from "react-router-dom";
 
-const Section = () => {
+const Survey = () => {
   const { params } = useRouterHooks();
   const size = useWindowSize();
 
@@ -22,20 +23,22 @@ const Section = () => {
     <div className={`text-black ${toggleClassOnResize}`}>
       <div className="card shadow rounded-0 border-0">
         <div className="card-body">
-          {parseInt(params.section_id) === 1 ? <Section1 /> : null}
-          {parseInt(params.section_id) === 2 ? <Section2 /> : null}
-          {parseInt(params.section_id) === 3 ? <Section3 /> : null}
-          {parseInt(params.section_id) === 4 ? <Section4 /> : null}
-          {parseInt(params.section_id) === 5 ? <Section5 /> : null}
-          {parseInt(params.section_id) === 6 ? <Section6 /> : null}
-          {parseInt(params.section_id) < 1 ||
-          parseInt(params.section_id) > 6 ? (
-            <Navigate to={"/graduated/survey"} replace={true} />
-          ) : null}
+          <PreventGraduatedSurveyJumpsProvider>
+            {parseInt(params.section_id) === 1 && <Section1 />}
+            {parseInt(params.section_id) === 2 && <Section2 />}
+            {parseInt(params.section_id) === 3 && <Section3 />}
+            {parseInt(params.section_id) === 4 && <Section4 />}
+            {parseInt(params.section_id) === 5 && <Section5 />}
+            {parseInt(params.section_id) === 6 && <Section6 />}
+            {parseInt(params.section_id) < 1 ||
+              (parseInt(params.section_id) > 6 && (
+                <Navigate to={"/graduated/survey"} replace={true} />
+              ))}
+          </PreventGraduatedSurveyJumpsProvider>
         </div>
       </div>
     </div>
   );
 };
 
-export default Section;
+export default Survey;

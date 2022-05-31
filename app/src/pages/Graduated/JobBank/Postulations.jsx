@@ -63,16 +63,7 @@ const Postulations = () => {
                   </div>
                 </div>
               </div>
-              <MobileShowcase
-                toggleShowcase={toggleShowcase}
-                setToggleShowcase={setToggleShowcase}
-              >
-                <Showcase
-                  refreshData={refreshData}
-                  isLoading={isLoading}
-                  postulations={postulations}
-                />
-              </MobileShowcase>
+
               <div className="col-md-7 col-lg-7 col-xl-7 d-none d-sm-none d-md-block d-lg-block">
                 <div className="purple-scroll jobbank-section">
                   <Showcase
@@ -86,6 +77,16 @@ const Postulations = () => {
           </div>
         </div>
       </div>
+      <MobileShowcase
+        toggleShowcase={toggleShowcase}
+        setToggleShowcase={setToggleShowcase}
+      >
+        <Showcase
+          refreshData={refreshData}
+          isLoading={isLoading}
+          postulations={postulations}
+        />
+      </MobileShowcase>
     </div>
   );
 };
