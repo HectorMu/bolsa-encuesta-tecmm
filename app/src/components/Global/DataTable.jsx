@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import Pagination from "./Pagination";
+import { useMemo } from "react";
 
 // /**
 //  * @param {String} title The table title
@@ -53,71 +55,40 @@ const DataTable = ({
   const [initialData, setInitialData] = useState([]);
   const [initialFilter, setInitialFilter] = useState(firstColumnKey);
   const [selectedFilter, setSelectedFilter] = useState(initialFilter);
-  const [order, setOrder] = useState("DSC");
-  const [selectedCol, setSelectedCol] = useState("");
 
-  const searchOnData = (value) => {
-    if (value === "") {
-      return setInitialData(data);
-    }
+  const [search, setSearch] = useState("");
+
+  let PageSize = 50;
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return data.length > 0 && data.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
+
+  const currentSearchResults = useMemo(() => {
+    if (search === "") return currentTableData;
+
     if (selectedFilter === initialFilter) {
-      const results = data.filter((d) => d[initialFilter].toString() === value);
-      if (results.length > 0) {
-        setInitialData(results);
-      }
-      return;
+      const results = data.filter(
+        (d) => d[initialFilter].toString() === search
+      );
+      if (results.length > 0) return results;
     }
 
     const results = data.filter((d) =>
       d[selectedFilter.toLowerCase()]
         .toString()
         .toLowerCase()
-        .includes(value.toLowerCase())
+        .includes(search.toLowerCase())
     );
 
-    if (results.length > 0) {
-      setInitialData(results);
-    }
-  };
+    if (results.length > 0) return results;
 
-  const sortData = (col) => {
-    setSelectedCol(col);
-    if (order === "ASC") {
-      if (Number.isInteger(initialData[0][col])) {
-        const sortedData = [...initialData.sort((fe, se) => fe[col] - se[col])];
-        setInitialData(sortedData);
-        setOrder("DSC");
-        return;
-      }
-      const sortedData = [
-        ...initialData.sort((fe, se) =>
-          fe[col].toString().toLowerCase() > se[col].toString().toLowerCase()
-            ? 1
-            : -1
-        ),
-      ];
-      setInitialData(sortedData);
-      setOrder("DSC");
-    }
-    if (order === "DSC") {
-      if (Number.isInteger(initialData[0][col])) {
-        const sortedData = [...initialData.sort((fe, se) => se[col] - fe[col])];
-        setInitialData(sortedData);
-        setOrder("ASC");
-        return;
-      }
-      const sortedData = [
-        ...initialData.sort((fe, se) =>
-          fe[col].toString().toLowerCase() < se[col].toString().toLowerCase()
-            ? 1
-            : -1
-        ),
-      ];
-
-      setInitialData(sortedData);
-      setOrder("ASC");
-    }
-  };
+    return currentTableData;
+  }, [search]);
 
   useEffect(() => {
     if (initialData.length > 0) {
@@ -135,7 +106,7 @@ const DataTable = ({
         <h6 className="m-0 font-weight-bold text-primary text-center">
           {title}
         </h6>
-        <div className="d-flex mt-3 mt-lg-0 mt-md-0 mt-xl-0">
+        <div className="d-flex  mt-3 mt-lg-0 mt-md-0 mt-xl-0">
           {refreshCallback !== null ? (
             <button
               onClick={async () => refreshCallback()}
@@ -233,7 +204,7 @@ const DataTable = ({
                   ? renameHeaders[selectedFilter].toLowerCase()
                   : selectedFilter
               }`}
-              onChange={(e) => searchOnData(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
             />
             <div className="input-group-append">
               <button className="btn btn-primary btn-sm" type="button">
@@ -245,6 +216,13 @@ const DataTable = ({
       </div>
       <div className="card-body">
         <div className="table-responsive">
+          <Pagination
+            className="pagination-bar"
+            currentPage={currentPage}
+            totalCount={initialData.length}
+            pageSize={PageSize}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
           <table
             className="table table-hover"
             id={`dataTable${title.replace(" ", "-")}`}
@@ -252,11 +230,11 @@ const DataTable = ({
             cellSpacing={0}
           >
             <thead>
-              {initialData !== undefined &&
-              Array.isArray(initialData) &&
-              initialData.length > 0 ? (
-                <tr key={initialData[0].id}>
-                  {Object.keys(initialData[0]).map((e, i) =>
+              {currentTableData !== undefined &&
+              Array.isArray(currentTableData) &&
+              currentTableData.length > 0 ? (
+                <tr key={currentTableData[0].id}>
+                  {Object.keys(currentTableData[0]).map((e, i) =>
                     renameHeaders !== null &&
                     Object.keys(renameHeaders).includes(e) ? (
                       <th
@@ -271,21 +249,7 @@ const DataTable = ({
                             : ``
                         }`}
                       >
-                        <div className="d-flex">
-                          {renameHeaders[e]}{" "}
-                          <button
-                            onClick={() => sortData(e)}
-                            className="btn  btn-sm btn-link mx-1 y border-0 text-primary px-1 py-0"
-                          >
-                            {selectedCol !== "" &&
-                            order === "ASC" &&
-                            selectedCol === e ? (
-                              <i className="fas fa-sort-up "></i>
-                            ) : (
-                              <i className="fas fa-sort-down "></i>
-                            )}
-                          </button>
-                        </div>
+                        <div className="d-flex">{renameHeaders[e]} </div>
                       </th>
                     ) : (
                       <th
@@ -302,18 +266,6 @@ const DataTable = ({
                       >
                         <div className="d-flex">
                           {e.charAt(0).toUpperCase() + e.slice(1)}{" "}
-                          <button
-                            onClick={() => sortData(e)}
-                            className="btn btn-sm btn-link mx-1 text-primary border-0 px-1 py-0"
-                          >
-                            {selectedCol !== "" &&
-                            order === "ASC" &&
-                            selectedCol === e ? (
-                              <i className="fas fa-sort-up "></i>
-                            ) : (
-                              <i className="fas fa-sort-down "></i>
-                            )}
-                          </button>
                         </div>
                       </th>
                     )
@@ -327,85 +279,162 @@ const DataTable = ({
               )}
             </thead>
             <tbody>
-              {initialData !== undefined &&
-              Array.isArray(initialData) &&
-              initialData.length > 0 ? (
-                initialData.map((d, i) => (
-                  <tr key={i}>
-                    {Object.entries(d).map(([k, e], i) => (
-                      <td
-                        className={`${
-                          hideColumns.length > 0 && hideColumns.includes(k)
-                            ? `d-none `
-                            : ``
-                        }`}
-                        key={k + i}
-                      >
-                        {typeof e === "object" &&
-                        Object.entries(e).length > 0 ? (
-                          <>
-                            <table className="table m-0 p-0 text-center ">
-                              <thead>
-                                <tr>
-                                  {Object.keys(e).map((k, i) => (
-                                    <th key={k + i}>{k}</th>
-                                  ))}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  {Object.values(e).map((v) => (
-                                    <td key={v + k + i}>{v}</td>
-                                  ))}
-                                </tr>
-                              </tbody>
-                            </table>
-                          </>
-                        ) : actionElement !== null &&
-                          actionElement.element === k ? (
-                          <button
-                            onClick={() => actionElement.action(d)}
-                            className={actionElement.className}
-                          >
-                            {e}
-                          </button>
-                        ) : (
-                          e
-                        )}
-                      </td>
-                    ))}
-                    {actions === true ? (
-                      <td className="d-flex d-sm-flex flex-sm-column flex-column flex-lg-row flex-md-row flex-xl-row">
-                        {CustomButtons !== null ? (
-                          <CustomButtons
-                            object={d}
-                            refreshCallback={refreshCallback}
-                          />
-                        ) : (
-                          buttons.map((b) => (
+              {search !== "" && currentSearchResults.length > 0
+                ? currentSearchResults.map((d, i) => (
+                    <tr key={i}>
+                      {Object.entries(d).map(([k, e], i) => (
+                        <td
+                          className={`${
+                            hideColumns.length > 0 && hideColumns.includes(k)
+                              ? `d-none `
+                              : ``
+                          }`}
+                          key={k + i}
+                        >
+                          {typeof e === "object" &&
+                          Object.entries(e).length > 0 ? (
+                            <>
+                              <table className="table m-0 p-0 text-center ">
+                                <thead>
+                                  <tr>
+                                    {Object.keys(e).map((k, i) => (
+                                      <th key={k + i}>{k}</th>
+                                    ))}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    {Object.values(e).map((v) => (
+                                      <td key={v + k + i}>{v}</td>
+                                    ))}
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </>
+                          ) : actionElement !== null &&
+                            actionElement.element === k ? (
                             <button
-                              key={b.key}
-                              className={b.style}
-                              onClick={() => b.click(d)}
+                              onClick={() => actionElement.action(d)}
+                              className={actionElement.className}
                             >
-                              <i className={b.fwicon}></i>{" "}
-                              <span className="d-none d-sm-none d-md-block d-lg-block d-xl-block">
-                                {b.text}
-                              </span>
+                              {e}
                             </button>
-                          ))
-                        )}
-                      </td>
-                    ) : null}
-                  </tr>
-                ))
-              ) : (
+                          ) : (
+                            e
+                          )}
+                        </td>
+                      ))}
+                      {actions === true && (
+                        <td className="d-flex d-sm-flex flex-sm-column flex-column flex-lg-row flex-md-row flex-xl-row">
+                          {CustomButtons !== null ? (
+                            <CustomButtons
+                              object={d}
+                              refreshCallback={refreshCallback}
+                            />
+                          ) : (
+                            buttons.map((b) => (
+                              <button
+                                key={b.key}
+                                className={b.style}
+                                onClick={() => b.click(d)}
+                              >
+                                <i className={b.fwicon}></i>{" "}
+                                <span className="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                                  {b.text}
+                                </span>
+                              </button>
+                            ))
+                          )}
+                        </td>
+                      )}
+                    </tr>
+                  ))
+                : null}
+              {currentTableData.length > 0 && search === ""
+                ? currentTableData.map((d, i) => (
+                    <tr key={i}>
+                      {Object.entries(d).map(([k, e], i) => (
+                        <td
+                          className={`${
+                            hideColumns.length > 0 && hideColumns.includes(k)
+                              ? `d-none `
+                              : ``
+                          }`}
+                          key={k + i}
+                        >
+                          {typeof e === "object" &&
+                          Object.entries(e).length > 0 ? (
+                            <>
+                              <table className="table m-0 p-0 text-center ">
+                                <thead>
+                                  <tr>
+                                    {Object.keys(e).map((k, i) => (
+                                      <th key={k + i}>{k}</th>
+                                    ))}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    {Object.values(e).map((v) => (
+                                      <td key={v + k + i}>{v}</td>
+                                    ))}
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </>
+                          ) : actionElement !== null &&
+                            actionElement.element === k ? (
+                            <button
+                              onClick={() => actionElement.action(d)}
+                              className={actionElement.className}
+                            >
+                              {e}
+                            </button>
+                          ) : (
+                            e
+                          )}
+                        </td>
+                      ))}
+                      {actions === true && (
+                        <td className="d-flex d-sm-flex flex-sm-column flex-column flex-lg-row flex-md-row flex-xl-row">
+                          {CustomButtons !== null ? (
+                            <CustomButtons
+                              object={d}
+                              refreshCallback={refreshCallback}
+                            />
+                          ) : (
+                            buttons.map((b) => (
+                              <button
+                                key={b.key}
+                                className={b.style}
+                                onClick={() => b.click(d)}
+                              >
+                                <i className={b.fwicon}></i>{" "}
+                                <span className="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                                  {b.text}
+                                </span>
+                              </button>
+                            ))
+                          )}
+                        </td>
+                      )}
+                    </tr>
+                  ))
+                : null}
+              {currentTableData.length < 0 && !currentSearchResults ? (
                 <tr>
                   <td>{emptyDataText}</td>
                 </tr>
-              )}
+              ) : null}
             </tbody>
           </table>
+          <Pagination
+            className="pagination-bar"
+            currentPage={currentPage}
+            totalCount={initialData.length}
+            pageSize={PageSize}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
         </div>
       </div>
     </div>

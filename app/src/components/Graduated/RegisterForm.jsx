@@ -31,6 +31,7 @@ export const Entries = {
   telefono: "",
   tel_casa: "",
   carrera: "",
+  especiaidad: "",
   fecha_egreso: "",
   titulado: "",
   paquetes_computacionales: "",
@@ -320,6 +321,16 @@ const RegisterForm = ({
                   </option>
                 ))}
               </select>
+            </div>
+            <div className="col-lg-6">
+              <FloatingLabelInput
+                inputId="txtEspecialidad"
+                placeholder="Especialidad"
+                type="text"
+                setValue={handleEntriesChange}
+                name={"especialidad"}
+                value={graduated.especialidad}
+              />
             </div>
             <div className="col-lg-6">
               <FloatingLabelInput
