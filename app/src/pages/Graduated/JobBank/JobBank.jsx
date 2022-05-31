@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import List from "@/containers/Graduated/JobBank/List";
 import Showcase from "@/containers/Graduated/JobBank/Showcase";
 import useServiceFetch from "@/hooks/useServiceFetchV2";
@@ -10,12 +10,14 @@ import useSession from "@/hooks/useSession";
 import toast from "react-hot-toast";
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 import MobileShowcase from "@/components/Graduated/JobBank/MobileShowcase";
+import Pagination from "@/components/Global/Pagination";
 
 const JobBank = () => {
   const { verifySession } = useSession();
   const animatedRef = useCleanAosAnimations();
   const [toggleShowcase, setToggleShowcase] = useState(false);
   const { navigate } = useRouterHooks();
+  const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState({ error: false, statusText: "" });
   const {
     hookData: jobs,

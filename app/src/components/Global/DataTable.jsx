@@ -58,7 +58,7 @@ const DataTable = ({
 
   const [search, setSearch] = useState("");
 
-  let PageSize = 50;
+  let PageSize = 30;
 
   const [currentPage, setCurrentPage] = useState(1);
 

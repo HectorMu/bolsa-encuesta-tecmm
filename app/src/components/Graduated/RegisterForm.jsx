@@ -237,7 +237,7 @@ const RegisterForm = ({
               <FloatingLabelInput
                 inputId="txtNumero"
                 placeholder="Numero de casa"
-                type="number"
+                type="text"
                 setValue={handleEntriesChange}
                 name={"numero_casa"}
                 value={graduated.numero_casa}
@@ -332,14 +332,16 @@ const RegisterForm = ({
                 value={graduated.especialidad}
               />
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-12">
               <FloatingLabelInput
                 inputId="txtEgreso"
-                placeholder="Fecha de egreso"
-                type="date"
+                placeholder="Fecha de egreso (Mes y año)"
+                type="month"
                 setValue={handleEntriesChange}
                 name={"fecha_egreso"}
+                min="1900-01"
                 value={graduated.fecha_egreso}
+                required
               />
             </div>
             <div className="col-lg-12 mb-2">

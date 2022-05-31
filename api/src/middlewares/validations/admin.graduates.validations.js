@@ -55,13 +55,6 @@ const validations = (req, res, next) => {
     });
   }
 
-  if (!helpers.isNumber(req.body.numero_casa)) {
-    return res.status(400).json({
-      status: false,
-      statusText: "El número de casa no es válido.",
-    });
-  }
-
   if (!helpers.isNumber(req.body.tel_casa)) {
     return res.status(400).json({
       status: false,

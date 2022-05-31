@@ -34,6 +34,12 @@ const Form = () => {
 
   const { navigate, params, location } = useRouterHooks();
 
+  const minimunDateFromNow = () => {
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+    return date.toISOString().split("T")[0];
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     delete vacant.nombre_comercial;
@@ -169,6 +175,7 @@ const Form = () => {
                     inputId="txtExpiracion"
                     placeholder="Fecha de expiracion"
                     type="date"
+                    min={minimunDateFromNow()}
                     setValue={handleChange}
                     name={"fecha_expira"}
                     value={vacant.fecha_expira}

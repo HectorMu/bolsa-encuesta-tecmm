@@ -145,7 +145,7 @@ const CurrentVacants = ({ company }) => {
           ) : (
             <div className="d-flex justify-content-center flex-column align-content-center w-100">
               <h5 className="text-center font-weight-bold">
-                {company?.nombre_comercal} aun no ha publicado ninguna vacante.
+                {company?.nombre_comercial} aun no ha publicado ninguna vacante.
               </h5>
             </div>
           )}
