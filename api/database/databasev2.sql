@@ -28,7 +28,7 @@ create table perfil_empresa(
     fk_usuario BIGINT primary key,
     nombre_comercial varchar(100),
     calle varchar(50),
-    numero_empresa BIGINT,
+    numero_empresa varchar(50),
     colonia varchar(50),
     cp varchar(50),
     municipio varchar(50),
@@ -350,10 +350,17 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 create table publicacion_bolsa(
-    folio BIGINT primary key,
+    id BIGINT primary key auto_increment,
+    folio BIGINT,
     fk_empresa BIGINT,
     vacante varchar(100),
     descripcion TEXT,
+
+
+
+
+
+    
     ubicacion varchar(50),
     fecha_creacion varchar(100),
     fecha_expira varchar(100),

@@ -90,10 +90,7 @@ const RegisterForm = ({
 
               {onChangePassword ? (
                 <>
-                  <div
-                    data-aos={`${onEditing ? `fade-down` : ""}`}
-                    className="col-lg-4"
-                  >
+                  <div className="col-lg-4">
                     <FloatingLabelInput
                       inputId="txtClave"
                       placeholder="Clave"
@@ -103,10 +100,7 @@ const RegisterForm = ({
                       value={company.clave}
                     />
                   </div>
-                  <div
-                    data-aos={`${onEditing ? `fade-down` : ""}`}
-                    className="col-lg-4"
-                  >
+                  <div className="col-lg-4">
                     <FloatingLabelInput
                       inputId="txtConfirmar"
                       placeholder="Confirmar"
@@ -150,7 +144,7 @@ const RegisterForm = ({
                   inputId="txtTelefono"
                   placeholder="Telefono"
                   setValue={handleChange}
-                  type="number"
+                  type="tel"
                   name={"telefono"}
                   value={company.telefono}
                 />
@@ -253,7 +247,7 @@ const RegisterForm = ({
                   inputId="txtNumero"
                   placeholder="Numero"
                   setValue={handleChange}
-                  type="number"
+                  type="text"
                   name={"numero_empresa"}
                   value={company.numero_empresa}
                 />

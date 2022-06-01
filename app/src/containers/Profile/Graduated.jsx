@@ -20,17 +20,21 @@ import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 
 const Graduated = () => {
   const { getCurriculumHandler } = useGraduatedCurriculum();
+
   const {
     form: graduated,
     setForm: setGraduated,
     handleChange: handleEntriesChange,
   } = useForm(Entries);
+
   const [currentSelection, setCurrentSelection] = useState("Profile");
+
   const {
     form: idiomaExtranjero,
     setForm: setIdiomaExtranjero,
     handleChange: handleIdiomaExtranjeroChange,
   } = useForm(NestedEntries.idioma_extranjero);
+
   const [onEditing] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [onChangePassword, toggleChangePassword] = useState(false);
@@ -55,7 +59,17 @@ const Graduated = () => {
     }
 
     const { idioma_extranjero, ...rest } = graduatedFetched;
-    setGraduated(rest);
+
+    const { fecha_egreso } = graduatedFetched;
+
+    const splitFecha_egreso = fecha_egreso.split(" ");
+
+    const graduationDateLikeText = {
+      egreso_año: splitFecha_egreso[2],
+      egreso_mes: splitFecha_egreso[0],
+    };
+
+    setGraduated({ ...graduationDateLikeText, ...rest });
     setIdiomaExtranjero(idioma_extranjero);
     setIsLoading(false);
   }, []);
@@ -72,6 +86,11 @@ const Graduated = () => {
       delete profile.confirmar;
     }
 
+    profile.fecha_egreso = profile.egreso_mes + " de " + profile.egreso_año;
+
+    delete profile.egreso_año;
+    delete profile.egreso_mes;
+
     const tLoading = toast.loading("Guardando...");
     const results = await verifySession(() =>
       profileService.saveOrUpdateProfile(profile)
@@ -86,7 +105,7 @@ const Graduated = () => {
     if (results.statusText === "Perfil creado correctamente.") {
       getCurriculumHandler();
       setCurrentSelection("Curriculum");
-      toast("Puedes subir tu curriculum ahora para poder postularte.");
+      toast("Puedes subir tu currículum ahora para poder postularte.");
     }
   };
 

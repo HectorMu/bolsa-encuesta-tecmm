@@ -44,7 +44,7 @@ const GraduatedCurriculum = () => {
       {graduatedCurriculum === "Pendiente" ? (
         <div className="d-flex mt-5 flex-column justify-content-center h-100 align-items-center">
           <h2 className="font-weight-bolder text-primary">
-            Aun no tienes un curriculum
+            Aun no tienes un currículum
           </h2>
 
           {cvFile !== null && (
@@ -76,7 +76,7 @@ const GraduatedCurriculum = () => {
             {cvFile === null ? "Seleccionar archivo" : "Subir mi curriculum"}
           </button>
           <h4 className="mt-5 border-bottom text-black border-dark">
-            El curriculum lo necesitaras para postularte en la bolsa de trabajo
+            El currículum lo necesitarás para postularte en la bolsa de trabajo
           </h4>
         </div>
       ) : (
@@ -134,7 +134,7 @@ const GraduatedCurriculum = () => {
                 >
                   <div className="d-flex flex-column justify-content-center">
                     <p className="text-center">
-                      El navegador no soporta la visualizacion de PDF.{" "}
+                      El navegador no soporta la visualización de PDF.{" "}
                     </p>
                     <a
                       className="btn btn-primary"

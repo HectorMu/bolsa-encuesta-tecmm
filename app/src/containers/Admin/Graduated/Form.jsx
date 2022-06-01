@@ -68,8 +68,18 @@ const Form = () => {
     //y el resto de propiedades equivalen a las propiedades restantes del usuario
     const { idioma_extranjero, ...rest } = graduatedFetched;
 
+    //extraemos la fecha de egreso y la dividimos por espacios
+    const { fecha_egreso } = graduatedFetched;
+    const splitFecha_egreso = fecha_egreso.split(" ");
+
+    //una vez setteado, creamos un objeto con esos valores para
+    //pasarlos al estado
+    const graduationDateLikeText = {
+      egreso_año: splitFecha_egreso[2],
+      egreso_mes: splitFecha_egreso[0],
+    };
     //seteamos lo anterior dicho en el estado
-    setGraduated(rest);
+    setGraduated({ ...graduationDateLikeText, ...rest });
     setIdiomaExtranjero(idioma_extranjero);
     setIsLoading(false);
   }, [params.id, navigate]);
@@ -86,6 +96,12 @@ const Form = () => {
       //que es nuestro estado
       idioma_extranjero: idiomaExtranjero,
     };
+
+    newGraduated.fecha_egreso =
+      newGraduated.egreso_mes + " de " + newGraduated.egreso_año;
+
+    delete newGraduated.egreso_año;
+    delete newGraduated.egreso_mes;
 
     const tLoading = toast.loading("Guardando...");
     //Si estamos editando
@@ -127,7 +143,16 @@ const Form = () => {
   //a editar
   useEffect(() => {
     if (location.state !== null) {
-      setGraduated(location.state);
+      const { fecha_egreso } = location.state;
+      const splitFecha_egreso = fecha_egreso.split(" ");
+
+      const graduationDateLikeText = {
+        egreso_año: splitFecha_egreso[2],
+        egreso_mes: splitFecha_egreso[0],
+      };
+
+      setGraduated({ ...location.state, ...graduationDateLikeText });
+
       setIdiomaExtranjero(location.state.idioma_extranjero);
       toggleEditing(true);
       return;

@@ -114,15 +114,7 @@ validations.section2 = (req, res, next) => {
           "La proporción de uso de idioma en el entorno laboral debe sumar 100%",
       });
     }
-    if (
-      surveyAnswers.telefono_empresa.toString().length !== 10 ||
-      surveyAnswers.telefono_ext_empresa.toString().length !== 10
-    ) {
-      return res.status(400).json({
-        status: false,
-        statusText: "Los numeros de teléfono deben contener 10 dígitos",
-      });
-    }
+
     if (!helpers.isEmail(surveyAnswers.email_empresa)) {
       return res.status(400).json({
         status: false,

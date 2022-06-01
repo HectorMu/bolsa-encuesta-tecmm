@@ -12,6 +12,21 @@ const careers = [
   "Ing. en Sistemas Automotrices",
 ];
 
+const months = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+];
+
 export const Entries = {
   correo: "",
   clave: "",
@@ -32,7 +47,8 @@ export const Entries = {
   tel_casa: "",
   carrera: "",
   especialidad: "",
-  fecha_egreso: "",
+  egreso_año: "",
+  egreso_mes: "",
   titulado: "",
   paquetes_computacionales: "",
 };
@@ -97,10 +113,7 @@ const RegisterForm = ({
 
             {onChangePassword ? (
               <>
-                <div
-                  className="col-lg-4"
-                  data-aos={`${onEditing ? `fade-down` : ""}`}
-                >
+                <div className="col-lg-4">
                   <FloatingLabelInput
                     inputId="txtClave"
                     placeholder="Clave"
@@ -110,10 +123,7 @@ const RegisterForm = ({
                     value={graduated.clave}
                   />
                 </div>
-                <div
-                  className="col-lg-4"
-                  data-aos={`${onEditing ? `fade-down` : ""}`}
-                >
+                <div className="col-lg-4">
                   <FloatingLabelInput
                     inputId="txtClaveCon"
                     placeholder="Confirmar"
@@ -279,7 +289,7 @@ const RegisterForm = ({
               <FloatingLabelInput
                 inputId="txtTelefono"
                 placeholder="Telefono"
-                type="number"
+                type="tel"
                 setValue={handleEntriesChange}
                 name={"telefono"}
                 value={graduated.telefono}
@@ -289,7 +299,7 @@ const RegisterForm = ({
               <FloatingLabelInput
                 inputId="txtTelefonoC"
                 placeholder="Telefono casa"
-                type="number"
+                type="tel"
                 setValue={handleEntriesChange}
                 name={"tel_casa"}
                 value={graduated.tel_casa}
@@ -322,6 +332,7 @@ const RegisterForm = ({
                 ))}
               </select>
             </div>
+
             <div className="col-lg-6">
               <FloatingLabelInput
                 inputId="txtEspecialidad"
@@ -332,18 +343,40 @@ const RegisterForm = ({
                 value={graduated.especialidad}
               />
             </div>
-            <div className="col-lg-12">
+            <div className="col-lg-12 mb-2">
+              <h6 className="text-purple font-weight-bolder">
+                Fecha de egreso
+              </h6>
+            </div>
+            <div className="col-lg-6">
+              <select
+                className="form-control form-select mb-3"
+                style={{ height: "47px" }}
+                onChange={handleEntriesChange}
+                name={"egreso_mes"}
+                value={graduated.egreso_mes}
+              >
+                <option value={""}>Mes (Seleccione una opción)</option>
+                {months.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-lg-6">
               <FloatingLabelInput
                 inputId="txtEgreso"
-                placeholder="Fecha de egreso (Mes y año)"
-                type="month"
+                placeholder="Año"
+                type="number"
                 setValue={handleEntriesChange}
-                name={"fecha_egreso"}
-                min="1900-01"
-                value={graduated.fecha_egreso}
+                name={"egreso_año"}
+                value={graduated.egreso_año}
+                min="1900"
                 required
               />
             </div>
+
             <div className="col-lg-12 mb-2">
               <h6 className="text-purple font-weight-bolder">
                 Dominio de idioma(s) extranjero(s) (Porcentaje %)

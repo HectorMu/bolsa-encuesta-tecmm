@@ -153,10 +153,7 @@ const Form = () => {
 
               {onChangePassword ? (
                 <>
-                  <div
-                    className="col-lg-4"
-                    data-aos={`${onEditing ? `fade-down` : ""}`}
-                  >
+                  <div className="col-lg-4">
                     <FloatingLabelInput
                       inputId="txtClave"
                       placeholder="Clave"
@@ -166,10 +163,7 @@ const Form = () => {
                       value={user.clave}
                     />
                   </div>
-                  <div
-                    className="col-lg-4"
-                    data-aos={`${onEditing ? `fade-down` : ""}`}
-                  >
+                  <div className="col-lg-4">
                     <FloatingLabelInput
                       inputId="txtClaveCon"
                       placeholder="Confirmar"

@@ -36,18 +36,6 @@ const validations = (req, res, next) => {
     });
   }
 
-  if (
-    req.body.telefono.toString().length < 10 ||
-    req.body.tel_casa.toString().length < 10 ||
-    req.body.telefono.toString().length > 10 ||
-    req.body.tel_casa.toString().length > 10
-  ) {
-    return res.status(400).json({
-      status: false,
-      statusText: "Los números de teléfono deben tener maximo 10 dígitos.",
-    });
-  }
-
   if (!helpers.isNumber(req.body.cp)) {
     return res.status(400).json({
       status: false,

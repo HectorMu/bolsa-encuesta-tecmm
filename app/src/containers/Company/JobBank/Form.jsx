@@ -18,7 +18,6 @@ import useForm from "@/hooks/useForm";
 
 //Entradas del formulario (objeto con los datos a capturar en el formulario)
 const Entries = {
-  folio: "",
   vacante: "",
   descripcion: "",
   ubicacion: "",
@@ -130,18 +129,7 @@ const Form = () => {
       ) : (
         <FormCard title={onEditing ? "Editar vacante" : "Nueva vacante"}>
           <form onSubmit={handleSubmit}>
-            <div className="col-3 mx-auto">
-              <FloatingLabelInput
-                inputId="txtFolio"
-                placeholder="Folio"
-                type={"number"}
-                disabled={onEditing}
-                setValue={handleChange}
-                name={"folio"}
-                value={vacant.folio}
-              />
-            </div>
-            <div className="col-10 mx-auto">
+            <div className="col-12 mx-auto">
               <FloatingLabelInput
                 inputId="txtTitulo"
                 placeholder="Vacante"
