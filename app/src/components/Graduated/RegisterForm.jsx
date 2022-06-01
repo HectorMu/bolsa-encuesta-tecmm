@@ -31,7 +31,7 @@ export const Entries = {
   telefono: "",
   tel_casa: "",
   carrera: "",
-  especiaidad: "",
+  especialidad: "",
   fecha_egreso: "",
   titulado: "",
   paquetes_computacionales: "",

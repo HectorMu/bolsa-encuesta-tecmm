@@ -16,7 +16,49 @@ const cvsRouter = express.Router();
 const acusesRouter = express.Router();
 
 //Initialazing database connection
-require("./database");
+const db = require("./database");
+const helpers = require("./helpers/helpers");
+
+//function to change all the date formats to a HTML5 Format
+// const changeAllBirthDates = async () => {
+//   console.log("Renaming birthdates");
+//   const graduates = await db.query("Select * from perfil_egresado");
+
+//   for (let i = 0; i < graduates.length; i++) {
+//     const graduateBirth = graduates[i].fechaNacimiento;
+//     const graduatedId = graduates[i].fk_usuario;
+//     const splittedBirth = graduateBirth.split("-");
+
+//     const wellFormattedBirth =
+//       splittedBirth[2] + "-" + splittedBirth[1] + "-" + splittedBirth[0];
+//     await db.query(
+//       "update perfil_egresado set fechaNacimiento = ? where fk_usuario = ?",
+//       [wellFormattedBirth, graduatedId]
+//     );
+//   }
+//   console.log("finished");
+// };
+// changeAllBirthDates();
+
+//function to encrypt all the graduates  passwords
+// const changeAllPasswords = async () => {
+//   console.log("Encrypting passwords");
+//   const graduates = await db.query("Select * from usuarios where fk_rol = 2");
+
+//   for (let i = 0; i < graduates.length; i++) {
+//     const graduatedId = graduates[i].id;
+//     const graduatedEmail = graduates[i].correo;
+
+//     const newClave = await helpers.encryptPassword(graduatedEmail);
+
+//     await db.query("update usuarios set clave = ? where id = ?", [
+//       newClave,
+//       graduatedId,
+//     ]);
+//   }
+//   console.log("finished");
+// };
+// changeAllPasswords();
 
 //Using middlewares
 app.use(cors());
