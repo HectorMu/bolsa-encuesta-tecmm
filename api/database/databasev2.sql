@@ -350,17 +350,10 @@ FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 create table publicacion_bolsa(
-    id BIGINT primary key auto_increment,
-    folio BIGINT,
+    folio BIGINT primary key auto_increment,
     fk_empresa BIGINT,
     vacante varchar(100),
     descripcion TEXT,
-
-
-
-
-
-    
     ubicacion varchar(50),
     fecha_creacion varchar(100),
     fecha_expira varchar(100),
