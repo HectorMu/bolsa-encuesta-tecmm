@@ -46,6 +46,7 @@ const Curriculum = ({ graduated, isLoading }) => {
       `/graduated/files/cvs/${graduated?.curriculum}`
     );
 
+    console.log(fetchedCurriculum);
     setCurriculum(fetchedCurriculum);
     setIsLoadingCV(false);
   }, [graduated?.curriculum]);
@@ -61,13 +62,13 @@ const Curriculum = ({ graduated, isLoading }) => {
     <ShowcaseContainer>
       <ShowcaseCard>
         <h3 className="text-center text-primary font-weight-bolder">
-          Curriculum
+          Currículum
         </h3>
         {isLoadingCV ? (
           <Loading />
         ) : (
           <div className="d-flex justify-content-center">
-            {curriculum.length > 0 ? (
+            {graduated?.curriculum !== "Pendiente" ? (
               <>
                 <Modal
                   id="cvModal"
@@ -141,7 +142,7 @@ const Curriculum = ({ graduated, isLoading }) => {
               </>
             ) : (
               <h5 className="text-center w-100">
-                {graduated.nombre_completo} aun no sube su curriculum
+                {graduated.nombre_completo} aun no ha subido su currículum
               </h5>
             )}
           </div>
