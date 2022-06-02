@@ -1,5 +1,6 @@
 // Importing suspense and hooks
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
+import Fallback from "./components/Global/Fallback";
 import useDocTitleRename from "./hooks/useDocTitleRename";
 
 // Importing app styles
@@ -59,15 +60,17 @@ function App() {
     <SessionProvider>
       <CurriculumProvider>
         <Layout>
-          <Routes>
-            {AppRoutes?.map((route) => (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.element}
-              />
-            ))}
-          </Routes>
+          <Suspense fallback={<Fallback />}>
+            <Routes>
+              {AppRoutes?.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={route.element}
+                />
+              ))}
+            </Routes>
+          </Suspense>
         </Layout>
       </CurriculumProvider>
       <Toaster />

@@ -1,10 +1,12 @@
+import { lazy } from "react";
+
 import Index from "../pages/Index";
 import NotFound from "../pages/status/NotFound";
 import AuthRoutes from "./auth.routes";
 import AdminRoutes from "./admin.routes";
 import CompanyRoutes from "./company.routes";
 import GraduatedRoutes from "./graduated.routes";
-import Profile from "@/pages/Profile";
+const Profile = lazy(() => import("@/pages/Profile"));
 import IsLoggedIn from "@/components/Authentication/IsLoggedIn";
 
 const Routes = [

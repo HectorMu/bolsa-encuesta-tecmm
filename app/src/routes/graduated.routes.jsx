@@ -1,9 +1,17 @@
-import Instructions from "@/pages/Graduated/Survey/Instructions";
-import Survey from "@/pages/Graduated/Survey/Survey";
-import IsGraduated from "@/components/Authentication/IsGraduated";
+import { lazy } from "react";
 
-import JobBank from "@/pages/Graduated/JobBank/JobBank";
-import Postulations from "@/pages/Graduated/JobBank/Postulations";
+const Instructions = lazy(() =>
+  import("@/pages/Graduated/Survey/Instructions")
+);
+const Survey = lazy(() => import("@/pages/Graduated/Survey/Survey"));
+const IsGraduated = lazy(() =>
+  import("@/components/Authentication/IsGraduated")
+);
+
+const JobBank = lazy(() => import("@/pages/Graduated/JobBank/JobBank"));
+const Postulations = lazy(() =>
+  import("@/pages/Graduated/JobBank/Postulations")
+);
 
 const Routes = [
   {
