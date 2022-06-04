@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const helpers = require("../helpers/helpers");
+const CompanyJobs = require("../models/CompanyJobs");
 
 const controller = {};
 
@@ -127,6 +128,7 @@ controller.Update = async (req, res) => {
 controller.Delete = async (req, res) => {
   const { id } = req.params;
   try {
+    await CompanyJobs.DeleteAllCompanyPostulations(id);
     const results = await User.Delete(id);
     console.log(results);
     if (results.affectedRows === 0) {

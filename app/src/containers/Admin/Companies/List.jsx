@@ -86,6 +86,7 @@ const List = () => {
       ) : (
         <DataTable
           title="Registros"
+          refreshCallback={refreshData}
           data={companies}
           emptyDataText="Sin registros"
           searchText="Buscando por"

@@ -103,6 +103,7 @@ const List = () => {
         <Loading color="purple" />
       ) : (
         <DataTable
+          refreshCallback={refreshData}
           data={users}
           title={"Registros"}
           emptyDataText={"Sin registros"}

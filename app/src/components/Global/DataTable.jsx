@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Pagination from "./Pagination";
 import { useMemo } from "react";
+import { DebounceInput } from "react-debounce-input";
 
 // /**
 //  * @param {String} title The table title
@@ -82,13 +83,13 @@ const DataTable = ({
       d[selectedFilter.toLowerCase()]
         .toString()
         .toLowerCase()
-        .includes(search.toLowerCase())
+        .includes(search.toLowerCase().trim())
     );
 
     if (results.length > 0) return results;
 
-    return currentTableData;
-  }, [search]);
+    return [];
+  }, [search, selectedFilter]);
 
   useEffect(() => {
     if (initialData.length > 0) {
@@ -195,8 +196,9 @@ const DataTable = ({
             </div>
           </div>
           <div className="input-group">
-            <input
+            <DebounceInput
               type="text"
+              debounceTimeout={300}
               className="form-control border-0 small"
               placeholder={`${searchText} ${
                 renameHeaders !== null &&
@@ -216,13 +218,28 @@ const DataTable = ({
       </div>
       <div className="card-body">
         <div className="table-responsive">
-          <Pagination
-            className="pagination-bar"
-            currentPage={currentPage}
-            totalCount={initialData.length}
-            pageSize={PageSize}
-            onPageChange={(page) => setCurrentPage(page)}
-          />
+          {search === "" ? (
+            <Pagination
+              className="pagination-bar"
+              currentPage={currentPage}
+              totalCount={initialData.length}
+              pageSize={PageSize}
+              onPageChange={(page) => setCurrentPage(page)}
+            />
+          ) : (
+            <>
+              {currentSearchResults.length > 0 ? (
+                <p className="text-primary font-weight-bold p-0 ">
+                  {currentSearchResults.length} resultados para '{search}',{" "}
+                  buscando por{" "}
+                  {Object.keys(renameHeaders).includes(selectedFilter)
+                    ? renameHeaders[selectedFilter].toLowerCase()
+                    : selectedFilter}
+                </p>
+              ) : null}
+            </>
+          )}
+
           <table
             className="table table-hover"
             id={`dataTable${title.replace(" ", "-")}`}
@@ -278,7 +295,21 @@ const DataTable = ({
                 </tr>
               )}
             </thead>
+
             <tbody>
+              {search !== "" && currentSearchResults.length === 0 && (
+                <tr>
+                  <td colSpan={"100%"}>
+                    <h5 className="text-center text-primary w-100 py-4 shadow">
+                      No se encontraron resultados para: '{search}' al buscar
+                      por{" "}
+                      {Object.keys(renameHeaders).includes(selectedFilter)
+                        ? renameHeaders[selectedFilter].toLowerCase()
+                        : selectedFilter}
+                    </h5>
+                  </td>
+                </tr>
+              )}
               {search !== "" && currentSearchResults.length > 0
                 ? currentSearchResults.map((d, i) => (
                     <tr key={i}>
@@ -350,6 +381,7 @@ const DataTable = ({
                     </tr>
                   ))
                 : null}
+
               {currentTableData.length > 0 && search === ""
                 ? currentTableData.map((d, i) => (
                     <tr key={i}>
@@ -428,13 +460,15 @@ const DataTable = ({
               ) : null}
             </tbody>
           </table>
-          <Pagination
-            className="pagination-bar"
-            currentPage={currentPage}
-            totalCount={initialData.length}
-            pageSize={PageSize}
-            onPageChange={(page) => setCurrentPage(page)}
-          />
+          {search === "" && (
+            <Pagination
+              className="pagination-bar"
+              currentPage={currentPage}
+              totalCount={initialData.length}
+              pageSize={PageSize}
+              onPageChange={(page) => setCurrentPage(page)}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -172,6 +172,8 @@ controller.Update = async (req, res) => {
 controller.Delete = async (req, res) => {
   const { id } = req.params;
   try {
+    await CompanyJobs.DeleteAllCompanyPostulations(id);
+
     //Primero eliminamos el perfil
     const deleteProfile = await Company.Delete(id);
     console.log(deleteProfile);

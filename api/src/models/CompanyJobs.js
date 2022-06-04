@@ -87,6 +87,27 @@ const CompanyJobs = {
 
     return results;
   },
+  async DeleteAllCompanyPostulations(fk_empresa) {
+    const publications = await connection.query(
+      "select * from publicacion_bolsa where fk_empresa = ?",
+      [fk_empresa]
+    );
+    console.log(publications);
+    for (let i = 0; i < publications.length; i++) {
+      await connection.query(
+        "delete  from vistas_publicaciones where fk_publicacion = ?",
+        [publications[i].folio]
+      );
+      await connection.query(
+        "delete  from solicitud_bolsa where fk_vacante = ?",
+        [publications[i].folio]
+      );
+    }
+    await connection.query(
+      "delete  from publicacion_bolsa where fk_empresa = ?",
+      [fk_empresa]
+    );
+  },
   async GetJobPostulations(job_id) {
     const results = await connection.query(
       "SELECT * FROM  v_getPostulationsAndProfileDetails where fk_vacante = ?",

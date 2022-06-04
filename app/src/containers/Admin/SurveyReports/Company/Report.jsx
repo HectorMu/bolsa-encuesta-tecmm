@@ -76,9 +76,17 @@ const Report = () => {
               </div>
             </div>
           ) : (
-            <h3 className="text-center font-weight-bold text-primary">
-              Ninguna empresa ha contestado la encuesta
-            </h3>
+            <>
+              <h3 className="text-center font-weight-bold text-primary">
+                Ninguna empresa ha contestado la encuesta
+              </h3>
+              <button
+                onClick={refreshData}
+                className="btn btn-outline-primary mt-3"
+              >
+                Actualizar <i className="fas fa-sync"></i>
+              </button>
+            </>
           )}
 
           <div className="mt-2">
