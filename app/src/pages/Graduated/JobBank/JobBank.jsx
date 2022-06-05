@@ -1,23 +1,29 @@
-import { useState, useEffect, useMemo } from "react";
-import List from "@/containers/Graduated/JobBank/List";
-import Showcase from "@/containers/Graduated/JobBank/Showcase";
-import useServiceFetch from "@/hooks/useServiceFetchV2";
+//lib
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
+
+//services
 import jobsService from "@/services/Graduated/jobs.service";
-import useCleanAosAnimations from "@/hooks/useCleanAosAnimations";
 import profileService from "@/services/Graduated/profile.service";
+
+//hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
-import toast from "react-hot-toast";
+import useServiceFetch from "@/hooks/useServiceFetchV2";
+
+//containers
+import List from "@/containers/Graduated/JobBank/List";
+import Showcase from "@/containers/Graduated/JobBank/Showcase";
+
+//components
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
-import MobileShowcase from "@/components/Graduated/JobBank/MobileShowcase";
-import Pagination from "@/components/Global/Pagination";
+import ListDetailLayout from "@/components/Global/ListDetailLayout";
+import ListDetailSearch from "@/components/Global/ListDetailSearch";
 
 const JobBank = () => {
   const { verifySession } = useSession();
-  const animatedRef = useCleanAosAnimations();
   const [toggleShowcase, setToggleShowcase] = useState(false);
   const { navigate } = useRouterHooks();
-  const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState({ error: false, statusText: "" });
   const {
     hookData: jobs,
@@ -56,61 +62,25 @@ const JobBank = () => {
   }
   return (
     <div className="mb-3">
-      <div
-        ref={animatedRef}
-        data-aos="fade-up"
-        data-aos-duration="200"
-        className="container-fluid"
-      >
-        <div className="card shadow rounded">
-          <div className="card-body">
-            <div className="row">
-              <div className="col-md-5 col-lg-5 col-xl-5">
-                <div className="jobbank-card-responsive-heigth">
-                  <div className="input-group w-100 mb-3 px-2 overflow-auto">
-                    <input
-                      type="text"
-                      className="form-control bg-light"
-                      placeholder="Buscar trabajos..."
-                      aria-label="Search"
-                      autoComplete="off"
-                      aria-describedby="basic-addon2"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    <div className="input-group-append">
-                      <button className="btn btn-primary" type="button">
-                        <i className="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="purple-scroll jobbank-section">
-                    <List
-                      isLoading={isLoading}
-                      searchTerm={searchTerm}
-                      jobs={jobs}
-                      toggleShowcase={toggleShowcase}
-                      setToggleShowcase={setToggleShowcase}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-md-7 col-lg-7 col-xl-7 d-none d-sm-none d-md-block d-lg-block">
-                <div className="purple-scroll jobbank-section">
-                  <Showcase setSearchTerm={setSearchTerm} jobs={jobs} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <MobileShowcase
-        toggleShowcase={toggleShowcase}
-        setToggleShowcase={setToggleShowcase}
-      >
-        <Showcase setSearchTerm={setSearchTerm} jobs={jobs} />
-      </MobileShowcase>
+      <ListDetailLayout
+        listHeader={
+          <ListDetailSearch
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+        }
+        list={
+          <List
+            isLoading={isLoading}
+            searchTerm={searchTerm}
+            jobs={jobs}
+            toggleShowcase={toggleShowcase}
+            setToggleShowcase={setToggleShowcase}
+          />
+        }
+        showcase={<Showcase setSearchTerm={setSearchTerm} jobs={jobs} />}
+        MobileShowCaseControls={{ toggleShowcase, setToggleShowcase }}
+      />
     </div>
   );
 };

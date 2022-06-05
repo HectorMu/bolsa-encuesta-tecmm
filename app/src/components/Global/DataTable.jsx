@@ -55,6 +55,7 @@ const DataTable = ({
 }) => {
   const [initialData, setInitialData] = useState([]);
   const [initialFilter, setInitialFilter] = useState(firstColumnKey);
+  const [selectedCol, setSelectedCol] = useState("");
   const [selectedFilter, setSelectedFilter] = useState(initialFilter);
 
   const [search, setSearch] = useState("");
@@ -64,32 +65,32 @@ const DataTable = ({
   const [currentPage, setCurrentPage] = useState(1);
 
   const currentTableData = useMemo(() => {
+    if (search !== "") {
+      if (search === "") return currentTableData;
+
+      if (selectedFilter === initialFilter) {
+        const results = data.filter(
+          (d) => d[initialFilter].toString() === search
+        );
+        if (results.length > 0) return results;
+      }
+
+      const results = data.filter((d) =>
+        d[selectedFilter.toLowerCase()]
+          .toString()
+          .toLowerCase()
+          .includes(search.toLowerCase().trim())
+      );
+
+      if (results.length > 0) return results;
+
+      return [];
+    }
+
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     return data.length > 0 && data.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
-
-  const currentSearchResults = useMemo(() => {
-    if (search === "") return currentTableData;
-
-    if (selectedFilter === initialFilter) {
-      const results = data.filter(
-        (d) => d[initialFilter].toString() === search
-      );
-      if (results.length > 0) return results;
-    }
-
-    const results = data.filter((d) =>
-      d[selectedFilter.toLowerCase()]
-        .toString()
-        .toLowerCase()
-        .includes(search.toLowerCase().trim())
-    );
-
-    if (results.length > 0) return results;
-
-    return [];
-  }, [search, selectedFilter]);
+  }, [currentPage, search, selectedFilter]);
 
   useEffect(() => {
     if (initialData.length > 0) {
@@ -228,10 +229,10 @@ const DataTable = ({
             />
           ) : (
             <>
-              {currentSearchResults.length > 0 ? (
+              {currentTableData.length > 0 ? (
                 <p className="text-primary font-weight-bold p-0 ">
-                  {currentSearchResults.length} resultados para '{search}',{" "}
-                  buscando por{" "}
+                  {currentTableData.length} resultados para '{search}', buscando
+                  por{" "}
                   {Object.keys(renameHeaders).includes(selectedFilter)
                     ? renameHeaders[selectedFilter].toLowerCase()
                     : selectedFilter}
@@ -247,18 +248,16 @@ const DataTable = ({
             cellSpacing={0}
           >
             <thead>
-              {currentTableData !== undefined &&
-              Array.isArray(currentTableData) &&
-              currentTableData.length > 0 ? (
-                <tr key={currentTableData[0].id}>
-                  {Object.keys(currentTableData[0]).map((e, i) =>
+              {data && data.length > 0 ? (
+                <tr key={data[0]?.id}>
+                  {Object.keys(data[0]).map((e, i) =>
                     renameHeaders !== null &&
                     Object.keys(renameHeaders).includes(e) ? (
                       <th
                         key={e + i}
                         className={`${
                           selectedFilter.toLowerCase() === e
-                            ? `text-primary text-uppercase `
+                            ? `text-primary text-uppercase`
                             : ``
                         }${
                           hideColumns.length > 0 && hideColumns.includes(e)
@@ -266,7 +265,21 @@ const DataTable = ({
                             : ``
                         }`}
                       >
-                        <div className="d-flex">{renameHeaders[e]} </div>
+                        <div className="d-flex">
+                          {renameHeaders[e]}{" "}
+                          {/* <button
+                            onClick={() => setSelectedCol(e)}
+                            className="btn  btn-sm btn-link mx-1 y border-0 text-primary px-1 py-0"
+                          >
+                            {selectedCol !== "" &&
+                            order === "ASC" &&
+                            selectedCol === e ? (
+                              <i className="fas fa-sort-up "></i>
+                            ) : (
+                              <i className="fas fa-sort-down "></i>
+                            )}
+                          </button>{" "} */}
+                        </div>
                       </th>
                     ) : (
                       <th
@@ -297,7 +310,7 @@ const DataTable = ({
             </thead>
 
             <tbody>
-              {search !== "" && currentSearchResults.length === 0 && (
+              {search !== "" && currentTableData.length === 0 && (
                 <tr>
                   <td colSpan={"100%"}>
                     <h5 className="text-center text-primary w-100 py-4 shadow">
@@ -310,79 +323,8 @@ const DataTable = ({
                   </td>
                 </tr>
               )}
-              {search !== "" && currentSearchResults.length > 0
-                ? currentSearchResults.map((d, i) => (
-                    <tr key={i}>
-                      {Object.entries(d).map(([k, e], i) => (
-                        <td
-                          className={`${
-                            hideColumns.length > 0 && hideColumns.includes(k)
-                              ? `d-none `
-                              : ``
-                          }`}
-                          key={k + i}
-                        >
-                          {typeof e === "object" &&
-                          Object.entries(e).length > 0 ? (
-                            <>
-                              <table className="table m-0 p-0 text-center ">
-                                <thead>
-                                  <tr>
-                                    {Object.keys(e).map((k, i) => (
-                                      <th key={k + i}>{k}</th>
-                                    ))}
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    {Object.values(e).map((v) => (
-                                      <td key={v + k + i}>{v}</td>
-                                    ))}
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </>
-                          ) : actionElement !== null &&
-                            actionElement.element === k ? (
-                            <button
-                              onClick={() => actionElement.action(d)}
-                              className={actionElement.className}
-                            >
-                              {e}
-                            </button>
-                          ) : (
-                            e
-                          )}
-                        </td>
-                      ))}
-                      {actions === true && (
-                        <td className="d-flex d-sm-flex flex-sm-column flex-column flex-lg-row flex-md-row flex-xl-row">
-                          {CustomButtons !== null ? (
-                            <CustomButtons
-                              object={d}
-                              refreshCallback={refreshCallback}
-                            />
-                          ) : (
-                            buttons.map((b) => (
-                              <button
-                                key={b.key}
-                                className={b.style}
-                                onClick={() => b.click(d)}
-                              >
-                                <i className={b.fwicon}></i>{" "}
-                                <span className="d-none d-sm-none d-md-block d-lg-block d-xl-block">
-                                  {b.text}
-                                </span>
-                              </button>
-                            ))
-                          )}
-                        </td>
-                      )}
-                    </tr>
-                  ))
-                : null}
 
-              {currentTableData.length > 0 && search === ""
+              {currentTableData.length > 0
                 ? currentTableData.map((d, i) => (
                     <tr key={i}>
                       {Object.entries(d).map(([k, e], i) => (
@@ -453,7 +395,7 @@ const DataTable = ({
                     </tr>
                   ))
                 : null}
-              {currentTableData.length < 0 && !currentSearchResults ? (
+              {search === "" && currentTableData.length === 0 ? (
                 <tr>
                   <td>{emptyDataText}</td>
                 </tr>
