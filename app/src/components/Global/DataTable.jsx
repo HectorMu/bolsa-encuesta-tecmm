@@ -56,6 +56,7 @@ const DataTable = ({
   const [initialData, setInitialData] = useState([]);
   const [initialFilter, setInitialFilter] = useState(firstColumnKey);
   const [selectedCol, setSelectedCol] = useState("");
+  const [order, setOrder] = useState("ASC");
   const [selectedFilter, setSelectedFilter] = useState(initialFilter);
 
   const [search, setSearch] = useState("");
@@ -65,6 +66,9 @@ const DataTable = ({
   const [currentPage, setCurrentPage] = useState(1);
 
   const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+
     if (search !== "") {
       if (search === "") return currentTableData;
 
@@ -87,10 +91,58 @@ const DataTable = ({
       return [];
     }
 
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
-    return data.length > 0 && data.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, search, selectedFilter]);
+    if (selectedCol === "")
+      return data.length > 0 && data.slice(firstPageIndex, lastPageIndex);
+
+    const selectedColSplitted = selectedCol.split(" ")[0];
+
+    if (order === "ASC") {
+      setOrder("DESC");
+
+      if (selectedColSplitted === firstColumnKey) {
+        return (
+          data.length > 0 && [
+            ...data
+              .slice(firstPageIndex, lastPageIndex)
+              .sort(
+                (fe, se) => se[selectedColSplitted] - fe[selectedColSplitted]
+              ),
+          ]
+        );
+      }
+      return (
+        data.length > 0 && [
+          ...data
+            .slice(firstPageIndex, lastPageIndex)
+            .sort((fe, se) =>
+              se[selectedColSplitted] - fe[selectedColSplitted] ? 1 : -1
+            ),
+        ]
+      );
+    } else {
+      setOrder("ASC");
+      if (selectedColSplitted === firstColumnKey) {
+        return (
+          data.length > 0 && [
+            ...data
+              .slice(firstPageIndex, lastPageIndex)
+              .sort(
+                (fe, se) => fe[selectedColSplitted] - se[selectedColSplitted]
+              ),
+          ]
+        );
+      }
+      return (
+        data.length > 0 && [
+          ...data
+            .slice(firstPageIndex, lastPageIndex)
+            .sort((fe, se) =>
+              se[selectedColSplitted] < fe[selectedColSplitted] ? 1 : -1
+            ),
+        ]
+      );
+    }
+  }, [currentPage, search, selectedFilter, selectedCol]);
 
   useEffect(() => {
     if (initialData.length > 0) {
@@ -102,121 +154,125 @@ const DataTable = ({
     setInitialData(data);
   }, [data]);
 
+  console.log(selectedCol);
+  console.log(order);
   return (
     <div className="card shadow-lg mb-4 border-none">
-      <div className="card-header py-3 d-flex justify-content-between d-sm-flex flex-column flex-lg-row flex-md-row flex-xl-row">
-        <h6 className="m-0 font-weight-bold text-primary text-center">
-          {title}
-        </h6>
-        <div className="d-flex  mt-3 mt-lg-0 mt-md-0 mt-xl-0">
-          {refreshCallback !== null ? (
-            <button
-              onClick={async () => refreshCallback()}
-              type="button"
-              className="btn btn-sm"
-            >
-              <i className="fas fa-sync text-primary"></i>
-            </button>
-          ) : null}
-
-          <div className="btn-group dropleft">
-            {exportable && (
-              <ReactHTMLTableToExcel
-                id="test-table-xls-button"
-                className="btn btn-sm mr-2 text-primary"
-                table={`dataTable${title.replace(" ", "-")}`}
-                filename={title}
-                sheet="tablexls"
-                buttonText={<i className="far fa-file-excel"></i>}
-              />
-            )}
-
-            {filters && (
+      {initialData.length !== 0 && (
+        <div className="card-header py-3 d-flex justify-content-between d-sm-flex flex-column flex-lg-row flex-md-row flex-xl-row">
+          <h6 className="m-0 font-weight-bold text-primary text-center">
+            {title}
+          </h6>
+          <div className="d-flex  mt-3 mt-lg-0 mt-md-0 mt-xl-0">
+            {refreshCallback !== null ? (
               <button
+                onClick={async () => refreshCallback()}
                 type="button"
                 className="btn btn-sm"
-                data-toggle="dropdown"
-                id={`filtersDropdown${title}`}
-                aria-expanded="false"
               >
-                <i className="fas fa-sliders-h text-primary"></i>
+                <i className="fas fa-sync text-primary"></i>
               </button>
-            )}
+            ) : null}
 
-            <div
-              className="dropdown-menu shadow px-2 animated--fade-in"
-              aria-labelledby={`filtersDropdown${title}`}
-            >
-              {initialData !== undefined && initialData.length > 0
-                ? filtersConfig !== null
-                  ? Object.entries(filtersConfig).map(([key, value]) => (
-                      <button
-                        key={key}
-                        type="button"
-                        onClick={() => setSelectedFilter(key)}
-                        className={`dropdown-item rounded ${
-                          selectedFilter === key
-                            ? `text-primary font-weight-bolder`
-                            : `${selectedFilter === "None" ? "" : ""}`
-                        }${hideColumns.includes(key) ? `d-none` : ``} `}
-                      >
-                        {value}
-                      </button>
-                    ))
-                  : Object.keys(initialData[0]).map((key) =>
-                      renameHeaders !== null &&
-                      Object.keys(renameHeaders).includes(key) ? (
+            <div className="btn-group dropleft">
+              {exportable && (
+                <ReactHTMLTableToExcel
+                  id="test-table-xls-button"
+                  className="btn btn-sm mr-2 text-primary"
+                  table={`dataTable${title.replace(" ", "-")}`}
+                  filename={title}
+                  sheet="tablexls"
+                  buttonText={<i className="far fa-file-excel"></i>}
+                />
+              )}
+
+              {filters && (
+                <button
+                  type="button"
+                  className="btn btn-sm"
+                  data-toggle="dropdown"
+                  id={`filtersDropdown${title}`}
+                  aria-expanded="false"
+                >
+                  <i className="fas fa-sliders-h text-primary"></i>
+                </button>
+              )}
+
+              <div
+                className="dropdown-menu shadow px-2 animated--fade-in"
+                aria-labelledby={`filtersDropdown${title}`}
+              >
+                {initialData !== undefined && initialData.length > 0
+                  ? filtersConfig !== null
+                    ? Object.entries(filtersConfig).map(([key, value]) => (
                         <button
                           key={key}
-                          onClick={() => setSelectedFilter(key)}
                           type="button"
+                          onClick={() => setSelectedFilter(key)}
                           className={`dropdown-item rounded ${
                             selectedFilter === key
-                              ? `text-primary fw-bold`
+                              ? `text-primary font-weight-bolder`
                               : `${selectedFilter === "None" ? "" : ""}`
                           }${hideColumns.includes(key) ? `d-none` : ``} `}
                         >
-                          {renameHeaders[key]}
+                          {value}
                         </button>
-                      ) : (
-                        <button
-                          key={key}
-                          onClick={() => setSelectedFilter(key)}
-                          type="button"
-                          className={`dropdown-item rounded ${
-                            selectedFilter === key
-                              ? `text-primary fw-bold`
-                              : `${selectedFilter === "None" ? "" : ""}`
-                          }${hideColumns.includes(key) ? `d-none` : ``} `}
-                        >
-                          {key.charAt(0).toUpperCase() + key.slice(1)}
-                        </button>
+                      ))
+                    : Object.keys(initialData[0]).map((key) =>
+                        renameHeaders !== null &&
+                        Object.keys(renameHeaders).includes(key) ? (
+                          <button
+                            key={key}
+                            onClick={() => setSelectedFilter(key)}
+                            type="button"
+                            className={`dropdown-item rounded ${
+                              selectedFilter === key
+                                ? `text-primary fw-bold`
+                                : `${selectedFilter === "None" ? "" : ""}`
+                            }${hideColumns.includes(key) ? `d-none` : ``} `}
+                          >
+                            {renameHeaders[key]}
+                          </button>
+                        ) : (
+                          <button
+                            key={key}
+                            onClick={() => setSelectedFilter(key)}
+                            type="button"
+                            className={`dropdown-item rounded ${
+                              selectedFilter === key
+                                ? `text-primary fw-bold`
+                                : `${selectedFilter === "None" ? "" : ""}`
+                            }${hideColumns.includes(key) ? `d-none` : ``} `}
+                          >
+                            {key.charAt(0).toUpperCase() + key.slice(1)}
+                          </button>
+                        )
                       )
-                    )
-                : null}
+                  : null}
+              </div>
             </div>
-          </div>
-          <div className="input-group">
-            <DebounceInput
-              type="text"
-              debounceTimeout={300}
-              className="form-control border-0 small"
-              placeholder={`${searchText} ${
-                renameHeaders !== null &&
-                Object.keys(renameHeaders).includes(selectedFilter)
-                  ? renameHeaders[selectedFilter].toLowerCase()
-                  : selectedFilter
-              }`}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <div className="input-group-append">
-              <button className="btn btn-primary btn-sm" type="button">
-                <i className="fas fa-search fa-sm"></i>
-              </button>
+            <div className="input-group">
+              <DebounceInput
+                type="text"
+                debounceTimeout={300}
+                className="form-control border-0 small"
+                placeholder={`${searchText} ${
+                  renameHeaders !== null &&
+                  Object.keys(renameHeaders).includes(selectedFilter)
+                    ? renameHeaders[selectedFilter].toLowerCase()
+                    : selectedFilter
+                }`}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <div className="input-group-append">
+                <button className="btn btn-primary btn-sm" type="button">
+                  <i className="fas fa-search fa-sm"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <div className="card-body">
         <div className="table-responsive">
           {search === "" ? (
@@ -242,7 +298,7 @@ const DataTable = ({
           )}
 
           <table
-            className="table table-hover"
+            className="table table-hover text-center"
             id={`dataTable${title.replace(" ", "-")}`}
             width="100%"
             cellSpacing={0}
@@ -267,18 +323,20 @@ const DataTable = ({
                       >
                         <div className="d-flex">
                           {renameHeaders[e]}{" "}
-                          {/* <button
-                            onClick={() => setSelectedCol(e)}
+                          <button
+                            onClick={() =>
+                              setSelectedCol(e + " " + new Date().getTime())
+                            }
                             className="btn  btn-sm btn-link mx-1 y border-0 text-primary px-1 py-0"
                           >
                             {selectedCol !== "" &&
                             order === "ASC" &&
-                            selectedCol === e ? (
+                            selectedCol.split(" ")[0] === e ? (
                               <i className="fas fa-sort-up "></i>
                             ) : (
                               <i className="fas fa-sort-down "></i>
                             )}
-                          </button>{" "} */}
+                          </button>{" "}
                         </div>
                       </th>
                     ) : (
@@ -296,6 +354,20 @@ const DataTable = ({
                       >
                         <div className="d-flex">
                           {e.charAt(0).toUpperCase() + e.slice(1)}{" "}
+                          <button
+                            onClick={() =>
+                              setSelectedCol(e + " " + new Date().getTime())
+                            }
+                            className="btn  btn-sm btn-link mx-1 y border-0 text-primary px-1 py-0"
+                          >
+                            {selectedCol !== "" &&
+                            order === "ASC" &&
+                            selectedCol.split(" ")[0] === e ? (
+                              <i className="fas fa-sort-up "></i>
+                            ) : (
+                              <i className="fas fa-sort-down "></i>
+                            )}
+                          </button>{" "}
                         </div>
                       </th>
                     )
@@ -304,7 +376,17 @@ const DataTable = ({
                 </tr>
               ) : (
                 <tr>
-                  <th>{emptyDataText}</th>
+                  <th className="d-flex flex-column justify-content-center align-items-center">
+                    <h5 className="text-primary font-weight-bold">
+                      {emptyDataText}
+                    </h5>
+                    <button
+                      onClick={refreshCallback}
+                      className="btn btn-outline-primary"
+                    >
+                      Recargar <i className="fas fa-sync "></i>
+                    </button>
+                  </th>
                 </tr>
               )}
             </thead>
