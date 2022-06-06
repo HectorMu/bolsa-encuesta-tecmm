@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Loading from "@/components/Global/Loading";
 import Modal from "@/components/Global/Modal";
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
+import SurveyInstructions from "@/components/Survey/SurveyInstructions";
 
 const Survey = () => {
   const [acuse, setAcuse] = useState("");

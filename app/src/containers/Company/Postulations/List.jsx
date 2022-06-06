@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 //Importando componentes
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 import Loading from "@/components/Global/Loading";
+import Pagination from "@/components/Global/Pagination";
 
 //Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useSession from "@/hooks/useSession";
 import useWindowSize from "@/hooks/useWindowResize";
+import PostulationItem from "@/components/Company/Jobbank/PostulationItem";
 
 const List = ({
   postulations,
@@ -19,8 +21,9 @@ const List = ({
 }) => {
   const size = useWindowSize();
   const { navigate, params } = useRouterHooks();
-  const [localPostulations, setLocalPostulations] = useState([]);
   const { user } = useSession();
+  let PageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleGoToPostulation = (postulation) => {
     if (size.width < 800) setToggleShowcase(true);
@@ -37,74 +40,86 @@ const List = ({
     );
   };
 
+  const currentPostulations = useMemo(() => {
+    if (searchTerm !== "") {
+      if (searchTerm === "") return currentPostulations;
+
+      const results = postulations.filter(
+        (postulation) =>
+          postulation.nombre_completo
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase().trim()) ||
+          parseInt(postulation.id) === parseInt(searchTerm)
+      );
+      if (results.length > 0) return results;
+
+      return [];
+    }
+
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+
+    if (filter !== "Todas") {
+      return (
+        postulations.length > 0 &&
+        postulations
+          .filter((postulation) => postulation.status === filter)
+          .slice(firstPageIndex, lastPageIndex)
+      );
+    }
+    return (
+      postulations.length > 0 &&
+      postulations.slice(firstPageIndex, lastPageIndex)
+    );
+  }, [currentPage, postulations, searchTerm, filter]);
+
   if (error?.error) {
     return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
   }
 
-  useEffect(() => {
-    setLocalPostulations(postulations);
-  }, [postulations]);
-
-  useEffect(() => {
-    if (postulations.length > 0) {
-      if (filter === "Todas") {
-        setLocalPostulations(postulations);
-        return;
-      }
-
-      setLocalPostulations(
-        postulations.filter((postulation) => postulation.status === filter)
-      );
-    }
-  }, [filter, postulations]);
-
   return (
     <div>
+      {searchTerm === "" && (
+        <Pagination
+          className="pagination-bar mb-2"
+          currentPage={currentPage}
+          totalCount={postulations.length > 0 && postulations.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      )}
+
       {isLoading ? (
         <Loading />
-      ) : localPostulations?.length > 0 ? (
-        localPostulations
-          .filter(
-            (postulation) =>
-              postulation.nombre_completo
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase()) ||
-              parseInt(postulation.id) === parseInt(searchTerm)
-          )
-          .map((postulation) => (
-            <div
-              key={postulation.id}
-              onClick={() => handleGoToPostulation(postulation)}
-              style={{ cursor: "pointer" }}
-              className={`card rounded-0 pt-3 px-3 border-left-0 border-right-0   ${
-                parseInt(params.postulation_id) === postulation.id
-                  ? "bg-green-light shadow "
-                  : ""
-              }`}
-            >
-              <h5 className="text-primary font-weight-bolder">
-                Postulacion No. {postulation.id}
-              </h5>
-              <h6 className=" font-weight-bolder">
-                {postulation.nombre_completo}
-              </h6>
-              <div className="d-flex justify-content-end align-items-end h-100 mt-2">
-                <p>
-                  <span className="badge badge-primary px-1 py-1">
-                    {postulation.status}
-                  </span>
-                </p>
-              </div>
-            </div>
-          ))
+      ) : currentPostulations.length > 0 ? (
+        currentPostulations.map((postulation, i) => (
+          <PostulationItem
+            key={i}
+            handleGoToPostulation={handleGoToPostulation}
+            postulation={postulation}
+          />
+        ))
       ) : filter === "Revisado" || filter === "Sin revisar" ? (
+        <h5 className="text-center text-primary py-2">
+          No hay postulaciones en estado: {filter}, en la página {currentPage}
+        </h5>
+      ) : searchTerm !== "" && currentPostulations.length === 0 ? (
         <h5 className="text-center text-primary">
-          No hay postulaciones en estado: {filter}
+          No se encontraron resultados para: '{searchTerm}'
         </h5>
       ) : (
         <h5 className="text-center text-primary">
-          Aqui apareceran las postulaciones recientes
+          Aqui apareceran las postulaciones de esta vacante
         </h5>
+      )}
+      {searchTerm === "" && (
+        <Pagination
+          className="pagination-bar mt-4"
+          currentPage={currentPage}
+          totalCount={postulations.length > 0 && postulations.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       )}
     </div>
   );

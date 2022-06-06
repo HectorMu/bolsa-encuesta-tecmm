@@ -10,9 +10,9 @@ const MobileShowcase = ({ toggleShowcase, setToggleShowcase, children }) => {
       }`}
     >
       <>
-        <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-end align-content-center">
           <button
-            className="btn btn-primary"
+            className="btn btn-primary btn-sm"
             onClick={() => setToggleShowcase(!toggleShowcase)}
           >
             <i className="fas fa-times"></i>{" "}

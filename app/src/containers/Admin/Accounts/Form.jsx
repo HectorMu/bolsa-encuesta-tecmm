@@ -111,12 +111,12 @@ const Form = () => {
   return isLoading ? (
     <Loading />
   ) : (
-    <FormCard title={onEditing ? "Editar usuario" : "Datos del usuario"}>
+    <FormCard title={onEditing ? "Editar cuenta" : "Datos de la cuenta"}>
       <form onSubmit={handleSubmit}>
         <Accordion>
           <Collapsable
             id="DatosUsuario"
-            text="Datos del usuario"
+            text="Credenciales y rol"
             buttonClass="btn btn-link btn-block text-left text-primary font-weight-bolder collapsed"
           >
             {onEditing ? (

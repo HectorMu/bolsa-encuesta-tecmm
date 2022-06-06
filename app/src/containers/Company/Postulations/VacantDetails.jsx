@@ -89,9 +89,12 @@ const VacantDetails = ({ removeOnRezise }) => {
             <div className="row">
               <div className="col-12 h-100">
                 <div className="d-flex justify-content-between align-items-center">
-                  <button onClick={handleBackPage} className="btn ">
+                  <button
+                    onClick={handleBackPage}
+                    className="btn btn-outline-primary btn-sm mb-2"
+                  >
                     {" "}
-                    <i className="fas fa-arrow-left text-primary"></i>
+                    <i className="fas fa-arrow-left"></i>
                   </button>
                   {user.fk_rol === 1 && (
                     <h6 className="text-primary font-weight-bold">
@@ -109,13 +112,19 @@ const VacantDetails = ({ removeOnRezise }) => {
                   )}
                 </div>
               </div>
-              <div className="col-6">
-                <h5 className=" font-weight-bolder text-black">
-                  {vacant?.vacante}
-                </h5>
-                <p className=" text-gray-800 font-weight-bold">
-                  {vacant?.ubicacion}
-                </p>
+              <div className="col-12">
+                <div className="row">
+                  <div className="col-12">
+                    <h5 className=" font-weight-bolder text-black">
+                      {vacant?.vacante}
+                    </h5>
+                  </div>
+                  <div className="col-12">
+                    <p className=" text-gray-800 font-weight-bold">
+                      En: {vacant?.ubicacion}
+                    </p>
+                  </div>
+                </div>
               </div>
               <div className="col-6"></div>
             </div>
@@ -146,7 +155,7 @@ const VacantDetails = ({ removeOnRezise }) => {
                 </p>
               </div>
               <div
-                className="d-flex flex-column flex-md-row"
+                className="d-flex flex-column flex-md-row align-items-end"
                 onClick={toggleRelativeTime}
                 style={{ cursor: "pointer" }}
               >

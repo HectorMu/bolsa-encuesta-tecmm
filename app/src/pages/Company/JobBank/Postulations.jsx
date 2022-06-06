@@ -11,7 +11,8 @@ import Showcase from "@/containers/Company/Postulations/Showcase";
 import VacantDetails from "@/containers/Company/Postulations/VacantDetails";
 
 import ScrollToTop from "@/components/Navigation/ScrollToTopOnMount";
-import MobileShowcase from "@/components/Graduated/JobBank/MobileShowcase";
+import ListDetailLayout from "@/components/Global/ListDetailLayout";
+import ListDetailSearch from "@/components/Global/ListDetailSearch";
 
 const FILTER_OPTIONS = ["Todas", "Sin revisar", "Revisado"];
 
@@ -64,69 +65,29 @@ const Postulations = () => {
         </div>
       )}
 
-      <div
-        ref={useCleanAosAnimations()}
-        data-aos="fade-down"
+      <ListDetailLayout
         className={removeOnRezise}
-      >
-        <div className="card shadow rounded">
-          <div className="card-body">
-            <div className="row">
-              <div className="col-md-5 col-lg-5 col-xl-5">
-                <div style={{ height: "65vh" }}>
-                  <div style={{ height: "63vh" }}>
-                    <div className="input-group w-100 mb-3 px-2 overflow-auto">
-                      <input
-                        type="text"
-                        className="form-control bg-light"
-                        placeholder="Buscar postulaciones por nombre o numero de postulación..."
-                        aria-label="Search"
-                        autoComplete="off"
-                        aria-describedby="basic-addon2"
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                      />
-                      <div className="input-group-append">
-                        <button className="btn btn-primary" type="button">
-                          <i className="fas fa-search fa-sm"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      className="purple-scroll "
-                      style={{
-                        overflowY: "scroll",
-                        maxHeight: "55vh",
-                      }}
-                    >
-                      <List
-                        isLoading={isLoading}
-                        searchTerm={searchTerm}
-                        postulations={postulations}
-                        filter={filter}
-                        toggleShowcase={toggleShowcase}
-                        setToggleShowcase={setToggleShowcase}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-md-7 col-lg-7 col-xl-7 d-none d-sm-none d-md-block d-lg-block">
-                <Showcase
-                  postulations={postulations}
-                  refreshData={refreshData}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <MobileShowcase
-        toggleShowcase={toggleShowcase}
-        setToggleShowcase={setToggleShowcase}
-      >
-        <Showcase postulations={postulations} refreshData={refreshData} />
-      </MobileShowcase>
+        listHeader={
+          <ListDetailSearch
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+        }
+        list={
+          <List
+            isLoading={isLoading}
+            searchTerm={searchTerm}
+            postulations={postulations}
+            filter={filter}
+            toggleShowcase={toggleShowcase}
+            setToggleShowcase={setToggleShowcase}
+          />
+        }
+        showcase={
+          <Showcase postulations={postulations} refreshData={refreshData} />
+        }
+        MobileShowCaseControls={{ setToggleShowcase, toggleShowcase }}
+      />
     </div>
   );
 };

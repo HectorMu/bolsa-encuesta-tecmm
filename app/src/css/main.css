@@ -722,12 +722,14 @@ input[type="radio"]:checked:after {
 .pagination-container {
   display: flex;
   justify-content: center;
+
+  padding: 0;
   list-style-type: none;
 }
 .pagination-container .pagination-item {
   padding: 0 12px;
   height: 32px;
-  text-align: center;
+  text-align: start;
   margin: auto 4px;
   color: var(--purple);
   font-weight: bold;
@@ -739,6 +741,13 @@ input[type="radio"]:checked:after {
   line-height: 1.43;
   font-size: 13px;
   min-width: 32px;
+}
+
+@media (max-width: 768px) {
+  .pagination-container .pagination-item {
+    padding: 10px;
+    margin: 1px;
+  }
 }
 .pagination-container .pagination-item.dots:hover {
   background-color: transparent;

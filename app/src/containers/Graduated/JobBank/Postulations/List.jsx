@@ -47,6 +47,7 @@ const List = ({ searchTerm, postulations, isLoading, setToggleShowcase }) => {
       postulations.slice(firstPageIndex, lastPageIndex)
     );
   }, [currentPage, postulations, searchTerm]);
+
   return (
     <div>
       <Pagination

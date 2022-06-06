@@ -3,7 +3,6 @@ import useSession from "@/hooks/useSession";
 import vacanciesService from "@/services/Company/vacancies.service";
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useServiceFetchV2 from "@/hooks/useServiceFetchV2";
-import useCleanAosAnimations from "@/hooks/useCleanAosAnimations";
 
 import List from "@/containers/Company/Postulations/List";
 import Showcase from "@/containers/Company/Postulations/Showcase";
@@ -11,7 +10,9 @@ import VacantDetails from "@/containers/Company/Postulations/VacantDetails";
 import useWindowSize from "@/hooks/useWindowResize";
 
 import ScrollToTop from "@/components/Navigation/ScrollToTopOnMount";
-import MobileShowcase from "@/components/Graduated/JobBank/MobileShowcase";
+
+import ListDetailLayout from "@/components/Global/ListDetailLayout";
+import ListDetailSearch from "@/components/Global/ListDetailSearch";
 
 const FILTER_OPTIONS = ["Todas", "Sin revisar", "Revisado"];
 const Postulations = () => {
@@ -61,69 +62,29 @@ const Postulations = () => {
           </div>
         </div>
       )}
-
-      <div
-        ref={useCleanAosAnimations()}
-        data-aos="fade-down"
+      <ListDetailLayout
+        listHeader={
+          <ListDetailSearch
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+        }
         className={removeOnRezise}
-      >
-        <div className="card shadow rounded">
-          <div className="card-body">
-            <div className="row">
-              <div className="col-md-5 col-lg-5 col-xl-5">
-                <div style={{ height: "65vh" }}>
-                  <div style={{ height: "63vh" }}>
-                    <div className="input-group w-100 mb-3 px-2 overflow-auto">
-                      <input
-                        type="text"
-                        className="form-control bg-light"
-                        placeholder="Buscar por nombre o numero de postulación..."
-                        aria-label="Search"
-                        autoComplete="off"
-                        aria-describedby="basic-addon2"
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                      />
-                      <div className="input-group-append">
-                        <button className="btn btn-primary" type="button">
-                          <i className="fas fa-search fa-sm"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      className="purple-scroll "
-                      style={{
-                        overflowY: "scroll",
-                        maxHeight: "55vh",
-                      }}
-                    >
-                      <List
-                        isLoading={isLoading}
-                        postulations={postulations}
-                        error={error}
-                        searchTerm={searchTerm}
-                        filter={filter}
-                        setToggleShowcase={setToggleShowcase}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-7 col-lg-7 col-xl-7  d-none d-sm-none d-md-block d-lg-block">
-                <Showcase
-                  postulations={postulations}
-                  refreshData={refreshData}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <MobileShowcase
-        setToggleShowcase={setToggleShowcase}
-        toggleShowcase={toggleShowcase}
-      >
-        <Showcase postulations={postulations} refreshData={refreshData} />
-      </MobileShowcase>
+        list={
+          <List
+            isLoading={isLoading}
+            postulations={postulations}
+            error={error}
+            searchTerm={searchTerm}
+            filter={filter}
+            setToggleShowcase={setToggleShowcase}
+          />
+        }
+        showcase={
+          <Showcase postulations={postulations} refreshData={refreshData} />
+        }
+        MobileShowCaseControls={{ setToggleShowcase, toggleShowcase }}
+      />
     </div>
   );
 };

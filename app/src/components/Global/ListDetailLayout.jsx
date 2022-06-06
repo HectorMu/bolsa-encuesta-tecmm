@@ -6,6 +6,7 @@ const ListDetailLayout = ({
   list: List,
   showcase: Showcase,
   MobileShowCaseControls,
+  className = "container-fluid",
 }) => {
   const animatedRef = useCleanAosAnimations();
   return (
@@ -14,7 +15,7 @@ const ListDetailLayout = ({
         ref={animatedRef}
         data-aos="fade-up"
         data-aos-duration="200"
-        className="container-fluid"
+        className={className}
       >
         <div className="card shadow rounded">
           <div className="card-body">

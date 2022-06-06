@@ -44,13 +44,16 @@ const List = ({ searchTerm, jobs, isLoading, setToggleShowcase }) => {
 
   return (
     <div>
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={jobs.length > 0 && jobs.length}
-        pageSize={PageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+      {searchTerm === "" && (
+        <Pagination
+          className="pagination-bar"
+          currentPage={currentPage}
+          totalCount={jobs.length > 0 && jobs.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      )}
+
       {searchTerm !== "" && currentJobs.length === 0 && (
         <h5 className="text-center text-primary">
           No se encontraron resultados para: '{searchTerm}''
@@ -68,14 +71,15 @@ const List = ({ searchTerm, jobs, isLoading, setToggleShowcase }) => {
           Aquí aparecerán las vacantes publicadas
         </h5>
       )}
-
-      <Pagination
-        className="pagination-bar mt-3"
-        currentPage={currentPage}
-        totalCount={jobs.length > 0 && jobs.length}
-        pageSize={PageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+      {searchTerm === "" && (
+        <Pagination
+          className="pagination-bar mt-3"
+          currentPage={currentPage}
+          totalCount={jobs.length > 0 && jobs.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      )}
     </div>
   );
 };
