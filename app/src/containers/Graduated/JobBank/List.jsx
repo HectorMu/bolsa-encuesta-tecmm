@@ -2,13 +2,23 @@ import { useState, useMemo } from "react";
 //Importando los componentes
 import Loading from "@/components/Global/Loading";
 import Pagination from "@/components/Global/Pagination";
+import JobItem from "@/components/Graduated/JobBank/JobItem";
+
 //Importando los hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useWindowSize from "@/hooks/useWindowResize";
-import JobItem from "@/components/Graduated/JobBank/JobItem";
+import useServiceFetch from "@/hooks/useServiceFetchV2";
+//importando servicios
+import jobsService from "@/services/Graduated/jobs.service";
 
 const List = ({ searchTerm, jobs, isLoading, setToggleShowcase }) => {
   const size = useWindowSize();
+
+  const { hookData: graduatedPostulations } = useServiceFetch(
+    jobsService.getGraduatedPostulations,
+    [],
+    []
+  );
 
   const { navigate } = useRouterHooks();
 
@@ -62,7 +72,12 @@ const List = ({ searchTerm, jobs, isLoading, setToggleShowcase }) => {
 
       {currentJobs.length > 0 &&
         currentJobs.map((job, i) => (
-          <JobItem key={i} job={job} handleSelection={handleJobSelection} />
+          <JobItem
+            key={i}
+            job={job}
+            handleSelection={handleJobSelection}
+            graduatedPostulations={graduatedPostulations}
+          />
         ))}
 
       {!currentJobs.length && searchTerm === "" && (

@@ -134,7 +134,7 @@ const CurrentVacants = ({ company }) => {
                           </span>
                           <span className="px-1">|</span>
                           <span className="text-primary font-weight-bolder">
-                            {job.visitas} solicitudes
+                            {job.visitas} visitas
                           </span>
                         </div>
                       </div>
