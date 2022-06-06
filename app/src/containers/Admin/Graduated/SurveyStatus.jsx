@@ -110,7 +110,7 @@ const SurveyStatus = ({ graduated }) => {
         ) : (
           <div className="d-flex justify-content-center flex-column align-content-center">
             <h5 className="text-center font-weight-bold">
-              {graduated?.nombre_completo} aun no ha contestado la encuesta
+              {graduated?.nombre_completo} aún no ha contestado la encuesta
             </h5>
             <p className="text-center mt-3">
               Si deseas notificar al egresado para conteste la encuesta puedes

@@ -154,8 +154,6 @@ const DataTable = ({
     setInitialData(data);
   }, [data]);
 
-  console.log(selectedCol);
-  console.log(order);
   return (
     <div className="card shadow-lg mb-4 border-none">
       {initialData.length !== 0 && (

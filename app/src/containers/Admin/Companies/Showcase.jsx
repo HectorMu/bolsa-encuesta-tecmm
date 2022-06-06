@@ -28,7 +28,10 @@ const Showcase = ({ company, isLoading }) => {
         <Loading />
       ) : (
         <ShowcaseContainer>
-          <ShowcaseHeader title={company.nombre_comercial} />
+          <ShowcaseHeader
+            title={company.nombre_comercial}
+            toEdit={`/companies/edit/${company.id}`}
+          />
 
           <ShowcaseCard>
             <div className="row">

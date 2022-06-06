@@ -20,7 +20,13 @@ const Showcase = ({ graduated, isLoading }) => {
         <Loading />
       ) : (
         <ShowcaseContainer>
-          <ShowcaseHeader title={graduated.nombre_completo}> </ShowcaseHeader>
+          <ShowcaseHeader
+            title={graduated.nombre_completo}
+            toEdit={`/graduates/edit/${graduated.id}`}
+            entity={graduated}
+          >
+            {" "}
+          </ShowcaseHeader>
 
           <ShowcaseCard>
             <div className="row">
@@ -106,6 +112,10 @@ const Showcase = ({ graduated, isLoading }) => {
                   <p>
                     <span className="font-weight-bolder">Carrera:</span>{" "}
                     {graduated.carrera}
+                  </p>
+                  <p>
+                    <span className="font-weight-bolder">Especialidad:</span>{" "}
+                    {graduated.especialidad}
                   </p>
 
                   <p>

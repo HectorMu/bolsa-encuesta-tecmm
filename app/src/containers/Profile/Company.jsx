@@ -19,7 +19,7 @@ const Company = () => {
   const [onEditing] = useState(true);
   const [onChangePassword, toggleChangePassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { user, verifySession } = useSession();
+  const { user, verifySession, setUser } = useSession();
 
   const getProfileHandler = useCallback(async () => {
     setIsLoading(true);
@@ -51,6 +51,7 @@ const Company = () => {
     if (!results.status) {
       return toast.error(results.statusText, { id: tLoading });
     }
+    setUser({ ...user, correo: company.correo });
     toast.success(results.statusText, { id: tLoading });
     getProfileHandler();
   };

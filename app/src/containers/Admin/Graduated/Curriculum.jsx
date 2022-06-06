@@ -73,7 +73,7 @@ const Curriculum = ({ graduated, isLoading }) => {
                 <Modal
                   id="cvModal"
                   title={`${graduated.nombre_completo} CV`}
-                  buttonText="Ver curriculum"
+                  buttonText="Ver currículum"
                   buttonClass="btn btn-outline-primary "
                   faIcon={<i className="fas fa-eye"></i>}
                   faIconPos="right"

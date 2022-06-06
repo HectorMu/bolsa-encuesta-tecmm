@@ -41,6 +41,7 @@ controller.Login = async (req, res) => {
       { expiresIn: "30d" }
     );
 
+    delete serializedUser.id;
     const SessionData = {
       ...serializedUser,
       AccessToken,

@@ -38,7 +38,7 @@ const Graduated = () => {
   const [onEditing] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [onChangePassword, toggleChangePassword] = useState(false);
-  const { user, verifySession } = useSession();
+  const { user, verifySession, setUser } = useSession();
 
   const getProfileHandler = useCallback(async () => {
     setIsLoading(true);
@@ -99,6 +99,7 @@ const Graduated = () => {
     if (!results.status) {
       return toast.error(results.statusText, { id: tLoading });
     }
+    setUser({ ...user, correo: profile.correo });
     toast.success(results.statusText, { id: tLoading });
 
     getProfileHandler();
