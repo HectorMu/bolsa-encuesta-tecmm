@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const FormCard = ({ title, children }) => {
   return (
-    <div className="card shadow mb-4 animated--grow-in">
+    <div className="card shadow mb-4 animated--grow-in form-card">
       <div className="card-header py-3 d-flex">
         <Link to={-1} className="btn btn-primary btn-sm">
           <i className="fas fa-arrow-left"></i>

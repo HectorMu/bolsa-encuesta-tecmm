@@ -15,7 +15,7 @@ const ShowcaseHeader = ({ title, toEdit }) => (
       </Link>
     </div>
 
-    <div className="card py-3 shadow-lg rounded-0 ">
+    <div className="card py-3 shadow-lg rounded-0 showcase-header">
       <h5 className="text-primary  font-weight-bolder responsive-text-header">
         <div className="col-12 text-center">
           <span className="mx-auto">{title}</span>

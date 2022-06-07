@@ -85,7 +85,7 @@ const VacantDetails = ({ removeOnRezise }) => {
         <Loading />
       ) : (
         <div className={removeOnRezise}>
-          <div className="card p-3 shadow">
+          <div className="card p-3 shadow vacant-details">
             <div className="row">
               <div className="col-12 h-100">
                 <div className="d-flex justify-content-between align-items-center">

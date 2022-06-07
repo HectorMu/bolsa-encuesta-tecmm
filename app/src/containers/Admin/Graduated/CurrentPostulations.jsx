@@ -88,7 +88,7 @@ const CurrentPostulations = ({ graduated }) => {
                     key={postulation.fk_vacante}
                     className="col-lg-12 col-xl-12 "
                   >
-                    <div className="card border-0">
+                    <div className="card border-0 showcase-card">
                       <div className="card-body px-0 border-bottom-purple">
                         <h5 className="font-weight-bold p-0">
                           {postulation.vacante}{" "}

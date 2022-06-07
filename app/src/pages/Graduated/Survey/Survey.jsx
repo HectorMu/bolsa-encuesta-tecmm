@@ -21,8 +21,8 @@ const Survey = () => {
 
   return (
     <div className={`text-black ${toggleClassOnResize}`}>
-      <div className="card shadow rounded-0 border-0">
-        <div className="card-body">
+      <div className="card shadow rounded-0 border-0 survey-card">
+        <div className="card-body ">
           <PreventGraduatedSurveyJumpsProvider>
             {parseInt(params.section_id) === 1 && <Section1 />}
             {parseInt(params.section_id) === 2 && <Section2 />}

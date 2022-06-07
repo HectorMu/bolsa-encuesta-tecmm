@@ -16,7 +16,7 @@ const Section = () => {
 
   return (
     <div className={`text-black ${toggleClassOnResize}`}>
-      <div className="card shadow rounded-0 border-0">
+      <div className="card shadow rounded-0 border-0 survey-card">
         <div className="card-body">
           {parseInt(params.section_id) === 1 ? <SectionB /> : null}
           {parseInt(params.section_id) === 2 ? <SectionC /> : null}

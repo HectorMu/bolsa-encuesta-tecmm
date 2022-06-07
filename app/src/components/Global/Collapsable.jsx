@@ -9,18 +9,20 @@ const Collapsable = ({
   return (
     <div>
       <div className="card-header" id={`heading${id}`}>
-        <h2 className="mb-0">
-          <button
-            className={buttonClass}
-            type="button"
-            data-toggle="collapse"
-            data-target={`#collapse${id}`}
-            aria-expanded="true"
-            aria-controls={`collapse${id}`}
-          >
-            {text}
-          </button>
-        </h2>
+        <div className="d-flex justify-content-start align-content-center align-items-center">
+          <h2 className="mb-0">
+            <button
+              className={buttonClass}
+              type="button"
+              data-toggle="collapse"
+              data-target={`#collapse${id}`}
+              aria-expanded="true"
+              aria-controls={`collapse${id}`}
+            >
+              {text}
+            </button>
+          </h2>
+        </div>
       </div>
       <div
         id={`collapse${id}`}

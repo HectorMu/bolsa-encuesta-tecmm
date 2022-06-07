@@ -17,7 +17,7 @@ const ListDetailLayout = ({
         data-aos-duration="200"
         className={className}
       >
-        <div className="card shadow rounded">
+        <div className="card shadow rounded list-detail-layout">
           <div className="card-body">
             <div className="row">
               <div className="col-md-5 col-lg-5 col-xl-5">
