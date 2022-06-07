@@ -117,7 +117,7 @@ const Survey = () => {
               </div>
             </div>
           ) : (
-            <>
+            <div className="survey-instructions">
               <h3 className="text-left ">Instrucciones:</h3>
               <p>
                 Por favor lea cuidadosamente y conteste este cuestionario de la
@@ -158,7 +158,7 @@ const Survey = () => {
                   Comenzar <i className="fas fa-arrow-right"></i>
                 </Link>
               </div>
-            </>
+            </div>
           )}
         </>
       )}

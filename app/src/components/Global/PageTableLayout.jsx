@@ -8,7 +8,7 @@ const PageTableLayout = ({
   button = true,
 }) => {
   return (
-    <div className="col-12 col-lg-12 col-xl-12 mx-auto">
+    <div className="col-12 col-lg-12 col-xl-12 mx-auto table-layout">
       <div className="d-flex flex-column flex-lg-row flex-md-row flex-xl-row align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">{title}</h1>
         {button && (

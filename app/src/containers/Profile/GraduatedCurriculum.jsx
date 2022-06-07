@@ -52,7 +52,9 @@ const GraduatedCurriculum = () => {
               data-aos="flip-left"
               className="d-flex flex-column align-items-center justify-content-center card p-3 shadow border-0 "
             >
-              <h5>Archivo seleccionado: {cvFile?.name}</h5>
+              <h5 className="curriculum-selected">
+                Archivo seleccionado: {cvFile?.name}
+              </h5>
               <button
                 onClick={() => setCvFile(null)}
                 className="btn btn-primary btn-sm"
@@ -73,7 +75,7 @@ const GraduatedCurriculum = () => {
             onClick={uploadCVHandler}
             className="btn btn-primary btn-lg mt-3"
           >
-            {cvFile === null ? "Seleccionar archivo" : "Subir mi curriculum"}
+            {cvFile === null ? "Seleccionar archivo" : "Subir mi currículum"}
           </button>
           <h4 className="mt-5 border-bottom text-black border-dark">
             El currículum lo necesitarás para postularte en la bolsa de trabajo
@@ -81,9 +83,9 @@ const GraduatedCurriculum = () => {
         </div>
       ) : (
         <div>
-          <div className="d-flex justify-content-end h-100 align-items-center">
+          <div className=" d-flex justify-content-end h-100 align-items-center">
             {cvFile !== null && (
-              <p className="mr-2 align-self-center">
+              <p className="curriculum-selected mr-2 align-self-center">
                 Archivo seleccionado:{" "}
                 <span className="text-primary">{cvFile?.name}</span>
               </p>
@@ -93,7 +95,7 @@ const GraduatedCurriculum = () => {
               onClick={uploadCVHandler}
               className="btn btn-primary btn-sm mb-2"
             >
-              {cvFile === null ? "Cambiar" : "Subir nuevo curriculum"}
+              {cvFile === null ? "Cambiar" : "Subir nuevo currículum"}
             </button>
             {cvFile !== null && (
               <button

@@ -321,6 +321,60 @@ input:-webkit-autofill:active {
   flex-direction: row;
 }
 
+.content .theme-dark .pagination-container .pagination-item {
+  background-color: white;
+  transition: all ease-in 120ms;
+}
+
+.content .theme-dark .pagination-container .pagination-item:hover {
+  background-color: rgb(136, 134, 134);
+}
+.content .theme-dark .pagination-container .pagination-item.selected {
+  background-color: rgb(173, 173, 173);
+}
+
+.content .theme-dark .curriculum-selected {
+  color: black !important;
+}
+
+.content .theme-dark .fallback {
+  background-color: white;
+  padding: 20px;
+}
+
+.content .theme-dark .table {
+  color: black;
+  transition: all ease-in-out;
+  background-color: rgb(209, 209, 209);
+}
+.content .theme-dark .table tr {
+  color: black;
+  transition: all ease-in-out 150ms;
+}
+.content .theme-dark .table tr:hover {
+  color: black;
+  background-color: rgb(143, 141, 141);
+}
+
+.content .theme-dark .card-body {
+  color: black;
+}
+.content .theme-dark .table-layout .card-body {
+  color: black;
+  background-color: rgb(209, 209, 209);
+}
+
+.content .theme-dark .table-layout .card-header {
+  background-color: rgb(209, 209, 209);
+}
+.content .theme-dark {
+  background-color: gray !important;
+  color: white !important;
+}
+.content .theme-dark .table-layout h1 {
+  color: white !important;
+}
+
 .c-sidebar {
   flex: 1 1 0;
   max-width: 200px;
@@ -505,6 +559,7 @@ input:-webkit-autofill:active {
 
 .content {
   flex: 1 1 0;
+  transition: all ease-in-out 200ms;
 }
 
 /* /Custom sidebar */
@@ -598,6 +653,7 @@ input[type="radio"]:checked:after {
 
 .purple-scroll::-webkit-scrollbar-track {
   border-radius: 10px;
+
   background-color: white;
 }
 

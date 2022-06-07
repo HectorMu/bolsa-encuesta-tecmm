@@ -21,7 +21,6 @@ const SessionDropdown = ({ user, setUser }) => {
   };
   return (
     <>
-      <div className="topbar-divider d-none d-sm-block"></div>
       <li className="nav-item dropdown no-arrow">
         <a
           className="nav-link dropdown-toggle"

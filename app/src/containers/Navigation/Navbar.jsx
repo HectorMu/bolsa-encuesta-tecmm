@@ -5,7 +5,11 @@ import useSession from "../../hooks/useSession";
 import navLogo from "@/assets/LogoTec.svg";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
+const Navbar = ({
+  sidebarControl: { handleSidebarToggle },
+  currentTheme,
+  toggleTheme,
+}) => {
   const { user, setUser } = useSession();
   return (
     <nav className="navbar navbar-expand navbar-light bg-green topbar static-top shadow fixed-top">
@@ -15,8 +19,19 @@ const Navbar = ({ sidebarControl: { handleSidebarToggle } }) => {
       {user !== null ? (
         <>
           <ul className="navbar-nav ml-auto">
+            <div className="topbar-divider d-none d-sm-block"></div>
             <SessionDropdown user={user} setUser={setUser} />
           </ul>
+          <button
+            onClick={toggleTheme}
+            className={"btn btn-primary btn-sm mr-1"}
+          >
+            {currentTheme === "light" ? (
+              <i className="fas fa-sun"></i>
+            ) : (
+              <i className="fas fa-moon"></i>
+            )}
+          </button>
           <button
             className="btn btn-primary  btn-sm "
             onClick={handleSidebarToggle}
