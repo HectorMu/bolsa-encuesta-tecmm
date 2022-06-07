@@ -2,7 +2,7 @@ const Footer = ({ webSite = "Your Website", year = "2022", currentTheme }) => {
   return (
     <footer
       className={`sticky-footer ${
-        currentTheme === "dark" ? "bg-dark text-white" : "bg-light"
+        currentTheme === "dark" ? "bg-dark-footer text-white" : "bg-light"
       } `}
     >
       <div className="container my-auto">

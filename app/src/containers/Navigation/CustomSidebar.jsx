@@ -5,6 +5,7 @@ import useWindowSize from "@/hooks/useWindowResize";
 
 const CustomSidebar = ({
   sidebarControl: { sidebarToggled, handleSidebarToggle },
+  currentTheme,
 }) => {
   const { user } = useSession();
   const size = useWindowSize();
@@ -16,7 +17,11 @@ const CustomSidebar = ({
     return <></>;
   }
   return (
-    <aside className={`c-sidebar  ${sidebarToggled ? `active ` : ``} `}>
+    <aside
+      className={`c-sidebar  ${currentTheme === "dark" ? "theme-dark" : ""}  ${
+        sidebarToggled ? `active ` : ``
+      } `}
+    >
       <button
         onClick={() => handleSidebarToggle(!sidebarToggled)}
         className="btn btn-primary rounded-right floating-btn btn-sm p-0 py-4"

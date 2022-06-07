@@ -32,7 +32,10 @@ const Layout = ({ children }) => {
 
   return (
     <div id="wrapper" onClick={handleToggleOnBody} className="wrapper">
-      <CustomSidebar sidebarControl={{ sidebarToggled, handleSidebarToggle }} />
+      <CustomSidebar
+        currentTheme={currentTheme}
+        sidebarControl={{ sidebarToggled, handleSidebarToggle }}
+      />
       <div id="content-wrapper" className="content d-flex flex-column ">
         <Navbar
           currentTheme={currentTheme}
@@ -41,7 +44,7 @@ const Layout = ({ children }) => {
         />
         <div
           className={`content theme-${currentTheme}`}
-          style={{ paddingTop: "90px" }}
+          style={{ paddingTop: "90px", paddingBottom: "20px" }}
         >
           {children}
         </div>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const SurveyInstructions = ({ title = "Survey title", to = "/page/" }) => {
   return (
-    <div className="container-fluid text-black">
+    <div className="container-fluid survey-instructions text-black">
       <div className="d-sm-flex align-items-center justify-content-center mb-4">
         <h1 className="h3 mb-0 text-center font-weight-bold border-bottom border-dark border-1 pb-2">
           {title}

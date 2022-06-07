@@ -12,7 +12,11 @@ const Navbar = ({
 }) => {
   const { user, setUser } = useSession();
   return (
-    <nav className="navbar navbar-expand navbar-light bg-green topbar static-top shadow fixed-top">
+    <nav
+      className={`navbar navbar-expand ${
+        currentTheme === "dark" ? "bg-dark-nav" : ""
+      } navbar-light bg-green topbar static-top shadow fixed-top`}
+    >
       <Link className="navbar-brand text-white font-weight-bolder" to="/">
         <img src={navLogo} className="ml-2 navbar-responsive-size" alt="" />
       </Link>
