@@ -67,6 +67,24 @@ const GraduatedSurveyAnswers = {
     );
     return results;
   },
+  async SurveyAnsweredUpdateOrCreate(fk_egresado, fecha, acuse) {
+    const hasAnswered = await this.getUserSurveyStatus(fk_egresado);
+
+    console.log(hasAnswered);
+    if (hasAnswered.fk_egresado) {
+      const results = await connection.query(
+        "update  encuesta_egresado_contestada set ?  where fk_egresado = ?",
+        [{ fk_egresado, fecha, acuse }, fk_egresado]
+      );
+      return results;
+    }
+    const results = await connection.query(
+      "insert into encuesta_egresado_contestada set ? ",
+      [{ fk_egresado, fecha, acuse }]
+    );
+
+    return results;
+  },
 };
 
 module.exports = GraduatedSurveyAnswers;

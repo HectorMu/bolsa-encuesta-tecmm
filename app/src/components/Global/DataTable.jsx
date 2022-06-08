@@ -161,7 +161,7 @@ const DataTable = ({
           <h6 className="m-0 font-weight-bold text-primary text-center">
             {title}
           </h6>
-          <div className="d-flex  mt-3 mt-lg-0 mt-md-0 mt-xl-0">
+          <div className="d-flex table-controls  mt-3 mt-lg-0 mt-md-0 mt-xl-0">
             {refreshCallback !== null ? (
               <button
                 onClick={async () => refreshCallback()}

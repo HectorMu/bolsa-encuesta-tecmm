@@ -760,7 +760,11 @@ controller.saveSection6Answers = async (req, res) => {
     const alreadyContested = await GraduatedSurveyAnswers.getUserSurveyStatus(
       req.user.id
     );
-    if (!alreadyContested.fk_egresado) {
+    if (
+      !alreadyContested.fk_egresado ||
+      alreadyContested.acuse === "Pendiente"
+    ) {
+      console.log("entre");
       let format = "Letter";
       let html = fs.readFileSync(
         path.join(__dirname, "../assets/template.html"),
@@ -835,7 +839,7 @@ controller.saveSection6Answers = async (req, res) => {
           });
         });
 
-      await GraduatedSurveyAnswers.SurveyAnswered(
+      await GraduatedSurveyAnswers.SurveyAnsweredUpdateOrCreate(
         req.user.id,
         new Date().toLocaleString(),
         `acuse_${req.user.id}-${graduatedData.no_control}.pdf`

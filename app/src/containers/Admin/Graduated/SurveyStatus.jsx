@@ -7,12 +7,20 @@ import ShowcaseCard from "@/components/Global/ShowcaseCard";
 import Modal from "@/components/Global/Modal";
 import graduatesService from "@/services/Admin/graduates.service";
 import Auth from "@/services/Auth";
+import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
 const SurveyStatus = ({ graduated }) => {
   const [acuse, setAcuse] = useState("");
   const { params } = useRouterHooks();
   const { verifySession } = useSession();
+
+  const moreInfo = () =>
+    Swal.fire(
+      "¿Por que la fecha es desconocida?",
+      "Esto se debe a que el registro de la encuesta de este egresado es un respaldo del anterior sistema de control de encuestas, el cual no guardaba la fecha en que fue contestada. Por lo tanto, tampoco existe un acuse generado por este nuevo sistema.",
+      "question"
+    );
 
   const {
     hookData: surveyStatus,
@@ -61,50 +69,70 @@ const SurveyStatus = ({ graduated }) => {
         </h3>
         {surveyStatus?.fk_egresado ? (
           <div className="d-flex justify-content-center flex-column ">
-            <h5 className="text-center">
-              {graduated?.nombre_completo} contestó la encuesta el dia:{" "}
-              <span className="font-weight-bold text-primary">
-                {surveyStatus.fecha.split(" ")[0]}{" "}
-                <span className="text-black font-weight-normal">a las </span>
-                {surveyStatus.fecha.split(" ")[1]}
-              </span>
-            </h5>
-            <div className="d-flex justify-content-center mt-3">
-              <Modal
-                buttonClass="btn btn-outline-primary"
-                buttonCloseText="Cerrar"
-                faIcon={<i className="fas fa-eye"></i>}
-                faIconPos="right"
-                id="acuse"
-                title={`Acuse de ${graduated?.nombre_completo}`}
-                modalClass="modal-dialog modal-xl modal-dialog-scrollable"
-                buttonText="Ver acuse"
-              >
-                <object
-                  data={acuse}
-                  type="application/pdf"
-                  frameBorder="0"
-                  width="100%"
-                  style={{ height: "100vh", width: "100%" }}
-                >
-                  <div className="d-flex flex-column justify-content-center">
-                    <p className="text-center">
-                      El navegador no soporta la visualizacion de PDF.{" "}
-                    </p>
-                    <a className="btn btn-primary" href={acuse} download>
-                      Descargar PDF
-                    </a>
-                  </div>
-                </object>
-              </Modal>
-              <div className="align-self-center">
+            {surveyStatus?.fecha === "N/A" ? (
+              <>
+                {" "}
+                <h5 className="text-center">
+                  {graduated?.nombre_completo} contestó la encuesta, el día es
+                  desconocido.
+                </h5>{" "}
                 <button
-                  onClick={() => handleNotifyGraduated("update_answers")}
-                  className="btn btn-outline-primary ml-2"
+                  onClick={moreInfo}
+                  className={"btn btn-link text-primary mb-3"}
                 >
-                  Solicitar actualizacion <i className="fas fa-paper-plane"></i>
+                  Mas información
                 </button>
-              </div>
+              </>
+            ) : (
+              <>
+                <h5 className="text-center">
+                  {graduated?.nombre_completo} contestó la encuesta el día:{" "}
+                  <span className="font-weight-bold text-primary">
+                    {surveyStatus.fecha.split(" ")[0]}{" "}
+                    <span className="text-black font-weight-normal">
+                      a las{" "}
+                    </span>
+                    {surveyStatus.fecha.split(" ")[1]}
+                  </span>
+                </h5>
+                <div className="d-flex justify-content-center mt-3">
+                  <Modal
+                    buttonClass="btn btn-outline-primary"
+                    buttonCloseText="Cerrar"
+                    faIcon={<i className="fas fa-eye"></i>}
+                    faIconPos="right"
+                    id="acuse"
+                    title={`Acuse de ${graduated?.nombre_completo}`}
+                    modalClass="modal-dialog modal-xl modal-dialog-scrollable"
+                    buttonText="Ver acuse"
+                  >
+                    <object
+                      data={acuse}
+                      type="application/pdf"
+                      frameBorder="0"
+                      width="100%"
+                      style={{ height: "100vh", width: "100%" }}
+                    >
+                      <div className="d-flex flex-column justify-content-center">
+                        <p className="text-center">
+                          El navegador no soporta la visualización de PDF.{" "}
+                        </p>
+                        <a className="btn btn-primary" href={acuse} download>
+                          Descargar PDF
+                        </a>
+                      </div>
+                    </object>
+                  </Modal>
+                </div>
+              </>
+            )}
+            <div className="align-self-center">
+              <button
+                onClick={() => handleNotifyGraduated("update_answers")}
+                className="btn btn-outline-primary ml-2"
+              >
+                Solicitar actualización <i className="fas fa-paper-plane"></i>
+              </button>
             </div>
           </div>
         ) : (

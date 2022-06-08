@@ -7,12 +7,13 @@ import { Link } from "react-router-dom";
 import Loading from "@/components/Global/Loading";
 import Modal from "@/components/Global/Modal";
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
-import SurveyInstructions from "@/components/Survey/SurveyInstructions";
+import Swal from "sweetalert2";
 
 const Survey = () => {
   const [acuse, setAcuse] = useState("");
   const [loadingAcuse, setLoadingAcuse] = useState(false);
   const { verifySession } = useSession();
+
   const {
     hookData: answeredDetails,
     isLoading,
@@ -22,6 +23,13 @@ const Survey = () => {
     () => verifySession(surveyService.checkIfSurveyIsAnswered, refreshData),
     []
   );
+
+  const moreInfo = () =>
+    Swal.fire(
+      "¿Por que no tengo acuse?",
+      "Realizaste la encuesta en el sistema antiguo, el cual no generaba acuse ni guardaba la fecha en que realizaste la encuesta. Puedes actualizar tus respuestas para generar tu acuse.",
+      "question"
+    );
 
   const getAcuseWithAuth = async () => {
     if (!answeredDetails.acuse) return;
@@ -59,50 +67,68 @@ const Survey = () => {
             <div className="col-lg-6 mx-auto">
               <div className="card shadow-lg border-0 animated--grow-in">
                 <div className="card-body">
-                  <h5 className="text-center mb-4">
-                    Ya has contestado la encuesta, puedes ver tu acuse aquí:
-                  </h5>
-
-                  <div className="d-flex justify-content-center">
-                    {loadingAcuse ? (
-                      <Loading />
-                    ) : (
-                      <Modal
-                        buttonClass="btn btn-outline-primary btn-lg"
-                        buttonCloseText="Cerrar"
-                        id="acuse"
-                        title="Mi acuse"
-                        modalClass="modal-dialog modal-xl modal-dialog-scrollable"
-                        buttonText="Ver acuse"
-                        faIcon={<i className="fas fa-eye"></i>}
+                  {answeredDetails?.acuse === "Pendiente" ? (
+                    <div className="d-flex flex-column align-content-center justify-content-center">
+                      <h5 className="text-center mb-2">
+                        Ya has contestado la encuesta, sin embargo, no cuentas
+                        con un acuse.
+                      </h5>
+                      <button
+                        onClick={moreInfo}
+                        className={"btn btn-link text-primary "}
                       >
-                        <object
-                          data={acuse}
-                          type="application/pdf"
-                          frameBorder="0"
-                          width="100%"
-                          style={{ height: "100vh", width: "100%" }}
-                        >
-                          <div className="d-flex flex-column justify-content-center">
-                            <p className="text-center">
-                              El navegador no soporta la visualizacion de PDF.{" "}
-                            </p>
-                            <a
-                              className="btn btn-primary"
-                              href={acuse}
-                              download
+                        Mas información
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <h5 className="text-center mb-4">
+                        Ya has contestado la encuesta, puedes ver tu acuse aquí:
+                      </h5>
+                      <div className="d-flex justify-content-center">
+                        {loadingAcuse ? (
+                          <Loading />
+                        ) : (
+                          <Modal
+                            buttonClass="btn btn-outline-primary btn-lg"
+                            buttonCloseText="Cerrar"
+                            id="acuse"
+                            title="Mi acuse"
+                            modalClass="modal-dialog modal-xl modal-dialog-scrollable"
+                            buttonText="Ver acuse"
+                            faIcon={<i className="fas fa-eye"></i>}
+                          >
+                            <object
+                              data={acuse}
+                              type="application/pdf"
+                              frameBorder="0"
+                              width="100%"
+                              style={{ height: "100vh", width: "100%" }}
                             >
-                              Descargar PDF
-                            </a>
-                          </div>
-                        </object>
-                      </Modal>
-                    )}
-                  </div>
-                  <p className="text-muted text-center mt-3">
-                    Nota: Si tu acuse no aparece, puedes probar refrescando la
-                    página
-                  </p>
+                              <div className="d-flex flex-column justify-content-center">
+                                <p className="text-center">
+                                  El navegador no soporta la visualizacion de
+                                  PDF.{" "}
+                                </p>
+                                <a
+                                  className="btn btn-primary"
+                                  href={acuse}
+                                  download
+                                >
+                                  Descargar PDF
+                                </a>
+                              </div>
+                            </object>
+                          </Modal>
+                        )}
+                      </div>
+                      <p className="text-muted text-center mt-2">
+                        Nota: Si tu acuse no aparece, puedes probar refrescando
+                        la página
+                      </p>
+                    </>
+                  )}
+
                   <h5 className="mt-5 text-center">
                     Si te pidieron actualizar tus respuestas puedes{" "}
                     <Link
