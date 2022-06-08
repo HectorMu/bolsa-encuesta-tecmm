@@ -48,7 +48,7 @@ const JobBank = () => {
     if (!fetchedProfile.id) {
       navigate("/profile");
       return toast(
-        "Antes de empezar a ver trabajos completa la informacion de tu perfil."
+        "Antes de empezar a ver trabajos completa la información de tu perfil."
       );
     }
   };

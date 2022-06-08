@@ -185,8 +185,8 @@ const Showcase = ({ refreshData, postulations, isLoading: loadingItems }) => {
             <div className="d-flex justify-content-center align-content-center h-50 text-black">
               {!postulations.length > 0 && !loadingItems ? (
                 <h3 className="text-primary font-weight-bolder text-center">
-                  Cuando te hayas postulado a un trabajo puedes dar clic sobre
-                  el para ver los detalles.
+                  Cuando te hayas postulado a un trabajo puedes darle clic para
+                  ver los detalles.
                 </h3>
               ) : (
                 <h3 className="text-primary font-weight-bolder text-center">
