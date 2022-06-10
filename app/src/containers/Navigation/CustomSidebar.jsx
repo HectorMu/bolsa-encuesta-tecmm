@@ -130,7 +130,7 @@ const CustomSidebar = ({
               className="menu-item"
               onClick={handleSidebarToggleOnLink}
             >
-              <i className="fas fa-briefcase"></i> <span>Trabajos</span>
+              <i className="fas fa-briefcase"></i> <span>Vacantes</span>
             </NavLink>
             <NavLink
               to="/graduated/jobbank/postulations"
