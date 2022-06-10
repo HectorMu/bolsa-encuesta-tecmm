@@ -3,6 +3,7 @@ import React from "react";
 //Importando los componentes
 import OptionsContainer from "@/components/Survey/OptionsContainer";
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
+import HelpAlert from "@/components/Global/HelpAlert";
 
 const WorksCompanyData = ({ handleChange, answers }) => {
   return (
@@ -93,7 +94,16 @@ const WorksCompanyData = ({ handleChange, answers }) => {
           />
         </div>
       </div>
-      <h6>Contácto</h6>
+
+      <h6>
+        Contácto{" "}
+        <HelpAlert
+          buttonText="¿La empresa solo tiene un teléfono o no tiene fax?"
+          title="¿Que pasa si la empresa solo tiene un número de teléfono o no tiene fax?"
+          text="No te preocupes, solo llena los numeros que no conozcas con 10 ceros para pasar a la siguiente sección"
+        />
+      </h6>
+
       <div className="row">
         <div className="col-12 col-xl-4">
           <FloatingLabelInput
@@ -117,6 +127,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
             value={answers.telefono_ext_empresa}
           />
         </div>
+
         <div className="col-12 col-xl-4">
           <FloatingLabelInput
             inputId="txtFax"
@@ -128,6 +139,7 @@ const WorksCompanyData = ({ handleChange, answers }) => {
             value={answers.fax_empresa}
           />
         </div>
+
         <div className="col-12">
           <FloatingLabelInput
             inputId="txtEmail"

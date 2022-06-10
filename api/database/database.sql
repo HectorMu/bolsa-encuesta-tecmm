@@ -1,3 +1,4 @@
+
 create database control_egresados;
 
 use control_egresados;
@@ -14,7 +15,7 @@ insert into roles values
 
 
 create table usuarios(
-    id int primary key auto_increment,
+    id BIGINT primary key auto_increment,
     correo varchar(100),
     clave varchar(300),
     fk_rol int,
@@ -24,10 +25,10 @@ create table usuarios(
 );
 
 create table perfil_empresa(
-    fk_usuario int primary key,
+    fk_usuario BIGINT primary key,
     nombre_comercial varchar(100),
     calle varchar(50),
-    numero_empresa int,
+    numero_empresa varchar(50),
     colonia varchar(50),
     cp varchar(50),
     municipio varchar(50),
@@ -42,15 +43,15 @@ create table perfil_empresa(
 );
 
 create table perfil_egresado(
-    fk_usuario int primary key,
-	 no_control int,
+    fk_usuario BIGINT primary key,
+	 no_control BIGINT,
     nombre_completo varchar(100),
     fechaNacimiento varchar(100),
     curp varchar(100),
     sexo varchar(10),
     estado_civil varchar(20),
     calle varchar(50),
-    numero_casa int,
+    numero_casa varchar(50),
     colonia varchar(50),
     cp varchar(50),
     municipio varchar(50),
@@ -58,136 +59,321 @@ create table perfil_egresado(
     telefono varchar(50),
     tel_casa varchar(50),
     carrera varchar(50),
+    especialidad varchar(250),
     fecha_egreso varchar(50),
     idioma_extranjero JSON,
     titulado varchar(10),
     paquetes_computacionales TEXT,
+    curriculum varchar(250),
     creadoEn varchar(50),
     actualizadoEn varchar(50),
     FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 
-
-create table seccion_dos(
-    fk_usuario int primary key,
-    pregunta_uno varchar(50),
-    pregunta_dos varchar(50),
-    pregunta_tres varchar(50),
-    pregunta_cuatro varchar(50),
-    pregunta_cinco varchar(50),
-    pregunta_seis varchar(50),
-    creadoEn varchar(50),
-    actualizadoEn varchar(50),
-    foreign key(fk_usuario)references usuarios(id)
+create table encuesta_egresado_contestada(
+    fk_egresado BIGINT PRIMARY key AUTO_INCREMENT,
+    fecha varchar(50),
+    acuse varchar(400),
+    foreign key (fk_egresado) references usuarios (id)
 );
 
-create table seccion_tres(
-    fk_usuario int primary key,
-    pregunta_uno varchar(50),
-    p_uno_estudia varchar(150),
-    p_uno_institucion varchar(150),
-    pregunta_dos varchar(100),
-    pregunta_tres varchar(150),
-    pregunta_cuatro varchar(100),
-    pregunta_cinco varchar(100),
-    pregunta_seis JSON,
-    pregunta_siete varchar(100),
-    pregunta_ocho varchar(100),
-    pregunta_nueve varchar(100),
-    pregunta_diez varchar(100),
-    pregunta_once varchar(100),
-    pregunta_doce JSON,
-    pregunta_trece varchar(100),
-    pregunta_catorce varchar(100),
-    creadoEn varchar(50),
-    actualizadoEn varchar(50),
-    foreign key(fk_usuario)references usuarios(id)
+create table encuesta_empresa_contestada(
+    fk_empresa BIGINT PRIMARY key AUTO_INCREMENT,
+    fecha varchar(50),
+    foreign key (fk_empresa) references usuarios (id)
 );
 
-create table seccion_cuatro(
-    fk_usuario int primary key,
-    pregunta_uno varchar(50),
-    pregunta_dos varchar(50),
-    pregunta_tres varchar(50),
-    pregunta_cuatro JSON,
-    creadoEn varchar(50),
-    actualizadoEn varchar(50),
-    foreign key(fk_usuario)references usuarios(id)
+CREATE TABLE seccion(
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
+descripcion VARCHAR (250)
 );
 
-create table seccion_cinco(
-    fk_usuario int primary key,
-    pregunta_uno JSON,
-    pregunta_dos JSON,
-    creadoEn varchar(50),
-    actualizadoEn varchar(50),
-    foreign key(fk_usuario)references usuarios(id)
+INSERT INTO seccion VALUES
+(NULL, 'Pertinencia y disponilibidad de medios y recursos para el aprendizaje'),
+(NULL, 'Ubicación laboral para los egresados'),
+(NULL, 'Desempeño profesional de los egresados (Coherencia entre la formación y el tipo de empleo)'),
+(NULL, 'Expectativas de desarrollo, superación profesional y de actualización'),
+(NULL, 'Participación social de los egresados'),
+(NULL, 'Comentarios y sugerencias');
+
+CREATE TABLE preguntas(
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
+fk_seccion BIGINT,
+descripcion VARCHAR (250),
+FOREIGN KEY (fk_seccion) REFERENCES seccion (id)
+);
+INSERT INTO preguntas VALUES (NULL, 1,'Calidad de los docentes'),
+(NULL, 1,'Plan de estudios'),
+(NULL, 1,'Oportunidad de participar en proyectos de investigación y desarrollo'),
+(NULL, 1,'Énfasis que se le prestaba a la investigación dentro del proceso de enseñanza'),
+(NULL, 1,'Satisfacción con las condiciones de estudio (Infraestructura)'),
+(NULL, 1,'Experiencia obtenida a través de la residencia profesional'),
+(NULL, 2,'Actividad a la que se dedica actualmente'),
+(NULL, 3,'Eficiencia para realizar las actividades laborales, en relación con su formación académica'),
+(NULL, 3,'Cómo califica su formación académica con respecto a su desempeño laboral'),
+(NULL, 3,'Utilidad de las residencias profesionales o prácticas profesionales para su desarrollo laboral y profesional'),
+(NULL, 3,'Aspectos que valora la empresa donde trabajas para la contratación de egresados'),
+(NULL, 4,'Le gustaria tomar cursos de actualización'),
+(NULL, 4,'Le gustaria tomar algún posgrado'),
+(NULL, 5,'Pertenece a organizaciones sociales'),
+(NULL, 5,'Pertenece a organismos de profesionistas'),
+(NULL, 5,'Pertenece a la asociación de egresados'),
+(NULL, 6,'Opinión o recomendación para mejorar la formación profesional de un egresado de su carrera');
+
+CREATE TABLE seccion2_estudia(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
+tipo_estudio TEXT,
+especialidad_institucion TEXT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
 );
 
-create table seccion_seis(
-    fk_usuario int primary key,
-    pregunta_uno JSON,
-    pregunta_dos JSON,
-    pregunta_tres varchar(50),
-    creadoEn varchar(50),
-    actualizadoEn varchar(50),
-    foreign key(fk_usuario)references usuarios(id)
+CREATE TABLE seccion2_trabaja(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
+tiempo_primer_empleo VARCHAR (100),
+medio_obtener_empleo VARCHAR (100),
+requisitos_contratacion TEXT,
+idioma_utilizado VARCHAR(100),
+idioma_hablar INT,
+idioma_escribir INT,
+idioma_leer INT,
+idioma_escuchar INT,
+antiguedad_empleo VARCHAR(100),
+año_ingreso VARCHAR (50),
+salario VARCHAR(50),
+nivel_jerarquico VARCHAR(100),
+condicion_trabajo VARCHAR(100),
+relacion_trabajo_formacion VARCHAR(50),
+organismo_empresa VARCHAR (100),
+actividad_principal_empresa VARCHAR (100),
+razon_social VARCHAR(100),
+calle VARCHAR (100),
+numero varchar(50),
+colonia VARCHAR (100),
+cp VARCHAR (100),
+ciudad VARCHAR (100),
+municipio VARCHAR (100),
+estado VARCHAR (100),
+telefono_empresa VARCHAR (100),
+telefono_ext_empresa VARCHAR (100),
+fax_empresa VARCHAR (100),
+email_empresa VARCHAR (100),
+pagina_web VARCHAR(200),
+jefe_inmediato VARCHAR(200),
+sector_empresa VARCHAR (200),
+tamaño_empresa VARCHAR (200)
 );
 
-create table seccion_siete(
-    fk_usuario int primary key,
-    comentarios_sugerencias TEXT,
-    fecha_realizacion varchar(100),
-    actualizadoEn varchar(50),
-    foreign key(fk_usuario)references usuarios(id)
+CREATE TABLE seccion3_p4_detalle(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
+area_estudio INT,
+titulacion INT,
+experiencia_laboral INT,
+competencia_laboral INT,
+posicionamiento_institucion_egreso INT,
+conocimiento_idiomas_extranjeros INT,
+recomendaciones INT,
+personalidad INT,
+capacidad_liderazgo INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
 );
 
-create table seccion_b(
-    fk_usuario int primary key,
-    pregunta_cinco varchar(50),
-    pregunta_seis JSON,
-    pregunta_siete JSON,
-    pregunta_ocho JSON,
-    pregunta_nueve TEXT,
-    creadoEn varchar(50),
-    actualizadoEn varchar(50),
-    foreign key(fk_usuario)references usuarios(id)
+create table seccion3_p4_otros(
+    id BIGINT primary key auto_increment,
+    fk_usuario int,
+    aspecto TEXT,
+    valoracion BIGINT
 );
 
-create table seccion_c(
-    fk_usuario int primary key,
-    pregunta_diez JSON,
-    pregunta_once JSON,
-    pregunta_doce TEXT,
-    pregunta_catorce TEXT,
-    creadoEn varchar(50),
-    actualizadoEn varchar(50),
-    foreign key(fk_usuario)references usuarios(id)
+CREATE TABLE seccion4_p1_detalle(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
+cursos VARCHAR (500),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccion4_p2_detalle(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
+posgrado VARCHAR (500),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccion5_p1_detalle(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
+organizaciones_sociales VARCHAR (500),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE seccion5_p2_detalle(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta BIGINT,
+organismos_profesionistas VARCHAR (500),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id)
+);
+
+CREATE TABLE respuestas(
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
+fk_pregunta BIGINT,
+fk_seccion BIGINT,
+fk_usuario BIGINT,
+respuesta TEXT,
+FOREIGN KEY (fk_pregunta) REFERENCES preguntas(id),
+FOREIGN KEY (fk_seccion) REFERENCES seccion(id),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
+);
+
+CREATE TABLE seccion_empresa(
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
+descripcion VARCHAR (250)
+);
+
+INSERT INTO seccion_empresa VALUES
+(NUll, 'Ubicación laboral de los egresados'),
+(NULL, 'Competencias laborales');
+
+CREATE TABLE preguntas_empresa(
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
+fk_seccion_empresa BIGINT,
+descripcion VARCHAR (250),
+FOREIGN KEY (fk_seccion_empresa) REFERENCES seccion_empresa(id)
+);
+INSERT INTO preguntas_empresa VALUES
+(NULL, 1,'Número de profesionistas con nivel de licenciatura que laboran en la empresa u organismo'),
+(NULL, 1,'Número de egresados del Instituto Tecnológico y nivel jerárquico que ocupan en su organización'),
+(NULL, 1,'Congruencia entre perfil profesional y función que desarrollan los egresados del Instituto Tecnológico en su empresa u organización. Del total de egresados anote el porcentaje que corresponda'),
+(NULL, 1,'Requisitos que establece su empresa u organización para la contratación de personal con nivel de licenciatura'),
+(NULL, 1,'Carreras que demanda preferentemente su empresa u organismo'),
+(NULL, 2,'En su opinión, ¿Qué competencias considera que deben desarrollar los egresados del Instituto Tecnológico, para desempeñarse eficientemente en sus actividades laborales?'),
+(NULL, 2,'Con base al desempeño laboral así como a las actividades laborales que realiza el egresado. ¿Cómo considera su desempeño laboral respecto a su formación académica? Del total de egresados anote el porcentaje que corresponda.'),
+(NULL, 2,'De acuerdo con las necesidades de su empresa u organismo, ¿Qué sugiere para mejorar la formación de los egresados del Instituto Tecnológico?'),
+(NULL, 2,'Comentarios y sugerencias');
+
+CREATE TABLE seccionb_p6_detalle(
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
+fk_usuario BIGINT,
+fk_pregunta_empresa BIGINT,
+carrera VARCHAR(50),
+mando_superior INT,
+mando_intermedio INT,
+supervisor INT,
+tecnico_auxiliar INT,
+otros_p6 INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
+);
+
+CREATE TABLE seccionb_p7_detalle(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta_empresa BIGINT,
+completamente INT,
+medianamente INT,
+ligeramente INT,
+ninguna_relacion INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
+);
+
+CREATE TABLE seccionb_p8_detalle(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta_empresa BIGINT,
+area_estudio VARCHAR(20),
+titulacion VARCHAR(20),
+experiencia_laboral VARCHAR(20),
+competencia_laboral VARCHAR(20),
+posicionamiento_institucion_egreso VARCHAR(20),
+conocimiento_idiomas_extranjeros VARCHAR(20),
+recomendaciones VARCHAR(20),
+personalidad VARCHAR(20),
+capacidad_liderazgo VARCHAR(20),
+otros_p8 TEXT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
+);
+
+CREATE TABLE seccionc_p10_detalle(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta_empresa BIGINT,
+habilidad_resolver_conflictos INT,
+ortografia_redaccion INT,
+mejora_procesos INT,
+trabajo_equipo INT,
+habilidad_administrar_tiempo INT,
+seguridad_personal INT,
+facilidad_palabra INT,
+gestion_proyectos INT,
+puntualidad_asistencia INT,
+cumplimiento_normas INT,
+integracion_trabajo INT,
+creatividad_innovacion INT,
+capacidad_negociacion INT,
+capacidad_analisis INT,
+liderazgo INT,
+adaptacion_cambio INT,
+otros INT,
+otros_detalle TEXT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
+);
+
+CREATE TABLE seccionc_p11_detalle(
+fk_usuario BIGINT PRIMARY key,
+fk_pregunta_empresa BIGINT,
+excelente INT,
+muy_bueno INT,
+bueno INT,
+regular INT,
+malo INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id),
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id)
+);
+
+CREATE TABLE respuestas_empresa(
+id BIGINT PRIMARY KEY AUTO_INCREMENT,
+fk_pregunta_empresa BIGINT,
+fk_seccion_empresa BIGINT,
+fk_usuario BIGINT,
+respuesta TEXT,
+FOREIGN KEY (fk_pregunta_empresa) REFERENCES preguntas_empresa(id),
+FOREIGN KEY (fk_seccion_empresa) REFERENCES seccion_empresa(id),
+FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
 
 create table publicacion_bolsa(
-    folio int primary key,
-    fk_empresa int,
+    folio BIGINT primary key auto_increment,
+    fk_empresa BIGINT,
     vacante varchar(100),
     descripcion TEXT,
     ubicacion varchar(50),
     fecha_creacion varchar(100),
     fecha_expira varchar(100),
-    consultas int,
-    solicitudes_total int,
-    solicitudes_revisadas int,
-    solicitudes_sinrevisar int,
     status varchar(50),
     foreign key(fk_empresa)references usuarios(id)
 );
 
+CREATE TABLE vistas_publicaciones(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    fk_publicacion BIGINT,
+    fk_usuario BIGINT,
+	FOREIGN KEY (fk_publicacion) REFERENCES publicacion_bolsa(folio),
+	FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
+);
+
 create table solicitud_bolsa(
-    id int primary key auto_increment,
-    fk_vacante int,
-    fk_egresado int,
+    id BIGINT primary key auto_increment,
+    fk_vacante BIGINT,
+    fk_egresado BIGINT,
     status varchar(50),
-    curriculum varchar(200),
     foreign key(fk_vacante)references publicacion_bolsa(folio),
     foreign key(fk_egresado)references usuarios(id)
 );
@@ -227,128 +413,35 @@ END//
 DELIMITER ;
 
 DELIMITER //
-CREATE TRIGGER `seccion_b_FechaActualizacion` BEFORE UPDATE ON `seccion_b` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_b_FechaInserccion` BEFORE INSERT ON `seccion_b` FOR EACH ROW BEGIN
-	SET NEW.creadoEn = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_cinco_FechaActualizacion` BEFORE UPDATE ON `seccion_cinco` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_cinco_FechaInserccion` BEFORE INSERT ON `seccion_cinco` FOR EACH ROW BEGIN
-	SET NEW.creadoEn = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_cuatro_FechaActualizacion` BEFORE UPDATE ON `seccion_cuatro` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_cuatro_FechaInserccion` BEFORE INSERT ON `seccion_cuatro` FOR EACH ROW BEGIN
-	SET NEW.creadoEn = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_c_FechaActualizacion` BEFORE UPDATE ON `seccion_c` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_c_FechaInserccion` BEFORE INSERT ON `seccion_c` FOR EACH ROW BEGIN
-	SET NEW.creadoEn = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_dos_FechaActualizacion` BEFORE UPDATE ON `seccion_dos` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_dos_FechaInserccion` BEFORE INSERT ON `seccion_dos` FOR EACH ROW BEGIN
-	SET NEW.creadoEn = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_seis_FechaActualizacion` BEFORE UPDATE ON `seccion_seis` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_seis_FechaInserccion` BEFORE INSERT ON `seccion_seis` FOR EACH ROW BEGIN
-	SET NEW.creadoEn = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_siete_FechaActualizacion` BEFORE UPDATE ON `seccion_siete` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_siete_FechaInserccion` BEFORE INSERT ON `seccion_siete` FOR EACH ROW BEGIN
-	SET NEW.fecha_realizacion = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_tres_FechaActualizacion` BEFORE UPDATE ON `seccion_tres` FOR EACH ROW BEGIN
-	SET NEW.actualizadoEn = CURRENT_TIMESTAMP();
-END//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER `seccion_tres_FechaInserccion` BEFORE INSERT ON `seccion_tres` FOR EACH ROW BEGIN
-	SET NEW.creadoEn = CURRENT_TIMESTAMP();
-    SET NEW.actualizadoEn = 'Pendiente';
-END//
-DELIMITER ;
-
-DELIMITER //
 CREATE TRIGGER `usuarios_BorrarDatosExistentesEgresado` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
 	DELETE FROM perfil_egresado WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_dos WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_tres WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_cuatro WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_cinco WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_seis WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_siete WHERE fk_usuario = OLD.id;
 	DELETE FROM solicitud_bolsa WHERE fk_egresado = OLD.id;
+    DELETE FROM respuestas WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion2_trabaja WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion2_estudia WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion3_p4_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion3_p4_otros WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion4_p1_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion4_p2_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion5_p1_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccion5_p2_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM encuesta_egresado_contestada WHERE fk_egresado = OLD.id;
+    DELETE FROM vistas_publicaciones WHERE fk_usuario = OLD.id;
 END//
 DELIMITER ;
 
 DELIMITER //
 CREATE TRIGGER `usuarios_BorrarDatosExistentesEmpresa` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
 	DELETE FROM perfil_empresa WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_b WHERE fk_usuario = OLD.id;
-	DELETE FROM seccion_c WHERE fk_usuario = OLD.id;
 	DELETE FROM publicacion_bolsa WHERE fk_empresa = OLD.id;
+    DELETE FROM respuestas_empresa WHERE fk_usuario = OLD.id;
+    DELETE FROM seccionb_p6_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccionb_p7_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccionb_p8_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccionc_p10_detalle WHERE fk_usuario = OLD.id;
+    DELETE FROM seccionc_p11_detalle WHERE fk_usuario = OLD.id;
+    DELETE from encuesta_empresa_contestada WHERE fk_empresa = OLD.id;
+    DELETE FROM vistas_publicaciones WHERE fk_usuario = OLD.id;
 END//
 DELIMITER ;
 
@@ -364,3 +457,9 @@ CREATE TRIGGER `usuarios_FechaDeInsercion` BEFORE INSERT ON `usuarios` FOR EACH 
     SET NEW.actualizadoEn = 'Pendiente';
 END//
 DELIMITER ;
+
+CREATE VIEW view_getJobsAndCompanyDetails AS  SELECT pb.folio, pb.fk_empresa, pb.vacante, (SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio ) AS solicitudes,  pb.descripcion, pb.ubicacion, pb.fecha_creacion, pb.fecha_expira, pe.nombre_comercial, pe.`tamaño`, pe.estado, pb.status,  pe.municipio from publicacion_bolsa pb, perfil_empresa pe WHERE pb.fk_empresa = pe.fk_usuario;
+CREATE VIEW v_getPostulationsAndProfileDetails AS select sb.*, u.correo, pe.no_control, pe.nombre_completo, pe.telefono, pe.tel_casa, pe.curriculum FROM solicitud_bolsa sb, usuarios u, perfil_egresado pe WHERE sb.fk_egresado = u.id && pe.fk_usuario = u.id;
+CREATE VIEW v_getGraduatedJobsAndCompanyDetails AS  SELECT sb.*, pb.vacante,  (SELECT COUNT(*) FROM solicitud_bolsa WHERE fk_vacante = pb.folio ) AS solicitudes, pb.descripcion, pb.ubicacion, pb.`status` AS publicacion_status, pe.nombre_comercial, pe.`tamaño`, pe.estado, pe.municipio, pe.colonia, pb.fecha_creacion  FROM solicitud_bolsa sb, publicacion_bolsa pb, perfil_empresa pe WHERE sb.fk_vacante = pb.folio && pe.fk_usuario = pb.fk_empresa 
+
+

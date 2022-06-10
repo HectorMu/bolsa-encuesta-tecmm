@@ -57,6 +57,12 @@ const index = () => {
     navigate("/graduated/survey/section/4");
   };
 
+  useEffect(() => {
+    if (!answeredSections.isWorking) {
+      return navigate("/graduated/survey/section/2");
+    }
+  }, [answeredSections.isWorking]);
+
   const handleChange = (key, value) => setAnswers({ ...answers, [key]: value });
   useEffect(() => {
     if (!answeredSections.s2) {

@@ -10,6 +10,8 @@ const ENTRIES = {
   idioma_escuchar: "Escuchar",
 };
 const WorksQuestion5 = ({ handleChange, answers }) => {
+  if (answers.idioma_utilizado === "Ninguno") return null;
+
   return (
     <div className="pb-3">
       <h5>

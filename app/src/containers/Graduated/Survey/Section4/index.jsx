@@ -88,7 +88,10 @@ const index = () => {
           />
 
           <div className="d-flex justify-content-center mt-5">
-            <Link to={-1} className="btn btn-outline-primary mr-2">
+            <Link
+              to={"/graduated/survey/section/3"}
+              className="btn btn-outline-primary mr-2"
+            >
               <i className="fas fa-arrow-left"></i> Anterior
             </Link>
             <button

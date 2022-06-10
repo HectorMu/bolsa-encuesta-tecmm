@@ -107,12 +107,14 @@ validations.section2 = (req, res, next) => {
       parseInt(surveyAnswers.idioma_escuchar) +
       parseInt(surveyAnswers.idioma_escribir);
 
-    if (sum < 100 || sum > 100) {
-      return res.status(400).json({
-        status: false,
-        statusText:
-          "La proporción de uso de idioma en el entorno laboral debe sumar 100%",
-      });
+    if (surveyAnswers.idioma_utilizado !== "Ninguno") {
+      if (sum < 100 || sum > 100) {
+        return res.status(400).json({
+          status: false,
+          statusText:
+            "La proporción de uso de idioma en el entorno laboral debe sumar 100%",
+        });
+      }
     }
 
     if (!helpers.isEmail(surveyAnswers.email_empresa)) {
@@ -123,6 +125,7 @@ validations.section2 = (req, res, next) => {
     }
   }
   if (surveyAnswers.respuesta1 === "Estudia") {
+    delete surveyAnswers.requisitos_contratacion;
     if (helpers.hasEmptyPropierty(surveyAnswers).result) {
       return res.status(400).json({
         status: false,

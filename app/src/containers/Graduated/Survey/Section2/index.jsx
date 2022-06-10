@@ -73,6 +73,13 @@ const index = () => {
 
   const saveAndSkipToNextSection = async () => {
     const tLoading = toast.loading("Guardando...");
+
+    if (answers.idioma_utilizado === "Ninguno") {
+      answers.idioma_escribir = 0;
+      answers.idioma_escuchar = 0;
+      answers.idioma_hablar = 0;
+      answers.idioma_leer = 0;
+    }
     const results = await verifySession(() =>
       surveyService.saveSection2(answers)
     );
@@ -80,6 +87,7 @@ const index = () => {
       return toast.error(results.statusText, { id: tLoading });
     }
     setAnsweredSectionHandler("s2", true);
+    setAnsweredSectionHandler("isWorking", true);
     toast.dismiss(tLoading);
     if (
       answers.respuesta1 === "Estudia" ||
@@ -87,6 +95,7 @@ const index = () => {
     ) {
       setAnsweredSectionHandler("s2", true);
       setAnsweredSectionHandler("s3", true);
+      setAnsweredSectionHandler("isWorking", false);
       return navigate("/graduated/survey/section/4");
     }
     navigate("/graduated/survey/section/3");
