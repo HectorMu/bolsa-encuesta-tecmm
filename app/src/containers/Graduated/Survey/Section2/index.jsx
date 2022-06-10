@@ -81,6 +81,14 @@ const index = () => {
     }
     setAnsweredSectionHandler("s2", true);
     toast.dismiss(tLoading);
+    if (
+      answers.respuesta1 === "Estudia" ||
+      answers.respuesta1 === "No estudia ni trabaja"
+    ) {
+      setAnsweredSectionHandler("s2", true);
+      setAnsweredSectionHandler("s3", true);
+      return navigate("/graduated/survey/section/4");
+    }
     navigate("/graduated/survey/section/3");
   };
 

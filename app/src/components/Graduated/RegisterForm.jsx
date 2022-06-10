@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import Accordion from "@/components/Global/Accordion";
 import Collapsable from "@/components/Global/Collapsable";
@@ -12,20 +13,7 @@ const careers = [
   "Ing. en Sistemas Automotrices",
 ];
 
-const months = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
-];
+const months = ["Junio", "Diciembre"];
 
 export const Entries = {
   correo: "",
@@ -70,6 +58,10 @@ const RegisterForm = ({
   toggleChangePassword,
   idiomaExtranjero,
 }) => {
+  const minValueForGraduationDate = useMemo(() => {
+    return parseInt(`20${graduated.no_control.toString().substring(0, 2)}`) + 4;
+  }, [graduated.no_control]);
+
   return (
     <form onSubmit={handleSubmit}>
       <Accordion>
@@ -372,7 +364,6 @@ const RegisterForm = ({
                 setValue={handleEntriesChange}
                 name={"egreso_año"}
                 value={graduated.egreso_año}
-                min="1900"
                 required
               />
             </div>
@@ -391,6 +382,7 @@ const RegisterForm = ({
                 name="Ingles"
                 value={idiomaExtranjero?.Ingles}
                 ranges={{ min: 0, max: 100 }}
+                required
               />
             </div>
             <div className="col-lg-6">
@@ -401,6 +393,7 @@ const RegisterForm = ({
                 setValue={handleIdiomaExtranjeroChange}
                 name={"Otro"}
                 value={idiomaExtranjero?.Otro}
+                required
               />
             </div>
             <div className="col-lg-6">
@@ -411,6 +404,7 @@ const RegisterForm = ({
                 setValue={handleEntriesChange}
                 name={"paquetes_computacionales"}
                 value={graduated.paquetes_computacionales}
+                required
               />
             </div>
             <div className="col-lg-6">
@@ -420,6 +414,7 @@ const RegisterForm = ({
                 onChange={handleEntriesChange}
                 name={"titulado"}
                 value={graduated.titulado}
+                required
               >
                 <option value={""}>¿Titulado? (Seleccione una opcion)</option>
                 <option value="Si">Si</option>

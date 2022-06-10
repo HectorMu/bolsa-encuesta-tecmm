@@ -211,6 +211,8 @@ controller.getCompanyProfile = async (req, res) => {
     });
   }
 };
+const calcMinGraduationDate = (no_control) =>
+  parseInt(`20${no_control.toString().substring(0, 2)}`) + 4;
 
 controller.saveOrUpdateCompanyProfile = async (req, res) => {
   const { correo, clave, ...rest } = req.body;
@@ -236,6 +238,19 @@ controller.saveOrUpdateCompanyProfile = async (req, res) => {
         return res.json({
           status: false,
           statusText: "Este correo electrónico ya esta registrado",
+        });
+      }
+
+      const minAcceptedGraduationDate = calcMinGraduationDate(
+        req.body.no_control
+      );
+      if (
+        parseInt(req.body.fecha_egreso.split(" ")[2]) <
+        minAcceptedGraduationDate
+      ) {
+        return res.status(400).json({
+          status: false,
+          statusText: `Tu número de control indica que debiste egresar mínimo en ${minAcceptedGraduationDate}`,
         });
       }
 
