@@ -1,8 +1,9 @@
-import { useState, useLayoutEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Navbar from "../Navigation/Navbar";
 import CustomSidebar from "../Navigation/CustomSidebar";
 import useWindowSize from "@/hooks/useWindowResize";
 import Footer from "./Footer";
+import useRouterHooks from "@/hooks/useRouterHooks";
 
 const Layout = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState(

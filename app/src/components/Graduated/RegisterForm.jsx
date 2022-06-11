@@ -3,6 +3,7 @@ import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import Accordion from "@/components/Global/Accordion";
 import Collapsable from "@/components/Global/Collapsable";
 import { Link } from "react-router-dom";
+import SpecialitiesModal from "./SpecialitiesModal";
 
 const careers = [
   "Ing. en Gestión Empresarial",
@@ -333,8 +334,15 @@ const RegisterForm = ({
                 setValue={handleEntriesChange}
                 name={"especialidad"}
                 value={graduated.especialidad}
+                bottomElement={
+                  graduated.especialidad ? null : graduated.carrera ===
+                    "" ? null : (
+                    <SpecialitiesModal career={graduated.carrera} />
+                  )
+                }
               />
             </div>
+
             <div className="col-lg-12 mb-2">
               <h6 className="text-purple font-weight-bolder">
                 Fecha de egreso

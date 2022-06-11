@@ -84,6 +84,12 @@ const Report = () => {
                 <h4 className="font-weight-bolder">{surveys.length}</h4>
                 <h5 className=""> Egresados contestaron la encuesta</h5>
               </div>
+              <button
+                onClick={refreshData}
+                className="btn btn-outline-primary mt-3"
+              >
+                Actualizar <i className="fas fa-sync"></i>
+              </button>
             </div>
           ) : (
             <>
