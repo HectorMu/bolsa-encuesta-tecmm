@@ -20,7 +20,7 @@ require("./database");
 
 //function to change all the date formats to a HTML5 Format and to encrypt all graduates passwords
 //Commented to run, uncommented to not run
-require("./helpers/DatabaseBackups").runAllActions();
+//require("./helpers/DatabaseBackups").runAllActions();
 
 //Using middlewares
 app.use(cors());
