@@ -30,6 +30,7 @@ import AppRoutes from "./routes";
 //importing session context
 import SessionProvider from "./context/SessionProvider";
 import CurriculumProvider from "./context/CurriculumProvider";
+import ErrorBoundary from "./components/Global/ErrorBoundary";
 
 function App() {
   //Initializing AOS for animations
@@ -40,25 +41,27 @@ function App() {
   useDocTitleRename();
 
   return (
-    <SessionProvider>
-      <CurriculumProvider>
-        <Layout>
-          <Suspense fallback={<Fallback />}>
-            <Routes>
-              {AppRoutes?.map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={route.element}
-                />
-              ))}
-            </Routes>
-          </Suspense>
-        </Layout>
-      </CurriculumProvider>
-      <Toaster />
-      <ReloadPrompt />
-    </SessionProvider>
+    <ErrorBoundary>
+      <SessionProvider>
+        <CurriculumProvider>
+          <Layout>
+            <Suspense fallback={<Fallback />}>
+              <Routes>
+                {AppRoutes?.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={route.element}
+                  />
+                ))}
+              </Routes>
+            </Suspense>
+          </Layout>
+        </CurriculumProvider>
+        <Toaster />
+        <ReloadPrompt />
+      </SessionProvider>
+    </ErrorBoundary>
   );
 }
 
