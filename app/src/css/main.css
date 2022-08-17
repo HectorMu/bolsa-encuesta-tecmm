@@ -1005,3 +1005,19 @@ input[type="radio"]:checked:after {
   background-color: transparent;
   cursor: default;
 }
+
+.page-item.active a {
+  background-color: var(--purple) !important;
+  border-color: var(--purple) !important;
+  color: white !important;
+}
+.page-item a {
+  color: var(--purple) !important;
+}
+
+@media (max-width: 768px) {
+  .pagination li a {
+    padding: 7px;
+    font-size: 15px;
+  }
+}
