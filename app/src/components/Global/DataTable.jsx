@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
-import Pagination from "./Pagination";
 import { useMemo } from "react";
 import { DebounceInput } from "react-debounce-input";
 import ReactPaginate from "react-paginate";
@@ -281,27 +280,29 @@ const DataTable = ({
         <div className="table-responsive">
           {search === "" ? (
             <div className="d-flex justify-content-center">
-              <ReactPaginate
-                key={"P1"}
-                breakClassName={"page-item"}
-                breakLinkClassName={"page-link"}
-                containerClassName={"pagination"}
-                pageClassName={"page-item"}
-                pageLinkClassName={"page-link"}
-                previousClassName={"page-item"}
-                previousLinkClassName={"page-link"}
-                nextClassName={"page-item"}
-                nextLinkClassName={"page-link"}
-                activeClassName={"active"}
-                breakLabel="..."
-                nextLabel=">"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={1}
-                pageCount={pageCount}
-                previousLabel="<"
-                renderOnZeroPageCount={null}
-                forcePage={selected}
-              />
+              {pageCount > 1 && (
+                <ReactPaginate
+                  key={"P1"}
+                  breakClassName={"page-item"}
+                  breakLinkClassName={"page-link"}
+                  containerClassName={"pagination"}
+                  pageClassName={"page-item"}
+                  pageLinkClassName={"page-link"}
+                  previousClassName={"page-item"}
+                  previousLinkClassName={"page-link"}
+                  nextClassName={"page-item"}
+                  nextLinkClassName={"page-link"}
+                  activeClassName={"active"}
+                  breakLabel="..."
+                  nextLabel=">"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={1}
+                  pageCount={pageCount}
+                  previousLabel="<"
+                  renderOnZeroPageCount={null}
+                  forcePage={selected}
+                />
+              )}
             </div>
           ) : (
             <>
@@ -504,7 +505,7 @@ const DataTable = ({
               ) : null}
             </tbody>
           </table>
-          {search === "" && (
+          {search === "" && pageCount > 1 && (
             <div className="d-flex justify-content-center">
               <ReactPaginate
                 key={"P2"}

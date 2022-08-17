@@ -963,6 +963,7 @@ input[type="radio"]:checked:after {
     margin: 1px;
   }
 }
+
 .pagination-container .pagination-item.dots:hover {
   background-color: transparent;
   color: var(--purple-light);
