@@ -66,7 +66,7 @@ controller.GetAnswersGraduated = async (req, res) => {
       "seccion_7",
     ]);
 
-    const reportsTable = `<div className="table-responsive d-none">
+    const stringTable = `<div className="table-responsive d-none">
     <table id="table-graduated-report" className="table d-none">
       <thead>
         <tr>
@@ -426,6 +426,7 @@ controller.GetAnswersGraduated = async (req, res) => {
     </table>
   </div>`;
 
+    const reportsTable = stringTable.replaceAll("<td>,</td>", "");
     res.json({ count: parsedFieldsToJSon.length, reportsTable });
   } catch (error) {
     console.log("Error" + error);
