@@ -1,9 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 //Importando los componentes
 import Loading from "@/components/Global/Loading";
-import Pagination from "@/components/Global/Pagination";
 import JobItem from "@/components/Graduated/JobBank/JobItem";
-
+import ReactPaginate from "react-paginate";
 //Importando los hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
 import useWindowSize from "@/hooks/useWindowResize";
@@ -13,7 +12,6 @@ import jobsService from "@/services/Graduated/jobs.service";
 
 const List = ({ searchTerm, jobs, isLoading, setToggleShowcase }) => {
   const size = useWindowSize();
-
   const { hookData: graduatedPostulations } = useServiceFetch(
     jobsService.getGraduatedPostulations,
     [],
@@ -21,11 +19,13 @@ const List = ({ searchTerm, jobs, isLoading, setToggleShowcase }) => {
   );
 
   const { navigate } = useRouterHooks();
-
   let PageSize = 10;
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
 
   const currentJobs = useMemo(() => {
+    const endOffset = itemOffset + PageSize;
     if (searchTerm !== "") {
       if (searchTerm === "") return currentTableData;
 
@@ -39,10 +39,8 @@ const List = ({ searchTerm, jobs, isLoading, setToggleShowcase }) => {
       return [];
     }
 
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
-    return jobs.length > 0 && jobs.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, jobs, searchTerm]);
+    return jobs.length > 0 && jobs.slice(itemOffset, endOffset);
+  }, [itemOffset, jobs, searchTerm]);
 
   const handleJobSelection = (job) => {
     navigate(`/graduated/jobbank/jobs/${job.folio}`, { state: job });
@@ -50,18 +48,46 @@ const List = ({ searchTerm, jobs, isLoading, setToggleShowcase }) => {
     if (size.width < 800) setToggleShowcase(true);
   };
 
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * PageSize) % jobs.length;
+    setItemOffset(newOffset);
+    setCurrentPage(event.selected);
+  };
+
+  useEffect(() => {
+    setPageCount(Math.ceil(jobs.length / PageSize));
+  }, [jobs]);
+
   if (isLoading) return <Loading />;
 
   return (
     <div>
       {searchTerm === "" && (
-        <Pagination
-          className="pagination-bar"
-          currentPage={currentPage}
-          totalCount={jobs.length > 0 && jobs.length}
-          pageSize={PageSize}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
+        <div className="d-flex justify-content-center">
+          {pageCount > 1 && (
+            <ReactPaginate
+              key={"P1"}
+              breakClassName={"page-item"}
+              breakLinkClassName={"page-link"}
+              containerClassName={"pagination"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+              activeClassName={"active"}
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={1}
+              pageCount={pageCount}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              forcePage={currentPage}
+            />
+          )}
+        </div>
       )}
 
       {searchTerm !== "" && currentJobs.length === 0 && (
@@ -87,13 +113,31 @@ const List = ({ searchTerm, jobs, isLoading, setToggleShowcase }) => {
         </h5>
       )}
       {searchTerm === "" && (
-        <Pagination
-          className="pagination-bar mt-3"
-          currentPage={currentPage}
-          totalCount={jobs.length > 0 && jobs.length}
-          pageSize={PageSize}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
+        <div className="d-flex justify-content-center">
+          {pageCount > 1 && (
+            <ReactPaginate
+              key={"P1"}
+              breakClassName={"page-item"}
+              breakLinkClassName={"page-link"}
+              containerClassName={"pagination"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+              activeClassName={"active"}
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={1}
+              pageCount={pageCount}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              forcePage={currentPage}
+            />
+          )}
+        </div>
       )}
     </div>
   );

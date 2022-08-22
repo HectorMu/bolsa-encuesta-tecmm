@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 //Importando componentes
 import ErrorDisplayer from "@/components/Global/ErrorDisplayer";
 import Loading from "@/components/Global/Loading";
-import Pagination from "@/components/Global/Pagination";
+import ReactPaginate from "react-paginate";
 
 //Importando hooks
 import useRouterHooks from "@/hooks/useRouterHooks";
@@ -23,7 +23,9 @@ const List = ({
   const { navigate, params } = useRouterHooks();
   const { user } = useSession();
   let PageSize = 10;
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
 
   const handleGoToPostulation = (postulation) => {
     if (size.width < 800) setToggleShowcase(true);
@@ -41,6 +43,7 @@ const List = ({
   };
 
   const currentPostulations = useMemo(() => {
+    const endOffset = itemOffset + PageSize;
     if (searchTerm !== "") {
       if (searchTerm === "") return currentPostulations;
 
@@ -56,22 +59,26 @@ const List = ({
       return [];
     }
 
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
-
     if (filter !== "Todas") {
       return (
         postulations.length > 0 &&
         postulations
           .filter((postulation) => postulation.status === filter)
-          .slice(firstPageIndex, lastPageIndex)
+          .slice(itemOffset, endOffset)
       );
     }
-    return (
-      postulations.length > 0 &&
-      postulations.slice(firstPageIndex, lastPageIndex)
-    );
-  }, [currentPage, postulations, searchTerm, filter]);
+    return postulations.length > 0 && postulations.slice(itemOffset, endOffset);
+  }, [postulations, searchTerm, filter, itemOffset]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * PageSize) % postulations.length;
+    setItemOffset(newOffset);
+    setCurrentPage(event.selected);
+  };
+
+  useEffect(() => {
+    setPageCount(Math.ceil(postulations.length / PageSize));
+  }, [postulations]);
 
   if (error?.error) {
     return isLoading ? <Loading /> : <ErrorDisplayer message={error.message} />;
@@ -80,13 +87,31 @@ const List = ({
   return (
     <div>
       {searchTerm === "" && (
-        <Pagination
-          className="pagination-bar mb-2"
-          currentPage={currentPage}
-          totalCount={postulations.length > 0 && postulations.length}
-          pageSize={PageSize}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
+        <div className="d-flex justify-content-center">
+          {pageCount > 1 && (
+            <ReactPaginate
+              key={"P1"}
+              breakClassName={"page-item"}
+              breakLinkClassName={"page-link"}
+              containerClassName={"pagination"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+              activeClassName={"active"}
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={1}
+              pageCount={pageCount}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              forcePage={currentPage}
+            />
+          )}
+        </div>
       )}
 
       {isLoading ? (
@@ -113,13 +138,31 @@ const List = ({
         </h5>
       )}
       {searchTerm === "" && (
-        <Pagination
-          className="pagination-bar mt-4"
-          currentPage={currentPage}
-          totalCount={postulations.length > 0 && postulations.length}
-          pageSize={PageSize}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
+        <div className="d-flex justify-content-center">
+          {pageCount > 1 && (
+            <ReactPaginate
+              key={"P1"}
+              breakClassName={"page-item"}
+              breakLinkClassName={"page-link"}
+              containerClassName={"pagination"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+              activeClassName={"active"}
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={1}
+              pageCount={pageCount}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              forcePage={currentPage}
+            />
+          )}
+        </div>
       )}
     </div>
   );

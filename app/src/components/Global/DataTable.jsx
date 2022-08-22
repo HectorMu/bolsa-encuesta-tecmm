@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
-import Pagination from "./Pagination";
 import { useMemo } from "react";
 import { DebounceInput } from "react-debounce-input";
-
+import ReactPaginate from "react-paginate";
 // /**
 //  * @param {String} title The table title
 //  * @param {Array}   data JSON array with all the table data
@@ -58,16 +57,21 @@ const DataTable = ({
   const [selectedCol, setSelectedCol] = useState("");
   const [order, setOrder] = useState("ASC");
   const [selectedFilter, setSelectedFilter] = useState(initialFilter);
+  const [selected, setSelected] = useState(0);
+
+  const [pageCount, setPageCount] = useState(0);
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
 
   const [search, setSearch] = useState("");
 
   let PageSize = 30;
 
-  const [currentPage, setCurrentPage] = useState(1);
+  //const [currentPage, setCurrentPage] = useState(1);
 
   const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
+    const endOffset = itemOffset + PageSize;
 
     if (search !== "") {
       if (search === "") return currentTableData;
@@ -92,7 +96,7 @@ const DataTable = ({
     }
 
     if (selectedCol === "")
-      return data.length > 0 && data.slice(firstPageIndex, lastPageIndex);
+      return data.length > 0 && data.slice(itemOffset, endOffset);
 
     const selectedColSplitted = selectedCol.split(" ")[0];
 
@@ -103,7 +107,7 @@ const DataTable = ({
         return (
           data.length > 0 && [
             ...data
-              .slice(firstPageIndex, lastPageIndex)
+              .slice(itemOffset, endOffset)
               .sort(
                 (fe, se) => se[selectedColSplitted] - fe[selectedColSplitted]
               ),
@@ -113,7 +117,7 @@ const DataTable = ({
       return (
         data.length > 0 && [
           ...data
-            .slice(firstPageIndex, lastPageIndex)
+            .slice(itemOffset, endOffset)
             .sort((fe, se) =>
               se[selectedColSplitted] - fe[selectedColSplitted] ? 1 : -1
             ),
@@ -125,24 +129,17 @@ const DataTable = ({
         return (
           data.length > 0 && [
             ...data
-              .slice(firstPageIndex, lastPageIndex)
+              .slice(itemOffset, endOffset)
               .sort(
                 (fe, se) => fe[selectedColSplitted] - se[selectedColSplitted]
               ),
           ]
         );
       }
-      return (
-        data.length > 0 && [
-          ...data
-            .slice(firstPageIndex, lastPageIndex)
-            .sort((fe, se) =>
-              se[selectedColSplitted] < fe[selectedColSplitted] ? 1 : -1
-            ),
-        ]
-      );
+
+      return data.length > 0 && data.slice(itemOffset, endOffset);
     }
-  }, [currentPage, search, selectedFilter, selectedCol]);
+  }, [search, selectedFilter, selectedCol, itemOffset]);
 
   useEffect(() => {
     if (initialData.length > 0) {
@@ -151,8 +148,16 @@ const DataTable = ({
   }, [initialData]);
 
   useEffect(() => {
+    setPageCount(Math.ceil(data.length / PageSize));
     setInitialData(data);
   }, [data]);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * PageSize) % data.length;
+    setItemOffset(newOffset);
+    setSelected(event.selected);
+  };
 
   return (
     <div className="card shadow-lg mb-4 border-none">
@@ -274,13 +279,31 @@ const DataTable = ({
       <div className="card-body">
         <div className="table-responsive">
           {search === "" ? (
-            <Pagination
-              className="pagination-bar"
-              currentPage={currentPage}
-              totalCount={initialData.length}
-              pageSize={PageSize}
-              onPageChange={(page) => setCurrentPage(page)}
-            />
+            <div className="d-flex justify-content-center">
+              {pageCount > 1 && (
+                <ReactPaginate
+                  key={"P1"}
+                  breakClassName={"page-item"}
+                  breakLinkClassName={"page-link"}
+                  containerClassName={"pagination"}
+                  pageClassName={"page-item"}
+                  pageLinkClassName={"page-link"}
+                  previousClassName={"page-item"}
+                  previousLinkClassName={"page-link"}
+                  nextClassName={"page-item"}
+                  nextLinkClassName={"page-link"}
+                  activeClassName={"active"}
+                  breakLabel="..."
+                  nextLabel=">"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={1}
+                  pageCount={pageCount}
+                  previousLabel="<"
+                  renderOnZeroPageCount={null}
+                  forcePage={selected}
+                />
+              )}
+            </div>
           ) : (
             <>
               {currentTableData.length > 0 ? (
@@ -482,14 +505,30 @@ const DataTable = ({
               ) : null}
             </tbody>
           </table>
-          {search === "" && (
-            <Pagination
-              className="pagination-bar"
-              currentPage={currentPage}
-              totalCount={initialData.length}
-              pageSize={PageSize}
-              onPageChange={(page) => setCurrentPage(page)}
-            />
+          {search === "" && pageCount > 1 && (
+            <div className="d-flex justify-content-center">
+              <ReactPaginate
+                key={"P2"}
+                breakClassName={"page-item"}
+                breakLinkClassName={"page-link"}
+                containerClassName={"pagination"}
+                pageClassName={"page-item"}
+                pageLinkClassName={"page-link"}
+                previousClassName={"page-item"}
+                previousLinkClassName={"page-link"}
+                nextClassName={"page-item"}
+                nextLinkClassName={"page-link"}
+                activeClassName={"active"}
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={1}
+                pageCount={pageCount}
+                previousLabel="<"
+                renderOnZeroPageCount={null}
+                forcePage={selected}
+              />
+            </div>
           )}
         </div>
       </div>
