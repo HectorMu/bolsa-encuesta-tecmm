@@ -124,6 +124,12 @@ const VacantDetails = ({ removeOnRezise }) => {
                       En: {vacant?.ubicacion}
                     </p>
                   </div>
+                  <div className="col-12">
+                    <p className=" text-gray-800 font-weight-bold">
+                      Requerimientos: <br />
+                      {vacant?.descripcion}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div className="col-6"></div>
