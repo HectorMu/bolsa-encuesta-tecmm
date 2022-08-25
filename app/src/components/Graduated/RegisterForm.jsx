@@ -3,9 +3,9 @@ import FloatingLabelInput from "@/components/Global/FloatingLabelInput";
 import Accordion from "@/components/Global/Accordion";
 import Collapsable from "@/components/Global/Collapsable";
 import { Link } from "react-router-dom";
-import SpecialitiesModal from "./SpecialitiesModal";
 
-const careers = [
+//Creamos las carreras
+const CAREERS = [
   "Ing. en Gestión Empresarial",
   "Ing. Industrial",
   "Ing. en Sistemas Computacionales",
@@ -13,6 +13,41 @@ const careers = [
   "Ing. Civil",
   "Ing. en Sistemas Automotrices",
 ];
+
+//Usamos el nombre de las carreras en el arreglo para crear un diccionaro el cual
+//cada objeto tiene un arreglo con las especialidades de esas carreras
+const SPECIALITIES_BY_CAREER = {
+  //Esto es una key y entre corchetes son los valores
+  "Ing. en Gestión Empresarial": [
+    "Desarrollo de Negocios e Innovación Tecnológica",
+    "Innovación y Desarrollo de Negocios",
+  ],
+  "Ing. Industrial": [
+    "Calidad y productividad",
+    "Manufactura Avanzada ",
+    "Sistemas de calidad y manufactura",
+  ],
+  "Ing. en Sistemas Computacionales": [
+    "Redes y Sistemas Distribuidos",
+    "Ing. de Software",
+    "Tecnologías para el desarrollo y despliegue de soluciones de Software",
+  ],
+  "Ing. Civil": [
+    "Automatización",
+    "Automatización Industrial",
+    "Automatización de procesos industriales",
+  ],
+  "Ing. en Sistemas Automotrices": [
+    "Infraestructura y Desarrollo Urbano",
+    "Desarrollo de Infraestructura Urbana",
+    "Construcción",
+    "Construcción de infraestructura y edificación",
+  ],
+  "Ing. Electromecánica": [
+    "Manufactura de elementos automotrices",
+    " Fabricación de partes automotrices",
+  ],
+};
 
 const months = ["Junio", "Diciembre"];
 
@@ -59,10 +94,17 @@ const RegisterForm = ({
   toggleChangePassword,
   idiomaExtranjero,
 }) => {
-  const minValueForGraduationDate = useMemo(() => {
-    return parseInt(`20${graduated.no_control.toString().substring(0, 2)}`) + 4;
-  }, [graduated.no_control]);
+  //Cada vez que cambie la seleccion de la carrera se ejecutara este useMemo
+  const AVAILABLE_SPECIALITIES = useMemo(() => {
+    //Si no ha elegido ninguna carrera retornamos null para ocultar el componente
+    if (!graduated.carrera) return null;
 
+    //Si eligio una carrera, entramos al arreglo de objetos de especialidades y sacamos
+    //la propiedad que contiene las especialides correspondientes de la carrera
+    return SPECIALITIES_BY_CAREER[graduated.carrera];
+  }, [graduated.carrera]);
+
+  console.log(AVAILABLE_SPECIALITIES);
   return (
     <form onSubmit={handleSubmit}>
       <Accordion>
@@ -308,7 +350,13 @@ const RegisterForm = ({
           buttonClass="btn btn-link btn-block text-left text-primary font-weight-bolder"
         >
           {/* Informacion academica */}
+
           <div className="row">
+            <div className="col-lg-12 mb-2">
+              <h6 className="text-purple font-weight-bolder">
+                Carrera y especialidad
+              </h6>
+            </div>
             <div className="col-lg-6">
               <select
                 className="form-control form-select mb-3"
@@ -317,30 +365,34 @@ const RegisterForm = ({
                 name={"carrera"}
                 value={graduated.carrera}
               >
-                <option value={""}>Carrera (Seleccione una opcion)</option>
-                {careers.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
+                <option value={""}>Carrera (Seleccione una opción)</option>
+                {CAREERS.map((career) => (
+                  <option key={career} value={career}>
+                    {career}
                   </option>
                 ))}
               </select>
             </div>
 
             <div className="col-lg-6">
-              <FloatingLabelInput
-                inputId="txtEspecialidad"
-                placeholder="Especialidad"
-                type="text"
-                setValue={handleEntriesChange}
-                name={"especialidad"}
-                value={graduated.especialidad}
-                bottomElement={
-                  graduated.especialidad ? null : graduated.carrera ===
-                    "" ? null : (
-                    <SpecialitiesModal career={graduated.carrera} />
-                  )
-                }
-              />
+              {AVAILABLE_SPECIALITIES && (
+                <select
+                  className="form-control form-select mb-3"
+                  style={{ height: "47px" }}
+                  onChange={handleEntriesChange}
+                  name={"especialidad"}
+                  value={graduated.especialidad}
+                >
+                  <option value={""}>
+                    Especialidad (Seleccione una opción)
+                  </option>
+                  {AVAILABLE_SPECIALITIES.map((speciality) => (
+                    <option key={speciality} value={speciality}>
+                      {speciality}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
 
             <div className="col-lg-12 mb-2">
