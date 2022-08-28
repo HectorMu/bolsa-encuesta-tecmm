@@ -16,7 +16,7 @@ const RecentUsers = () => {
     navigate(`/graduates/details/${user.id}`);
   return (
     <>
-      <h4 className="mb-3 text-gray-800">Usuarios registrados recientes</h4>
+      <h4 className="mb-3">Usuarios registrados recientes</h4>
       {isLoading ? (
         <div className="d-flex justify-content-center">
           <Loading />

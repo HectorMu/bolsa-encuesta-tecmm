@@ -17,9 +17,7 @@ const LastCompaniesAnswers = () => {
 
   return (
     <>
-      <h4 className="mb-3 text-gray-800">
-        Ultimas empresas en contestar la encuesta
-      </h4>
+      <h4 className="mb-3 ">Ultimas empresas en contestar la encuesta</h4>
       {isLoading ? (
         <div className="d-flex justify-content-center">
           <Loading />

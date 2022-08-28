@@ -17,7 +17,7 @@ const LatestJobs = () => {
 
   return (
     <>
-      <h4 className="mb-3 text-gray-800">Trabajos publicados recientemente</h4>
+      <h4 className="mb-3 ">Trabajos publicados recientemente</h4>
       {isLoading ? (
         <div className="d-flex justify-content-center">
           <Loading />

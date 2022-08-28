@@ -16,9 +16,7 @@ const LastGraduatesAnswers = () => {
     navigate(`/graduates/details/${user.id}`);
   return (
     <>
-      <h4 className="mb-3 text-gray-800">
-        Ultimos egresados en contestar la encuesta
-      </h4>
+      <h4 className="mb-3">Ultimos egresados en contestar la encuesta</h4>
       {isLoading ? (
         <div className="d-flex justify-content-center">
           <Loading />
