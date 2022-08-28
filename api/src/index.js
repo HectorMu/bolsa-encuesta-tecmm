@@ -50,6 +50,7 @@ app.use("/api", require("./routes/graduated.survey.routes"));
 app.use("/api", require("./routes/company.survey.routes"));
 app.use("/api", require("./routes/users.profile.routes"));
 app.use("/api", require("./routes/admin.reports.surveys.routes"));
+app.use("/api", require("./routes/admin.dashboard.routes"));
 
 //To deploy a react router app build with an express server, this must be here forever
 app.use(express.static(path.join(__dirname, "build")));

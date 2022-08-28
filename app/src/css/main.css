@@ -332,6 +332,12 @@ input:-webkit-autofill:active {
 
   border-color: #313030;
 }
+
+.content .theme-dark .card-footer {
+  background-color: #39393a;
+  border-radius: 0px;
+  border-color: #313030;
+}
 .content .theme-dark .form-card .card-header h5 {
   font-weight: bolder;
   color: var(--purple-light) !important;
@@ -1021,4 +1027,14 @@ input[type="radio"]:checked:after {
     padding: 7px;
     font-size: 15px;
   }
+}
+
+.dashboard-row .border-left-primary {
+  border-left-width: 8px !important;
+  border-left-color: var(--purple) !important ;
+}
+
+.border-bottom-purple {
+  border-bottom-width: 3px !important;
+  border-bottom-color: var(--purple) !important ;
 }
