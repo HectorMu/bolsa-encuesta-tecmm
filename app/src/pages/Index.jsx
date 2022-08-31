@@ -1,9 +1,11 @@
 import PageTableLayout from "@/components/Global/PageTableLayout";
-import Dashboard from "@/containers/Admin/Dashboard/Dashboard";
+import DashboardAdmin from "@/containers/Admin/Dashboard/Dashboard";
+import useSession from "@/hooks/useSession";
 const Index = () => {
+  const { user } = useSession();
   return (
     <PageTableLayout title="Dashboard" button={false}>
-      <Dashboard />
+      {user?.fk_rol === 1 && <DashboardAdmin />}
     </PageTableLayout>
   );
 };
