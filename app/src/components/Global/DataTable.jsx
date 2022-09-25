@@ -51,6 +51,7 @@ const DataTable = ({
   actionElement = null,
   exportable = true,
   filters = true,
+  withHeader = true,
 }) => {
   const [initialData, setInitialData] = useState([]);
   const [initialFilter, setInitialFilter] = useState(firstColumnKey);
@@ -139,7 +140,7 @@ const DataTable = ({
 
       return data.length > 0 && data.slice(itemOffset, endOffset);
     }
-  }, [search, selectedFilter, selectedCol, itemOffset]);
+  }, [search, selectedFilter, selectedCol, itemOffset, data]);
 
   useEffect(() => {
     if (initialData.length > 0) {
@@ -160,8 +161,8 @@ const DataTable = ({
   };
 
   return (
-    <div className="card shadow-lg mb-4 border-none">
-      {initialData.length !== 0 && (
+    <div className={`card ${withHeader ? "shadow-lg" : ""} mb-4 border-none`}>
+      {initialData.length !== 0 && withHeader && (
         <div className="card-header py-3 d-flex justify-content-between d-sm-flex flex-column flex-lg-row flex-md-row flex-xl-row">
           <h6 className="m-0 font-weight-bold text-primary text-center">
             {title}
@@ -277,6 +278,17 @@ const DataTable = ({
         </div>
       )}
       <div className="card-body">
+        {refreshCallback !== null && !withHeader && (
+          <div className="d-flex justify-content-end mb-2">
+            <button
+              onClick={async () => refreshCallback()}
+              type="button"
+              className="btn btn-sm"
+            >
+              <i className="fas fa-sync text-primary"></i>
+            </button>
+          </div>
+        )}
         <div className="table-responsive">
           {search === "" ? (
             <div className="d-flex justify-content-center">
